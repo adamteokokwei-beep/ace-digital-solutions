@@ -1,12 +1,14 @@
 // Ace Digital Solutions — website backend (Cloudflare Worker)
 // ----------------------------------------------------------------
 // Two jobs, one small server:
-//   POST /chat      → the website chatbot (Claude API). Keeps your API key out of the website code.
+//   POST /chat      → the website chatbot (ChatGPT / OpenAI API, or Claude). Keeps your API key out of the website code.
 //   POST /enquiry   → the consultation form. Emails the enquiry to you and sends the customer
 //                     a confirmation email (via Resend, resend.com, free tier).
 //
 // Settings (Cloudflare dashboard → your Worker → Settings → Variables):
-//   ANTHROPIC_API_KEY  (Secret)  key from console.anthropic.com            (for /chat)
+//   OPENAI_API_KEY     (Secret)  key from platform.openai.com/api-keys     (for /chat — ChatGPT)
+//   OPENAI_MODEL       (Text, optional) defaults to gpt-4o-mini
+//   ANTHROPIC_API_KEY  (Secret, optional) use Claude instead; only used if OPENAI_API_KEY is not set
 //   RESEND_API_KEY     (Secret)  key from resend.com                        (for /enquiry)
 //   OWNER_EMAIL        (Text)    where enquiries go, e.g. adamteokokwei@gmail.com
 //   FROM_EMAIL         (Text)    sender on your verified domain, e.g. Ace Digital Solutions <hello@yourdomain.com>
@@ -16,7 +18,8 @@
 //   CHAT_API = "https://YOUR-WORKER.workers.dev/chat"
 //   FORM_API = "https://YOUR-WORKER.workers.dev/enquiry"
 
-const MODEL = "claude-haiku-4-5-20251001"; // fast and low-cost; fine for a website assistant
+const OPENAI_MODEL = "gpt-4o-mini";               // fast and low-cost; override with the OPENAI_MODEL setting
+const CLAUDE_MODEL = "claude-haiku-4-5-20251001"; // used only if you choose Claude instead
 const MAX_TOKENS = 400;                    // keeps answers short and costs low
 const MAX_TURNS = 12;                      // how much of the conversation is sent each time
 const MAX_CHARS = 800;                     // longest message a visitor can send
@@ -28,13 +31,13 @@ ABOUT THE BUSINESS
 - Every project starts with a FREE, no-obligation consultation (a 15–20 minute video or voice call by Facebook Messenger, Zoom or Google Meet; no phone calls for now) to plan the website the way the client wants. Visitors book it with the form on the website.
 - Website: $250 one-time. Paid 50% to start and 50% when the website is ready. All payments are made through PayPal.
 - The final 50% must be paid before Adam helps host and launch the website, or before the website files are transferred to the client.
-- Typical delivery: 3–5 business days once we have the client's details, photos and logo. Every 2 add-ons add 1 business day.
+- Typical delivery: 3–5 business days once we have the client's details, photos and logo. Every 2 add-ons add 1 business day (e.g. 2 add-ons: 4–6 business days).
 - Included in the $250: up to 5 pages or sections, custom-designed homepage, mobile responsive design, services section, contact/enquiry form, click-to-call and WhatsApp (where applicable), basic SEO setup, Google-friendly structure, social media links, domain connection assistance, launch assistance, and FREE Google Business Profile setup.
 - Optional add-ons: $150 each on their own, or $100 each when added to the $250 website (save $50 each): additional page or section, logo design, advanced contact/booking system, payment gateway setup (for subscription businesses), listings optimization (Yelp, Apple Maps + 2 more of the client's choice).
 - Website Care: optional $49/month. Includes website hosting (no separate hosting bill), website health monitoring, minor text/image/content updates, security and maintenance checks, social media update monitoring where supported, and ongoing support.
 - Hosting is NOT included in the $250 website. It is included only with the Website Care plan ($49/month); otherwise the client pays their hosting provider directly (Adam helps set it up at launch).
 - Urgent fixes without Website Care: $29 per hour.
-- Rush delivery: an extra 20% of the one-time project total (website plus add-ons), with priority scheduling. The exact rush turnaround is confirmed at the free consultation. Website Care is not affected by the rush fee.
+- Rush delivery: reduces the delivery time by 2 business days (e.g. 3–5 business days becomes 1–3) for an extra 20% of the one-time project total (website plus add-ons). Website Care is not affected by the rush fee.
 - The client provides their services, contact details, service area, and any photos or logo. Copywriting is not offered.
 - Portfolio includes a real client website, Called to Go (calledtogoministry.org), and demo websites for plumbing, roofing, electrical and landscaping businesses.
 
@@ -72,7 +75,7 @@ export default {
     if (request.method !== "POST") return json({ error: "Use POST" }, 405, headers);
     if (allowed !== "*" && origin !== allowed) return json({ error: "Not allowed" }, 403, headers);
     if (new URL(request.url).pathname.replace(/\/+$/, "").endsWith("/enquiry")) return handleEnquiry(request, env, headers);
-    if (!env.ANTHROPIC_API_KEY) return json({ error: "Server is missing ANTHROPIC_API_KEY" }, 500, headers);
+    if (!env.OPENAI_API_KEY && !env.ANTHROPIC_API_KEY) return json({ error: "Server is missing OPENAI_API_KEY" }, 500, headers);
 
     let data;
     try { data = await request.json(); } catch { return json({ error: "Invalid JSON" }, 400, headers); }
@@ -91,18 +94,33 @@ export default {
     if (!messages.length || messages[messages.length - 1].role !== "user") return json({ error: "No question received" }, 400, headers);
 
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: {
-          "x-api-key": env.ANTHROPIC_API_KEY,
-          "anthropic-version": "2023-06-01",
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({ model: MODEL, max_tokens: MAX_TOKENS, system: SYSTEM_PROMPT, messages }),
-      });
-      if (!res.ok) return json({ error: "AI service error", status: res.status }, 502, headers);
-      const out = await res.json();
-      const reply = (out.content || []).filter(b => b.type === "text").map(b => b.text).join("\n").trim();
+      let reply = "";
+      if (env.OPENAI_API_KEY) {
+        // ChatGPT (OpenAI Chat Completions API)
+        const res = await fetch("https://api.openai.com/v1/chat/completions", {
+          method: "POST",
+          headers: { "Authorization": `Bearer ${env.OPENAI_API_KEY}`, "Content-Type": "application/json" },
+          body: JSON.stringify({
+            model: env.OPENAI_MODEL || OPENAI_MODEL,
+            max_tokens: MAX_TOKENS,
+            temperature: 0.4,
+            messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
+          }),
+        });
+        if (!res.ok) return json({ error: "AI service error", status: res.status }, 502, headers);
+        const out = await res.json();
+        reply = (out.choices?.[0]?.message?.content || "").trim();
+      } else {
+        // Claude (Anthropic Messages API)
+        const res = await fetch("https://api.anthropic.com/v1/messages", {
+          method: "POST",
+          headers: { "x-api-key": env.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01", "content-type": "application/json" },
+          body: JSON.stringify({ model: CLAUDE_MODEL, max_tokens: MAX_TOKENS, system: SYSTEM_PROMPT, messages }),
+        });
+        if (!res.ok) return json({ error: "AI service error", status: res.status }, 502, headers);
+        const out = await res.json();
+        reply = (out.content || []).filter(b => b.type === "text").map(b => b.text).join("\n").trim();
+      }
       return json({ reply: reply || "Sorry, I couldn't answer that. Please book a free consultation and Adam will help." }, 200, headers);
     } catch (e) {
       return json({ error: "Could not reach AI service" }, 502, headers);
