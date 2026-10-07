@@ -1,14 +1,17 @@
 // Ace Digital Solutions — website backend (Cloudflare Worker)
 // ----------------------------------------------------------------
 // Two jobs, one small server:
-//   POST /chat      → the website chatbot (ChatGPT / OpenAI API, or Claude). Keeps your API key out of the website code.
+//   POST /chat      → the website chatbot (Google Gemini — free tier, ChatGPT, or Claude). Keeps your API key out of the website code.
 //   POST /enquiry   → the consultation form. Emails the enquiry to you and sends the customer
 //                     a confirmation email (via Resend, resend.com, free tier).
 //
 // Settings (Cloudflare dashboard → your Worker → Settings → Variables):
-//   OPENAI_API_KEY     (Secret)  key from platform.openai.com/api-keys     (for /chat — ChatGPT)
+//   Chatbot — set ONE of these keys (if more than one is set, the first in this list is used):
+//   GEMINI_API_KEY     (Secret)  free key from aistudio.google.com/apikey    (Google Gemini, free tier)
+//   GEMINI_MODEL       (Text, optional) defaults to gemini-flash-latest
+//   OPENAI_API_KEY     (Secret)  key from platform.openai.com/api-keys     (ChatGPT, paid)
 //   OPENAI_MODEL       (Text, optional) defaults to gpt-4o-mini
-//   ANTHROPIC_API_KEY  (Secret, optional) use Claude instead; only used if OPENAI_API_KEY is not set
+//   ANTHROPIC_API_KEY  (Secret)  key from console.anthropic.com             (Claude, paid)
 //   RESEND_API_KEY     (Secret)  key from resend.com                        (for /enquiry)
 //   OWNER_EMAIL        (Text)    where enquiries go, e.g. adamteokokwei@gmail.com
 //   FROM_EMAIL         (Text)    sender on your verified domain, e.g. Ace Digital Solutions <hello@yourdomain.com>
@@ -18,6 +21,7 @@
 //   CHAT_API = "https://YOUR-WORKER.workers.dev/chat"
 //   FORM_API = "https://YOUR-WORKER.workers.dev/enquiry"
 
+const GEMINI_MODEL = "gemini-flash-latest";       // always points to Google's current Flash model
 const OPENAI_MODEL = "gpt-4o-mini";               // fast and low-cost; override with the OPENAI_MODEL setting
 const CLAUDE_MODEL = "claude-haiku-4-5-20251001"; // used only if you choose Claude instead
 const MAX_TOKENS = 400;                    // keeps answers short and costs low
@@ -75,7 +79,7 @@ export default {
     if (request.method !== "POST") return json({ error: "Use POST" }, 405, headers);
     if (allowed !== "*" && origin !== allowed) return json({ error: "Not allowed" }, 403, headers);
     if (new URL(request.url).pathname.replace(/\/+$/, "").endsWith("/enquiry")) return handleEnquiry(request, env, headers);
-    if (!env.OPENAI_API_KEY && !env.ANTHROPIC_API_KEY) return json({ error: "Server is missing OPENAI_API_KEY" }, 500, headers);
+    if (!env.GEMINI_API_KEY && !env.OPENAI_API_KEY && !env.ANTHROPIC_API_KEY) return json({ error: "Server is missing an AI key (GEMINI_API_KEY)" }, 500, headers);
 
     let data;
     try { data = await request.json(); } catch { return json({ error: "Invalid JSON" }, 400, headers); }
@@ -95,7 +99,22 @@ export default {
 
     try {
       let reply = "";
-      if (env.OPENAI_API_KEY) {
+      if (env.GEMINI_API_KEY) {
+        // Google Gemini (free tier available)
+        const model = env.GEMINI_MODEL || GEMINI_MODEL;
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+          method: "POST",
+          headers: { "x-goog-api-key": env.GEMINI_API_KEY, "Content-Type": "application/json" },
+          body: JSON.stringify({
+            systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+            contents: messages.map(m => ({ role: m.role === "assistant" ? "model" : "user", parts: [{ text: m.content }] })),
+            generationConfig: { maxOutputTokens: MAX_TOKENS, temperature: 0.4, thinkingConfig: { thinkingBudget: 0 } },
+          }),
+        });
+        if (!res.ok) return json({ error: "AI service error", status: res.status }, 502, headers);
+        const out = await res.json();
+        reply = (out.candidates?.[0]?.content?.parts || []).map(p => p.text || "").join("").trim();
+      } else if (env.OPENAI_API_KEY) {
         // ChatGPT (OpenAI Chat Completions API)
         const res = await fetch("https://api.openai.com/v1/chat/completions", {
           method: "POST",
