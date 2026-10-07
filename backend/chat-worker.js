@@ -76,6 +76,64 @@ function json(body, status, headers) {
   return new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json", ...headers } });
 }
 
+// Ask whichever AI is configured. Returns { reply } or { error, status, detail }.
+async function callAI(env, messages) {
+  let res, provider;
+  try {
+    if (env.GEMINI_API_KEY) {
+      // Google Gemini (free tier available)
+      provider = "gemini";
+      const model = (env.GEMINI_MODEL || GEMINI_MODEL).trim();
+      res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+        method: "POST",
+        headers: { "x-goog-api-key": env.GEMINI_API_KEY.trim(), "Content-Type": "application/json" },
+        body: JSON.stringify({
+          systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+          contents: messages.map(m => ({ role: m.role === "assistant" ? "model" : "user", parts: [{ text: m.content }] })),
+          generationConfig: { maxOutputTokens: 1500, temperature: 0.4 }, // extra room because Gemini may "think" before answering
+        }),
+      });
+      if (res.ok) {
+        const out = await res.json();
+        const reply = (out.candidates?.[0]?.content?.parts || []).filter(p => !p.thought).map(p => p.text || "").join("").trim();
+        return reply ? { reply } : { error: "Empty reply", detail: JSON.stringify(out).slice(0, 400) };
+      }
+    } else if (env.OPENAI_API_KEY) {
+      // ChatGPT (OpenAI Chat Completions API)
+      provider = "openai";
+      res = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: { "Authorization": `Bearer ${env.OPENAI_API_KEY.trim()}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ model: env.OPENAI_MODEL || OPENAI_MODEL, max_tokens: MAX_TOKENS, temperature: 0.4,
+          messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages] }),
+      });
+      if (res.ok) {
+        const out = await res.json();
+        const reply = (out.choices?.[0]?.message?.content || "").trim();
+        return reply ? { reply } : { error: "Empty reply" };
+      }
+    } else if (env.ANTHROPIC_API_KEY) {
+      // Claude (Anthropic Messages API)
+      provider = "claude";
+      res = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "x-api-key": env.ANTHROPIC_API_KEY.trim(), "anthropic-version": "2023-06-01", "content-type": "application/json" },
+        body: JSON.stringify({ model: CLAUDE_MODEL, max_tokens: MAX_TOKENS, system: SYSTEM_PROMPT, messages }),
+      });
+      if (res.ok) {
+        const out = await res.json();
+        const reply = (out.content || []).filter(b => b.type === "text").map(b => b.text).join("\n").trim();
+        return reply ? { reply } : { error: "Empty reply" };
+      }
+    } else {
+      return { error: "No AI key set. Add GEMINI_API_KEY in the Worker's Settings → Variables and Secrets." };
+    }
+    return { error: `AI service error (${provider})`, status: res.status, detail: (await res.text()).slice(0, 400) };
+  } catch (e) {
+    return { error: "Could not reach AI service", detail: String(e).slice(0, 200) };
+  }
+}
+
 export default {
   async fetch(request, env) {
     const origin = request.headers.get("Origin") || "";
@@ -83,10 +141,22 @@ export default {
     const headers = cors(origin, allowed);
 
     if (request.method === "OPTIONS") return new Response(null, { status: 204, headers });
+
+    // Health check: open the Worker address in a browser to test the AI connection.
+    if (request.method === "GET") {
+      const test = await callAI(env, [{ role: "user", content: "Say hello in one short sentence." }]);
+      const report = {
+        worker: "Ace Digital Solutions chat server is running",
+        ai: env.GEMINI_API_KEY ? "Gemini (" + (env.GEMINI_MODEL || GEMINI_MODEL) + ")" : env.OPENAI_API_KEY ? "ChatGPT" : env.ANTHROPIC_API_KEY ? "Claude" : "NONE - no key set",
+        allowed_websites: allowed === "*" ? "any (testing mode)" : allowed.split(",").map(a => a.trim()),
+        ai_test: test.reply ? "OK: " + test.reply : test,
+      };
+      return new Response(JSON.stringify(report, null, 2), { status: 200, headers: { "Content-Type": "application/json; charset=utf-8" } });
+    }
+
     if (request.method !== "POST") return json({ error: "Use POST" }, 405, headers);
-    if (!originOk(origin, allowed)) return json({ error: "Not allowed" }, 403, headers);
+    if (!originOk(origin, allowed)) return json({ error: "Not allowed", origin }, 403, headers);
     if (new URL(request.url).pathname.replace(/\/+$/, "").endsWith("/enquiry")) return handleEnquiry(request, env, headers);
-    if (!env.GEMINI_API_KEY && !env.OPENAI_API_KEY && !env.ANTHROPIC_API_KEY) return json({ error: "Server is missing an AI key (GEMINI_API_KEY)" }, 500, headers);
 
     let data;
     try { data = await request.json(); } catch { return json({ error: "Invalid JSON" }, 400, headers); }
@@ -104,53 +174,10 @@ export default {
     while (messages.length && messages[0].role !== "user") messages.shift();
     if (!messages.length || messages[messages.length - 1].role !== "user") return json({ error: "No question received" }, 400, headers);
 
-    try {
-      let reply = "";
-      if (env.GEMINI_API_KEY) {
-        // Google Gemini (free tier available)
-        const model = env.GEMINI_MODEL || GEMINI_MODEL;
-        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
-          method: "POST",
-          headers: { "x-goog-api-key": env.GEMINI_API_KEY, "Content-Type": "application/json" },
-          body: JSON.stringify({
-            systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
-            contents: messages.map(m => ({ role: m.role === "assistant" ? "model" : "user", parts: [{ text: m.content }] })),
-            generationConfig: { maxOutputTokens: 1500, temperature: 0.4 }, // extra room because Gemini may "think" before answering
-          }),
-        });
-        if (!res.ok) return json({ error: "AI service error", status: res.status }, 502, headers);
-        const out = await res.json();
-        reply = (out.candidates?.[0]?.content?.parts || []).map(p => p.text || "").join("").trim();
-      } else if (env.OPENAI_API_KEY) {
-        // ChatGPT (OpenAI Chat Completions API)
-        const res = await fetch("https://api.openai.com/v1/chat/completions", {
-          method: "POST",
-          headers: { "Authorization": `Bearer ${env.OPENAI_API_KEY}`, "Content-Type": "application/json" },
-          body: JSON.stringify({
-            model: env.OPENAI_MODEL || OPENAI_MODEL,
-            max_tokens: MAX_TOKENS,
-            temperature: 0.4,
-            messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
-          }),
-        });
-        if (!res.ok) return json({ error: "AI service error", status: res.status }, 502, headers);
-        const out = await res.json();
-        reply = (out.choices?.[0]?.message?.content || "").trim();
-      } else {
-        // Claude (Anthropic Messages API)
-        const res = await fetch("https://api.anthropic.com/v1/messages", {
-          method: "POST",
-          headers: { "x-api-key": env.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01", "content-type": "application/json" },
-          body: JSON.stringify({ model: CLAUDE_MODEL, max_tokens: MAX_TOKENS, system: SYSTEM_PROMPT, messages }),
-        });
-        if (!res.ok) return json({ error: "AI service error", status: res.status }, 502, headers);
-        const out = await res.json();
-        reply = (out.content || []).filter(b => b.type === "text").map(b => b.text).join("\n").trim();
-      }
-      return json({ reply: reply || "Sorry, I couldn't answer that. Please book a free consultation and Adam will help." }, 200, headers);
-    } catch (e) {
-      return json({ error: "Could not reach AI service" }, 502, headers);
-    }
+    const result = await callAI(env, messages);
+    if (result.reply) return json({ reply: result.reply }, 200, headers);
+    console.log("AI error:", JSON.stringify(result)); // visible in the Worker's Logs tab
+    return json(result, 502, headers);
   },
 };
 
