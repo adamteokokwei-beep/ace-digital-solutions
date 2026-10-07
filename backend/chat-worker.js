@@ -15,7 +15,7 @@
 //   RESEND_API_KEY     (Secret)  key from resend.com                        (for /enquiry)
 //   OWNER_EMAIL        (Text)    where enquiries go, e.g. adamteokokwei@gmail.com
 //   FROM_EMAIL         (Text)    sender on your verified domain, e.g. Ace Digital Solutions <hello@yourdomain.com>
-//   ALLOWED_ORIGIN     (Text)    your website address, e.g. https://acedigitalsolutions.com (use * only while testing)
+//   ALLOWED_ORIGIN     (Text)    your website address(es), comma-separated, e.g. https://acesite.netlify.app, https://yourdomain.com, https://www.yourdomain.com
 //
 // In the website file, set:
 //   CHAT_API = "https://YOUR-WORKER.workers.dev/chat"
@@ -55,8 +55,15 @@ HOW TO ANSWER
 - Politely decline requests unrelated to websites or this business, and steer back to how Ace Digital Solutions can help.
 - Do not use headings or long lists. Use **bold** sparingly for prices.`;
 
+// ALLOWED_ORIGIN can list several addresses separated by commas, e.g.
+// https://acesite.netlify.app, https://yourdomain.com, https://www.yourdomain.com
+function originOk(origin, allowed) {
+  if (allowed === "*") return true;
+  return allowed.split(",").map(a => a.trim().replace(/\/+$/, "")).filter(Boolean).includes(origin);
+}
+
 function cors(origin, allowed) {
-  const ok = allowed === "*" || origin === allowed;
+  const ok = originOk(origin, allowed);
   return {
     "Access-Control-Allow-Origin": ok ? (allowed === "*" ? "*" : origin) : "null",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
@@ -77,7 +84,7 @@ export default {
 
     if (request.method === "OPTIONS") return new Response(null, { status: 204, headers });
     if (request.method !== "POST") return json({ error: "Use POST" }, 405, headers);
-    if (allowed !== "*" && origin !== allowed) return json({ error: "Not allowed" }, 403, headers);
+    if (!originOk(origin, allowed)) return json({ error: "Not allowed" }, 403, headers);
     if (new URL(request.url).pathname.replace(/\/+$/, "").endsWith("/enquiry")) return handleEnquiry(request, env, headers);
     if (!env.GEMINI_API_KEY && !env.OPENAI_API_KEY && !env.ANTHROPIC_API_KEY) return json({ error: "Server is missing an AI key (GEMINI_API_KEY)" }, 500, headers);
 
