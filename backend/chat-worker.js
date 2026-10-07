@@ -157,8 +157,11 @@ export default {
     // Health check: open the Worker address in a browser to test the AI connection.
     if (request.method === "GET") {
       const test = await callAI(env, [{ role: "user", content: "Say hello in one short sentence." }]);
+      let runningIn = "unknown";
+      try { runningIn = ((await (await fetch("https://cloudflare.com/cdn-cgi/trace")).text()).match(/colo=(\w+)/) || [])[1] || "unknown"; } catch {}
       const report = {
         worker: "Ace Digital Solutions chat server is running",
+        running_in: runningIn + " (Cloudflare data centre; should be a US one such as IAD)",
         ai: env.GEMINI_API_KEY ? "Gemini (" + (env.GEMINI_MODEL || GEMINI_MODEL) + ")" : env.OPENAI_API_KEY ? "ChatGPT" : env.ANTHROPIC_API_KEY ? "Claude" : "NONE - no key set",
         allowed_websites: allowed === "*" ? "any (testing mode)" : allowed.split(",").map(a => a.trim()),
         ai_test: test.reply ? "OK (" + (test.model || "") + "): " + test.reply : test,
