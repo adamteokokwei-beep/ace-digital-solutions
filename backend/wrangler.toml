@@ -1,0 +1,16 @@
+# Cloudflare settings for the chatbot server (ace-chat).
+# Used when Cloudflare deploys this Worker automatically from GitHub.
+name = "ace-chat"
+main = "chat-worker.js"
+compatibility_date = "2026-01-01"
+
+# Keep the variables and secrets you set in the Cloudflare dashboard (GEMINI_API_KEY, ALLOWED_ORIGIN, ...).
+keep_vars = true
+
+# Always run in the US, next to Google's servers. Gemini's free API is not available
+# from some locations (e.g. Hong Kong, where Malaysian visitors are often routed).
+[placement]
+region = "gcp:us-east4"
+
+[observability]
+enabled = true
