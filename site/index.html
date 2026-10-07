@@ -1235,15 +1235,12 @@ footer{background:var(--navy);color:#A9B6CF;padding-block:36px;font-size:14px}
         <select id="f-type" name="type"><option>Plumbing</option><option>Electrical</option><option>Roofing</option><option>HVAC</option><option>Landscaping</option><option>Contractor / builder</option><option>Other local business</option></select></div>
       <div class="field"><label for="f-site">Current website (if any)</label><input id="f-site" name="website" placeholder="www.yourbusiness.com"></div>
       <fieldset class="field slot-box" id="slotField"><legend>Choose times for your free consultation *</legend>
-        <p class="slot-hint"><b>15–20 min call.</b> Type 2 times that suit you, in your own words, or tap a suggested time below. Your time zone: <b id="tzName"></b>.</p>
+        <p class="slot-hint"><b>15–20 min call.</b> Type 2 dates and times that suit you. Your time zone: <b id="tzName"></b>.</p>
         <div class="t-inputs">
-          <div class="field"><label for="f-t1">Time option 1 *</label><input id="f-t1" name="time1" placeholder="e.g. Tuesday 10am" autocomplete="off"><span class="t-read" id="f-t1-read" aria-live="polite"></span></div>
-          <div class="field"><label for="f-t2">Time option 2 *</label><input id="f-t2" name="time2" placeholder="e.g. Thursday at 2:30pm" autocomplete="off"><span class="t-read" id="f-t2-read" aria-live="polite"></span></div>
+          <div class="field"><label for="f-t1">Time option 1 *</label><input id="f-t1" name="time1" placeholder="e.g. Oct 14, 10am" autocomplete="off"><span class="t-read" id="f-t1-read" aria-live="polite"></span></div>
+          <div class="field"><label for="f-t2">Time option 2 *</label><input id="f-t2" name="time2" placeholder="e.g. 10/16 at 2:30pm" autocomplete="off"><span class="t-read" id="f-t2-read" aria-live="polite"></span></div>
         </div>
         <span class="err" id="slotErr" hidden>Please give us 2 times so we can find one that works.</span>
-        <p class="sugg-lbl">Suggested times (tap to fill in):</p>
-        <div class="days" id="slotDays" role="tablist" aria-label="Choose a day"></div>
-        <div class="slots" id="slotTimes" aria-label="Suggested times"></div>
         <div class="slot-extra">
           <div class="field"><label for="f-how">Talk by</label><select id="f-how" name="how"><option>Facebook Messenger call</option><option>Zoom</option><option>Google Meet</option></select></div>
         </div>
@@ -1886,7 +1883,7 @@ When someone compares two businesses side by side, the one that looks profession
     const r = readTime(inp.value), out = $("#"+inp.id+"-read");
     if(!r){ out.innerHTML = ""; out.className = "t-read"; return; }
     if(r.ts){ out.className = "t-read ok"; out.innerHTML = `${ico("check")}<span>${escapeHtml(r.local)}</span>`; }
-    else if(r.dateOnly){ out.className = "t-read warn"; out.innerHTML = `${ico("clock")}<span>${escapeHtml(r.dateOnly)}. Add a time if you can.</span>`; }
+    else if(r.dateOnly){ out.className = "t-read warn"; out.innerHTML = `${ico("clock")}<span>${escapeHtml(r.dateOnly)}. Please add a time.</span>`; }
     else { out.className = "t-read warn"; out.innerHTML = `${ico("clock")}<span>We'll read this as written.</span>`; }
   }
   // What gets sent: your clean version first, then Malaysia time, then exactly what they typed
@@ -1899,6 +1896,7 @@ When someone compares two businesses side by side, the one that looks profession
   timeInputs.forEach(inp=>{ inp.addEventListener("input",()=>{ showRead(inp); renderSlots(); if(timeInputs.every(i=>i.value.trim())) $("#slotErr").hidden = true; }); });
   const filledTs = () => timeInputs.map(i=>{ const r=readTime(i.value); return r&&r.ts; }).filter(Boolean);
   function renderSlots(){
+    if(!$("#slotDays")) return;
     const chosen = filledTs();
     $("#slotDays").innerHTML = SLOT_DAYS.map((d,i)=>{
       const n = d.slots.filter(ts=>chosen.includes(ts)).length;
@@ -1908,8 +1906,8 @@ When someone compares two businesses side by side, the one that looks profession
     $("#slotTimes").innerHTML = day ? day.slots.map(ts=>`<button type="button" data-ts="${ts}" aria-pressed="${chosen.includes(ts)}">${fmtTime.format(new Date(ts))}</button>`).join("") : `<span class="muted">No suggested times right now. Type your own above.</span>`;
   }
   const slotText = ts => { const d=new Date(ts); return `${new Intl.DateTimeFormat("en-US",{weekday:"long",month:"short",day:"numeric"}).format(d)} at ${fmtTime.format(d)}`; };
-  $("#slotDays").addEventListener("click",e=>{ const b=e.target.closest("[data-day]"); if(b){ activeDay=+b.dataset.day; renderSlots(); } });
-  $("#slotTimes").addEventListener("click",e=>{
+  if($("#slotDays")) $("#slotDays").addEventListener("click",e=>{ const b=e.target.closest("[data-day]"); if(b){ activeDay=+b.dataset.day; renderSlots(); } });
+  if($("#slotTimes")) $("#slotTimes").addEventListener("click",e=>{
     const b=e.target.closest("[data-ts]"); if(!b) return; const ts=+b.dataset.ts;
     const same = timeInputs.find(i=>{ const r=readTime(i.value); return r && r.ts===ts; });
     if(same){ same.value=""; showRead(same); renderSlots(); return; }
