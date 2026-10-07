@@ -108,7 +108,7 @@ export default {
           body: JSON.stringify({
             systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
             contents: messages.map(m => ({ role: m.role === "assistant" ? "model" : "user", parts: [{ text: m.content }] })),
-            generationConfig: { maxOutputTokens: MAX_TOKENS, temperature: 0.4, thinkingConfig: { thinkingBudget: 0 } },
+            generationConfig: { maxOutputTokens: 1500, temperature: 0.4 }, // extra room because Gemini may "think" before answering
           }),
         });
         if (!res.ok) return json({ error: "AI service error", status: res.status }, 502, headers);
