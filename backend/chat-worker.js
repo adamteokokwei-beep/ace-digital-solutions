@@ -22,6 +22,8 @@
 //   FORM_API = "https://YOUR-WORKER.workers.dev/enquiry"
 
 const GEMINI_MODEL = "gemini-flash-latest";       // always points to Google's current Flash model
+// If that model is busy or unavailable, these are tried next, in order:
+const GEMINI_BACKUPS = ["gemini-flash-lite-latest", "gemini-2.5-flash", "gemini-2.5-flash-lite"];
 const OPENAI_MODEL = "gpt-4o-mini";               // fast and low-cost; override with the OPENAI_MODEL setting
 const CLAUDE_MODEL = "claude-haiku-4-5-20251001"; // used only if you choose Claude instead
 const MAX_TOKENS = 400;                    // keeps answers short and costs low
@@ -83,21 +85,31 @@ async function callAI(env, messages) {
     if (env.GEMINI_API_KEY) {
       // Google Gemini (free tier available)
       provider = "gemini";
-      const model = (env.GEMINI_MODEL || GEMINI_MODEL).trim();
-      res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
-        method: "POST",
-        headers: { "x-goog-api-key": env.GEMINI_API_KEY.trim(), "Content-Type": "application/json" },
-        body: JSON.stringify({
-          systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
-          contents: messages.map(m => ({ role: m.role === "assistant" ? "model" : "user", parts: [{ text: m.content }] })),
-          generationConfig: { maxOutputTokens: 1500, temperature: 0.4 }, // extra room because Gemini may "think" before answering
-        }),
-      });
-      if (res.ok) {
-        const out = await res.json();
-        const reply = (out.candidates?.[0]?.content?.parts || []).filter(p => !p.thought).map(p => p.text || "").join("").trim();
-        return reply ? { reply } : { error: "Empty reply", detail: JSON.stringify(out).slice(0, 400) };
+      const first = (env.GEMINI_MODEL || GEMINI_MODEL).trim();
+      const models = [first, ...GEMINI_BACKUPS.filter(m => m !== first)];
+      const tried = [];
+      for (const model of models) {
+        res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+          method: "POST",
+          headers: { "x-goog-api-key": env.GEMINI_API_KEY.trim(), "Content-Type": "application/json" },
+          body: JSON.stringify({
+            systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+            contents: messages.map(m => ({ role: m.role === "assistant" ? "model" : "user", parts: [{ text: m.content }] })),
+            generationConfig: { maxOutputTokens: 1500, temperature: 0.4 }, // extra room because Gemini may "think" before answering
+          }),
+        });
+        if (res.ok) {
+          const out = await res.json();
+          const reply = (out.candidates?.[0]?.content?.parts || []).filter(p => !p.thought).map(p => p.text || "").join("").trim();
+          if (reply) return { reply, model };
+          tried.push(model + ": empty reply");
+          continue;
+        }
+        tried.push(model + ": " + res.status);
+        // Busy (503), over the free limit (429), or model not found (404): try the next model.
+        if (![503, 429, 404, 500].includes(res.status)) break;
       }
+      return { error: "AI service error (gemini)", status: res.status, tried, detail: (await res.text().catch(() => "")).slice(0, 300) };
     } else if (env.OPENAI_API_KEY) {
       // ChatGPT (OpenAI Chat Completions API)
       provider = "openai";
@@ -149,7 +161,7 @@ export default {
         worker: "Ace Digital Solutions chat server is running",
         ai: env.GEMINI_API_KEY ? "Gemini (" + (env.GEMINI_MODEL || GEMINI_MODEL) + ")" : env.OPENAI_API_KEY ? "ChatGPT" : env.ANTHROPIC_API_KEY ? "Claude" : "NONE - no key set",
         allowed_websites: allowed === "*" ? "any (testing mode)" : allowed.split(",").map(a => a.trim()),
-        ai_test: test.reply ? "OK: " + test.reply : test,
+        ai_test: test.reply ? "OK (" + (test.model || "") + "): " + test.reply : test,
       };
       return new Response(JSON.stringify(report, null, 2), { status: 200, headers: { "Content-Type": "application/json; charset=utf-8" } });
     }
