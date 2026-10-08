@@ -23,7 +23,7 @@
 
 const GEMINI_MODEL = "gemini-flash-latest";       // always points to Google's current Flash model
 // If that model is busy or unavailable, these are tried next, in order:
-const GEMINI_BACKUPS = ["gemini-flash-lite-latest", "gemini-2.5-flash", "gemini-2.5-flash-lite"];
+const GEMINI_BACKUPS = ["gemini-flash-lite-latest", "gemini-3.5-flash-lite", "gemini-3.5-flash"];
 const OPENAI_MODEL = "gpt-4o-mini";               // fast and low-cost; override with the OPENAI_MODEL setting
 const CLAUDE_MODEL = "claude-haiku-4-5-20251001"; // used only if you choose Claude instead
 const MAX_TOKENS = 400;                    // keeps answers short and costs low
@@ -107,9 +107,12 @@ async function callAI(env, messages, system = SYSTEM_PROMPT) {
       // Google Gemini (free tier available)
       provider = "gemini";
       const first = (env.GEMINI_MODEL || GEMINI_MODEL).trim();
-      const models = [first, ...GEMINI_BACKUPS.filter(m => m !== first)];
+      const list = [first, ...GEMINI_BACKUPS.filter(m => m !== first)];
+      // If every model is busy, wait a moment and try the first two again.
+      const models = [...list, "__wait", ...list.slice(0, 2)];
       const tried = [];
       for (const model of models) {
+        if (model === "__wait") { await new Promise(r => setTimeout(r, 1200)); continue; }
         res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
           method: "POST",
           headers: { "x-goog-api-key": env.GEMINI_API_KEY.trim(), "Content-Type": "application/json" },

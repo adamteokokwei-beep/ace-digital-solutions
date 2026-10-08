@@ -96,7 +96,7 @@ nav.main a:hover{color:#fff}
 .hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
 .trust{display:grid;grid-template-columns:repeat(4,auto);gap:18px 26px;margin-top:28px;justify-content:start}
 .trust div{display:flex;align-items:center;gap:10px;font-size:14px;line-height:1.25;color:var(--muted)}
-.trust b{display:block;color:var(--ink);font-size:16px}
+.trust b{display:block;color:var(--ink);font-size:16px;white-space:nowrap}
 .trust .ico{width:28px;height:28px;color:var(--blue)}
 .trust .star{color:var(--gold);fill:var(--gold);stroke:var(--gold)}
 .hero-img{position:relative}
@@ -106,7 +106,7 @@ nav.main a:hover{color:#fff}
 .float.f1{top:18px;left:-26px;max-width:230px}
 .float.f1 img{width:42px;height:42px;border-radius:50%;object-fit:cover}
 .float.f2{bottom:22px;right:-14px;cursor:pointer;border:0;font:inherit;font-weight:700}
-.flag{width:28px;height:28px;border-radius:50%;background:conic-gradient(#C8102E 0 25%,#fff 0 50%,#C8102E 0 75%,#fff 0);border:2px solid #fff;box-shadow:0 0 0 1px #E2E8F0;flex:none}
+.flag{width:30px;height:30px;border-radius:50%;background:#EAF1FD;color:var(--blue);display:grid;place-items:center;font:800 12px "Archivo";flex:none}
 @media (max-width:900px){
   .hero .wrap{grid-template-columns:1fr;gap:28px}
   .hero-img{order:-1}
@@ -417,7 +417,7 @@ body.base-only .needs-addon{display:none !important}
     <div class="hero-img">
       <div class="ph"><img src="https://images.unsplash.com/photo-1676210134188-4c05dd172f89?w=1100&h=1180&fit=crop&crop=entropy&auto=format&q=70" alt="Plumber repairing the pipes under a kitchen sink" width="1100" height="1180" fetchpriority="high"></div>
       <div class="float f1"><img src="https://images.unsplash.com/photo-1732395805034-e0bf859665e5?w=120&h=120&fit=crop&crop=faces&auto=format&q=70" alt="" width="42" height="42"><span>We text you your plumber's photo before they arrive.</span></div>
-      <button class="float f2" type="button" data-spanish><span class="flag" aria-hidden="true"></span>Hablamos español</button>
+      <button class="float f2" type="button" data-spanish><span class="flag" aria-hidden="true">ES</span>Hablamos español</button>
     </div>
   </div>
 </section>
