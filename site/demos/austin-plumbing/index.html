@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Austin Plumbers 24/7 | Capitol Creek Plumbing (Demo)</title>
+<meta name="description" content="Fictional demo website by Ace Digital Solutions: 24/7 Austin plumbing with upfront price ranges, 3-step online booking and a chat assistant.">
+<!-- Fictional business: keep this demo out of Google so it is never mistaken for a real company -->
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Capitol Creek Plumbing: Austin plumbing website demo">
+<meta property="og:description" content="A fictional demo website by Ace Digital Solutions, showing what a modern plumbing website can do.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://images.unsplash.com">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Do you offer emergency plumbing in Austin?","acceptedAnswer":{"@type":"Answer","text":"Yes. We answer 24/7, including nights, weekends and holidays. For burst pipes or major leaks, shut off your main water valve and call us."}},
+{"@type":"Question","name":"How quickly can a plumber come?","acceptedAnswer":{"@type":"Answer","text":"Most Austin-area calls get a same-day appointment. Emergencies are dispatched right away."}},
+{"@type":"Question","name":"Do you give prices before starting work?","acceptedAnswer":{"@type":"Answer","text":"Yes. Our website shows typical price ranges, and your plumber confirms the exact price on site before any work begins."}}]}</script>
+<style>
+:root{
+  --navy:#0B2545; --navy-2:#13315C; --blue:#1D5FD1; --blue-d:#174CA8; --red:#D7262E; --red-d:#B51E25;
+  --ink:#0F172A; --muted:#55627A; --line:#E2E8F0; --bg:#F4F7FB; --card:#FFFFFF; --green:#15803D; --gold:#F5A524;
+  --r:14px; --sh:0 10px 30px -14px rgba(11,37,69,.35); --sh-s:0 4px 14px -8px rgba(11,37,69,.3);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;font:400 17px/1.55 "Source Sans 3",system-ui,sans-serif;color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.brand b{font-family:"Archivo",system-ui,sans-serif;letter-spacing:-.01em;line-height:1.12;margin:0}
+h1{font-size:clamp(32px,6.4vw,54px);font-weight:800}
+h2{font-size:clamp(26px,4vw,38px);font-weight:800}
+h3{font-size:19px;font-weight:700}
+p{margin:0}
+a{color:var(--blue)}
+img{max-width:100%;display:block}
+.wrap{max-width:1180px;margin:0 auto;padding:0 18px}
+section{padding:64px 0}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font:700 13px/1 "Archivo";letter-spacing:.06em;text-transform:uppercase;color:var(--blue)}
+.sub{color:var(--muted);font-size:18px;margin-top:10px;max-width:640px}
+.ico{width:22px;height:22px;flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:52px;padding:0 22px;border-radius:12px;border:2px solid transparent;font:700 17px/1 "Archivo";text-decoration:none;cursor:pointer;transition:transform .15s,background .15s,box-shadow .15s;white-space:nowrap}
+.btn:hover{transform:translateY(-1px)}
+.btn:focus-visible,button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #93C5FD;outline-offset:2px}
+.btn-red{background:var(--red);color:#fff;box-shadow:0 10px 22px -12px rgba(215,38,46,.9)}
+.btn-red:hover{background:var(--red-d)}
+.btn-blue{background:var(--blue);color:#fff;box-shadow:0 10px 22px -12px rgba(29,95,209,.9)}
+.btn-blue:hover{background:var(--blue-d)}
+.btn-ghost{background:#fff;color:var(--navy);border-color:#C9D6EA}
+.btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
+.btn-sm{min-height:42px;padding:0 16px;font-size:15px;border-radius:10px}
+.demo{font:700 11px/1 "Archivo";letter-spacing:.04em;color:#8A5A00;background:#FFF4D6;border:1px solid #F3D48A;border-radius:6px;padding:3px 6px;vertical-align:middle;white-space:nowrap}
+.addon-tag{display:inline-flex;align-items:center;gap:6px;font:700 12px/1 "Archivo";color:#4338CA;background:#EEF0FF;border:1px solid #C7CCFF;border-radius:999px;padding:6px 10px;white-space:nowrap}
+.incl-tag{display:none;font:700 12px/1 "Archivo";color:var(--green);background:#E8F7EE;border:1px solid #A7E0BC;border-radius:999px;padding:6px 10px}
+
+/* Demo bar */
+.demobar{background:#0A1A33;color:#DCE6F5;font-size:14px}
+.demobar .wrap{display:flex;align-items:center;gap:14px;min-height:44px;flex-wrap:wrap;padding-top:6px;padding-bottom:6px}
+.demobar b{color:#FFD873;font-family:"Archivo"}
+.demobar a{color:#BBD3FF;text-decoration:none;font-weight:600}
+.demobar a:hover{text-decoration:underline}
+.toggle{display:inline-flex;align-items:center;gap:9px;cursor:pointer;margin-left:auto;font-weight:600;color:#fff}
+.toggle input{position:absolute;opacity:0;pointer-events:none}
+.toggle .sw{width:42px;height:24px;border-radius:999px;background:#3A4A66;position:relative;transition:background .2s;flex:none}
+.toggle .sw::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .2s}
+.toggle input:checked+.sw{background:#22A35A}
+.toggle input:checked+.sw::after{transform:translateX(18px)}
+.toggle input:focus-visible+.sw{outline:3px solid #93C5FD;outline-offset:2px}
+
+/* Header */
+header.site{position:sticky;top:0;z-index:40;background:var(--navy);color:#fff;box-shadow:0 6px 20px -12px rgba(0,0,0,.6)}
+header.site .wrap{display:flex;align-items:center;gap:22px;min-height:72px}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none}
+.brand svg{width:40px;height:40px;flex:none}
+.brand b{font-size:19px;display:block}
+.brand small{display:block;font-size:12px;color:#A9BCD9;margin-top:2px}
+nav.main{display:flex;gap:22px;margin-left:auto}
+nav.main a{color:#DCE6F5;text-decoration:none;font-weight:600;font-size:16px}
+nav.main a:hover{color:#fff}
+.hphone{display:flex;align-items:center;gap:9px;color:#fff;text-decoration:none;font-weight:700;line-height:1.15}
+.hphone small{display:block;font-weight:400;color:#A9BCD9;font-size:12px}
+.menu-btn{display:none;margin-left:auto;background:none;border:0;color:#fff;padding:8px;cursor:pointer}
+@media (max-width:980px){nav.main,.hphone,header.site .btn{display:none}.menu-btn{display:block}}
+.mnav{display:none;background:var(--navy-2);padding:8px 18px 16px}
+.mnav.open{display:block}
+.mnav a{display:block;color:#fff;text-decoration:none;font-weight:600;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+
+/* Hero */
+.hero{padding:44px 0 36px;background:linear-gradient(180deg,#fff 0%,#F4F7FB 100%);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.08fr .92fr;gap:40px;align-items:center}
+.pill-red{display:inline-flex;align-items:center;gap:8px;background:#FDECEC;color:var(--red-d);font:700 13px/1 "Archivo";border-radius:999px;padding:8px 12px}
+.pill-red .dot{width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 0 0 rgba(215,38,46,.6);animation:pulse 1.8s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(215,38,46,0)}100%{box-shadow:0 0 0 0 rgba(215,38,46,0)}}
+.hero h1{margin-top:16px}
+.hero h1 span{color:var(--blue)}
+.hero .lead{font-size:19px;color:var(--muted);margin-top:16px;max-width:560px}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.trust{display:grid;grid-template-columns:repeat(4,auto);gap:18px 26px;margin-top:28px;justify-content:start}
+.trust div{display:flex;align-items:center;gap:10px;font-size:14px;line-height:1.25;color:var(--muted)}
+.trust b{display:block;color:var(--ink);font-size:16px}
+.trust .ico{width:28px;height:28px;color:var(--blue)}
+.trust .star{color:var(--gold);fill:var(--gold);stroke:var(--gold)}
+.hero-img{position:relative}
+.hero-img .ph{border-radius:22px;overflow:hidden;box-shadow:var(--sh);aspect-ratio:4/4.3;background:#dfe7f2}
+.hero-img .ph img{width:100%;height:100%;object-fit:cover}
+.float{position:absolute;background:#fff;border-radius:14px;box-shadow:var(--sh);padding:12px 14px;display:flex;gap:10px;align-items:center;font-size:14px;font-weight:600;line-height:1.3}
+.float.f1{top:18px;left:-26px;max-width:230px}
+.float.f1 img{width:42px;height:42px;border-radius:50%;object-fit:cover}
+.float.f2{bottom:22px;right:-14px;cursor:pointer;border:0;font:inherit;font-weight:700}
+.flag{width:28px;height:28px;border-radius:50%;background:conic-gradient(#C8102E 0 25%,#fff 0 50%,#C8102E 0 75%,#fff 0);border:2px solid #fff;box-shadow:0 0 0 1px #E2E8F0;flex:none}
+@media (max-width:900px){
+  .hero .wrap{grid-template-columns:1fr;gap:28px}
+  .hero-img{order:-1}
+  .hero-img .ph{aspect-ratio:16/11}
+  .float.f1{left:10px;top:auto;bottom:-16px;max-width:240px}
+  .float.f2{right:10px;bottom:auto;top:12px}
+  .trust{grid-template-columns:1fr 1fr}
+  .hero .ctas .btn{flex:1 1 100%}
+}
+
+/* Emergency strip */
+.emerg{background:#FFF1F1;border-top:1px solid #F7C9CB;border-bottom:1px solid #F7C9CB;padding:20px 0}
+.emerg .wrap{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.emerg .warn{width:48px;height:48px;color:var(--red);flex:none}
+.emerg h2{font-size:24px;color:var(--red-d)}
+.emerg p{color:#7A1E22}
+.emerg .acts{margin-left:auto;display:flex;gap:10px;flex-wrap:wrap}
+.shutoff{display:none;margin-top:14px;background:#fff;border:1px solid #F7C9CB;border-radius:12px;padding:16px 18px;flex-basis:100%}
+.shutoff.open{display:block}
+.shutoff ol{margin:6px 0 0;padding-left:20px}
+.shutoff li{margin:4px 0}
+
+/* Section head */
+.shead{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:28px}
+.shead .tags{display:flex;gap:8px;flex-wrap:wrap}
+
+/* Services */
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.svc{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px;display:flex;flex-direction:column;gap:10px;transition:box-shadow .2s,transform .2s,border-color .2s}
+.svc:hover{box-shadow:var(--sh);transform:translateY(-2px);border-color:#C9D6EA}
+.svc .ic{width:48px;height:48px;border-radius:12px;background:#EAF1FD;color:var(--blue);display:grid;place-items:center}
+.svc .ic.r{background:#FDECEC;color:var(--red)}
+.svc p{color:var(--muted);font-size:16px}
+.svc button{margin-top:auto;align-self:flex-start;background:none;border:0;padding:6px 0;color:var(--blue);font:700 16px "Archivo";cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+@media (max-width:900px){.svc-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.svc-grid{grid-template-columns:1fr}}
+
+/* Price tool */
+.dark{background:var(--navy);color:#fff}
+.dark .sub{color:#B9C8E0}
+.dark .eyebrow{color:#8DB5FF}
+.price{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:stretch}
+.chips{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.chip{background:#fff;color:var(--navy);border:2px solid transparent;border-radius:12px;padding:14px 10px;font:700 15px/1.2 "Archivo";cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;transition:border-color .15s,transform .15s}
+.chip:hover{transform:translateY(-1px)}
+.chip .ico{color:var(--blue);width:26px;height:26px}
+.chip[aria-pressed="true"]{border-color:#5B9BFF;background:#EAF1FD;box-shadow:0 0 0 3px rgba(91,155,255,.35)}
+.pcard{background:#fff;color:var(--ink);border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--sh)}
+.pcard .lbl{color:var(--muted);font-weight:600}
+.pcard .range{font:800 clamp(38px,5vw,52px)/1 "Archivo";color:var(--blue)}
+.pcard .what{font-weight:700;font-size:19px}
+.pcard .note{color:var(--muted);font-size:15px}
+.pcard .btn{margin-top:auto}
+@media (max-width:900px){.price{grid-template-columns:1fr}.chips{grid-template-columns:repeat(2,1fr)}}
+
+/* Reviews */
+.rev-top{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.big-rate{font:800 54px/1 "Archivo"}
+.stars{color:var(--gold);letter-spacing:2px;font-size:19px}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
+.rev{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:10px}
+.rev p{font-size:16px}
+.rev .who{margin-top:auto;font-size:14px;color:var(--muted)}
+.rev .who b{color:var(--ink)}
+.tech{display:inline-flex;align-items:center;gap:6px;background:#EAF1FD;color:var(--blue-d);border-radius:999px;padding:3px 10px;font-size:13px;font-weight:700;align-self:flex-start}
+@media (max-width:900px){.rev-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){.rev-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding-bottom:8px;margin-left:-18px;margin-right:-18px;padding-left:18px;padding-right:18px}.rev{flex:0 0 84%;scroll-snap-align:start}}
+
+/* Booking */
+.book{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--sh);overflow:hidden}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line);background:var(--bg)}
+.steps div{display:flex;align-items:center;gap:10px;padding:16px 18px;font-weight:700;color:var(--muted);font-size:15px}
+.steps .n{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#DCE5F2;color:var(--navy);font:800 15px "Archivo";flex:none}
+.steps .on{color:var(--ink)}
+.steps .on .n{background:var(--blue);color:#fff}
+.steps .done .n{background:var(--green);color:#fff}
+.bpane{padding:26px}
+.bpane[hidden]{display:none}
+.opts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:12px;padding:14px;font:700 15px/1.25 "Archivo";color:var(--navy);cursor:pointer;text-align:left}
+.opt:hover{border-color:#9DBBEA}
+.opt[aria-pressed="true"]{border-color:var(--blue);background:#EAF1FD}
+.opt small{display:block;font:600 13px "Source Sans 3";color:var(--muted);margin-top:4px}
+.days{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.slots{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+.fields{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+label.f{display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:15px}
+label.f input,label.f textarea{font:400 17px "Source Sans 3";padding:13px 14px;border:2px solid var(--line);border-radius:10px;color:var(--ink);background:#fff;width:100%}
+label.f input:focus,label.f textarea:focus{border-color:var(--blue);outline:none}
+.bnav{display:flex;gap:10px;justify-content:space-between;align-items:center;margin-top:22px;flex-wrap:wrap}
+.bsum{color:var(--muted);font-size:15px}
+.ok{display:flex;gap:16px;align-items:flex-start}
+.ok .tick{width:54px;height:54px;border-radius:50%;background:#E8F7EE;color:var(--green);display:grid;place-items:center;flex:none}
+.err{color:var(--red-d);font-weight:600;font-size:15px;margin-top:10px;min-height:1px}
+@media (max-width:800px){.opts,.slots{grid-template-columns:1fr 1fr}.fields{grid-template-columns:1fr}.steps div span.t{display:none}.steps div{justify-content:center}}
+.simple-form{display:none}
+
+/* Team + promises */
+.team-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:26px;align-items:start}
+.people{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.person{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.person img{width:100%;aspect-ratio:1/1.05;object-fit:cover;object-position:center 25%}
+.person div{padding:12px 14px}
+.person b{font-family:"Archivo";font-size:17px;display:block}
+.person span{color:var(--muted);font-size:14px}
+.text-note{display:flex;gap:12px;align-items:center;background:#EAF1FD;border-radius:12px;padding:14px 16px;margin-top:14px;font-weight:600;color:var(--navy)}
+.text-note .ico{color:var(--blue)}
+.promise{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;display:flex;gap:14px;margin-bottom:14px}
+.promise .ic{width:46px;height:46px;border-radius:12px;background:#EAF1FD;color:var(--blue);display:grid;place-items:center;flex:none}
+.promise p{color:var(--muted);font-size:16px;margin-top:6px}
+.promise small{display:block;color:#7B879B;font-size:13px;margin-top:6px}
+@media (max-width:900px){.team-grid{grid-template-columns:1fr}}
+@media (max-width:520px){.people{grid-template-columns:repeat(3,1fr);gap:8px}.person div{padding:8px}.person b{font-size:15px}.person span{font-size:12px}}
+
+/* More reasons */
+.more{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:16px}
+.box{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;position:relative}
+.box h3{margin-bottom:12px}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ba figure{margin:0;position:relative;border-radius:10px;overflow:hidden}
+.ba img{aspect-ratio:1/1;object-fit:cover;width:100%}
+.ba figcaption{position:absolute;left:6px;bottom:6px;background:rgba(11,37,69,.85);color:#fff;font:700 12px "Archivo";padding:4px 8px;border-radius:6px}
+.club{background:linear-gradient(160deg,var(--navy),#163F7A);color:#fff;border:0}
+.club .amt{font:800 42px/1 "Archivo";margin:6px 0 12px}
+.club .amt small{font-size:16px;font-weight:600;color:#B9C8E0}
+.club ul{list-style:none;padding:0;margin:0 0 16px;display:grid;gap:8px}
+.club li{display:flex;gap:9px;align-items:center}
+.club li .ico{color:#6EE7A0;width:20px;height:20px}
+.fin .amt{font:800 30px/1.1 "Archivo";color:var(--navy);margin:6px 0}
+.fin p{color:var(--muted);font-size:15px}
+.box .addon-tag{position:absolute;top:14px;right:14px}
+.club .addon-tag{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.3);color:#fff}
+@media (max-width:980px){.more{grid-template-columns:1fr 1fr}.more .box:first-child{grid-column:1/-1}}
+@media (max-width:620px){.more{grid-template-columns:1fr}}
+
+/* Area */
+.area{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+.cities{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:18px 0;padding:0;list-style:none}
+.cities li{display:flex;gap:9px;align-items:center;font-weight:600}
+.cities .ico{color:var(--green);width:20px;height:20px}
+.map{background:#EAF1FD;border-radius:20px;padding:10px;box-shadow:var(--sh-s)}
+.map svg{width:100%;height:auto;display:block}
+.contact-card{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:20px;margin-top:8px}
+@media (max-width:900px){.area{grid-template-columns:1fr}}
+
+/* FAQ */
+.faq{max-width:860px}
+.faq details{background:#fff;border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+.faq summary{cursor:pointer;list-style:none;padding:18px 20px;font:700 18px/1.3 "Archivo";display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:24px;line-height:1;color:var(--blue)}
+.faq details[open] summary::after{content:"–"}
+.faq details p{padding:0 20px 18px;color:var(--muted)}
+
+/* Final CTA */
+.final{position:relative;color:#fff;padding:70px 0;background:var(--navy) center/cover no-repeat}
+.final::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,37,69,.95),rgba(11,37,69,.7))}
+.final .wrap{position:relative;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.final p{color:#C9D6EA;margin-top:8px}
+.final .acts{margin-left:auto;display:flex;gap:12px;flex-wrap:wrap}
+
+/* Footer */
+footer{background:#081B33;color:#B9C8E0;padding:48px 0 110px;font-size:15px}
+footer .cols{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:26px}
+footer h4{color:#fff;font:700 15px "Archivo";margin:0 0 10px}
+footer a{color:#B9C8E0;text-decoration:none;display:block;padding:3px 0}
+footer a:hover{color:#fff}
+.disclose{margin-top:30px;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);font-size:14px;line-height:1.6}
+.disclose b{color:#FFD873}
+@media (max-width:800px){footer .cols{grid-template-columns:1fr 1fr}}
+@media (min-width:981px){footer{padding-bottom:48px}}
+
+/* Mobile action bar */
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:none;grid-template-columns:repeat(3,1fr);gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.97);border-top:1px solid var(--line);box-shadow:0 -8px 24px -14px rgba(11,37,69,.5)}
+.mbar a,.mbar button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:56px;border-radius:12px;border:0;font:700 14px "Archivo";text-decoration:none;cursor:pointer}
+.mbar .c{background:var(--red);color:#fff}
+.mbar .b{background:var(--blue);color:#fff}
+.mbar .h{background:#EAF1FD;color:var(--navy)}
+@media (max-width:980px){.mbar{display:grid}}
+
+/* Chat */
+.chat-fab{position:fixed;right:22px;bottom:22px;z-index:60;height:58px;padding:0 20px 0 16px;border-radius:999px;border:0;background:var(--blue);color:#fff;font:700 16px "Archivo";display:flex;align-items:center;gap:9px;box-shadow:0 14px 30px -12px rgba(29,95,209,.9);cursor:pointer}
+.chat-fab .live{width:9px;height:9px;border-radius:50%;background:#4ADE80;box-shadow:0 0 0 3px rgba(74,222,128,.3)}
+@media (max-width:980px){.chat-fab{display:none}}
+.chat{position:fixed;right:22px;bottom:92px;z-index:61;width:min(390px,calc(100vw - 24px));height:min(600px,calc(100vh - 120px));background:#fff;border-radius:18px;box-shadow:0 30px 70px -20px rgba(11,18,32,.55);display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line)}
+.chat[hidden]{display:none}
+@media (max-width:980px){.chat{right:12px;bottom:calc(88px + env(safe-area-inset-bottom,0px));height:min(560px,calc(100vh - 120px))}}
+.chat-h{background:var(--navy);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:10px}
+.chat-h .av{width:38px;height:38px;border-radius:50%;background:var(--blue);display:grid;place-items:center;flex:none}
+.chat-h b{font-family:"Archivo";display:block}
+.chat-h small{color:#A9BCD9;display:flex;align-items:center;gap:6px}
+.chat-h small i{width:8px;height:8px;border-radius:50%;background:#4ADE80;display:inline-block}
+.chat-h button{margin-left:auto;background:none;border:0;color:#fff;cursor:pointer;padding:6px}
+.chat-h .addon-tag{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.25);padding:4px 8px;font-size:11px}
+.clog{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--bg)}
+.msg{max-width:86%;padding:10px 13px;border-radius:14px;font-size:15.5px;line-height:1.45;background:#fff;border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:4px}
+.msg.me{align-self:flex-end;background:var(--blue);color:#fff;border-color:var(--blue);border-bottom-left-radius:14px;border-bottom-right-radius:4px}
+.msg a{color:inherit;font-weight:700}
+.quick{display:flex;flex-wrap:wrap;gap:7px}
+.quick button{background:#fff;border:1.5px solid #B8CBEA;color:var(--blue-d);border-radius:999px;padding:8px 12px;font:700 14px "Archivo";cursor:pointer}
+.quick button:hover{background:#EAF1FD}
+.quick button.red{border-color:#F3B4B7;color:var(--red-d)}
+.typing{display:inline-flex;gap:4px;padding:12px 14px}
+.typing i{width:7px;height:7px;border-radius:50%;background:#9AA8BF;animation:bl 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes bl{0%,80%,100%{opacity:.3}40%{opacity:1}}
+.cform{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line);background:#fff}
+.cform input{flex:1;font:400 16px "Source Sans 3";padding:11px 12px;border:2px solid var(--line);border-radius:10px;min-width:0}
+.cform input:focus{border-color:var(--blue);outline:none}
+.cform button{background:var(--blue);color:#fff;border:0;border-radius:10px;padding:0 14px;cursor:pointer}
+.cnote{font-size:11.5px;color:#7B879B;text-align:center;padding:0 10px 8px;background:#fff}
+
+/* "$250 only" view */
+body.base-only [data-addon]{position:relative}
+body.base-only [data-addon]>*{filter:grayscale(1);opacity:.28;pointer-events:none}
+body.base-only [data-addon]::after{content:attr(data-addon);position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:#312E81;color:#fff;font:700 15px/1.3 "Archivo";padding:12px 18px;border-radius:12px;box-shadow:var(--sh);text-align:center;max-width:86%;z-index:2}
+body.base-only .incl-tag{display:inline-flex}
+body.base-only .chat-fab,body.base-only .mbar .h,body.base-only .float.f2{display:none}
+body.base-only .booking-tool{display:none}
+body.base-only .simple-form{display:block}
+body.base-only .mbar{grid-template-columns:1fr 1fr}
+body.base-only .needs-addon{display:none !important}
+
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7" cy="7" r="1.5"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="i-badge" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 2.7s-6 6.6-6 11.3a6 6 0 0 0 12 0c0-4.7-6-11.3-6-11.3z"/></symbol>
+  <symbol id="i-drain" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-heater" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="17" rx="3"/><path d="M9 22v-3M15 22v-3M10 7h4M12 11v4"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-faucet" viewBox="0 0 24 24"><path d="M4 9h9a4 4 0 0 1 4 4v1M4 6v6M17 18v.01M17 21v.01M10 9V5M7 5h6"/></symbol>
+  <symbol id="i-pipe" viewBox="0 0 24 24"><path d="M3 7h8a4 4 0 0 1 4 4v10M3 11h6a2 2 0 0 1 2 2v8M19 21V9"/></symbol>
+  <symbol id="i-toilet" viewBox="0 0 24 24"><path d="M6 3h7v6H6zM4 9h14a0 0 0 0 1 0 0 6 6 0 0 1-6 6H9a5 5 0 0 1-5-5V9zM9 15l-1 6h7l-1-6"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-4-3-6-4-10-2 2-3 4-3 6-1-1-2-2-2-4-2 2-5 5-5 8a7 7 0 0 0 7 7z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  <symbol id="i-msg" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0 5 5L22 14l-8 8-2.3-2.3a4 4 0 0 0-5-5L2 10l8-8z"/></symbol>
+</svg>
+
+<!-- Demo disclosure bar -->
+<div class="demobar">
+  <div class="wrap">
+    <span><b>Fictional demo website</b> by Ace Digital Solutions. The business, phone, reviews and prices are made up.</span>
+    <a href="/">← Back to Ace Digital Solutions</a>
+    <label class="toggle"><input type="checkbox" id="baseToggle"><span class="sw" aria-hidden="true"></span>Show what the $250 website includes</label>
+  </div>
+</div>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Capitol Creek Plumbing, demo, home">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#1D5FD1"/><path d="M6 15c4-3 7-3 11 0s7 3 11 0 6-2 6-2M6 22c4-3 7-3 11 0s7 3 11 0 6-2 6-2M6 29c4-3 7-3 11 0s7 3 11 0 6-2 6-2" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg>
+      <span><b>Capitol Creek Plumbing <span class="demo">DEMO</span></b><small>Straight answers. Solid plumbing.</small></span>
+    </a>
+    <nav class="main" aria-label="Main">
+      <a href="#services">Services</a><a href="#prices">Prices</a><a href="#reviews">Reviews</a><a href="#areas">Service Areas</a><a href="#faq">FAQ</a>
+    </nav>
+    <a class="hphone" href="tel:5125550147"><svg class="ico"><use href="#i-phone"/></svg><span>512-555-0147 <span class="demo">DEMO</span><small>24/7 emergency service</small></span></a>
+    <a class="btn btn-blue btn-sm" href="#book"><svg class="ico"><use href="#i-cal"/></svg>Book a Time</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mnav"><svg class="ico" style="width:28px;height:28px"><use href="#i-menu"/></svg></button>
+  </div>
+  <nav class="mnav" id="mnav" aria-label="Mobile">
+    <a href="#services">Services</a><a href="#prices">Prices</a><a href="#reviews">Reviews</a><a href="#book">Book a time</a><a href="#areas">Service Areas</a><a href="#faq">FAQ</a><a href="tel:5125550147">Call 512-555-0147 (demo)</a>
+  </nav>
+</header>
+
+<main id="top">
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="pill-red"><span class="dot"></span>24/7 emergency plumbing in Austin</span>
+      <h1>Austin Plumbers, 24/7: <span>Clear Prices, Easy Booking</span></h1>
+      <p class="lead">Plumbing service that makes the next step easy. Leaks, clogged drains, broken water heaters or a 2 a.m. emergency: see a typical price range and book a real appointment time without a long form.</p>
+      <div class="ctas">
+        <a class="btn btn-red" href="tel:5125550147"><svg class="ico"><use href="#i-phone"/></svg>Call 512-555-0147</a>
+        <a class="btn btn-blue needs-addon" href="#book"><svg class="ico"><use href="#i-cal"/></svg>Book a Time</a>
+        <a class="btn btn-ghost needs-addon" href="#prices"><svg class="ico"><use href="#i-tag"/></svg>Get a Price Range</a>
+        <a class="btn btn-blue" href="#book" style="display:none" data-base-show><svg class="ico"><use href="#i-msg"/></svg>Request Service</a>
+      </div>
+      <div class="trust">
+        <div><svg class="ico star"><use href="#i-star"/></svg><span><b>4.9★ rating</b>1,240 reviews <span class="demo">DEMO</span></span></div>
+        <div><svg class="ico"><use href="#i-cal"/></svg><span><b>12 years</b>serving Austin</span></div>
+        <div><svg class="ico"><use href="#i-badge"/></svg><span><b>License M-00000</b>demo license</span></div>
+        <div><svg class="ico"><use href="#i-shield"/></svg><span><b>Licensed</b>&amp; insured</span></div>
+      </div>
+    </div>
+    <div class="hero-img">
+      <div class="ph"><img src="https://images.unsplash.com/photo-1676210134188-4c05dd172f89?w=1100&h=1180&fit=crop&crop=entropy&auto=format&q=70" alt="Plumber repairing the pipes under a kitchen sink" width="1100" height="1180" fetchpriority="high"></div>
+      <div class="float f1"><img src="https://images.unsplash.com/photo-1732395805034-e0bf859665e5?w=120&h=120&fit=crop&crop=faces&auto=format&q=70" alt="" width="42" height="42"><span>We text you your plumber's photo before they arrive.</span></div>
+      <button class="float f2" type="button" data-spanish><span class="flag" aria-hidden="true"></span>Hablamos español</button>
+    </div>
+  </div>
+</section>
+
+<!-- EMERGENCY -->
+<div class="emerg" role="region" aria-label="Emergency help">
+  <div class="wrap">
+    <svg class="ico warn"><use href="#i-alert"/></svg>
+    <div><h2>Water everywhere?</h2><p>Shut off your main water valve first, then call us. We answer 24/7.</p></div>
+    <div class="acts">
+      <button class="btn btn-ghost btn-sm" type="button" id="shutBtn" aria-expanded="false" aria-controls="shutoff">How to shut it off</button>
+      <a class="btn btn-red btn-sm" href="tel:5125550147"><svg class="ico"><use href="#i-phone"/></svg>Call 24/7</a>
+    </div>
+    <div class="shutoff" id="shutoff">
+      <b>Find and close your main water valve (most Austin homes):</b>
+      <ol>
+        <li>Look where the water line enters the house: often the garage, a utility closet, or outside near the front hose bib.</li>
+        <li>Turn the round handle clockwise, or turn a lever handle so it sits across the pipe.</li>
+        <li>No luck? The meter box near the street has a shut-off too. Then call us and we'll talk you through it.</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="shead">
+      <div><span class="eyebrow">Austin plumbing services</span><h2 style="margin-top:8px">Plumbing help for the problems homeowners actually have</h2></div>
+      <span class="incl-tag">✓ Included in $250</span>
+    </div>
+    <div class="svc-grid">
+      <article class="svc reveal"><div class="ic r"><svg class="ico"><use href="#i-alert"/></svg></div><h3>Emergency Plumbing</h3><p>Burst pipes, major leaks and backups that can't wait. Day or night, weekends and holidays.</p><button type="button" data-price="emergency">See typical price <svg class="ico" style="width:18px"><use href="#i-arrow"/></svg></button></article>
+      <article class="svc reveal"><div class="ic"><svg class="ico"><use href="#i-drain"/></svg></div><h3>Drain Cleaning</h3><p>Slow or clogged sinks, showers and tubs cleared properly, not just pushed further down the line.</p><button type="button" data-price="drain">See typical price <svg class="ico" style="width:18px"><use href="#i-arrow"/></svg></button></article>
+      <article class="svc reveal"><div class="ic"><svg class="ico"><use href="#i-heater"/></svg></div><h3>Water Heater Repair</h3><p>No hot water, leaking tanks or strange noises. Repairs and same-day replacements, tank or tankless.</p><button type="button" data-price="heater">See typical price <svg class="ico" style="width:18px"><use href="#i-arrow"/></svg></button></article>
+      <article class="svc reveal"><div class="ic"><svg class="ico"><use href="#i-search"/></svg></div><h3>Leak Detection</h3><p>Hidden leaks found with listening and camera tools before a small drip becomes expensive damage.</p><button type="button" data-price="leak">See typical price <svg class="ico" style="width:18px"><use href="#i-arrow"/></svg></button></article>
+      <article class="svc reveal"><div class="ic"><svg class="ico"><use href="#i-faucet"/></svg></div><h3>Toilet &amp; Faucet Repair</h3><p>Running toilets, dripping faucets and fixture upgrades done neatly, usually in one visit.</p><button type="button" data-price="toilet">See typical price <svg class="ico" style="width:18px"><use href="#i-arrow"/></svg></button></article>
+      <article class="svc reveal"><div class="ic"><svg class="ico"><use href="#i-pipe"/></svg></div><h3>Sewer &amp; Main Line</h3><p>Recurring backups and root problems, with camera footage so you see exactly what's wrong.</p><button type="button" data-price="sewer">See typical price <svg class="ico" style="width:18px"><use href="#i-arrow"/></svg></button></article>
+    </div>
+  </div>
+</section>
+
+<!-- PRICE TOOL (add-on) -->
+<section class="dark" id="prices" data-addon="Add-on: interactive price tool">
+  <div class="wrap">
+    <div class="shead">
+      <div><span class="eyebrow">Upfront pricing</span><h2 style="margin-top:8px">What might your plumbing problem cost?</h2><p class="sub">Pick the problem you're seeing to get a typical Austin price range. No phone call needed.</p></div>
+      <span class="addon-tag">Add-on · Interactive price tool</span>
+    </div>
+    <div class="price">
+      <div class="chips" id="chips" role="group" aria-label="Choose a plumbing problem"></div>
+      <div class="pcard" aria-live="polite">
+        <span class="lbl">Typical range <span class="demo">DEMO PRICES</span></span>
+        <div class="range" id="pRange">$200 – $650</div>
+        <div class="what" id="pWhat">Water heater repair</div>
+        <p class="note" id="pNote">Common repairs like thermostats, heating elements and valves. Your plumber confirms the final price on site before any work begins.</p>
+        <a class="btn btn-blue" href="#book" id="pBook"><svg class="ico"><use href="#i-cal"/></svg>Book this service</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews" style="background:var(--bg)">
+  <div class="wrap">
+    <div class="shead">
+      <div><span class="eyebrow">Customer reviews</span><h2 style="margin-top:8px">Real people. Real plumbing problems.</h2></div>
+      <span class="incl-tag">✓ Included in $250</span>
+    </div>
+    <div class="rev-top">
+      <span class="big-rate">4.9</span>
+      <div><div class="stars" aria-label="4.9 out of 5 stars">★★★★★</div><div style="color:var(--muted)">from 1,240 customer reviews <span class="demo">DEMO REVIEWS</span></div></div>
+    </div>
+    <div class="rev-grid">
+      <article class="rev reveal"><div class="stars">★★★★★</div><p>"Marcus found the leak behind our dishwasher in about twenty minutes and showed me photos before fixing anything. Very easy experience."</p><span class="tech">Technician: Marcus</span><span class="who"><b>Sarah M.</b> · Austin (78745)</span></article>
+      <article class="rev reveal"><div class="stars">★★★★★</div><p>"Booked online at 9 p.m., got a 10 a.m. slot the next morning. Daniel had our water heater working before lunch, and the price matched the range on the website."</p><span class="tech">Technician: Daniel</span><span class="who"><b>Kevin R.</b> · Round Rock</span></article>
+      <article class="rev reveal"><div class="stars">★★★★★</div><p>"Luis ran a camera down our main line and showed us the root problem on his tablet. No upselling, just a clear plan and a fair price."</p><span class="tech">Technician: Luis</span><span class="who"><b>Michelle P.</b> · Cedar Park</span></article>
+      <article class="rev reveal"><div class="stars">★★★★★</div><p>"Pipe burst on a Sunday. They answered on the second ring, talked me through shutting off the water, and someone was here within the hour."</p><span class="tech">Technician: Marcus</span><span class="who"><b>Jason T.</b> · Pflugerville</span></article>
+      <article class="rev reveal"><div class="stars">★★★★★</div><p>"Got a text with Daniel's photo before he arrived, which my mom really appreciated. Professional, and he cleaned up after himself."</p><span class="tech">Technician: Daniel</span><span class="who"><b>Rachel P.</b> · Georgetown</span></article>
+      <article class="rev reveal"><div class="stars">★★★★★</div><p>"Luis explained our options in Spanish for my father and in English for me. Kitchen drain fixed the same day."</p><span class="tech">Technician: Luis</span><span class="who"><b>Thomas R.</b> · Leander</span></article>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING (add-on) + simple form (base) -->
+<section id="book">
+  <div class="wrap">
+    <div class="shead">
+      <div><span class="eyebrow">Online booking</span><h2 style="margin-top:8px">Book a plumber in 3 simple steps</h2><p class="sub">Tell us the problem, pick a time, leave your name and number. That's it.</p></div>
+      <span class="addon-tag needs-addon">Add-on · Online booking</span>
+    </div>
+
+    <div class="book booking-tool" id="booking">
+      <div class="steps" aria-hidden="true">
+        <div class="on" data-step="1"><span class="n">1</span><span class="t">Tell us the problem</span></div>
+        <div data-step="2"><span class="n">2</span><span class="t">Pick a time</span></div>
+        <div data-step="3"><span class="n">3</span><span class="t">Your name &amp; phone</span></div>
+      </div>
+      <div class="bpane" data-pane="1">
+        <h3>What's going on?</h3>
+        <div class="opts" id="bProblems" role="group" aria-label="Problem"></div>
+        <div class="err" id="err1" role="alert"></div>
+        <div class="bnav"><span class="bsum">Not sure? Pick "Something else" and we'll figure it out.</span><button class="btn btn-blue" type="button" data-next="2">Next: pick a time <svg class="ico"><use href="#i-arrow"/></svg></button></div>
+      </div>
+      <div class="bpane" data-pane="2" hidden>
+        <h3>Pick a time that works</h3>
+        <div class="days" id="bDays" role="group" aria-label="Day"></div>
+        <div class="slots" id="bSlots" role="group" aria-label="Time window"></div>
+        <div class="err" id="err2" role="alert"></div>
+        <div class="bnav"><button class="btn btn-ghost" type="button" data-back="1">Back</button><button class="btn btn-blue" type="button" data-next="3">Next: your details <svg class="ico"><use href="#i-arrow"/></svg></button></div>
+      </div>
+      <div class="bpane" data-pane="3" hidden>
+        <h3>Where should we send your plumber?</h3>
+        <div class="fields">
+          <label class="f">Your name<input id="bName" autocomplete="name" placeholder="First and last name"></label>
+          <label class="f">Mobile number<input id="bPhone" type="tel" autocomplete="tel" placeholder="(512) 555-0100"></label>
+          <label class="f">Street address<input id="bAddr" autocomplete="street-address" placeholder="Street, city"></label>
+        </div>
+        <div class="err" id="err3" role="alert"></div>
+        <div class="bnav"><button class="btn btn-ghost" type="button" data-back="2">Back</button><button class="btn btn-red" type="button" id="bConfirm"><svg class="ico"><use href="#i-check"/></svg>Confirm booking</button></div>
+      </div>
+      <div class="bpane" data-pane="4" hidden>
+        <div class="ok"><span class="tick"><svg class="ico" style="width:30px;height:30px"><use href="#i-check"/></svg></span>
+          <div><h3 id="okTitle">You're booked!</h3><p class="bsum" id="okText" style="margin-top:6px"></p><p class="bsum" style="margin-top:8px">This is a demo, so no real booking was made. On a real website, the business gets your request instantly.</p>
+          <button class="btn btn-ghost btn-sm" type="button" id="bAgain" style="margin-top:14px">Start over</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="book simple-form" style="padding:26px">
+      <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center"><h3>Request service</h3><span class="incl-tag">✓ Included in $250: contact form</span></div>
+      <div class="fields">
+        <label class="f">Your name<input placeholder="First and last name"></label>
+        <label class="f">Mobile number<input type="tel" placeholder="(512) 555-0100"></label>
+        <label class="f">What's the problem?<input placeholder="e.g. kitchen sink is clogged"></label>
+      </div>
+      <div class="bnav"><span class="bsum">We call you back to set a time.</span><button class="btn btn-blue" type="button" onclick="this.textContent='Sent! (demo)'">Send request</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM + PROMISES -->
+<section style="background:var(--bg)">
+  <div class="wrap">
+    <div class="shead">
+      <div><span class="eyebrow">Know who's coming</span><h2 style="margin-top:8px">Who's coming, and what we promise</h2></div>
+      <span class="incl-tag">✓ Included in $250</span>
+    </div>
+    <div class="team-grid">
+      <div>
+        <div class="people">
+          <figure class="person reveal" style="margin:0"><img loading="lazy" src="https://images.unsplash.com/photo-1732395805034-e0bf859665e5?w=500&h=520&fit=crop&crop=faces&auto=format&q=70" alt="Marcus, service plumber, smiling in a navy work jacket and cap" width="500" height="520"><div><b>Marcus</b><span>Service plumber</span></div></figure>
+          <figure class="person reveal" style="margin:0"><img loading="lazy" src="https://images.unsplash.com/photo-1787672357491-d43acdf974cb?w=500&h=520&fit=crop&crop=faces&auto=format&q=70" alt="Daniel, water heater specialist, in a blue work uniform and cap" width="500" height="520"><div><b>Daniel</b><span>Water heater specialist</span></div></figure>
+          <figure class="person reveal" style="margin:0"><img loading="lazy" src="https://images.unsplash.com/photo-1742844019488-12a9356a7ace?w=500&h=520&fit=crop&crop=faces&auto=format&q=70" alt="Luis, drain and sewer plumber, smiling in a red shirt" width="500" height="520"><div><b>Luis</b><span>Drain &amp; sewer · habla español</span></div></figure>
+        </div>
+        <div class="text-note"><svg class="ico"><use href="#i-msg"/></svg>Before every visit, we text you your plumber's name and photo, so you know exactly who's at the door.</div>
+      </div>
+      <div>
+        <div class="promise reveal"><span class="ic"><svg class="ico"><use href="#i-clock"/></svg></span><div><h3>We show up when we say we will</h3><p>If we're more than 15 minutes late to your scheduled appointment without contacting you first, we'll credit $25 toward your service.</p><small>Scheduled appointments in our normal service area. Emergency arrival times can vary.</small></div></div>
+        <div class="promise reveal"><span class="ic"><svg class="ico"><use href="#i-shield"/></svg></span><div><h3>Every repair comes with a written warranty</h3><p>You get it in writing: what's covered and for how long. If something we fixed fails, we come back and make it right.</p></div></div>
+        <div class="promise reveal"><span class="ic"><svg class="ico"><use href="#i-tag"/></svg></span><div><h3>Price agreed before work starts</h3><p>Your plumber explains the problem and confirms the price first. No surprise invoices, no extra charge for nights or weekends.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MORE REASONS (extra section add-on) -->
+<section data-addon="Extra section · add-on">
+  <div class="wrap">
+    <div class="shead">
+      <div><span class="eyebrow">More reasons Austin chooses us</span><h2 style="margin-top:8px">See the difference</h2></div>
+      <span class="addon-tag">Add-on · Extra section</span>
+    </div>
+    <div class="more">
+      <div class="box reveal">
+        <h3>Before &amp; after</h3>
+        <div class="ba">
+          <figure><img loading="lazy" src="https://images.unsplash.com/photo-1772397546294-a2554a8a9793?w=420&h=420&fit=crop&auto=format&q=65" alt="Before: murky water backed up around a clogged drain" width="420" height="420"><figcaption>Before: clogged drain</figcaption></figure>
+          <figure><img loading="lazy" src="https://images.unsplash.com/photo-1748399132710-d509b7ef3e64?w=420&h=420&fit=crop&auto=format&q=65" alt="After: clean water draining freely from a sink" width="420" height="420"><figcaption>After: flowing freely</figcaption></figure>
+          <figure><img loading="lazy" src="https://images.unsplash.com/photo-1594233078955-e1f73a02ebb2?w=420&h=420&fit=crop&auto=format&q=65" alt="Before: old corroded water heater tank" width="420" height="420"><figcaption>Before: old heater</figcaption></figure>
+          <figure><img loading="lazy" src="https://images.unsplash.com/photo-1620653713380-7a34b773fef8?w=420&h=420&fit=crop&auto=format&q=65" alt="After: new water heater being connected by a plumber" width="420" height="420"><figcaption>After: new install</figcaption></figure>
+        </div>
+      </div>
+      <div class="box club reveal">
+        <span class="addon-tag">Add-on</span>
+        <h3>CreekCare Club</h3>
+        <div class="amt">$12<small>/month <span class="demo">DEMO</span></small></div>
+        <ul>
+          <li><svg class="ico"><use href="#i-check"/></svg>No diagnostic fee, ever</li>
+          <li><svg class="ico"><use href="#i-check"/></svg>Priority scheduling</li>
+          <li><svg class="ico"><use href="#i-check"/></svg>Yearly plumbing inspection</li>
+          <li><svg class="ico"><use href="#i-check"/></svg>Yearly water heater flush</li>
+          <li><svg class="ico"><use href="#i-check"/></svg>10% off repairs</li>
+        </ul>
+        <a class="btn btn-ghost btn-sm" href="#book">Join CreekCare</a>
+      </div>
+      <div class="box fin reveal">
+        <span class="addon-tag">Add-on</span>
+        <h3>Fix it now, pay over time</h3>
+        <div class="amt">$1,800 repair ≈ $75/mo</div>
+        <p>Example: 24 monthly payments. Actual terms depend on approval and the lender. <span class="demo">DEMO</span></p>
+        <a class="btn btn-ghost btn-sm" href="#book" style="margin-top:16px">See financing options</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE AREA + CONTACT -->
+<section id="areas" style="background:var(--bg)">
+  <div class="wrap area">
+    <div>
+      <span class="eyebrow">Service area</span>
+      <h2 style="margin-top:8px">Your local Austin-area plumber</h2>
+      <p class="sub">Same-day service across Austin and nearby communities.</p>
+      <ul class="cities">
+        <li><svg class="ico"><use href="#i-check"/></svg>Austin</li><li><svg class="ico"><use href="#i-check"/></svg>Georgetown</li>
+        <li><svg class="ico"><use href="#i-check"/></svg>Round Rock</li><li><svg class="ico"><use href="#i-check"/></svg>Leander</li>
+        <li><svg class="ico"><use href="#i-check"/></svg>Cedar Park</li><li><svg class="ico"><use href="#i-check"/></svg>Kyle</li>
+        <li><svg class="ico"><use href="#i-check"/></svg>Pflugerville</li><li><svg class="ico"><use href="#i-check"/></svg>Buda</li>
+      </ul>
+      <div class="contact-card">
+        <b>Don't see your neighborhood?</b>
+        <p style="color:var(--muted);margin-top:4px">Call <a href="tel:5125550147">512-555-0147</a> <span class="demo">DEMO</span> and we'll tell you straight away. Open 24/7 for emergencies; regular service Mon–Sat, 7 a.m.–7 p.m.</p>
+      </div>
+      <span class="incl-tag" style="margin-top:14px">✓ Included in $250</span>
+    </div>
+    <div class="map" aria-label="Map of the Austin service area">
+      <svg viewBox="0 0 400 420" role="img" aria-labelledby="mapT"><title id="mapT">Service area: Georgetown, Leander, Cedar Park, Round Rock, Pflugerville, Austin, Buda and Kyle</title>
+        <rect width="400" height="420" rx="16" fill="#E3ECF9"/>
+        <path d="M30 330 C110 300 150 250 210 240 S330 210 380 150" stroke="#9CC0F0" stroke-width="10" fill="none" stroke-linecap="round"/>
+        <path d="M200 20 L200 400" stroke="#fff" stroke-width="7"/><path d="M170 20 C180 140 190 260 175 400" stroke="#fff" stroke-width="4"/>
+        <circle cx="205" cy="235" r="120" fill="#1D5FD1" opacity=".09" stroke="#1D5FD1" stroke-dasharray="6 6"/>
+        <g font-family="Archivo" font-weight="700" font-size="14" fill="#0B2545">
+          <circle cx="210" cy="60" r="6" fill="#1D5FD1"/><text x="222" y="65">Georgetown</text>
+          <circle cx="110" cy="105" r="6" fill="#1D5FD1"/><text x="40" y="95">Leander</text>
+          <circle cx="135" cy="140" r="6" fill="#1D5FD1"/><text x="40" y="150">Cedar Park</text>
+          <circle cx="215" cy="125" r="6" fill="#1D5FD1"/><text x="227" y="130">Round Rock</text>
+          <circle cx="265" cy="170" r="6" fill="#1D5FD1"/><text x="277" y="175">Pflugerville</text>
+          <circle cx="200" cy="240" r="10" fill="#D7262E"/><text x="218" y="246" font-size="17">Austin</text>
+          <circle cx="170" cy="330" r="6" fill="#1D5FD1"/><text x="95" y="335">Buda</text>
+          <circle cx="180" cy="370" r="6" fill="#1D5FD1"/><text x="196" y="375">Kyle</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ (extra section add-on) -->
+<section id="faq" data-addon="Extra section · add-on">
+  <div class="wrap">
+    <div class="shead"><div><span class="eyebrow">FAQ</span><h2 style="margin-top:8px">Austin plumbing questions, answered</h2></div><span class="addon-tag">Add-on · Extra section</span></div>
+    <div class="faq">
+      <details><summary>Do you offer emergency plumbing in Austin?</summary><p>Yes. We answer 24/7, including nights, weekends and holidays. For burst pipes or major leaks, shut off your main water valve and call us right away.</p></details>
+      <details><summary>How quickly can a plumber come?</summary><p>Most Austin-area calls get a same-day appointment. Emergencies are dispatched right away, and we'll give you an honest arrival time on the phone.</p></details>
+      <details><summary>Do you give prices before starting work?</summary><p>Yes. Our website shows typical price ranges, and your plumber confirms the exact price on site before any work begins.</p></details>
+      <details><summary>Do you charge extra for nights or weekends?</summary><p>No. Same pricing every day of the week.</p></details>
+      <details><summary>Can I book online?</summary><p>Yes. Pick your problem, choose a time window, and leave your name and number. It takes about a minute.</p></details>
+      <details><summary>Do you offer financing?</summary><p>Yes, for larger jobs like water heater replacement or sewer repair, subject to approval.</p></details>
+      <details><summary>¿Hablan español?</summary><p>Sí. Varios de nuestros plomeros hablan español. Use el chat o llámenos.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final" style="background-image:url('https://images.unsplash.com/photo-1530089711124-9ca31fb9e863?w=1600&h=600&fit=crop&auto=format&q=60')">
+  <div class="wrap">
+    <div><h2>A plumbing problem shouldn't take all day to solve.</h2><p>Get a clear next step, a real appointment time and straightforward communication.</p></div>
+    <div class="acts">
+      <a class="btn btn-red" href="tel:5125550147"><svg class="ico"><use href="#i-phone"/></svg>Call 512-555-0147</a>
+      <a class="btn btn-blue needs-addon" href="#book"><svg class="ico"><use href="#i-cal"/></svg>Book a Time</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div><b style="color:#fff;font-family:Archivo;font-size:18px">Capitol Creek Plumbing <span class="demo">DEMO</span></b><p style="margin-top:8px">Straight answers. Solid plumbing. Serving Austin and nearby communities 24/7.</p><p style="margin-top:8px">512-555-0147 (demo) · License M-00000 (demo)</p></div>
+      <div><h4>Services</h4><a href="#services">Emergency plumbing</a><a href="#services">Drain cleaning</a><a href="#services">Water heaters</a><a href="#services">Leak detection</a></div>
+      <div><h4>Service areas</h4><a href="#areas">Austin</a><a href="#areas">Round Rock</a><a href="#areas">Cedar Park</a><a href="#areas">Pflugerville</a></div>
+      <div><h4>Company</h4><a href="#reviews">Reviews</a><a href="#book">Book a time</a><a href="#faq">FAQ</a><a href="/">Built by Ace Digital Solutions</a></div>
+    </div>
+    <p class="disclose"><b>This entire website is a fictional demonstration created by Ace Digital Solutions.</b> The business name, phone number, license number, reviews, technicians, prices, guarantees and other details are made up for demonstration only. Photos from Unsplash (Timur Shakerzianov, Iain Feeney, Divaris Shirichena, Wright Building Center, Murphy Stay, Alex Gorin, Sies Kranen, Marian Florinel Condruz, Carlos Delgado).</p>
+  </div>
+</footer>
+
+<!-- Mobile action bar -->
+<div class="mbar" aria-label="Quick actions">
+  <a class="c" href="tel:5125550147"><svg class="ico"><use href="#i-phone"/></svg>Call</a>
+  <a class="b" href="#book"><svg class="ico"><use href="#i-cal"/></svg>Book</a>
+  <button class="h" type="button" data-open-chat><svg class="ico"><use href="#i-chat"/></svg>Chat</button>
+</div>
+
+<!-- Chat -->
+<button class="chat-fab" id="chatFab" type="button" aria-controls="chat" aria-expanded="false"><span class="live"></span>Chat with us</button>
+<div class="chat" id="chat" hidden role="dialog" aria-label="Capitol Creek chat assistant">
+  <div class="chat-h">
+    <span class="av"><svg class="ico"><use href="#i-wrench"/></svg></span>
+    <div><b>Capitol Creek Assistant</b><small><i></i>Online 24/7 · <span class="addon-tag">Add-on · chatbot</span></small></div>
+    <button type="button" id="chatClose" aria-label="Close chat"><svg class="ico"><use href="#i-x"/></svg></button>
+  </div>
+  <div class="clog" id="clog" aria-live="polite"></div>
+  <form class="cform" id="cform"><label for="cin" class="sr">Type your message</label><input id="cin" autocomplete="off" maxlength="500" placeholder="Type your question…"><button type="submit" aria-label="Send"><svg class="ico"><use href="#i-send"/></svg></button></form>
+  <div class="cnote">Demo assistant. Don't share private information.</div>
+</div>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+  const ico=n=>`<svg class="ico"><use href="#i-${n}"/></svg>`;
+
+  /* ---------- $250 toggle ---------- */
+  const tg=$("#baseToggle");
+  tg.addEventListener("change",()=>{document.body.classList.toggle("base-only",tg.checked);$$("[data-base-show]").forEach(e=>e.style.display=tg.checked?"inline-flex":"none"); if(tg.checked) closeChat();});
+
+  /* ---------- Mobile menu ---------- */
+  const mb=$("#menuBtn"), mn=$("#mnav");
+  mb.addEventListener("click",()=>{const o=mn.classList.toggle("open");mb.setAttribute("aria-expanded",o)});
+  mn.addEventListener("click",e=>{if(e.target.closest("a")){mn.classList.remove("open");mb.setAttribute("aria-expanded",false)}});
+
+  /* ---------- Shut-off help ---------- */
+  $("#shutBtn").addEventListener("click",e=>{const o=$("#shutoff").classList.toggle("open");e.currentTarget.setAttribute("aria-expanded",o)});
+
+  /* ---------- Price tool ---------- */
+  const PRICES={
+    heater:{name:"Water heater repair",icon:"heater",r:"$200 – $650",n:"Common repairs like thermostats, heating elements and valves. A full replacement typically runs $1,600 – $3,200 installed."},
+    drain:{name:"Clogged drain",icon:"drain",r:"$150 – $350",n:"Kitchen, bathroom or tub drains cleared with a snake or hydro-jetting where needed."},
+    toilet:{name:"Toilet repair",icon:"toilet",r:"$125 – $325",n:"Running, leaking or clogged toilets. Full toilet replacement is quoted separately."},
+    faucet:{name:"Faucet leak",icon:"faucet",r:"$125 – $300",n:"Dripping or leaking faucets repaired, or replaced with a fixture you choose."},
+    sewer:{name:"Main line backup",icon:"pipe",r:"$250 – $700",n:"Main sewer line clearing, with a camera inspection when backups keep coming back."},
+    leak:{name:"Leak detection",icon:"search",r:"$200 – $450",n:"Finding hidden leaks in walls, ceilings or under the yard. Repair is quoted once the leak is found."},
+    disposal:{name:"Garbage disposal",icon:"wrench",r:"$150 – $450",n:"Jammed or leaking disposals repaired, or replaced with a new unit."},
+    slab:{name:"Slab leak",icon:"drop",r:"$500 – $2,500",n:"Leaks under your foundation, common in Austin's clay soil. Price depends on access and reroute options."},
+    emergency:{name:"Emergency call-out",icon:"alert",r:"$175 – $450",n:"Burst pipes, major leaks and backups, any time of day. No extra charge for nights or weekends."}
+  };
+  const chips=$("#chips");
+  chips.innerHTML=Object.entries(PRICES).filter(([k])=>k!=="emergency").map(([k,p])=>`<button class="chip" type="button" data-k="${k}" aria-pressed="false">${ico(p.icon)}${p.name}</button>`).join("");
+  function pick(k){const p=PRICES[k]; if(!p) return; $("#pRange").textContent=p.r; $("#pWhat").textContent=p.name; $("#pNote").textContent=p.n+" Your plumber confirms the final price on site before any work begins."; $$(".chip").forEach(c=>c.setAttribute("aria-pressed",c.dataset.k===k)); $("#pBook").dataset.k=k;}
+  chips.addEventListener("click",e=>{const c=e.target.closest(".chip"); if(c) pick(c.dataset.k)});
+  pick("heater");
+  $$("[data-price]").forEach(b=>b.addEventListener("click",()=>{ if(document.body.classList.contains("base-only")){location.hash="#areas";return;} pick(b.dataset.price); $("#prices").scrollIntoView({behavior:"smooth"});}));
+  $("#pBook").addEventListener("click",()=>{const k=$("#pBook").dataset.k; const map={heater:"Water heater",drain:"Clogged drain",toilet:"Toilet",faucet:"Faucet / fixture",sewer:"Sewer / main line",leak:"Leak",disposal:"Something else",slab:"Leak",emergency:"Emergency"}; setProblem(map[k]||"Something else");});
+
+  /* ---------- Booking ---------- */
+  const PROB=[["Emergency","Water everywhere / burst pipe"],["Clogged drain","Sink, tub or shower"],["Water heater","No hot water or leaking"],["Leak","Dripping, stains or high bill"],["Toilet","Running, leaking or clogged"],["Faucet / fixture","Repair or replace"],["Sewer / main line","Backups in several drains"],["Something else","We'll figure it out together"]];
+  const bk={problem:null,day:null,slot:null};
+  $("#bProblems").innerHTML=PROB.map(([t,s])=>`<button type="button" class="opt" data-p="${t}" aria-pressed="false">${t}<small>${s}</small></button>`).join("");
+  function setProblem(t){bk.problem=t; $$("#bProblems .opt").forEach(o=>o.setAttribute("aria-pressed",o.dataset.p===t)); $("#err1").textContent="";}
+  $("#bProblems").addEventListener("click",e=>{const o=e.target.closest(".opt"); if(o) setProblem(o.dataset.p)});
+  const fmt=d=>d.toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"});
+  const days=[]; for(let i=0;days.length<4;i++){const d=new Date(); d.setDate(d.getDate()+i); if(d.getDay()!==0) days.push(d);}
+  $("#bDays").innerHTML=days.map((d,i)=>`<button type="button" class="btn btn-ghost btn-sm" data-d="${i}" aria-pressed="false">${i===0&&d.toDateString()===new Date().toDateString()?"Today":fmt(d)}</button>`).join("");
+  const SLOTS=["8–10 a.m.","10 a.m.–12 p.m.","12–2 p.m.","2–4 p.m.","4–6 p.m.","6–7 p.m."];
+  function renderSlots(i){ const taken=[1,4].map(x=>(x+i)%SLOTS.length); const today=days[i].toDateString()===new Date().toDateString(); const h=new Date().getHours();
+    $("#bSlots").innerHTML=SLOTS.map((s,j)=>{const past=today && (8+j*2)<=h+1; const off=past||taken.includes(j); return `<button type="button" class="opt" data-s="${s}" aria-pressed="false" ${off?'disabled style="opacity:.4;cursor:not-allowed"':""}>${s}<small>${off?(past?"Passed":"Booked"):"Available"}</small></button>`}).join(""); bk.slot=null;}
+  $("#bDays").addEventListener("click",e=>{const b=e.target.closest("[data-d]"); if(!b) return; bk.day=+b.dataset.d; $$("#bDays [data-d]").forEach(x=>{const on=x===b; x.setAttribute("aria-pressed",on); x.className="btn btn-sm "+(on?"btn-blue":"btn-ghost")}); renderSlots(bk.day); $("#err2").textContent="";});
+  $("#bSlots").addEventListener("click",e=>{const o=e.target.closest(".opt"); if(!o||o.disabled) return; bk.slot=o.dataset.s; $$("#bSlots .opt").forEach(x=>x.setAttribute("aria-pressed",x===o)); $("#err2").textContent="";});
+  function go(n){ $$("#booking .bpane").forEach(p=>p.hidden=+p.dataset.pane!==n); $$("#booking .steps div").forEach(s=>{const k=+s.dataset.step; s.className=k<n?"done":k===n?"on":""}); }
+  $$("#booking [data-next]").forEach(b=>b.addEventListener("click",()=>{const n=+b.dataset.next;
+    if(n===2&&!bk.problem){$("#err1").textContent="Please pick the problem first."; return;}
+    if(n===3&&(bk.day===null||!bk.slot)){$("#err2").textContent="Please choose a day and a time window."; return;}
+    if(n===2&&bk.day===null){$("#bDays [data-d]").click();}
+    go(n);}));
+  $$("#booking [data-back]").forEach(b=>b.addEventListener("click",()=>go(+b.dataset.back)));
+  $("#bConfirm").addEventListener("click",()=>{const nm=$("#bName").value.trim(), ph=$("#bPhone").value.replace(/\D/g,""), ad=$("#bAddr").value.trim();
+    if(!nm||ph.length<10||!ad){$("#err3").textContent="Please enter your name, a 10-digit phone number and your address."; return;}
+    $("#okTitle").textContent=`You're booked, ${nm.split(" ")[0]}!`;
+    $("#okText").textContent=`${bk.problem} · ${fmt(days[bk.day])}, ${bk.slot} — we'll text ${$("#bPhone").value.trim()} with your plumber's name and photo before they arrive.`;
+    go(4);});
+  $("#bAgain").addEventListener("click",()=>{bk.problem=null;bk.slot=null;bk.day=null;["#bName","#bPhone","#bAddr"].forEach(s=>$(s).value="");$$("#bProblems .opt").forEach(o=>o.setAttribute("aria-pressed",false));$$("#bDays [data-d]").forEach(x=>{x.className="btn btn-ghost btn-sm";x.setAttribute("aria-pressed",false)});$("#bSlots").innerHTML="";go(1);});
+
+  /* ---------- Reveal on scroll ---------- */
+  if("IntersectionObserver" in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12}); $$(".reveal").forEach(el=>io.observe(el));} else $$(".reveal").forEach(el=>el.classList.add("in"));
+
+  /* ---------- Chat assistant ---------- */
+  const CHAT_API="https://ace-chat.adamteokokwei.workers.dev/chat"; // same server as Ace's own chat; bot:"capitol-demo" selects this business's facts
+  const chat=$("#chat"), fab=$("#chatFab"), log=$("#clog"), input=$("#cin");
+  let started=false, es=false, busy=false; const hist=[];
+  const esc=s=>s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const fmtAI=t=>esc(t).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/\n+/g,"<br>");
+  const wait=ms=>new Promise(r=>setTimeout(r,ms));
+  function say(html,me){const d=document.createElement("div"); d.className="msg"+(me?" me":""); d.innerHTML=html; log.appendChild(d); log.scrollTop=log.scrollHeight; return d;}
+  function quick(items){const q=document.createElement("div"); q.className="quick"; items.forEach(([t,fn,cls])=>{const b=document.createElement("button"); b.type="button"; b.textContent=t; if(cls) b.className=cls; b.onclick=()=>{q.remove(); say(esc(t),true); respond(fn);}; q.appendChild(b)}); log.appendChild(q); log.scrollTop=log.scrollHeight;}
+  async function respond(fn,ms){busy=true; const t=document.createElement("div"); t.className="msg typing"; t.innerHTML="<i></i><i></i><i></i>"; log.appendChild(t); log.scrollTop=log.scrollHeight; await wait(ms||900); t.remove(); busy=false; fn();}
+  const T={
+    en:{hi:"Hi! I'm the Capitol Creek assistant. I can help with an emergency, give you a typical price, or book a plumber. What's going on?",
+        q:[["🚨 I have an emergency",()=>emergency(),"red"],["What will it cost?",()=>prices()],["Book a plumber",()=>book()],["Areas you serve",()=>areas()],["Español",()=>setEs(true)]],
+        more:"Anything else I can help with?"},
+    es:{hi:"¡Hola! Soy el asistente de Capitol Creek. Puedo ayudarle con una emergencia, darle un precio típico o reservar un plomero. ¿Qué está pasando?",
+        q:[["🚨 Tengo una emergencia",()=>emergency(),"red"],["¿Cuánto cuesta?",()=>prices()],["Reservar un plomero",()=>book()],["Zonas de servicio",()=>areas()],["English",()=>setEs(false)]],
+        more:"¿Algo más en que le pueda ayudar?"}
+  };
+  const L=()=>T[es?"es":"en"];
+  function menu(){say(L().hi); quick(L().q);}
+  function after(){quick(L().q.slice(0,4).concat([[es?"English":"Español",()=>setEs(!es)]]));}
+  function setEs(v){es=v; say(v?"Perfecto, seguimos en español.":"Sure, let's continue in English."); quick(L().q.slice(0,4));}
+  function emergency(){say(es?"Primero, <b>cierre la llave principal de agua</b> (normalmente en el garaje, un clóset o cerca de la llave exterior). Luego llámenos 24/7: <a href='tel:5125550147'>512-555-0147</a> (demo). Enviamos un plomero de inmediato."
+    :"First, <b>shut off your main water valve</b> (usually in the garage, a utility closet, or outside near the hose bib). Then call us 24/7 at <a href='tel:5125550147'>512-555-0147</a> (demo). We dispatch a plumber right away."); after();}
+  function prices(){say(es?"Rangos típicos en Austin (demo): destapar drenaje <b>$150–$350</b>, reparar calentador <b>$200–$650</b>, inodoro <b>$125–$325</b>, detección de fugas <b>$200–$450</b>. El plomero confirma el precio final antes de empezar."
+    :"Typical Austin ranges (demo): clogged drain <b>$150–$350</b>, water heater repair <b>$200–$650</b>, toilet repair <b>$125–$325</b>, leak detection <b>$200–$450</b>. Your plumber confirms the final price before any work starts. <a href='#prices'>See all prices</a>"); after();}
+  function book(){say(es?"Puede reservar en 3 pasos: problema, horario, nombre y teléfono. <a href='#book'>Reservar ahora</a>, o llame al 512-555-0147 (demo)."
+    :"You can book in 3 quick steps: problem, time, name and phone. <a href='#book'>Book now</a>, or call 512-555-0147 (demo). Most Austin calls get a same-day slot."); after();}
+  function areas(){say(es?"Atendemos Austin, Round Rock, Cedar Park, Pflugerville, Georgetown, Leander, Kyle y Buda."
+    :"We serve Austin, Round Rock, Cedar Park, Pflugerville, Georgetown, Leander, Kyle and Buda. Not sure about your area? Just ask."); after();}
+  function scripted(q){const t=q.toLowerCase();
+    if(/(burst|flood|water everywhere|emergenc|urgent|inund|emergencia)/.test(t)) return emergency();
+    if(/(cost|price|how much|cuánto|cuanto|precio)/.test(t)) return prices();
+    if(/(book|appointment|schedule|come out|reserv|cita)/.test(t)) return book();
+    if(/(area|serve|city|zona|round rock|cedar|kyle|buda|georgetown|leander|pfluger)/.test(t)) return areas();
+    if(/(spanish|español|espanol)/.test(t)) return setEs(true);
+    say(es?"Buena pregunta. Para eso es mejor hablar con nuestro equipo: llame al 512-555-0147 (demo) o reserve en línea.":"Good question. Our team can answer that best: call 512-555-0147 (demo) or book online and we'll call you."); after();}
+  async function askAI(q){ if(!CHAT_API) return null; hist.push({role:"user",content:q});
+    try{const c=new AbortController(); const to=setTimeout(()=>c.abort(),20000);
+      const r=await fetch(CHAT_API,{method:"POST",signal:c.signal,headers:{"Content-Type":"application/json"},body:JSON.stringify({bot:"capitol-demo",messages:hist.slice(-10)})});
+      clearTimeout(to); const d=await r.json().catch(()=>({})); if(!r.ok||!d.reply){hist.pop();return null;} hist.push({role:"assistant",content:d.reply}); return d.reply;
+    }catch(e){hist.pop();return null;}}
+  $("#cform").addEventListener("submit",async e=>{e.preventDefault(); if(busy) return; const q=input.value.trim().slice(0,500); if(!q) return; input.value="";
+    say(esc(q),true); log.querySelectorAll(".quick").forEach(x=>x.remove());
+    if(/[¿¡ñáéíóú]|\b(hola|necesito|tengo|gracias|plomero)\b/i.test(q)) es=true;
+    busy=true; const t=document.createElement("div"); t.className="msg typing"; t.innerHTML="<i></i><i></i><i></i>"; log.appendChild(t); log.scrollTop=log.scrollHeight;
+    const [reply]=await Promise.all([askAI(q),wait(1200)]); t.remove(); busy=false;
+    if(reply){say(fmtAI(reply)); after();} else scripted(q);});
+  function openChat(spanish){chat.hidden=false; fab.setAttribute("aria-expanded",true); if(spanish&&!es){es=true; if(started){say("¡Claro! Seguimos en español."); quick(L().q.slice(0,4));}} if(!started){started=true; respond(menu,600);} setTimeout(()=>input.focus(),50);}
+  function closeChat(){chat.hidden=true; fab.setAttribute("aria-expanded",false);}
+  fab.addEventListener("click",()=>chat.hidden?openChat():closeChat());
+  $("#chatClose").addEventListener("click",closeChat);
+  $$("[data-open-chat]").forEach(b=>b.addEventListener("click",()=>chat.hidden?openChat():closeChat()));
+  $$("[data-spanish]").forEach(b=>b.addEventListener("click",()=>openChat(true)));
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!chat.hidden) closeChat();});
+})();
+</script>
+</body>
+</html>

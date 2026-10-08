@@ -64,6 +64,27 @@ function originOk(origin, allowed) {
   return allowed.split(",").map(a => a.trim().replace(/\/+$/, "")).filter(Boolean).includes(origin);
 }
 
+// Prompt for the fictional "Capitol Creek Plumbing" demo website (Ace's showroom demo).
+const DEMO_PLUMBING_PROMPT = `You are the website chat assistant for Capitol Creek Plumbing, a plumbing company in Austin, Texas. This is a FICTIONAL DEMO business shown by Ace Digital Solutions to plumbing owners. Play the role naturally, but if anyone asks whether this is real, say it is a demo website made by Ace Digital Solutions, and that a real plumber's website could have this assistant too.
+
+FACTS (all demo)
+- Phone 512-555-0147 (demo). 24/7 emergency service; regular hours Mon–Sat 7 a.m.–7 p.m. No extra charge for nights or weekends.
+- Service area: Austin, Round Rock, Cedar Park, Pflugerville, Georgetown, Leander, Kyle, Buda.
+- Most Austin-area calls get a same-day appointment. Book online on the page (3 steps: problem, time window, name + phone + address) or call.
+- Typical price ranges (final price confirmed on site before work starts): clogged drain $150–$350; water heater repair $200–$650 (replacement $1,600–$3,200 installed); toilet repair $125–$325; faucet leak $125–$300; main line backup $250–$700; leak detection $200–$450; garbage disposal $150–$450; slab leak $500–$2,500; emergency call-out $175–$450.
+- Promises: on-time guarantee (more than 15 minutes late without contacting you first = $25 credit, scheduled appointments only); written warranty on every repair; price agreed before work starts. We text the plumber's name and photo before arrival.
+- Team: Marcus (service plumber), Daniel (water heater specialist), Luis (drain & sewer, speaks Spanish).
+- CreekCare Club: $12/month, no diagnostic fee, priority scheduling, yearly inspection and water heater flush, 10% off repairs.
+- Financing available for larger jobs, subject to approval (example: $1,800 repair about $75/month over 24 months).
+- Licensed and insured; license M-00000 (demo). 4.9 stars from 1,240 reviews (demo).
+
+HOW TO ANSWER
+- Reply in the visitor's language (English or Spanish). Friendly, calm, brief: 1–3 short sentences.
+- For flooding, burst pipes or gas smells: tell them to shut off the main water valve (or leave the house and call the gas company / 911 for a gas smell), then call 512-555-0147.
+- Never diagnose with certainty or promise exact prices; give the typical range and say the plumber confirms on site.
+- Encourage booking online or calling. Never collect payment details. Only use the facts above; if unsure, suggest calling.
+- No headings or long lists. Use **bold** sparingly.`;
+
 function cors(origin, allowed) {
   const ok = originOk(origin, allowed);
   return {
@@ -79,7 +100,7 @@ function json(body, status, headers) {
 }
 
 // Ask whichever AI is configured. Returns { reply } or { error, status, detail }.
-async function callAI(env, messages) {
+async function callAI(env, messages, system = SYSTEM_PROMPT) {
   let res, provider;
   try {
     if (env.GEMINI_API_KEY) {
@@ -93,7 +114,7 @@ async function callAI(env, messages) {
           method: "POST",
           headers: { "x-goog-api-key": env.GEMINI_API_KEY.trim(), "Content-Type": "application/json" },
           body: JSON.stringify({
-            systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+            systemInstruction: { parts: [{ text: system }] },
             contents: messages.map(m => ({ role: m.role === "assistant" ? "model" : "user", parts: [{ text: m.content }] })),
             generationConfig: { maxOutputTokens: 1500, temperature: 0.4 }, // extra room because Gemini may "think" before answering
           }),
@@ -117,7 +138,7 @@ async function callAI(env, messages) {
         method: "POST",
         headers: { "Authorization": `Bearer ${env.OPENAI_API_KEY.trim()}`, "Content-Type": "application/json" },
         body: JSON.stringify({ model: env.OPENAI_MODEL || OPENAI_MODEL, max_tokens: MAX_TOKENS, temperature: 0.4,
-          messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages] }),
+          messages: [{ role: "system", content: system }, ...messages] }),
       });
       if (res.ok) {
         const out = await res.json();
@@ -130,7 +151,7 @@ async function callAI(env, messages) {
       res = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
         headers: { "x-api-key": env.ANTHROPIC_API_KEY.trim(), "anthropic-version": "2023-06-01", "content-type": "application/json" },
-        body: JSON.stringify({ model: CLAUDE_MODEL, max_tokens: MAX_TOKENS, system: SYSTEM_PROMPT, messages }),
+        body: JSON.stringify({ model: CLAUDE_MODEL, max_tokens: MAX_TOKENS, system, messages }),
       });
       if (res.ok) {
         const out = await res.json();
@@ -189,7 +210,8 @@ export default {
     while (messages.length && messages[0].role !== "user") messages.shift();
     if (!messages.length || messages[messages.length - 1].role !== "user") return json({ error: "No question received" }, 400, headers);
 
-    const result = await callAI(env, messages);
+    const system = data.bot === "capitol-demo" ? DEMO_PLUMBING_PROMPT : SYSTEM_PROMPT;
+    const result = await callAI(env, messages, system);
     if (result.reply) return json({ reply: result.reply }, 200, headers);
     console.log("AI error:", JSON.stringify(result)); // visible in the Worker's Logs tab
     return json(result, 502, headers);

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>A+ Websites That Win Local Customers | Ace Digital Solutions</title>
+<title>A+ Website Design for Local Businesses | Ace Digital Solutions</title>
 <meta name="description" content="A+ websites that win local businesses more customers. From $250 one-time, with a free consultation and free Google Business Profile setup.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="author" content="Adam, Ace Digital Solutions">
@@ -11,11 +11,11 @@
 <!-- When your domain is live, add: <link rel="canonical" href="https://YOUR-DOMAIN/"> and <meta property="og:url" content="https://YOUR-DOMAIN/"> -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Ace Digital Solutions">
-<meta property="og:title" content="A+ Websites That Win Local Customers | Ace Digital Solutions">
+<meta property="og:title" content="A+ Website Design for Local Businesses | Ace Digital Solutions">
 <meta property="og:description" content="A+ websites that win local businesses more customers. From $250 one-time, with a free consultation and free Google Business Profile setup.">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="A+ Websites That Win Local Customers | Ace Digital Solutions">
+<meta name="twitter:title" content="A+ Website Design for Local Businesses | Ace Digital Solutions">
 <meta name="twitter:description" content="A+ websites that win local businesses more customers. From $250 one-time, with a free consultation and free Google Business Profile setup.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 40'><path d='M22 2 42 38H32L22 19 12 38H2Z' fill='%232563EB'/><path d='M5 31c9-6 21-8 37-5-14 0-25 3-34 9Z' fill='%2360A5FA'/></svg>">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ProfessionalService", "name": "Ace Digital Solutions", "sameAs": ["https://www.facebook.com/profile.php?id=61595360692132"], "description": "A+ websites that win local businesses more customers. From $250 one-time, with a free consultation and free Google Business Profile setup.", "email": "adamteokokwei@gmail.com", "priceRange": "$$", "founder": {"@type": "Person", "name": "Adam", "jobTitle": "Founder & Web Designer"}, "areaServed": {"@type": "Country", "name": "United States"}, "serviceType": "Website design for local businesses", "knowsAbout": ["Small business website design", "Local SEO", "Google Business Profile setup", "Mobile-friendly websites"], "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Website packages", "itemListElement": [{"@type": "Offer", "name": "Professional Website (up to 5 pages or sections)", "price": "250", "priceCurrency": "USD", "description": "One-time price. Mobile-responsive website with services section, contact form, click-to-call, basic SEO setup and free Google Business Profile setup."}, {"@type": "Offer", "name": "Website add-on (with website package)", "price": "100", "priceCurrency": "USD", "description": "Additional page or section, logo design, advanced contact/booking system, payment gateway setup or listings optimization. $150 each on their own."}, {"@type": "Offer", "name": "Website Care plan", "price": "49", "priceCurrency": "USD", "priceSpecification": {"@type": "UnitPriceSpecification", "price": "49", "priceCurrency": "USD", "unitText": "MONTH"}, "description": "Hosting, health monitoring, minor updates, security and maintenance checks, and ongoing support."}]}, "paymentAccepted": "PayPal"}</script>
@@ -1581,6 +1581,9 @@ When someone compares two businesses side by side, the one that looks profession
 
   /* ---------- Mini website mockups ---------- */
   const SITES = {
+    capitol:{name:"Capitol Creek<br>Plumbing",icon:"wrench",m1:"#0B2545",m2:"#1D5FD1",acc:"#D7262E",accInk:"#FFFFFF",links:["Services","Prices","Reviews","Book"],btn:"Call 24/7",
+      head:"Austin Plumbers, 24/7",sub:"Clear prices, easy online booking and a chat assistant.",cta:"Book a Time",art:"wrench",
+      feats:[["clock","24/7 Service"],["tag","Price Ranges"],["shield","Licensed"],["thumb","On-Time"]]},
     riverside:{name:"Riverside<br>Plumbing",icon:"wrench",m1:"#1A2E05",m2:"#65A30D",acc:"#A3E635",accInk:"#1A2E05",links:["Home","Services","About","Contact"],btn:"Call Now",
       head:"Reliable Plumbing Services",sub:"Fast, friendly local plumbers for leaks, repairs and new installs.",cta:"Get a Quote",art:"wrench",
       feats:[["clock","24/7 Service"],["shield","Licensed"],["tag","Fair Pricing"],["thumb","Guaranteed"]]},
@@ -1631,7 +1634,8 @@ When someone compares two businesses side by side, the one that looks profession
 
   /* ---------- Portfolio ---------- */
   const WORK = [
-    {key:"riverside",title:"Riverside Plumbing",kind:"Demo Website"},
+    {key:"capitol",title:"Capitol Creek Plumbing",kind:"Interactive Demo",url:"demos/austin-plumbing/",
+      desc:"Austin plumbing demo: upfront price ranges, 3-step online booking, a 24/7 chat assistant (English and Spanish), and a switch that shows what the $250 website includes."},
     {key:"summit",title:"Summit Roofing",kind:"Demo Website"},
     {key:"spark",title:"Bright Spark Electrical",kind:"Demo Website"},
     {key:"greenscape",title:"GreenScape Landscaping",kind:"Demo Website"},
@@ -1649,7 +1653,7 @@ When someone compares two businesses side by side, the one that looks profession
         <h3>${w.title}</h3>
         <span class="tag${w.client?" client":""}">${w.kind}</span>
         ${w.desc?`<p class="wdesc">${w.desc}</p>`:""}
-        ${w.url?`<a class="wlink" href="${w.url}" target="_blank" rel="noopener">View Website ${ico("ext")}</a>`:`<span class="soon-txt">${ico("clock")}Live demo coming soon</span>`}
+        ${w.url?`<a class="wlink" href="${w.url}" target="_blank" rel="noopener">${w.client?"View Website":"Try the Demo"} ${ico("ext")}</a>`:`<span class="soon-txt">${ico("clock")}Live demo coming soon</span>`}
       </div></div>
     </article>`).join("");
   paint(document);
@@ -1782,7 +1786,7 @@ When someone compares two businesses side by side, the one that looks profession
     const view = viewFor(id), post = POSTS.find(p=>p.id===id && !p.soon);
     homeView.hidden = view!=="home"; aboutView.hidden = view!=="about"; postView.hidden = view!=="post"; articlesView.hidden = view!=="articles";
     if(post) showPost(post); else if(metaDesc) metaDesc.content = defaultDesc;
-    document.title = view==="about" ? "About Adam, Founder | Ace Digital Solutions" : view==="articles" ? "Blog: Website Tips for Local Businesses | Ace Digital Solutions" : post ? post.title+" | Ace Digital Solutions" : "A+ Websites That Win Local Customers | Ace Digital Solutions";
+    document.title = view==="about" ? "About Adam, Founder | Ace Digital Solutions" : view==="articles" ? "Blog: Website Tips for Local Businesses | Ace Digital Solutions" : post ? post.title+" | Ace Digital Solutions" : "A+ Website Design for Local Businesses | Ace Digital Solutions";
     const behavior = smooth && !matchMedia("(prefers-reduced-motion: reduce)").matches ? "smooth" : "auto";
     const t = view==="home" && id && id!=="top" ? document.getElementById(id) : null;
     if(t){ const y = t.getBoundingClientRect().top + scrollY - head.offsetHeight - 12; scrollTo({top:Math.max(0,y), behavior}); }
