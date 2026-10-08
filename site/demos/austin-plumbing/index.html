@@ -64,6 +64,8 @@ section{padding:64px 0}
 .toggle .sw::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .2s}
 .toggle input:checked+.sw{background:#22A35A}
 .toggle input:checked+.sw::after{transform:translateX(18px)}
+.dm{display:none}
+@media (max-width:640px){.demobar .dl{display:none}.dm{display:inline}.demobar .wrap{gap:10px;font-size:13px}.toggle{margin-left:0}}
 .toggle input:focus-visible+.sw{outline:3px solid #93C5FD;outline-offset:2px}
 
 /* Header */
@@ -369,9 +371,9 @@ body.base-only .needs-addon{display:none !important}
 <!-- Demo disclosure bar -->
 <div class="demobar">
   <div class="wrap">
-    <span><b>Fictional demo website</b> by Ace Digital Solutions. The business, phone, reviews and prices are made up.</span>
-    <a href="/">← Back to Ace Digital Solutions</a>
-    <label class="toggle"><input type="checkbox" id="baseToggle"><span class="sw" aria-hidden="true"></span>Show what the $250 website includes</label>
+    <span><b>Fictional demo website</b><span class="dl"> by Ace Digital Solutions. The business, phone, reviews and prices are made up.</span></span>
+    <a href="/">← Back to Ace<span class="dl"> Digital Solutions</span></a>
+    <label class="toggle"><input type="checkbox" id="baseToggle"><span class="sw" aria-hidden="true"></span><span class="dl">Show what the </span>$250 website<span class="dl"> includes</span><span class="dm"> only</span></label>
   </div>
 </div>
 
