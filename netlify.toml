@@ -2,3 +2,6 @@
 [build]
   publish = "site"
   command = ""
+  # Only deploy when the website itself changed. Changes to the chatbot server
+  # (backend/) or notes don't use up a Netlify deploy (each deploy costs 15 credits).
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- site/ netlify.toml"
