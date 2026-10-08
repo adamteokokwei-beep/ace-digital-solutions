@@ -21,9 +21,9 @@
 //   CHAT_API = "https://YOUR-WORKER.workers.dev/chat"
 //   FORM_API = "https://YOUR-WORKER.workers.dev/enquiry"
 
-const GEMINI_MODEL = "gemini-flash-latest";       // always points to Google's current Flash model
+const GEMINI_MODEL = "gemini-flash-lite-latest";  // Google's current fast "Lite" model: quick and less often busy
 // If that model is busy or unavailable, these are tried next, in order:
-const GEMINI_BACKUPS = ["gemini-flash-lite-latest", "gemini-3.5-flash-lite", "gemini-3.5-flash"];
+const GEMINI_BACKUPS = ["gemini-3.5-flash-lite", "gemini-flash-latest", "gemini-3.5-flash"];
 const OPENAI_MODEL = "gpt-4o-mini";               // fast and low-cost; override with the OPENAI_MODEL setting
 const CLAUDE_MODEL = "claude-haiku-4-5-20251001"; // used only if you choose Claude instead
 const MAX_TOKENS = 400;                    // keeps answers short and costs low
@@ -113,8 +113,10 @@ async function callAI(env, messages, system = SYSTEM_PROMPT) {
       const tried = [];
       for (const model of models) {
         if (model === "__wait") { await new Promise(r => setTimeout(r, 1200)); continue; }
+        try {
         res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
           method: "POST",
+          signal: AbortSignal.timeout(8000), // give up on a slow model after 8 seconds and try the next
           headers: { "x-goog-api-key": env.GEMINI_API_KEY.trim(), "Content-Type": "application/json" },
           body: JSON.stringify({
             systemInstruction: { parts: [{ text: system }] },
@@ -122,6 +124,7 @@ async function callAI(env, messages, system = SYSTEM_PROMPT) {
             generationConfig: { maxOutputTokens: 1500, temperature: 0.4 }, // extra room because Gemini may "think" before answering
           }),
         });
+        } catch (e) { tried.push(model + ": timed out"); res = null; continue; }
         if (res.ok) {
           const out = await res.json();
           const reply = (out.candidates?.[0]?.content?.parts || []).filter(p => !p.thought).map(p => p.text || "").join("").trim();
@@ -133,7 +136,7 @@ async function callAI(env, messages, system = SYSTEM_PROMPT) {
         // Busy (503), over the free limit (429), or model not found (404): try the next model.
         if (![503, 429, 404, 500].includes(res.status)) break;
       }
-      return { error: "AI service error (gemini)", status: res.status, tried, detail: (await res.text().catch(() => "")).slice(0, 300) };
+      return { error: "AI service error (gemini)", status: res ? res.status : 504, tried, detail: res ? (await res.text().catch(() => "")).slice(0, 300) : "" };
     } else if (env.OPENAI_API_KEY) {
       // ChatGPT (OpenAI Chat Completions API)
       provider = "openai";
@@ -213,9 +216,10 @@ export default {
     while (messages.length && messages[0].role !== "user") messages.shift();
     if (!messages.length || messages[messages.length - 1].role !== "user") return json({ error: "No question received" }, 400, headers);
 
+    const started = Date.now();
     const system = data.bot === "capitol-demo" ? DEMO_PLUMBING_PROMPT : SYSTEM_PROMPT;
     const result = await callAI(env, messages, system);
-    if (result.reply) return json({ reply: result.reply }, 200, headers);
+    if (result.reply) return json({ reply: result.reply, model: result.model, ms: Date.now() - started }, 200, headers);
     console.log("AI error:", JSON.stringify(result)); // visible in the Worker's Logs tab
     return json(result, 502, headers);
   },

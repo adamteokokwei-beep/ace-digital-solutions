@@ -2174,7 +2174,7 @@ When someone compares two businesses side by side, the one that looks profession
     if(!CHAT_API) return null;
     aiHistory.push({role:"user",content:q});
     try{
-      const ctrl = new AbortController(); const t = setTimeout(()=>ctrl.abort(),20000);
+      const ctrl = new AbortController(); const t = setTimeout(()=>ctrl.abort(),30000);
       const res = await fetch(CHAT_API,{method:"POST",signal:ctrl.signal,headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:aiHistory.slice(-12)})});
       clearTimeout(t);
       const data = await res.json().catch(()=>({}));

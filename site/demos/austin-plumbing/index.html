@@ -831,7 +831,7 @@ body.base-only .needs-addon{display:none !important}
     if(/(spanish|español|espanol)/.test(t)) return setEs(true);
     say(es?"Buena pregunta. Para eso es mejor hablar con nuestro equipo: llame al 512-555-0147 (demo) o reserve en línea.":"Good question. Our team can answer that best: call 512-555-0147 (demo) or book online and we'll call you."); after();}
   async function askAI(q){ if(!CHAT_API) return null; hist.push({role:"user",content:q});
-    try{const c=new AbortController(); const to=setTimeout(()=>c.abort(),20000);
+    try{const c=new AbortController(); const to=setTimeout(()=>c.abort(),30000);
       const r=await fetch(CHAT_API,{method:"POST",signal:c.signal,headers:{"Content-Type":"application/json"},body:JSON.stringify({bot:"capitol-demo",messages:hist.slice(-10)})});
       clearTimeout(to); const d=await r.json().catch(()=>({})); if(!r.ok||!d.reply){hist.pop();return null;} hist.push({role:"assistant",content:d.reply}); return d.reply;
     }catch(e){hist.pop();return null;}}
