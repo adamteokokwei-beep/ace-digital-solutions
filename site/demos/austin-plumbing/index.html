@@ -306,12 +306,12 @@ footer a:hover{color:#fff}
 .chat-fab .live{position:absolute;top:4px;right:4px;width:13px;height:13px;border-radius:50%;background:#4ADE80;border:2px solid #fff}
 @media (max-width:980px){.chat-fab{right:14px;bottom:calc(88px + env(safe-area-inset-bottom,0px));width:56px;height:56px}}
 /* Social row, bottom-left */
-.social{position:fixed;left:20px;bottom:30px;z-index:55;display:flex;gap:8px}
+.social{position:fixed;left:14px;top:50%;transform:translateY(-50%);z-index:55;display:flex;flex-direction:column;gap:8px}
 .social a{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:#fff;text-decoration:none;font:800 19px/1 Arial,sans-serif;box-shadow:0 8px 18px -10px rgba(0,0,0,.6);transition:transform .2s}
-.social a:hover{transform:translateY(-3px)}
+.social a:hover{transform:translateX(3px) scale(1.06)}
 .social .ico{width:22px;height:22px}
 .social .fb{background:#1877F2}.social .ig{background:linear-gradient(45deg,#F58529,#DD2A7B 50%,#8134AF)}.social .yt{background:#E62117}.social .rd{background:#FF4500}
-@media (max-width:980px){.social{left:14px;bottom:calc(96px + env(safe-area-inset-bottom,0px));gap:6px}.social a{width:40px;height:40px;font-size:17px}}
+@media (max-width:980px){.social{left:8px;gap:6px}.social a{width:38px;height:38px;font-size:16px}.social .ico{width:19px;height:19px}}
 .chat{position:fixed;right:22px;bottom:92px;z-index:61;width:min(390px,calc(100vw - 24px));height:min(600px,calc(100vh - 120px));background:#fff;border-radius:18px;box-shadow:0 30px 70px -20px rgba(11,18,32,.55);display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line)}
 .chat[hidden]{display:none}
 @media (max-width:980px){.chat{right:12px;bottom:calc(156px + env(safe-area-inset-bottom,0px));height:min(520px,calc(100vh - 200px))}}
