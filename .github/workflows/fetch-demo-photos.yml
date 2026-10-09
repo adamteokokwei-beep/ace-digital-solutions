@@ -1,0 +1,37 @@
+# One-off helper: downloads the demo website's free Unsplash photos into the repo,
+# so the demo can serve them itself (and they can be embedded in previews).
+name: Fetch demo photos
+on:
+  workflow_dispatch:
+  push:
+    paths: [".github/workflows/fetch-demo-photos.yml"]
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download photos
+        run: |
+          set -e
+          D=site/demos/austin-plumbing/img; mkdir -p $D
+          get(){ curl -fsSL -o "$D/$1.jpg" "https://images.unsplash.com/$2?$3&fm=jpg&q=$4"; }
+          get hero   photo-1676210134188-4c05dd172f89 "w=1000&h=1075&fit=crop&crop=entropy" 62
+          get face   photo-1732395805034-e0bf859665e5 "w=96&h=96&fit=crop&crop=faces" 70
+          get marcus photo-1732395805034-e0bf859665e5 "w=400&h=416&fit=crop&crop=faces" 62
+          get daniel photo-1787672357491-d43acdf974cb "w=400&h=416&fit=crop&crop=faces" 62
+          get luis   photo-1728516687003-58347d3412b3 "w=400&h=416&fit=crop&crop=faces" 62
+          get before-drain  photo-1772397546294-a2554a8a9793 "w=360&h=360&fit=crop" 60
+          get after-drain   photo-1748399132710-d509b7ef3e64 "w=360&h=360&fit=crop" 60
+          get before-heater photo-1594233078955-e1f73a02ebb2 "w=360&h=360&fit=crop" 60
+          get after-heater  photo-1620653713380-7a34b773fef8 "w=360&h=360&fit=crop" 60
+          get austin photo-1530089711124-9ca31fb9e863 "w=1400&h=520&fit=crop" 45
+          ls -la $D
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add site/demos/austin-plumbing/img
+          git diff --cached --quiet || git commit -m "Add demo photos (Unsplash)"
+          git push
