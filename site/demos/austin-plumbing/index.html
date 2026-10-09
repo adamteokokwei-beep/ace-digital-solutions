@@ -107,10 +107,6 @@ nav.main a:hover{color:#fff}
 .float.f1{top:18px;left:-26px;max-width:230px}
 .float.f1 img{width:42px;height:42px;border-radius:50%;object-fit:cover}
 .float.f2{bottom:22px;right:-14px;cursor:pointer;border:0;font:inherit;font-weight:700}
-.es-link{display:inline-flex;align-items:center;gap:10px;margin-top:16px;background:none;border:0;padding:4px 0;color:var(--muted);font:400 16px "Source Sans 3";cursor:pointer;text-align:left}
-.es-link b{color:var(--blue)}
-.es-link .ico{width:18px;height:18px;color:var(--blue);transition:transform .2s}
-.es-link:hover .ico{transform:translateX(3px)}
 .flag{width:30px;height:30px;border-radius:50%;background:#EAF1FD;color:var(--blue);display:grid;place-items:center;font:800 12px "Archivo";flex:none}
 @media (max-width:900px){
   .hero .wrap{grid-template-columns:1fr;gap:28px}
@@ -291,6 +287,29 @@ footer a:hover{color:#fff}
 @media (max-width:800px){footer .cols{grid-template-columns:1fr 1fr}}
 @media (min-width:981px){footer{padding-bottom:96px}}
 
+
+/* Language flags */
+.langs{display:flex;gap:6px;margin-left:4px}
+.langs button,.chat-langs button{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.08);border:2px solid transparent;border-radius:8px;padding:5px 7px;color:#DCE6F5;font:700 13px "Archivo";cursor:pointer;opacity:.7;transition:opacity .15s,border-color .15s}
+.langs button:hover,.chat-langs button:hover{opacity:1}
+.langs button[aria-pressed="true"],.chat-langs button[aria-pressed="true"]{opacity:1;border-color:#8DB5FF;background:rgba(141,181,255,.18);color:#fff}
+.langs svg,.chat-langs svg{width:24px;height:16px;border-radius:3px;display:block;box-shadow:0 0 0 1px rgba(255,255,255,.35)}
+.chat-langs{display:flex;gap:4px;margin-left:auto}
+.chat-langs button{padding:4px 5px}
+@media (max-width:980px){.langs{margin-left:auto}.langs span{display:none}.menu-btn{margin-left:2px}}
+body.base-only .langs,body.base-only .chat-langs{display:none}
+
+
+/* Header fit with language flags */
+nav.main a,.brand b,.hphone{white-space:nowrap}
+header.site .wrap{gap:18px}
+nav.main{gap:18px}
+@media (max-width:1500px){.hphone{display:none}}
+@media (max-width:1200px){.langs span{display:none}}
+@media (max-width:1200px) and (min-width:981px){nav.main a[href="#faq"]{display:none}nav.main{gap:14px}nav.main a{font-size:15px}}
+@media (max-width:980px){header.site .wrap{gap:10px}.brand b{white-space:normal}}
+@media (max-width:520px){.brand b{font-size:16px}.brand small{display:none}.brand svg{width:34px;height:34px}.langs{gap:4px}.langs button{padding:4px 5px}}
+
 /* Mobile action bar */
 .mbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:none;grid-template-columns:1fr 1fr;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.97);border-top:1px solid var(--line);box-shadow:0 -8px 24px -14px rgba(11,37,69,.5)}
 .mbar a,.mbar button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:56px;border-radius:12px;border:0;font:700 14px "Archivo";text-decoration:none;cursor:pointer}
@@ -320,7 +339,7 @@ footer a:hover{color:#fff}
 .chat-h b{font-family:"Archivo";display:block}
 .chat-h small{color:#A9BCD9;display:flex;align-items:center;gap:6px}
 .chat-h small i{width:8px;height:8px;border-radius:50%;background:#4ADE80;display:inline-block}
-.chat-h button{margin-left:auto;background:none;border:0;color:#fff;cursor:pointer;padding:6px}
+.chat-h #chatClose{background:none;border:0;color:#fff;cursor:pointer;padding:6px}
 .chat-h .addon-tag{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.25);padding:4px 8px;font-size:11px}
 .clog{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--bg)}
 .msg{max-width:86%;padding:10px 13px;border-radius:14px;font-size:15.5px;line-height:1.45;background:#fff;border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:4px}
@@ -345,7 +364,7 @@ body.base-only [data-addon]{position:relative}
 body.base-only [data-addon]>*{filter:grayscale(1);opacity:.28;pointer-events:none}
 body.base-only [data-addon]::after{content:attr(data-addon);position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:#312E81;color:#fff;font:700 15px/1.3 "Archivo";padding:12px 18px;border-radius:12px;box-shadow:var(--sh);text-align:center;max-width:86%;z-index:2}
 body.base-only .incl-tag{display:inline-flex}
-body.base-only .chat-fab,body.base-only .es-link{display:none}
+body.base-only .chat-fab{display:none}
 body.base-only .booking-tool{display:none}
 body.base-only .simple-form{display:block}
 body.base-only .mbar{grid-template-columns:1fr 1fr}
@@ -407,6 +426,10 @@ body.base-only .needs-addon{display:none !important}
     </nav>
     <a class="hphone" href="tel:5125550147"><svg class="ico"><use href="#i-phone"/></svg><span>512-555-0147 <span class="demo">DEMO</span><small>24/7 emergency service</small></span></a>
     <a class="btn btn-blue btn-sm" href="#book"><svg class="ico"><use href="#i-cal"/></svg>Book a Time</a>
+    <div class="langs" role="group" aria-label="Language / Idioma">
+      <button type="button" data-lang="en" aria-pressed="true" title="English"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#fff"/><g fill="#B22234"><rect width="30" height="1.54"/><rect y="3.08" width="30" height="1.54"/><rect y="6.15" width="30" height="1.54"/><rect y="9.23" width="30" height="1.54"/><rect y="12.3" width="30" height="1.54"/><rect y="15.38" width="30" height="1.54"/><rect y="18.46" width="30" height="1.54"/></g><rect width="13" height="10.77" fill="#3C3B6E"/><g fill="#fff"><circle cx="2.5" cy="2.2" r=".6"/><circle cx="6.5" cy="2.2" r=".6"/><circle cx="10.5" cy="2.2" r=".6"/><circle cx="4.5" cy="4.6" r=".6"/><circle cx="8.5" cy="4.6" r=".6"/><circle cx="2.5" cy="7" r=".6"/><circle cx="6.5" cy="7" r=".6"/><circle cx="10.5" cy="7" r=".6"/><circle cx="4.5" cy="9.2" r=".6"/><circle cx="8.5" cy="9.2" r=".6"/></g></svg><span>EN</span></button>
+      <button type="button" data-lang="es" aria-pressed="false" title="Español"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="10" height="20" fill="#006847"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#CE1126"/><circle cx="15" cy="10" r="2.6" fill="none" stroke="#8C6A2F" stroke-width="1.2"/></svg><span>ES</span></button>
+    </div>
     <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mnav"><svg class="ico" style="width:28px;height:28px"><use href="#i-menu"/></svg></button>
   </div>
   <nav class="mnav" id="mnav" aria-label="Mobile">
@@ -428,7 +451,6 @@ body.base-only .needs-addon{display:none !important}
         <a class="btn btn-ghost needs-addon" href="#prices"><svg class="ico"><use href="#i-tag"/></svg>Get a Price Range</a>
         <a class="btn btn-blue" href="#book" style="display:none" data-base-show><svg class="ico"><use href="#i-msg"/></svg>Request Service</a>
       </div>
-      <button class="es-link" type="button" data-spanish><span class="flag" aria-hidden="true">ES</span><span>¿Habla español? <b>Chatee con nosotros en español</b></span><svg class="ico"><use href="#i-arrow"/></svg></button>
       <div class="trust">
         <div><svg class="ico star"><use href="#i-star"/></svg><span><b>4.9★ rating</b>1,240 reviews <span class="demo">DEMO</span></span></div>
         <div><svg class="ico"><use href="#i-cal"/></svg><span><b>12 years</b>serving Austin</span></div>
@@ -742,7 +764,11 @@ body.base-only .needs-addon{display:none !important}
 <div class="chat" id="chat" hidden role="dialog" aria-label="Capitol Creek chat assistant">
   <div class="chat-h">
     <span class="av"><svg class="ico"><use href="#i-wrench"/></svg></span>
-    <div><b>Capitol Creek Assistant</b><small><i></i>Online 24/7 · <span class="addon-tag">Add-on · chatbot</span></small></div>
+    <div><b>Capitol Creek Assistant</b><small><i></i><span id="chatOnline">Online 24/7</span> · <span class="addon-tag">Add-on · chatbot</span></small></div>
+    <div class="chat-langs" role="group" aria-label="Chat language">
+      <button type="button" data-chat-lang="en" aria-pressed="true" title="English"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#fff"/><g fill="#B22234"><rect width="30" height="1.54"/><rect y="3.08" width="30" height="1.54"/><rect y="6.15" width="30" height="1.54"/><rect y="9.23" width="30" height="1.54"/><rect y="12.3" width="30" height="1.54"/><rect y="15.38" width="30" height="1.54"/><rect y="18.46" width="30" height="1.54"/></g><rect width="13" height="10.77" fill="#3C3B6E"/><g fill="#fff"><circle cx="2.5" cy="2.2" r=".6"/><circle cx="6.5" cy="2.2" r=".6"/><circle cx="10.5" cy="2.2" r=".6"/><circle cx="4.5" cy="4.6" r=".6"/><circle cx="8.5" cy="4.6" r=".6"/><circle cx="2.5" cy="7" r=".6"/><circle cx="6.5" cy="7" r=".6"/><circle cx="10.5" cy="7" r=".6"/><circle cx="4.5" cy="9.2" r=".6"/><circle cx="8.5" cy="9.2" r=".6"/></g></svg></button>
+      <button type="button" data-chat-lang="es" aria-pressed="false" title="Español"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="10" height="20" fill="#006847"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#CE1126"/><circle cx="15" cy="10" r="2.6" fill="none" stroke="#8C6A2F" stroke-width="1.2"/></svg></button>
+    </div>
     <button type="button" id="chatClose" aria-label="Close chat"><svg class="ico"><use href="#i-x"/></svg></button>
   </div>
   <div class="clog" id="clog" aria-live="polite"></div>
@@ -758,7 +784,7 @@ body.base-only .needs-addon{display:none !important}
   $$(".social a").forEach(a=>a.addEventListener("click",e=>e.preventDefault()));
   /* ---------- $250 toggle ---------- */
   const tg=$("#baseToggle");
-  tg.addEventListener("change",()=>{document.body.classList.toggle("base-only",tg.checked);$$("[data-base-show]").forEach(e=>e.style.display=tg.checked?"inline-flex":"none"); if(tg.checked) closeChat();});
+  tg.addEventListener("change",()=>{document.body.classList.toggle("base-only",tg.checked); if(tg.checked && lang!=="en") setLang("en");$$("[data-base-show]").forEach(e=>e.style.display=tg.checked?"inline-flex":"none"); if(tg.checked) closeChat();});
 
   /* ---------- Mobile menu ---------- */
   const mb=$("#menuBtn"), mn=$("#mnav");
@@ -768,53 +794,84 @@ body.base-only .needs-addon{display:none !important}
   /* ---------- Shut-off help ---------- */
   $("#shutBtn").addEventListener("click",e=>{const o=$("#shutoff").classList.toggle("open");e.currentTarget.setAttribute("aria-expanded",o)});
 
+  /* ---------- Language (English default, Spanish optional) ---------- */
+  const ES={"Straight answers. Solid plumbing.": "Respuestas claras. Plomería sólida.", "Services": "Servicios", "Prices": "Precios", "Reviews": "Reseñas", "Service Areas": "Zonas de servicio", "FAQ": "Preguntas", "24/7 emergency service": "Emergencias 24/7", "Book a Time": "Reservar cita", "Book a time": "Reservar cita", "Call 512-555-0147 (demo)": "Llamar al 512-555-0147 (demo)", "24/7 emergency plumbing in Austin": "Plomería de emergencia 24/7 en Austin", "Austin Plumbers, 24/7:": "Plomeros en Austin, 24/7:", "Clear Prices, Easy Booking": "Precios claros, citas fáciles", "Plumbing service that makes the next step easy. Leaks, clogged drains, broken water heaters or a 2 a.m. emergency: see a typical price range and book a real appointment time without a long form.": "Un servicio de plomería que le facilita el siguiente paso. Fugas, drenajes tapados, calentadores descompuestos o una emergencia a las 2 a.m.: vea un rango de precio típico y reserve una cita real sin llenar un formulario largo.", "Call 512-555-0147": "Llamar al 512-555-0147", "Get a Price Range": "Ver rango de precios", "Request Service": "Solicitar servicio", "4.9★ rating": "4.9★ de calificación", "1,240 reviews": "1,240 reseñas", "12 years": "12 años", "serving Austin": "sirviendo a Austin", "License M-00000": "Licencia M-00000", "demo license": "licencia demo", "Licensed": "Con licencia", "& insured": "y asegurados", "Water everywhere?": "¿Agua por todas partes?", "Shut off your main water valve first, then call us. We answer 24/7.": "Primero cierre la llave principal de agua y luego llámenos. Contestamos 24/7.", "How to shut it off": "Cómo cerrarla", "Call 24/7": "Llamar 24/7", "Find and close your main water valve (most Austin homes):": "Encuentre y cierre la llave principal de agua (en la mayoría de las casas de Austin):", "Look where the water line enters the house: often the garage, a utility closet, or outside near the front hose bib.": "Busque donde la tubería de agua entra a la casa: a menudo en el garaje, un clóset de servicio o afuera cerca de la llave de la manguera.", "Turn the round handle clockwise, or turn a lever handle so it sits across the pipe.": "Gire la manija redonda en el sentido de las agujas del reloj, o gire la palanca hasta que quede atravesada sobre el tubo.", "No luck? The meter box near the street has a shut-off too. Then call us and we'll talk you through it.": "¿No la encuentra? La caja del medidor cerca de la calle también tiene una llave. Luego llámenos y le guiamos paso a paso.", "Austin plumbing services": "Servicios de plomería en Austin", "Plumbing help for the problems homeowners actually have": "Ayuda de plomería para los problemas reales de su hogar", "✓ Included in $250": "✓ Incluido en $250", "Emergency Plumbing": "Plomería de emergencia", "Burst pipes, major leaks and backups that can't wait. Day or night, weekends and holidays.": "Tuberías reventadas, fugas grandes y drenajes desbordados que no pueden esperar. De día o de noche, fines de semana y días festivos.", "See typical price": "Ver precio típico", "Drain Cleaning": "Limpieza de drenajes", "Slow or clogged sinks, showers and tubs cleared properly, not just pushed further down the line.": "Lavabos, regaderas y tinas lentos o tapados, destapados correctamente, no solo empujando el problema más adentro.", "Water Heater Repair": "Reparación de calentadores", "No hot water, leaking tanks or strange noises. Repairs and same-day replacements, tank or tankless.": "Sin agua caliente, tanques con fugas o ruidos extraños. Reparaciones y reemplazos el mismo día, con tanque o sin tanque.", "Leak Detection": "Detección de fugas", "Hidden leaks found with listening and camera tools before a small drip becomes expensive damage.": "Encontramos fugas ocultas con equipos de sonido y cámara antes de que una pequeña gota se convierta en un daño costoso.", "Toilet & Faucet Repair": "Reparación de inodoros y llaves", "Running toilets, dripping faucets and fixture upgrades done neatly, usually in one visit.": "Inodoros que no dejan de correr, llaves que gotean y cambio de accesorios, con trabajo limpio y casi siempre en una sola visita.", "Sewer & Main Line": "Drenaje principal y alcantarillado", "Recurring backups and root problems, with camera footage so you see exactly what's wrong.": "Atascos que se repiten y problemas de raíces, con video de cámara para que vea exactamente cuál es el problema.", "Upfront pricing": "Precios por adelantado", "What might your plumbing problem cost?": "¿Cuánto podría costar su problema de plomería?", "Pick the problem you're seeing to get a typical Austin price range. No phone call needed.": "Elija el problema que tiene para ver un rango de precio típico en Austin. Sin necesidad de llamar.", "Add-on · Interactive price tool": "Adicional · Herramienta de precios", "Typical range": "Rango típico", "DEMO PRICES": "PRECIOS DEMO", "Book this service": "Reservar este servicio", "Customer reviews": "Reseñas de clientes", "Real people. Real plumbing problems.": "Personas reales. Problemas de plomería reales.", "from 1,240 customer reviews": "de 1,240 reseñas de clientes", "DEMO REVIEWS": "RESEÑAS DEMO", "\"Marcus found the leak behind our dishwasher in about twenty minutes and showed me photos before fixing anything. Very easy experience.\"": "\"Marcus encontró la fuga detrás de nuestra lavavajillas en unos veinte minutos y me mostró fotos antes de arreglar nada. Una experiencia muy fácil.\"", "Technician: Marcus": "Técnico: Marcus", "Technician: Daniel": "Técnico: Daniel", "Technician: Luis": "Técnico: Luis", "\"Booked online at 9 p.m., got a 10 a.m. slot the next morning. Daniel had our water heater working before lunch, and the price matched the range on the website.\"": "\"Reservé en línea a las 9 p.m. y conseguí cita a las 10 a.m. del día siguiente. Daniel dejó funcionando nuestro calentador antes del almuerzo, y el precio coincidió con el rango de la página.\"", "\"Luis ran a camera down our main line and showed us the root problem on his tablet. No upselling, just a clear plan and a fair price.\"": "\"Luis metió una cámara en nuestro drenaje principal y nos mostró el problema de raíces en su tableta. Sin ventas forzadas, solo un plan claro y un precio justo.\"", "\"Pipe burst on a Sunday. They answered on the second ring, talked me through shutting off the water, and someone was here within the hour.\"": "\"Se reventó un tubo un domingo. Contestaron al segundo timbre, me explicaron cómo cerrar el agua y alguien llegó en menos de una hora.\"", "\"Got a text with Daniel's photo before he arrived, which my mom really appreciated. Professional, and he cleaned up after himself.\"": "\"Recibí un mensaje con la foto de Daniel antes de que llegara, algo que mi mamá apreció mucho. Muy profesional, y dejó todo limpio.\"", "\"Luis explained our options in Spanish for my father and in English for me. Kitchen drain fixed the same day.\"": "\"Luis le explicó las opciones en español a mi papá y en inglés a mí. El drenaje de la cocina quedó arreglado el mismo día.\"", "Online booking": "Citas en línea", "Book a plumber in 3 simple steps": "Reserve un plomero en 3 pasos sencillos", "Tell us the problem, pick a time, leave your name and number. That's it.": "Díganos el problema, elija un horario y deje su nombre y número. Eso es todo.", "Add-on · Online booking": "Adicional · Citas en línea", "Tell us the problem": "Díganos el problema", "Pick a time": "Elija un horario", "Your name & phone": "Su nombre y teléfono", "What's going on?": "¿Qué está pasando?", "Not sure? Pick \"Something else\" and we'll figure it out.": "¿No está seguro? Elija \"Otra cosa\" y lo averiguamos juntos.", "Next: pick a time": "Siguiente: elegir horario", "Pick a time that works": "Elija un horario que le funcione", "Back": "Atrás", "Next: your details": "Siguiente: sus datos", "Where should we send your plumber?": "¿A dónde enviamos a su plomero?", "Your name": "Su nombre", "Mobile number": "Número de celular", "Street address": "Dirección", "Confirm booking": "Confirmar cita", "You're booked!": "¡Su cita está reservada!", "This is a demo, so no real booking was made. On a real website, the business gets your request instantly.": "Esto es una demostración, así que no se hizo ninguna cita real. En un sitio real, la empresa recibe su solicitud al instante.", "Start over": "Empezar de nuevo", "Request service": "Solicitar servicio", "✓ Included in $250: contact form": "✓ Incluido en $250: formulario de contacto", "What's the problem?": "¿Cuál es el problema?", "We call you back to set a time.": "Le llamamos para acordar un horario.", "Send request": "Enviar solicitud", "Know who's coming": "Sepa quién llega", "Who's coming, and what we promise": "Quién llega a su casa y lo que le prometemos", "Service plumber": "Plomero de servicio", "Water heater specialist": "Especialista en calentadores", "Drain & sewer · habla español": "Drenajes · habla español", "Before every visit, we text you your plumber's name and photo, so you know exactly who's at the door.": "Antes de cada visita le enviamos por mensaje el nombre y la foto de su plomero, para que sepa exactamente quién toca a su puerta.", "We show up when we say we will": "Llegamos cuando decimos que llegaremos", "If we're more than 15 minutes late to your scheduled appointment without contacting you first, we'll credit $25 toward your service.": "Si llegamos más de 15 minutos tarde a su cita sin avisarle antes, le descontamos $25 de su servicio.", "Scheduled appointments in our normal service area. Emergency arrival times can vary.": "Aplica a citas programadas en nuestra zona de servicio normal. Los tiempos de llegada en emergencias pueden variar.", "Every repair comes with a written warranty": "Cada reparación incluye garantía por escrito", "You get it in writing: what's covered and for how long. If something we fixed fails, we come back and make it right.": "Se la damos por escrito: qué cubre y por cuánto tiempo. Si algo que reparamos falla, regresamos y lo arreglamos.", "Price agreed before work starts": "Precio acordado antes de empezar", "Your plumber explains the problem and confirms the price first. No surprise invoices, no extra charge for nights or weekends.": "Su plomero le explica el problema y confirma el precio primero. Sin facturas sorpresa y sin cargos extra por noches o fines de semana.", "More reasons Austin chooses us": "Más razones por las que Austin nos elige", "See the difference": "Vea la diferencia", "Add-on · Extra section": "Adicional · Sección extra", "Before & after": "Antes y después", "Before: clogged drain": "Antes: drenaje tapado", "After: flowing freely": "Después: fluye sin problema", "Before: old heater": "Antes: calentador viejo", "After: new install": "Después: instalación nueva", "Add-on": "Adicional", "/month": "/mes", "No diagnostic fee, ever": "Nunca pagará cargo por diagnóstico", "Priority scheduling": "Citas con prioridad", "Yearly plumbing inspection": "Inspección de plomería anual", "Yearly water heater flush": "Limpieza anual del calentador", "10% off repairs": "10% de descuento en reparaciones", "Join CreekCare": "Unirse a CreekCare", "Fix it now, pay over time": "Arréglelo hoy, pague a plazos", "$1,800 repair ≈ $75/mo": "Reparación de $1,800 ≈ $75/mes", "Example: 24 monthly payments. Actual terms depend on approval and the lender.": "Ejemplo: 24 pagos mensuales. Los términos reales dependen de la aprobación y del prestamista.", "See financing options": "Ver opciones de financiamiento", "Service area": "Zona de servicio", "Your local Austin-area plumber": "Su plomero local en el área de Austin", "Same-day service across Austin and nearby communities.": "Servicio el mismo día en Austin y comunidades cercanas.", "Don't see your neighborhood?": "¿No ve su colonia o vecindario?", "Call": "Llame al", "and we'll tell you straight away. Open 24/7 for emergencies; regular service Mon–Sat, 7 a.m.–7 p.m.": "y se lo decimos de inmediato. Abierto 24/7 para emergencias; servicio regular de lunes a sábado, 7 a.m.–7 p.m.", "Austin plumbing questions, answered": "Preguntas de plomería en Austin, respondidas", "Do you offer emergency plumbing in Austin?": "¿Ofrecen plomería de emergencia en Austin?", "Yes. We answer 24/7, including nights, weekends and holidays. For burst pipes or major leaks, shut off your main water valve and call us right away.": "Sí. Contestamos 24/7, incluso noches, fines de semana y días festivos. Si se revienta un tubo o hay una fuga grande, cierre la llave principal y llámenos de inmediato.", "How quickly can a plumber come?": "¿Qué tan rápido puede llegar un plomero?", "Most Austin-area calls get a same-day appointment. Emergencies are dispatched right away, and we'll give you an honest arrival time on the phone.": "La mayoría de las llamadas en el área de Austin reciben cita el mismo día. Las emergencias se atienden de inmediato y le damos una hora de llegada honesta por teléfono.", "Do you give prices before starting work?": "¿Dan precios antes de empezar el trabajo?", "Yes. Our website shows typical price ranges, and your plumber confirms the exact price on site before any work begins.": "Sí. Nuestra página muestra rangos de precios típicos y su plomero confirma el precio exacto en el lugar antes de empezar cualquier trabajo.", "Do you charge extra for nights or weekends?": "¿Cobran extra por noches o fines de semana?", "No. Same pricing every day of the week.": "No. Los mismos precios todos los días de la semana.", "Can I book online?": "¿Puedo reservar en línea?", "Yes. Pick your problem, choose a time window, and leave your name and number. It takes about a minute.": "Sí. Elija su problema, escoja un horario y deje su nombre y número. Toma alrededor de un minuto.", "Do you offer financing?": "¿Ofrecen financiamiento?", "Yes, for larger jobs like water heater replacement or sewer repair, subject to approval.": "Sí, para trabajos grandes como el reemplazo de calentadores o reparaciones de drenaje, sujeto a aprobación.", "A plumbing problem shouldn't take all day to solve.": "Un problema de plomería no debería quitarle todo el día.", "Get a clear next step, a real appointment time and straightforward communication.": "Obtenga un siguiente paso claro, una cita real y comunicación directa.", "Straight answers. Solid plumbing. Serving Austin and nearby communities 24/7.": "Respuestas claras. Plomería sólida. Sirviendo a Austin y comunidades cercanas 24/7.", "512-555-0147 (demo) · License M-00000 (demo)": "512-555-0147 (demo) · Licencia M-00000 (demo)", "Emergency plumbing": "Plomería de emergencia", "Drain cleaning": "Limpieza de drenajes", "Water heaters": "Calentadores de agua", "Leak detection": "Detección de fugas", "Service areas": "Zonas de servicio", "Company": "Empresa", "Built by Ace Digital Solutions": "Creado por Ace Digital Solutions", "Book": "Reservar", "PH:First and last name": "Nombre y apellido", "PH:(512) 555-0100": "(512) 555-0100", "PH:Street, city": "Calle, ciudad", "PH:e.g. kitchen sink is clogged": "p. ej. el fregadero está tapado", "PH:Type your question…": "Escriba su pregunta…"};
+  let lang="en";
+  const T2=(en,es)=>lang==="es"?es:en;
+  const orig=new WeakMap();
+  const SKIP="script,style,svg,#clog,#chips,#bProblems,#bDays,#bSlots,.chat,.demobar,.disclose,.langs";
+  function translatePage(){
+    const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT); let n;
+    while(n=w.nextNode()){
+      if(n.parentElement.closest(SKIP)) continue;
+      if(!orig.has(n)) orig.set(n,n.nodeValue);
+      const o=orig.get(n), key=o.replace(/\s+/g," ").trim();
+      if(lang==="es"&&ES[key]){const lead=o.match(/^\s*/)[0], tail=o.match(/\s*$/)[0]; n.nodeValue=lead+ES[key]+tail;} else n.nodeValue=o;
+    }
+    $$("[placeholder]").forEach(el=>{ if(el.closest(".chat")&&el.id!=="cin") return; if(!el.dataset.phEn) el.dataset.phEn=el.placeholder; el.placeholder=lang==="es"&&ES["PH:"+el.dataset.phEn]?ES["PH:"+el.dataset.phEn]:el.dataset.phEn;});
+  }
+  function setLang(l,fromChat){
+    lang=l; document.documentElement.lang=l;
+    $$("[data-lang]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===l));
+    translatePage(); renderChips(); pick(cur); renderProblems(); renderDays(); if(bk.day!==null) renderSlots(bk.day,true); renderOk();
+    if(!fromChat) setChatLang(l,true);
+  }
+
   /* ---------- Price tool ---------- */
   const PRICES={
-    heater:{name:"Water heater repair",icon:"heater",r:"$200 – $650",n:"Common repairs like thermostats, heating elements and valves. A full replacement typically runs $1,600 – $3,200 installed."},
-    drain:{name:"Clogged drain",icon:"drain",r:"$150 – $350",n:"Kitchen, bathroom or tub drains cleared with a snake or hydro-jetting where needed."},
-    toilet:{name:"Toilet repair",icon:"toilet",r:"$125 – $325",n:"Running, leaking or clogged toilets. Full toilet replacement is quoted separately."},
-    faucet:{name:"Faucet leak",icon:"faucet",r:"$125 – $300",n:"Dripping or leaking faucets repaired, or replaced with a fixture you choose."},
-    sewer:{name:"Main line backup",icon:"pipe",r:"$250 – $700",n:"Main sewer line clearing, with a camera inspection when backups keep coming back."},
-    leak:{name:"Leak detection",icon:"search",r:"$200 – $450",n:"Finding hidden leaks in walls, ceilings or under the yard. Repair is quoted once the leak is found."},
-    disposal:{name:"Garbage disposal",icon:"wrench",r:"$150 – $450",n:"Jammed or leaking disposals repaired, or replaced with a new unit."},
-    slab:{name:"Slab leak",icon:"drop",r:"$500 – $2,500",n:"Leaks under your foundation, common in Austin's clay soil. Price depends on access and reroute options."},
-    emergency:{name:"Emergency call-out",icon:"alert",r:"$175 – $450",n:"Burst pipes, major leaks and backups, any time of day. No extra charge for nights or weekends."}
+    heater:{name:["Water heater repair","Reparación de calentador"],icon:"heater",r:"$200 – $650",n:["Common repairs like thermostats, heating elements and valves. A full replacement typically runs $1,600 – $3,200 installed.","Reparaciones comunes como termostatos, resistencias y válvulas. Un reemplazo completo suele costar $1,600 – $3,200 instalado."]},
+    drain:{name:["Clogged drain","Drenaje tapado"],icon:"drain",r:"$150 – $350",n:["Kitchen, bathroom or tub drains cleared with a snake or hydro-jetting where needed.","Drenajes de cocina, baño o tina destapados con guía o hidrolavado cuando hace falta."]},
+    toilet:{name:["Toilet repair","Reparación de inodoro"],icon:"toilet",r:"$125 – $325",n:["Running, leaking or clogged toilets. Full toilet replacement is quoted separately.","Inodoros que corren, gotean o están tapados. El reemplazo completo se cotiza aparte."]},
+    faucet:{name:["Faucet leak","Llave que gotea"],icon:"faucet",r:"$125 – $300",n:["Dripping or leaking faucets repaired, or replaced with a fixture you choose.","Llaves que gotean reparadas, o reemplazadas por un modelo que usted elija."]},
+    sewer:{name:["Main line backup","Drenaje principal tapado"],icon:"pipe",r:"$250 – $700",n:["Main sewer line clearing, with a camera inspection when backups keep coming back.","Destape del drenaje principal, con inspección por cámara cuando el problema se repite."]},
+    leak:{name:["Leak detection","Detección de fugas"],icon:"search",r:"$200 – $450",n:["Finding hidden leaks in walls, ceilings or under the yard. Repair is quoted once the leak is found.","Localizamos fugas ocultas en paredes, techos o bajo el jardín. La reparación se cotiza al encontrar la fuga."]},
+    disposal:{name:["Garbage disposal","Triturador de basura"],icon:"wrench",r:"$150 – $450",n:["Jammed or leaking disposals repaired, or replaced with a new unit.","Trituradores atascados o con fugas reparados, o reemplazados por uno nuevo."]},
+    slab:{name:["Slab leak","Fuga bajo la losa"],icon:"drop",r:"$500 – $2,500",n:["Leaks under your foundation, common in Austin's clay soil. Price depends on access and reroute options.","Fugas bajo los cimientos, comunes en el suelo arcilloso de Austin. El precio depende del acceso y de las opciones de desvío."]},
+    emergency:{name:["Emergency call-out","Servicio de emergencia"],icon:"alert",r:"$175 – $450",n:["Burst pipes, major leaks and backups, any time of day. No extra charge for nights or weekends.","Tubos reventados, fugas grandes y drenajes desbordados a cualquier hora. Sin cargo extra por noches o fines de semana."]}
   };
-  const chips=$("#chips");
-  chips.innerHTML=Object.entries(PRICES).filter(([k])=>k!=="emergency").map(([k,p])=>`<button class="chip" type="button" data-k="${k}" aria-pressed="false"><img src="img/p-${k}.jpg" alt="" loading="lazy" width="412" height="464"><span>${ico(p.icon)}${p.name}</span></button>`).join("");
-  function pick(k){const p=PRICES[k]; if(!p) return; $("#pRange").textContent=p.r; $("#pWhat").textContent=p.name; $("#pNote").textContent=p.n+" Your plumber confirms the final price on site before any work begins."; $$(".chip").forEach(c=>c.setAttribute("aria-pressed",c.dataset.k===k)); $("#pBook").dataset.k=k;}
+  const L2=a=>a[lang==="es"?1:0];
+  const chips=$("#chips"); let cur="heater";
+  function renderChips(){chips.innerHTML=Object.entries(PRICES).filter(([k])=>k!=="emergency").map(([k,p])=>`<button class="chip" type="button" data-k="${k}" aria-pressed="${k===cur}"><img src="img/p-${k}.jpg" alt="" loading="lazy" width="412" height="464"><span>${ico(p.icon)}${L2(p.name)}</span></button>`).join("");}
+  function pick(k){const p=PRICES[k]; if(!p) return; cur=k; $("#pRange").textContent=p.r; $("#pWhat").textContent=L2(p.name); $("#pNote").textContent=L2(p.n)+T2(" Your plumber confirms the final price on site before any work begins."," Su plomero confirma el precio final en el lugar antes de empezar cualquier trabajo."); $$(".chip").forEach(c=>c.setAttribute("aria-pressed",c.dataset.k===k)); $("#pBook").dataset.k=k;}
   chips.addEventListener("click",e=>{const c=e.target.closest(".chip"); if(c) pick(c.dataset.k)});
-  pick("heater");
+  renderChips(); pick("heater");
   $$("[data-price]").forEach(b=>b.addEventListener("click",()=>{ if(document.body.classList.contains("base-only")){location.hash="#areas";return;} pick(b.dataset.price); $("#prices").scrollIntoView({behavior:"smooth"});}));
-  $("#pBook").addEventListener("click",()=>{const k=$("#pBook").dataset.k; const map={heater:"Water heater",drain:"Clogged drain",toilet:"Toilet",faucet:"Faucet / fixture",sewer:"Sewer / main line",leak:"Leak",disposal:"Something else",slab:"Leak",emergency:"Emergency"}; setProblem(map[k]||"Something else");});
+  $("#pBook").addEventListener("click",()=>{const k=$("#pBook").dataset.k; const map={heater:"heater",drain:"drain",toilet:"toilet",faucet:"faucet",sewer:"sewer",leak:"leak",disposal:"other",slab:"leak",emergency:"emergency"}; setProblem(map[k]||"other");});
 
   /* ---------- Booking ---------- */
-  const PROB=[["Emergency","Water everywhere / burst pipe"],["Clogged drain","Sink, tub or shower"],["Water heater","No hot water or leaking"],["Leak","Dripping, stains or high bill"],["Toilet","Running, leaking or clogged"],["Faucet / fixture","Repair or replace"],["Sewer / main line","Backups in several drains"],["Something else","We'll figure it out together"]];
+  const PROB=[["emergency","Emergency","Water everywhere / burst pipe","Emergencia","Agua por todas partes / tubo reventado"],["drain","Clogged drain","Sink, tub or shower","Drenaje tapado","Lavabo, tina o regadera"],["heater","Water heater","No hot water or leaking","Calentador de agua","Sin agua caliente o con fuga"],["leak","Leak","Dripping, stains or high bill","Fuga","Goteo, manchas o recibo alto"],["toilet","Toilet","Running, leaking or clogged","Inodoro","Corre, gotea o está tapado"],["faucet","Faucet / fixture","Repair or replace","Llave / accesorio","Reparar o reemplazar"],["sewer","Sewer / main line","Backups in several drains","Drenaje principal","Atascos en varios drenajes"],["other","Something else","We'll figure it out together","Otra cosa","Lo averiguamos juntos"]];
+  const probName=id=>{const r=PROB.find(x=>x[0]===id); return r?T2(r[1],r[3]):"";};
   const bk={problem:null,day:null,slot:null};
-  $("#bProblems").innerHTML=PROB.map(([t,s])=>`<button type="button" class="opt" data-p="${t}" aria-pressed="false">${t}<small>${s}</small></button>`).join("");
-  function setProblem(t){bk.problem=t; $$("#bProblems .opt").forEach(o=>o.setAttribute("aria-pressed",o.dataset.p===t)); $("#err1").textContent="";}
+  function renderProblems(){$("#bProblems").innerHTML=PROB.map(([id,t,s,te,se])=>`<button type="button" class="opt" data-p="${id}" aria-pressed="${bk.problem===id}">${T2(t,te)}<small>${T2(s,se)}</small></button>`).join("");}
+  function setProblem(id){bk.problem=id; $$("#bProblems .opt").forEach(o=>o.setAttribute("aria-pressed",o.dataset.p===id)); $("#err1").textContent="";}
   $("#bProblems").addEventListener("click",e=>{const o=e.target.closest(".opt"); if(o) setProblem(o.dataset.p)});
-  const fmt=d=>d.toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"});
+  const fmt=d=>d.toLocaleDateString(lang==="es"?"es-US":"en-US",{weekday:"short",month:"short",day:"numeric"});
   const days=[]; for(let i=0;days.length<4;i++){const d=new Date(); d.setDate(d.getDate()+i); if(d.getDay()!==0) days.push(d);}
-  $("#bDays").innerHTML=days.map((d,i)=>`<button type="button" class="btn btn-ghost btn-sm" data-d="${i}" aria-pressed="false">${i===0&&d.toDateString()===new Date().toDateString()?"Today":fmt(d)}</button>`).join("");
+  function renderDays(){$("#bDays").innerHTML=days.map((d,i)=>{const on=bk.day===i; return `<button type="button" class="btn btn-sm ${on?"btn-blue":"btn-ghost"}" data-d="${i}" aria-pressed="${on}">${i===0&&d.toDateString()===new Date().toDateString()?T2("Today","Hoy"):fmt(d)}</button>`}).join("");}
   const SLOTS=["8–10 a.m.","10 a.m.–12 p.m.","12–2 p.m.","2–4 p.m.","4–6 p.m.","6–7 p.m."];
-  function renderSlots(i){ const taken=[1,4].map(x=>(x+i)%SLOTS.length); const today=days[i].toDateString()===new Date().toDateString(); const h=new Date().getHours();
-    $("#bSlots").innerHTML=SLOTS.map((s,j)=>{const past=today && (8+j*2)<=h+1; const off=past||taken.includes(j); return `<button type="button" class="opt" data-s="${s}" aria-pressed="false" ${off?'disabled style="opacity:.4;cursor:not-allowed"':""}>${s}<small>${off?(past?"Passed":"Booked"):"Available"}</small></button>`}).join(""); bk.slot=null;}
-  $("#bDays").addEventListener("click",e=>{const b=e.target.closest("[data-d]"); if(!b) return; bk.day=+b.dataset.d; $$("#bDays [data-d]").forEach(x=>{const on=x===b; x.setAttribute("aria-pressed",on); x.className="btn btn-sm "+(on?"btn-blue":"btn-ghost")}); renderSlots(bk.day); $("#err2").textContent="";});
+  function renderSlots(i,keep){ const taken=[1,4].map(x=>(x+i)%SLOTS.length); const today=days[i].toDateString()===new Date().toDateString(); const h=new Date().getHours();
+    $("#bSlots").innerHTML=SLOTS.map((s,j)=>{const past=today && (8+j*2)<=h+1; const off=past||taken.includes(j); return `<button type="button" class="opt" data-s="${s}" aria-pressed="${keep&&bk.slot===s}" ${off?'disabled style="opacity:.4;cursor:not-allowed"':""}>${s}<small>${off?(past?T2("Passed","Ya pasó"):T2("Booked","Ocupado")):T2("Available","Disponible")}</small></button>`}).join(""); if(!keep) bk.slot=null;}
+  renderProblems(); renderDays();
+  $("#bDays").addEventListener("click",e=>{const b=e.target.closest("[data-d]"); if(!b) return; bk.day=+b.dataset.d; renderDays(); renderSlots(bk.day); $("#err2").textContent="";});
   $("#bSlots").addEventListener("click",e=>{const o=e.target.closest(".opt"); if(!o||o.disabled) return; bk.slot=o.dataset.s; $$("#bSlots .opt").forEach(x=>x.setAttribute("aria-pressed",x===o)); $("#err2").textContent="";});
   function go(n){ $$("#booking .bpane").forEach(p=>p.hidden=+p.dataset.pane!==n); $$("#booking .steps div").forEach(s=>{const k=+s.dataset.step; s.className=k<n?"done":k===n?"on":""}); }
   $$("#booking [data-next]").forEach(b=>b.addEventListener("click",()=>{const n=+b.dataset.next;
-    if(n===2&&!bk.problem){$("#err1").textContent="Please pick the problem first."; return;}
-    if(n===3&&(bk.day===null||!bk.slot)){$("#err2").textContent="Please choose a day and a time window."; return;}
-    if(n===2&&bk.day===null){$("#bDays [data-d]").click();}
+    if(n===2&&!bk.problem){$("#err1").textContent=T2("Please pick the problem first.","Por favor elija primero el problema."); return;}
+    if(n===3&&(bk.day===null||!bk.slot)){$("#err2").textContent=T2("Please choose a day and a time window.","Por favor elija un día y un horario."); return;}
+    if(n===2&&bk.day===null){ // open on the first day that still has a free time window
+      const h=new Date().getHours(), first=days[0].toDateString()===new Date().toDateString() && SLOTS.every((x,j)=>(8+j*2)<=h+1||[1,4].includes(j)) ? 1 : 0;
+      bk.day=first; renderDays(); renderSlots(first);}
     go(n);}));
   $$("#booking [data-back]").forEach(b=>b.addEventListener("click",()=>go(+b.dataset.back)));
   $("#bConfirm").addEventListener("click",()=>{const nm=$("#bName").value.trim(), ph=$("#bPhone").value.replace(/\D/g,""), ad=$("#bAddr").value.trim();
-    if(!nm||ph.length<10||!ad){$("#err3").textContent="Please enter your name, a 10-digit phone number and your address."; return;}
-    $("#okTitle").textContent=`You're booked, ${nm.split(" ")[0]}!`;
-    $("#okText").textContent=`${bk.problem} · ${fmt(days[bk.day])}, ${bk.slot} — we'll text ${$("#bPhone").value.trim()} with your plumber's name and photo before they arrive.`;
-    go(4);});
-  $("#bAgain").addEventListener("click",()=>{bk.problem=null;bk.slot=null;bk.day=null;["#bName","#bPhone","#bAddr"].forEach(s=>$(s).value="");$$("#bProblems .opt").forEach(o=>o.setAttribute("aria-pressed",false));$$("#bDays [data-d]").forEach(x=>{x.className="btn btn-ghost btn-sm";x.setAttribute("aria-pressed",false)});$("#bSlots").innerHTML="";go(1);});
+    if(!nm||ph.length<10||!ad){$("#err3").textContent=T2("Please enter your name, a 10-digit phone number and your address.","Por favor escriba su nombre, un teléfono de 10 dígitos y su dirección."); return;}
+    done={first:nm.split(" ")[0], phone:$("#bPhone").value.trim()}; renderOk(); go(4);});
+  let done=null;
+  function renderOk(){ if(!done) return; const end=bk.slot.endsWith(".")?" ":". ";
+    $("#okTitle").textContent=T2(`You're booked, ${done.first}!`,`¡Listo, ${done.first}! Su cita está reservada.`);
+    $("#okText").textContent=T2(`${probName(bk.problem)} · ${fmt(days[bk.day])}, ${bk.slot}${end}We'll text ${done.phone} with your plumber's name and photo before they arrive.`,
+                                `${probName(bk.problem)} · ${fmt(days[bk.day])}, ${bk.slot}${end}Le enviaremos al ${done.phone} el nombre y la foto de su plomero antes de que llegue.`);}
+  $("#bAgain").addEventListener("click",()=>{done=null;bk.problem=null;bk.slot=null;bk.day=null;["#bName","#bPhone","#bAddr"].forEach(s=>$(s).value="");renderProblems();renderDays();$("#bSlots").innerHTML="";go(1);});
 
   /* ---------- Reveal on scroll ---------- */
   if("IntersectionObserver" in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12}); $$(".reveal").forEach(el=>io.observe(el));} else $$(".reveal").forEach(el=>el.classList.add("in"));
@@ -831,19 +888,26 @@ body.base-only .needs-addon{display:none !important}
   async function respond(fn,ms){busy=true; const t=document.createElement("div"); t.className="msg typing"; t.innerHTML="<i></i><i></i><i></i>"; log.appendChild(t); log.scrollTop=log.scrollHeight; await wait(ms||900); t.remove(); busy=false; fn();}
   const T={
     en:{hi:"Hi! I'm the Capitol Creek assistant. I can help with an emergency, give you a typical price, or book a plumber. What's going on?",
-        q:[["🚨 I have an emergency",()=>emergency(),"red"],["What will it cost?",()=>prices()],["Book a plumber",()=>book()],["Areas you serve",()=>areas()],["Español",()=>setEs(true)]],
-        more:"Anything else I can help with?"},
+        q:[["🚨 I have an emergency",()=>emergency(),"red"],["What will it cost?",()=>prices()],["Book a plumber",()=>book()],["Areas you serve",()=>areas()]],
+        sw:"Sure, let's continue in English.", ph:"Type your question…", note:"Demo assistant. Don't share private information.", on:"Online 24/7"},
     es:{hi:"¡Hola! Soy el asistente de Capitol Creek. Puedo ayudarle con una emergencia, darle un precio típico o reservar un plomero. ¿Qué está pasando?",
-        q:[["🚨 Tengo una emergencia",()=>emergency(),"red"],["¿Cuánto cuesta?",()=>prices()],["Reservar un plomero",()=>book()],["Zonas de servicio",()=>areas()],["English",()=>setEs(false)]],
-        more:"¿Algo más en que le pueda ayudar?"}
+        q:[["🚨 Tengo una emergencia",()=>emergency(),"red"],["¿Cuánto cuesta?",()=>prices()],["Reservar un plomero",()=>book()],["Zonas de servicio",()=>areas()]],
+        sw:"Perfecto, seguimos en español.", ph:"Escriba su pregunta…", note:"Asistente de demostración. No comparta información privada.", on:"En línea 24/7"}
   };
   const L=()=>T[es?"es":"en"];
   function menu(){say(L().hi); quick(L().q);}
-  function after(){quick(L().q.slice(0,4).concat([[es?"English":"Español",()=>setEs(!es)]]));}
-  function setEs(v){es=v; say(v?"Perfecto, seguimos en español.":"Sure, let's continue in English."); quick(L().q.slice(0,4));}
+  function after(){quick(L().q);}
+  function setChatLang(l,silent){
+    const was=es; es=(l==="es");
+    $$("[data-chat-lang]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.chatLang===l));
+    input.placeholder=L().ph; $(".cnote").textContent=L().note; $("#chatOnline").textContent=L().on;
+    if(started && was!==es && !silent){ log.querySelectorAll(".quick").forEach(x=>x.remove()); say(L().sw); after(); }
+    else if(started && was!==es && silent){ log.querySelectorAll(".quick").forEach(x=>x.remove()); say(L().sw); after(); }
+  }
+  $$("[data-chat-lang]").forEach(b=>b.addEventListener("click",()=>setChatLang(b.dataset.chatLang)));
   function emergency(){say(es?"Primero, <b>cierre la llave principal de agua</b> (normalmente en el garaje, un clóset o cerca de la llave exterior). Luego llámenos 24/7: <a href='tel:5125550147'>512-555-0147</a> (demo). Enviamos un plomero de inmediato."
     :"First, <b>shut off your main water valve</b> (usually in the garage, a utility closet, or outside near the hose bib). Then call us 24/7 at <a href='tel:5125550147'>512-555-0147</a> (demo). We dispatch a plumber right away."); after();}
-  function prices(){say(es?"Rangos típicos en Austin (demo): destapar drenaje <b>$150–$350</b>, reparar calentador <b>$200–$650</b>, inodoro <b>$125–$325</b>, detección de fugas <b>$200–$450</b>. El plomero confirma el precio final antes de empezar."
+  function prices(){say(es?"Rangos típicos en Austin (demo): destapar drenaje <b>$150–$350</b>, reparar calentador <b>$200–$650</b>, inodoro <b>$125–$325</b>, detección de fugas <b>$200–$450</b>. El plomero confirma el precio final antes de empezar. <a href='#prices'>Ver todos los precios</a>"
     :"Typical Austin ranges (demo): clogged drain <b>$150–$350</b>, water heater repair <b>$200–$650</b>, toilet repair <b>$125–$325</b>, leak detection <b>$200–$450</b>. Your plumber confirms the final price before any work starts. <a href='#prices'>See all prices</a>"); after();}
   function book(){say(es?"Puede reservar en 3 pasos: problema, horario, nombre y teléfono. <a href='#book'>Reservar ahora</a>, o llame al 512-555-0147 (demo)."
     :"You can book in 3 quick steps: problem, time, name and phone. <a href='#book'>Book now</a>, or call 512-555-0147 (demo). Most Austin calls get a same-day slot."); after();}
@@ -854,7 +918,6 @@ body.base-only .needs-addon{display:none !important}
     if(/(cost|price|how much|cuánto|cuanto|precio)/.test(t)) return prices();
     if(/(book|appointment|schedule|come out|reserv|cita)/.test(t)) return book();
     if(/(area|serve|city|zona|round rock|cedar|kyle|buda|georgetown|leander|pfluger)/.test(t)) return areas();
-    if(/(spanish|español|espanol)/.test(t)) return setEs(true);
     say(es?"Buena pregunta. Para eso es mejor hablar con nuestro equipo: llame al 512-555-0147 (demo) o reserve en línea.":"Good question. Our team can answer that best: call 512-555-0147 (demo) or book online and we'll call you."); after();}
   async function askAI(q){ if(!CHAT_API) return null; hist.push({role:"user",content:q});
     try{const c=new AbortController(); const to=setTimeout(()=>c.abort(),30000);
@@ -863,17 +926,17 @@ body.base-only .needs-addon{display:none !important}
     }catch(e){hist.pop();return null;}}
   $("#cform").addEventListener("submit",async e=>{e.preventDefault(); if(busy) return; const q=input.value.trim().slice(0,500); if(!q) return; input.value="";
     say(esc(q),true); log.querySelectorAll(".quick").forEach(x=>x.remove());
-    if(/[¿¡ñáéíóú]|\b(hola|necesito|tengo|gracias|plomero)\b/i.test(q)) es=true;
     busy=true; const t=document.createElement("div"); t.className="msg typing"; t.innerHTML="<i></i><i></i><i></i>"; log.appendChild(t); log.scrollTop=log.scrollHeight;
     const [reply]=await Promise.all([askAI(q),wait(1200)]); t.remove(); busy=false;
     if(reply){say(fmtAI(reply)); after();} else scripted(q);});
-  function openChat(spanish){chat.hidden=false; fab.setAttribute("aria-expanded",true); if(spanish&&!es){es=true; if(started){say("¡Claro! Seguimos en español."); quick(L().q.slice(0,4));}} if(!started){started=true; respond(menu,600);} setTimeout(()=>input.focus(),50);}
+  function openChat(){chat.hidden=false; fab.setAttribute("aria-expanded",true); if(!started){started=true; respond(menu,600);} setTimeout(()=>input.focus(),50);}
   function closeChat(){chat.hidden=true; fab.setAttribute("aria-expanded",false);}
   fab.addEventListener("click",()=>chat.hidden?openChat():closeChat());
   $("#chatClose").addEventListener("click",closeChat);
-  $$("[data-open-chat]").forEach(b=>b.addEventListener("click",()=>chat.hidden?openChat():closeChat()));
-  $$("[data-spanish]").forEach(b=>b.addEventListener("click",()=>openChat(true)));
   document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!chat.hidden) closeChat();});
+
+  /* ---------- Site language flags ---------- */
+  $$("[data-lang]").forEach(b=>b.addEventListener("click",()=>setLang(b.dataset.lang)));
 })();
 </script>
 </body>
