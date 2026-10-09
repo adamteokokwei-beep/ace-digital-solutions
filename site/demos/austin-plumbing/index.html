@@ -277,7 +277,7 @@ label.f input:focus,label.f textarea:focus{border-color:var(--blue);outline:none
 .final .acts{margin-left:auto;display:flex;gap:12px;flex-wrap:wrap}
 
 /* Footer */
-footer{background:#081B33;color:#B9C8E0;padding:48px 0 110px;font-size:15px}
+footer{background:#081B33;color:#B9C8E0;padding:48px 0 170px;font-size:15px}
 footer .cols{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:26px}
 footer h4{color:#fff;font:700 15px "Archivo";margin:0 0 10px}
 footer a{color:#B9C8E0;text-decoration:none;display:block;padding:3px 0}
@@ -285,10 +285,10 @@ footer a:hover{color:#fff}
 .disclose{margin-top:30px;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);font-size:14px;line-height:1.6}
 .disclose b{color:#FFD873}
 @media (max-width:800px){footer .cols{grid-template-columns:1fr 1fr}}
-@media (min-width:981px){footer{padding-bottom:48px}}
+@media (min-width:981px){footer{padding-bottom:96px}}
 
 /* Mobile action bar */
-.mbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:none;grid-template-columns:repeat(3,1fr);gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.97);border-top:1px solid var(--line);box-shadow:0 -8px 24px -14px rgba(11,37,69,.5)}
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:none;grid-template-columns:1fr 1fr;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.97);border-top:1px solid var(--line);box-shadow:0 -8px 24px -14px rgba(11,37,69,.5)}
 .mbar a,.mbar button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:56px;border-radius:12px;border:0;font:700 14px "Archivo";text-decoration:none;cursor:pointer}
 .mbar .c{background:var(--red);color:#fff}
 .mbar .b{background:var(--blue);color:#fff}
@@ -296,12 +296,21 @@ footer a:hover{color:#fff}
 @media (max-width:980px){.mbar{display:grid}}
 
 /* Chat */
-.chat-fab{position:fixed;right:22px;bottom:22px;z-index:60;height:58px;padding:0 20px 0 16px;border-radius:999px;border:0;background:var(--blue);color:#fff;font:700 16px "Archivo";display:flex;align-items:center;gap:9px;box-shadow:0 14px 30px -12px rgba(29,95,209,.9);cursor:pointer}
-.chat-fab .live{width:9px;height:9px;border-radius:50%;background:#4ADE80;box-shadow:0 0 0 3px rgba(74,222,128,.3)}
-@media (max-width:980px){.chat-fab{display:none}}
+.chat-fab{position:fixed;right:20px;bottom:22px;z-index:60;width:62px;height:62px;border-radius:50%;border:0;background:var(--blue);color:#fff;display:grid;place-items:center;box-shadow:0 14px 30px -12px rgba(29,95,209,.95);cursor:pointer;transition:transform .2s}
+.chat-fab:hover{transform:scale(1.07)}
+.chat-fab .ico{width:28px;height:28px}
+.chat-fab .live{position:absolute;top:4px;right:4px;width:13px;height:13px;border-radius:50%;background:#4ADE80;border:2px solid #fff}
+@media (max-width:980px){.chat-fab{right:14px;bottom:calc(88px + env(safe-area-inset-bottom,0px));width:56px;height:56px}}
+/* Social row, bottom-left */
+.social{position:fixed;left:20px;bottom:30px;z-index:55;display:flex;gap:8px}
+.social a{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:#fff;text-decoration:none;font:800 19px/1 Arial,sans-serif;box-shadow:0 8px 18px -10px rgba(0,0,0,.6);transition:transform .2s}
+.social a:hover{transform:translateY(-3px)}
+.social .ico{width:22px;height:22px}
+.social .fb{background:#1877F2}.social .ig{background:linear-gradient(45deg,#F58529,#DD2A7B 50%,#8134AF)}.social .yt{background:#E62117}.social .rd{background:#FF4500}
+@media (max-width:980px){.social{left:14px;bottom:calc(96px + env(safe-area-inset-bottom,0px));gap:6px}.social a{width:40px;height:40px;font-size:17px}}
 .chat{position:fixed;right:22px;bottom:92px;z-index:61;width:min(390px,calc(100vw - 24px));height:min(600px,calc(100vh - 120px));background:#fff;border-radius:18px;box-shadow:0 30px 70px -20px rgba(11,18,32,.55);display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line)}
 .chat[hidden]{display:none}
-@media (max-width:980px){.chat{right:12px;bottom:calc(88px + env(safe-area-inset-bottom,0px));height:min(560px,calc(100vh - 120px))}}
+@media (max-width:980px){.chat{right:12px;bottom:calc(156px + env(safe-area-inset-bottom,0px));height:min(520px,calc(100vh - 200px))}}
 .chat-h{background:var(--navy);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:10px}
 .chat-h .av{width:38px;height:38px;border-radius:50%;background:var(--blue);display:grid;place-items:center;flex:none}
 .chat-h b{font-family:"Archivo";display:block}
@@ -332,7 +341,7 @@ body.base-only [data-addon]{position:relative}
 body.base-only [data-addon]>*{filter:grayscale(1);opacity:.28;pointer-events:none}
 body.base-only [data-addon]::after{content:attr(data-addon);position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:#312E81;color:#fff;font:700 15px/1.3 "Archivo";padding:12px 18px;border-radius:12px;box-shadow:var(--sh);text-align:center;max-width:86%;z-index:2}
 body.base-only .incl-tag{display:inline-flex}
-body.base-only .chat-fab,body.base-only .mbar .h,body.base-only .float.f2{display:none}
+body.base-only .chat-fab,body.base-only .float.f2{display:none}
 body.base-only .booking-tool{display:none}
 body.base-only .simple-form{display:block}
 body.base-only .mbar{grid-template-columns:1fr 1fr}
@@ -717,11 +726,16 @@ body.base-only .needs-addon{display:none !important}
 <div class="mbar" aria-label="Quick actions">
   <a class="c" href="tel:5125550147"><svg class="ico"><use href="#i-phone"/></svg>Call</a>
   <a class="b" href="#book"><svg class="ico"><use href="#i-cal"/></svg>Book</a>
-  <button class="h" type="button" data-open-chat><svg class="ico"><use href="#i-chat"/></svg>Chat</button>
 </div>
 
 <!-- Chat -->
-<button class="chat-fab" id="chatFab" type="button" aria-controls="chat" aria-expanded="false"><span class="live"></span>Chat with us</button>
+<div class="social" aria-label="Social media (demo links)">
+  <a class="fb" href="#" aria-label="Facebook (demo link)" title="Facebook (demo)">f</a>
+  <a class="ig" href="#" aria-label="Instagram (demo link)" title="Instagram (demo)"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></a>
+  <a class="yt" href="#" aria-label="YouTube (demo link)" title="YouTube (demo)"><svg class="ico" viewBox="0 0 24 24"><path d="M9 7.5v9l8-4.5z" fill="currentColor" stroke="none"/></svg></a>
+  <a class="rd" href="#" aria-label="Reddit (demo link)" title="Reddit (demo)">r</a>
+</div>
+<button class="chat-fab" id="chatFab" type="button" aria-controls="chat" aria-expanded="false" aria-label="Chat with us"><svg class="ico"><use href="#i-chat"/></svg><span class="live"></span></button>
 <div class="chat" id="chat" hidden role="dialog" aria-label="Capitol Creek chat assistant">
   <div class="chat-h">
     <span class="av"><svg class="ico"><use href="#i-wrench"/></svg></span>
@@ -738,6 +752,7 @@ body.base-only .needs-addon{display:none !important}
   const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
   const ico=n=>`<svg class="ico"><use href="#i-${n}"/></svg>`;
 
+  $$(".social a").forEach(a=>a.addEventListener("click",e=>e.preventDefault()));
   /* ---------- $250 toggle ---------- */
   const tg=$("#baseToggle");
   tg.addEventListener("change",()=>{document.body.classList.toggle("base-only",tg.checked);$$("[data-base-show]").forEach(e=>e.style.display=tg.checked?"inline-flex":"none"); if(tg.checked) closeChat();});
