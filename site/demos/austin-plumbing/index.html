@@ -107,6 +107,10 @@ nav.main a:hover{color:#fff}
 .float.f1{top:18px;left:-26px;max-width:230px}
 .float.f1 img{width:42px;height:42px;border-radius:50%;object-fit:cover}
 .float.f2{bottom:22px;right:-14px;cursor:pointer;border:0;font:inherit;font-weight:700}
+.es-link{display:inline-flex;align-items:center;gap:10px;margin-top:16px;background:none;border:0;padding:4px 0;color:var(--muted);font:400 16px "Source Sans 3";cursor:pointer;text-align:left}
+.es-link b{color:var(--blue)}
+.es-link .ico{width:18px;height:18px;color:var(--blue);transition:transform .2s}
+.es-link:hover .ico{transform:translateX(3px)}
 .flag{width:30px;height:30px;border-radius:50%;background:#EAF1FD;color:var(--blue);display:grid;place-items:center;font:800 12px "Archivo";flex:none}
 @media (max-width:900px){
   .hero .wrap{grid-template-columns:1fr;gap:28px}
@@ -341,7 +345,7 @@ body.base-only [data-addon]{position:relative}
 body.base-only [data-addon]>*{filter:grayscale(1);opacity:.28;pointer-events:none}
 body.base-only [data-addon]::after{content:attr(data-addon);position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:#312E81;color:#fff;font:700 15px/1.3 "Archivo";padding:12px 18px;border-radius:12px;box-shadow:var(--sh);text-align:center;max-width:86%;z-index:2}
 body.base-only .incl-tag{display:inline-flex}
-body.base-only .chat-fab,body.base-only .float.f2{display:none}
+body.base-only .chat-fab,body.base-only .es-link{display:none}
 body.base-only .booking-tool{display:none}
 body.base-only .simple-form{display:block}
 body.base-only .mbar{grid-template-columns:1fr 1fr}
@@ -424,6 +428,7 @@ body.base-only .needs-addon{display:none !important}
         <a class="btn btn-ghost needs-addon" href="#prices"><svg class="ico"><use href="#i-tag"/></svg>Get a Price Range</a>
         <a class="btn btn-blue" href="#book" style="display:none" data-base-show><svg class="ico"><use href="#i-msg"/></svg>Request Service</a>
       </div>
+      <button class="es-link" type="button" data-spanish><span class="flag" aria-hidden="true">ES</span><span>¿Habla español? <b>Chatee con nosotros en español</b></span><svg class="ico"><use href="#i-arrow"/></svg></button>
       <div class="trust">
         <div><svg class="ico star"><use href="#i-star"/></svg><span><b>4.9★ rating</b>1,240 reviews <span class="demo">DEMO</span></span></div>
         <div><svg class="ico"><use href="#i-cal"/></svg><span><b>12 years</b>serving Austin</span></div>
@@ -434,7 +439,6 @@ body.base-only .needs-addon{display:none !important}
     <div class="hero-img">
       <div class="ph"><img src="img/hero.jpg" alt="Plumber repairing the pipes under a kitchen sink" width="1100" height="1180" fetchpriority="high"></div>
       <div class="float f1"><img src="img/face.jpg" alt="" width="42" height="42"><span>We text you your plumber's photo before they arrive.</span></div>
-      <button class="float f2" type="button" data-spanish><span class="flag" aria-hidden="true">ES</span>Hablamos español</button>
     </div>
   </div>
 </section>
