@@ -370,7 +370,9 @@ main .wrap,footer .wrap,.emerg .wrap{max-width:calc(1180px + 2*var(--side) - 36p
 
 
 /* Desktop: photo tiles fill exactly the price card's height (top and bottom edges line up) */
-@media (min-width:901px){.price{align-items:stretch}.chips{grid-template-rows:1fr 1fr;height:100%}.chip{aspect-ratio:auto;min-height:160px;height:100%}}
+@media (min-width:901px){.pcard .note{min-height:7.9em}}
+@media (min-width:901px) and (max-width:1200px){.pcard .note{min-height:11em}}
+@media (min-width:901px){.pcard .what{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pcard .range{white-space:nowrap}.price{align-items:stretch}.chips{grid-template-rows:1fr 1fr;height:100%}.chip{aspect-ratio:auto;min-height:160px;height:100%}}
 
 
 /* Booking: make the selected choice unmistakable (solid fill + check); unselected Emergency stays light */
