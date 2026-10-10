@@ -350,6 +350,17 @@ main .wrap,footer .wrap,.emerg .wrap{max-width:calc(1180px + 2*var(--side) - 36p
 .callsim .end{margin:20px auto 0;width:64px;height:64px;border-radius:50%;border:0;background:#DC2626;color:#fff;display:grid;place-items:center;cursor:pointer}
 .callsim .end svg{width:28px;height:28px;transform:rotate(135deg)}
 
+
+/* Phones: price result sits above the tiles and stays in view while you tap through them */
+@media (max-width:900px){
+  .price{align-items:start}
+  .pcard{order:-1;position:sticky;top:80px;z-index:3;padding:14px 16px;gap:4px;border-radius:16px;box-shadow:0 14px 30px -12px rgba(0,0,0,.6)}
+  .pcard .range{font-size:32px}
+  .pcard .what{font-size:17px}
+  .pcard .note{font-size:13.5px;line-height:1.4}
+  .pcard .btn{min-height:44px;margin-top:8px}
+}
+
 /* Mobile action bar */
 .mbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:none;grid-template-columns:1fr 1fr;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.97);border-top:1px solid var(--line);box-shadow:0 -8px 24px -14px rgba(11,37,69,.5)}
 .mbar a,.mbar button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:56px;border-radius:12px;border:0;font:700 14px "Archivo";text-decoration:none;cursor:pointer}
@@ -893,7 +904,8 @@ body.base-only .needs-addon{display:none !important}
   const chips=$("#chips"); let cur="heater";
   function renderChips(){chips.innerHTML=Object.entries(PRICES).filter(([k])=>k!=="emergency").map(([k,p])=>`<button class="chip" type="button" data-k="${k}" aria-pressed="${k===cur}"><img src="img/p-${k}.jpg" alt="" loading="lazy" width="412" height="464"><span>${ico(p.icon)}${L2(p.name)}</span></button>`).join("");}
   function pick(k){const p=PRICES[k]; if(!p) return; cur=k; $("#pRange").textContent=p.r; $("#pWhat").textContent=L2(p.name); $("#pNote").textContent=L2(p.n)+T2(" Your plumber confirms the final price on site before any work begins."," Su plomero confirma el precio final en el lugar antes de empezar cualquier trabajo."); $$(".chip").forEach(c=>c.setAttribute("aria-pressed",c.dataset.k===k)); $("#pBook").dataset.k=k;}
-  chips.addEventListener("click",e=>{const c=e.target.closest(".chip"); if(c) pick(c.dataset.k)});
+  chips.addEventListener("click",e=>{const c=e.target.closest(".chip"); if(!c) return; pick(c.dataset.k);
+    const card=$(".pcard"), r=card.getBoundingClientRect(); if(r.top<60||r.bottom>innerHeight-90) card.scrollIntoView({behavior:"smooth",block:"nearest"});});
   renderChips(); pick("heater");
   $$("[data-price]").forEach(b=>b.addEventListener("click",()=>{ if(document.body.classList.contains("base-only")){location.hash="#areas";return;} pick(b.dataset.price); $("#prices").scrollIntoView({behavior:"smooth"});}));
   $("#pBook").addEventListener("click",()=>{const k=$("#pBook").dataset.k; const map={heater:"heater",drain:"drain",toilet:"toilet",faucet:"faucet",sewer:"sewer",leak:"leak",disposal:"other",slab:"leak",emergency:"emergency"}; setProblem(map[k]||"other");});
