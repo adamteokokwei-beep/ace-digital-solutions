@@ -372,6 +372,17 @@ main .wrap,footer .wrap,.emerg .wrap{max-width:calc(1180px + 2*var(--side) - 36p
 /* Desktop: photo tiles fill exactly the price card's height (top and bottom edges line up) */
 @media (min-width:901px){.price{align-items:stretch}.chips{grid-template-rows:1fr 1fr;height:100%}.chip{aspect-ratio:auto;min-height:160px;height:100%}}
 
+
+/* Booking: make the selected choice unmistakable (solid fill + check); unselected Emergency stays light */
+.opt{position:relative}
+.opt.emerg{background:#fff}
+.opt[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 10px 22px -10px rgba(29,95,209,.8)}
+.opt[aria-pressed="true"] small{color:#DCE8FF}
+.opt[aria-pressed="true"]::after{content:"✓";position:absolute;top:8px;right:9px;width:22px;height:22px;border-radius:50%;background:#fff;color:var(--blue);display:grid;place-items:center;font:800 13px/1 "Archivo"}
+.opt.emerg[aria-pressed="true"]{background:#DC2626;border-color:#DC2626;color:#fff;box-shadow:0 10px 22px -10px rgba(220,38,38,.8)}
+.opt.emerg[aria-pressed="true"] small{color:#FEE2E2}
+.opt.emerg[aria-pressed="true"]::after{color:#DC2626}
+
 /* Mobile action bar */
 .mbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:none;grid-template-columns:1fr 1fr;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.97);border-top:1px solid var(--line);box-shadow:0 -8px 24px -14px rgba(11,37,69,.5)}
 .mbar a,.mbar button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:56px;border-radius:12px;border:0;font:700 14px "Archivo";text-decoration:none;cursor:pointer}
