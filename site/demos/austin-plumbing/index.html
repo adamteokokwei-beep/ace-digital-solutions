@@ -368,6 +368,10 @@ main .wrap,footer .wrap,.emerg .wrap{max-width:calc(1180px + 2*var(--side) - 36p
 .pc-m{display:none}
 @media (max-width:900px){.pc-m{display:inline}.pc-d{display:none}.pc-title{padding-bottom:8px;flex-wrap:nowrap;font-size:14px}.pc-hint{white-space:nowrap;font-size:12px}.pcard .note{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.pcard .lbl{font-size:14px}}
 
+
+/* Desktop: photo tiles fill exactly the price card's height (top and bottom edges line up) */
+@media (min-width:901px){.price{align-items:stretch}.chips{grid-template-rows:1fr 1fr;height:100%}.chip{aspect-ratio:auto;min-height:160px;height:100%}}
+
 /* Mobile action bar */
 .mbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:none;grid-template-columns:1fr 1fr;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.97);border-top:1px solid var(--line);box-shadow:0 -8px 24px -14px rgba(11,37,69,.5)}
 .mbar a,.mbar button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:56px;border-radius:12px;border:0;font:700 14px "Archivo";text-decoration:none;cursor:pointer}
