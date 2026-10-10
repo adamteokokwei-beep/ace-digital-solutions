@@ -335,6 +335,21 @@ main .wrap,footer .wrap,.emerg .wrap{max-width:calc(1180px + 2*var(--side) - 36p
 .loc-msg a{font-weight:700}
 .steps .skip .n{background:#DC2626;color:#fff}
 
+
+/* Pretend call screen (demo only) */
+.callsim{position:fixed;inset:0;z-index:90;background:rgba(6,16,32,.72);display:grid;place-items:center;padding:16px}
+.callsim[hidden]{display:none}
+.callsim .phone{width:min(320px,100%);background:linear-gradient(180deg,#0B2545,#13315C);color:#fff;border-radius:28px;padding:30px 22px 24px;text-align:center;box-shadow:0 30px 70px -20px rgba(0,0,0,.7)}
+.callsim .avatar{width:84px;height:84px;margin:0 auto 14px;border-radius:50%;background:#1D5FD1;display:grid;place-items:center;box-shadow:0 0 0 0 rgba(29,95,209,.6);animation:ring 1.6s infinite}
+.callsim .avatar svg{width:42px;height:42px}
+@keyframes ring{70%{box-shadow:0 0 0 18px rgba(29,95,209,0)}100%{box-shadow:0 0 0 0 rgba(29,95,209,0)}}
+.callsim h3{font-size:21px}
+.callsim .num{color:#A9BCD9;margin-top:4px}
+.callsim .st{margin-top:14px;font-weight:700;color:#BBD3FF;min-height:24px}
+.callsim .note{margin-top:14px;font-size:13.5px;color:#C9D6EA;background:rgba(255,255,255,.08);border-radius:12px;padding:10px 12px;line-height:1.45}
+.callsim .end{margin:20px auto 0;width:64px;height:64px;border-radius:50%;border:0;background:#DC2626;color:#fff;display:grid;place-items:center;cursor:pointer}
+.callsim .end svg{width:28px;height:28px;transform:rotate(135deg)}
+
 /* Mobile action bar */
 .mbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:none;grid-template-columns:1fr 1fr;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.97);border-top:1px solid var(--line);box-shadow:0 -8px 24px -14px rgba(11,37,69,.5)}
 .mbar a,.mbar button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:56px;border-radius:12px;border:0;font:700 14px "Archivo";text-decoration:none;cursor:pointer}
@@ -786,6 +801,18 @@ body.base-only .needs-addon{display:none !important}
   <a class="b" href="#book"><svg class="ico"><use href="#i-cal"/></svg>Book</a>
 </div>
 
+<!-- Pretend call screen: phone numbers on this demo are fictional, so "Call" shows this instead of dialing -->
+<div class="callsim" id="callSim" hidden role="dialog" aria-modal="true" aria-labelledby="callName">
+  <div class="phone">
+    <div class="avatar"><svg class="ico"><use href="#i-phone"/></svg></div>
+    <h3 id="callName">Capitol Creek Plumbing</h3>
+    <div class="num">512-555-0147</div>
+    <div class="st" id="callStatus">Calling…</div>
+    <p class="note" id="callNote">Demo: this number isn't real. On a real website, tapping Call dials the business straight away.</p>
+    <button class="end" type="button" id="callEnd" aria-label="End call"><svg class="ico"><use href="#i-phone"/></svg></button>
+  </div>
+</div>
+
 <!-- Chat -->
 <div class="social" aria-label="Social media (demo links)">
   <a class="fb" href="#" aria-label="Facebook (demo link)" title="Facebook (demo)">f</a>
@@ -987,6 +1014,21 @@ body.base-only .needs-addon{display:none !important}
   fab.addEventListener("click",()=>chat.hidden?openChat():closeChat());
   $("#chatClose").addEventListener("click",closeChat);
   document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!chat.hidden) closeChat();});
+
+
+  /* ---------- Pretend phone call (demo number is fictional) ---------- */
+  const sim=$("#callSim"); let simT=[];
+  function endCall(){simT.forEach(clearTimeout); simT=[]; sim.hidden=true;}
+  function fakeCall(){ endCall(); sim.hidden=false;
+    $("#callStatus").textContent=T2("Calling…","Llamando…");
+    $("#callNote").textContent=T2("Demo: this number isn't real. On a real website, tapping Call dials the business straight away.","Demo: este número no es real. En un sitio real, al tocar Llamar se marca directamente a la empresa.");
+    simT.push(setTimeout(()=>{$("#callStatus").textContent=T2("Connected · 0:01","Conectado · 0:01");},2200));
+    let sec=1; simT.push(setTimeout(function tick(){sec++; $("#callStatus").textContent=T2("Connected · ","Conectado · ")+"0:"+String(sec).padStart(2,"0"); if(sec<59) simT.push(setTimeout(tick,1000));},3200));
+    $("#callEnd").focus(); }
+  document.addEventListener("click",e=>{const a=e.target.closest('a[href^="tel:"]'); if(!a) return; e.preventDefault(); fakeCall();});
+  $("#callEnd").addEventListener("click",endCall);
+  sim.addEventListener("click",e=>{if(e.target===sim) endCall();});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!sim.hidden) endCall();});
 
   /* ---------- Site language flags ---------- */
   $$("[data-lang]").forEach(b=>b.addEventListener("click",()=>setLang(b.dataset.lang)));
