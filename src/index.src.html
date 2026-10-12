@@ -651,6 +651,9 @@ footer{background:var(--navy);color:#A9B6CF;padding-block:36px;font-size:14px}
 .quick button.q-cta:hover{background:var(--blue-d)}
 .quick button.q-reset{border-color:#E2E8F0;color:#475569}
 .calc .calc-sub{font:700 11px/1 var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.calc label[hidden]{display:none}
+.addon-list .deal-word{font-size:12.5px;letter-spacing:.01em}
+.bot-card .amount-word{font-size:clamp(34px,4vw,44px)}
 .calc label.base{background:var(--tint);border-radius:8px;padding:7px 8px;font-weight:600}
 .calc label.off span{text-decoration:none;opacity:.6}
 .calc .linkbtn{background:none;border:0;padding:4px 0 0;color:var(--blue-d);font-weight:600;font-size:13px;text-align:left;text-decoration:underline;text-underline-offset:2px}
@@ -985,7 +988,7 @@ html[lang^="zh"] .hero h1 span{white-space:nowrap}
 .bot-card .text-link{margin-top:12px;padding-left:0}
 .price-card .pc-bot{margin-top:8px;font-size:14px;color:#475569}
 .price-card .pc-bot b{color:var(--ink)}
-@media (max-width:760px){.bots{grid-template-columns:1fr}}
+@media (max-width:760px){.bots{grid-template-columns:minmax(0,1fr)}.bot-card{padding:20px}.bot-card h3{overflow-wrap:anywhere}}
 /* Footer */
 .foot-contact{display:flex;gap:8px 18px;flex-wrap:wrap}
 .foot-contact a{display:inline-flex;align-items:center;gap:6px}
@@ -1077,7 +1080,7 @@ html[lang^="zh"] .hero h1 span{white-space:nowrap}
       <h1>Professional websites for businesses <span>ready to grow.</span></h1>
       <p class="lede">Built personally by Adam in Johor Bahru: a clear, mobile-friendly website that makes your business look credible and easy to contact.</p>
       <div class="hero-facts">
-        <div class="fact"><svg class="ico"><use href="#i-tag"/></svg><span>RM1,500<br>up to 8 pages</span></div>
+        <div class="fact"><svg class="ico"><use href="#i-tag"/></svg><span>RM1,600<br>with chatbot</span></div>
         <div class="fact"><svg class="ico"><use href="#i-calendar"/></svg><span>3–5 working<br>days</span></div>
         <div class="fact"><svg class="ico"><use href="#i-pin"/></svg><span>Free domain and<br>Google Business Profile</span></div>
       </div>
@@ -1159,11 +1162,12 @@ html[lang^="zh"] .hero h1 span{white-space:nowrap}
 <!-- PRICING + ADD-ONS -->
 <section class="pricing" id="pricing">
   <div class="left dark">
-    <h2 class="sec-title">What's included for RM1,500</h2>
+    <h2 class="sec-title">What's included for RM1,600</h2>
     <p class="sec-lede muted">A professional, mobile-friendly website with everything you need to get online and start getting enquiries.</p>
     <div class="inc-grid">
       <ul class="inc-list">
         <li class="hl-li"><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span><b>Up to 8 pages or sections</b></span></li>
+        <li class="hl-li"><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span><b>Website chatbot</b> (RM1,500 without it)</span></li>
         <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Custom-designed homepage</span></li>
         <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Mobile-friendly (phone, tablet, desktop)</span></li>
         <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Services section</span></li>
@@ -1176,10 +1180,10 @@ html[lang^="zh"] .hero h1 span{white-space:nowrap}
       </ul>
       <div class="price-card">
         <span class="pill">One-time project price</span>
-        <div class="amount"><sup>RM</sup>1,500</div>
+        <div class="amount"><sup>RM</sup>1,600</div>
         <h3>Professional Website</h3>
-        <p class="pc-sub">Up to 8 pages or sections</p>
-        <p class="pc-bot">or <b>RM1,600</b> with a website chatbot</p>
+        <p class="pc-sub">Up to 8 pages or sections, with a website chatbot</p>
+        <p class="pc-bot">or <b>RM1,500</b> without the chatbot</p>
         <div class="terms">
           <div><svg class="ico"><use href="#i-tag"/></svg><span><b>50% deposit to start</b>50% when it's ready, before launch</span></div>
           <div><svg class="ico"><use href="#i-clock"/></svg><span><b>3–5 working days</b>+1 working day per add-on</span></div>
@@ -1198,7 +1202,7 @@ html[lang^="zh"] .hero h1 span{white-space:nowrap}
     <ul class="addon-list">
       <li class="hd"><span></span><span>Add-on</span><span>On its own</span><span>Bundled</span></li>
       <li><span class="ai"><svg class="ico"><use href="#i-plusfile"/></svg></span><span class="nm"><b>2 extra pages or sections</b><small>e.g. a gallery and a service page</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-      <li><span class="ai"><svg class="ico"><use href="#i-bot"/></svg></span><span class="nm"><b>Website chatbot</b><small>RM100 with a new website · RM500 for an existing website</small></span><span class="was">RM500</span><span class="deal">RM100</span></li>
+      <li><span class="ai"><svg class="ico"><use href="#i-bot"/></svg></span><span class="nm"><b>Website chatbot</b><small>Included in the RM1,600 website · RM500 for an existing website</small></span><span class="was">RM500</span><span class="deal deal-word">Included</span></li>
       <li><span class="ai"><svg class="ico"><use href="#i-globe"/></svg></span><span class="nm"><b>Additional language</b><small>e.g. add BM or Chinese to an English website</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
       <li><span class="ai"><svg class="ico"><use href="#i-calcheck"/></svg></span><span class="nm"><b>Enquiry &amp; booking request form</b><small>Customers choose a service and a preferred date and time</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
       <li><span class="ai"><svg class="ico"><use href="#i-pin"/></svg></span><span class="nm"><b>Listings setup</b><small>Your business on Apple Maps and Foursquare</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
@@ -1241,8 +1245,8 @@ html[lang^="zh"] .hero h1 span{white-space:nowrap}
     <div class="bots">
       <div class="bot-card">
         <h3>Website chatbot</h3>
-        <div class="amount"><sup>+RM</sup>100</div>
-        <p class="ap-sub">with a new website (RM1,600 in total)</p>
+        <div class="amount amount-word">Included</div>
+        <p class="ap-sub">in the RM1,600 website (RM1,500 without it)</p>
         <p class="ap-note">RM500 to add it to an existing website.</p>
         <ul class="assist-list">
           <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Answers the questions you approve, on your website, in the language you choose.</span></li>
@@ -1309,7 +1313,7 @@ html[lang^="zh"] .hero h1 span{white-space:nowrap}
     <div class="faq-list">
       <div class="faq-col">
         <details><summary>How do I get started?</summary><p>Send me a WhatsApp message at 010-264 1824, or use the form below. I reply within 1 working day, we have a short chat, and then I send you a written quote. There's no obligation.</p></details>
-        <details><summary>How much does a website cost?</summary><p>RM1,500 for a professional, mobile-friendly website with up to 8 pages or sections, in one language, or RM1,600 with a website chatbot. Google Business Profile setup and a standard domain for the first year are included free. Need more pages? Every 2 extra pages or sections is one add-on. Add-ons are RM500 each on their own, or RM400 each when bundled with the website or another add-on.</p></details>
+        <details><summary>How much does a website cost?</summary><p>RM1,600 for a professional, mobile-friendly website with up to 8 pages or sections in one language, including a website chatbot, or RM1,500 without the chatbot. Google Business Profile setup and a standard domain for the first year are included free. Need more pages? Every 2 extra pages or sections is one add-on. Add-ons are RM500 each on their own, or RM400 each when bundled with the website or another add-on.</p></details>
         <details><summary>How long does it take?</summary><p>Usually 3–5 working days, depending on what your project needs and how quickly you can send your content (text, photos and logo). Each add-on adds 1 working day.</p></details>
         <details><summary>Can you rush my website?</summary><p>Yes. Rush delivery cuts 2 working days off your delivery time, for example from 3–5 working days to 1–3. It costs an extra 20% of the project total (website plus any add-ons).</p></details>
         <details><summary>Do I need to provide the content?</summary><p>Yes. You send me your services, contact details, the areas you cover and any photos or logo you have, and I turn it into a clear, professional website. I can help you tidy up the wording.</p></details>
@@ -1392,7 +1396,7 @@ html[lang^="zh"] .hero h1 span{white-space:nowrap}
       <h3>What working with me looks like</h3>
       <ul>
         <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><div><b>You talk to me, not a sales team</b><span>One person from your first message to launch.</span></div></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><div><b>A fixed price, agreed in writing</b><span>RM1,500 for your website, and add-ons only if you want them.</span></div></li>
+        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><div><b>A fixed price, agreed in writing</b><span>RM1,600 for your website with a chatbot, and add-ons only if you want them.</span></div></li>
         <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><div><b>Plain language, no jargon</b><span>Clear updates and simple choices.</span></div></li>
         <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><div><b>You review before launch</b><span>Request changes until you're happy with it.</span></div></li>
         <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><div><b>Help after launch</b><span>Optional Website Care keeps things running smoothly.</span></div></li>
@@ -1584,7 +1588,7 @@ On step 7: OpenAI's crawler for ChatGPT search is called OAI-SearchBot. OpenAI s
 ## The bottom line [icon:link]
 A website helps people discover your business, understand what you offer and contact you. As search starts to include generative AI, having accurate, useful, publicly accessible information online is increasingly valuable, but visibility is never guaranteed. What you can control is having clear, honest, up-to-date information in a place you own.
 
-> Ace Digital Solutions builds clear, professional websites for tuition centres and other small businesses in Malaysia: **RM1,500** for up to 8 pages or sections, or **RM1,600** with a website chatbot that answers parents' common questions. [See what's included](#pricing), or send Adam a WhatsApp message to talk it through. No promises of rankings or more students, just a clear website that makes it easier for parents to reach you.
+> Ace Digital Solutions builds clear, professional websites for tuition centres and other small businesses in Malaysia: **RM1,600** for up to 8 pages or sections, including a website chatbot that answers parents' common questions, or **RM1,500** without the chatbot. [See what's included](#pricing), or send Adam a WhatsApp message to talk it through. No promises of rankings or more students, just a clear website that makes it easier for parents to reach you.
 </script>
 
 <script type="text/plain" class="blog-post" data-date="2026-10-07" data-lang="en" data-id="why-website">
@@ -1744,7 +1748,7 @@ When someone compares two businesses side by side, the one that looks profession
   /* ---------- Prices (RM) ----------
      Add-ons: RM500 on their own, RM400 when bundled with the website or another add-on.
      Each add-on adds 1 working day. Rush: +20% of the project total, 2 working days faster. */
-  const BASE = 1500, ADDON = 400, ADDON_SOLO = 500, BOT_WITH_SITE = 100, BOT_SOLO = 500, CARE = 199, RUSH = 0.20, URGENT = 100;
+  const BASE = 1600, ADDON = 400, ADDON_SOLO = 500, BOT_WITH_SITE = 100, BOT_SOLO = 500, CARE = 199, RUSH = 0.20, URGENT = 100;
   const ADDONS = [
     ["a-page","2 extra pages or sections"],["a-bot","Website chatbot"],["a-lang","Additional language"],
     ["a-book","Enquiry & booking request form"],["a-list","Listings setup (Apple Maps + Foursquare)"]
@@ -1753,7 +1757,7 @@ When someone compares two businesses side by side, the one that looks profession
   const ico = id => `<svg class="ico"><use href="#i-${id}"/></svg>`;
   const money = n => "RM" + n.toLocaleString("en-MY");
   const eachPrice = (base, n) => (base || n >= 2) ? ADDON : ADDON_SOLO;
-  // The website chatbot: RM100 extra with a new website (RM1,600 in total), RM500 on its own
+  // The RM1,600 website includes the website chatbot (RM1,500 without it). On its own, the chatbot is RM500.
   const itemPrice = (id, base, n) => id==="a-bot" ? (base ? BOT_WITH_SITE : BOT_SOLO) : eachPrice(base, n);
   const days = (n, rush) => { const r = rush ? 2 : 0; return L("{a}–{b} working days",{a:Math.max(1,3+n-r), b:5+n-r}); };
 
@@ -1798,7 +1802,7 @@ When someone compares two businesses side by side, the one that looks profession
     {key:"ctg",title:"Called to Go",kind:L("Client Website"),client:true,url:"https://calledtogoministry.org",
       desc:L("Ministry website for Christine, a preacher, worship leader and missionary in Johor Bahru: her story, past and future missions, her book, prayer requests, giving and WhatsApp invitations.")},
     {key:"demo",title:"Arus Biru Plumbing",kind:L("Interactive Demo"),url:"/demos/jb-plumbing/",
-      desc:L("A fictional Johor Bahru plumbing business in English and Bahasa Melayu: upfront price ranges, a 3-step booking request, a chat assistant that hands over to WhatsApp, and a switch that shows what the RM1,500 website includes.")}
+      desc:L("A fictional Johor Bahru plumbing business in English and Bahasa Melayu: upfront price ranges, a 3-step booking request, a chat assistant that hands over to WhatsApp, and a switch that shows what the RM1,600 website includes.")}
   ];
   $("#workGrid").innerHTML = WORK.map(w=>`
     <article class="wcard${w.client?" client":""}">
@@ -1923,7 +1927,7 @@ When someone compares two businesses side by side, the one that looks profession
     hero.querySelectorAll(".cover").forEach(x=>x.remove());
     if(p.cover){ const c = document.createElement("div"); c.className = "cover"; c.style.backgroundImage = `url("${p.cover}")`; hero.prepend(c); }
     $("#postBody").classList.toggle("rich", p.rich);
-    $("#postBody").innerHTML = p.body + `<div class="article-cta dark"><div><h3>${L("Ready for a website that works for your business?")}</h3><p>${L("Start with a short, no-obligation chat on WhatsApp. Websites from RM1,500.")}</p></div><a class="btn btn-wa" href="${waLink(L("Hi Adam, I'm interested in a website for my business."))}" target="_blank" rel="noopener">${ico("chat")}${L("WhatsApp me")}</a></div>`;
+    $("#postBody").innerHTML = p.body + `<div class="article-cta dark"><div><h3>${L("Ready for a website that works for your business?")}</h3><p>${L("Start with a short, no-obligation chat on WhatsApp. Websites with a chatbot from RM1,600, or RM1,500 without.")}</p></div><a class="btn btn-wa" href="${waLink(L("Hi Adam, I'm interested in a website for my business."))}" target="_blank" rel="noopener">${ico("chat")}${L("WhatsApp me")}</a></div>`;
     const others = POSTS.filter(o=>o!==p && !o.soon).slice(0,3);
     const upcoming = POSTS.filter(o=>o.soon).length;
     $("#postMore").innerHTML = others.length ? `<h3>${L("More articles")}</h3>` + others.map(o=>`<a href="#${o.id}"><span class="dotico" style="background:${o.bg}">${ico(o.icon)}</span>${escH(o.title)}</a>`).join("") + `<a href="#articles" style="color:var(--blue)">${L("View all articles")} ${ico("arrow")}</a>` : (upcoming ? `<h3>${L("More articles coming soon")}</h3><a href="#articles" style="color:var(--blue)">${L("See what's coming")} ${ico("arrow")}</a>` : "");
@@ -2116,16 +2120,16 @@ When someone compares two businesses side by side, the one that looks profession
   function menu(){ say(()=>C("What would you like to know? You can also type any question.")); quick([[()=>C("Estimate my cost"),calc],[()=>C("What's included?"),included],WA_CTA(),CALL_CTA()]); }
   function greet(){ say(()=>C("Hi! I'm the Ace Digital Solutions assistant. I can answer quick questions, estimate what your website would cost, or pass you to Adam on WhatsApp.")); menu(); }
   function resetChat(){ log.innerHTML = ""; entries.length = 0; if(chatLang!==LANG) applyChatLang(LANG); aiHistory.length = 0; transcript.length = 0; lastEstimate = null; estMode = false; strikes = 0; handoffBtn.hidden = true; lock(false); greet(); }
-  function included(){ say(()=>C("Every RM1,500 website includes <b>up to 8 pages or sections</b> in one language, a custom-designed homepage, a mobile-friendly layout, a services section, WhatsApp and click-to-call buttons, a contact form, basic SEO setup and social media links. <b>Google Business Profile setup</b> and a <b>standard domain for the first year</b> are included free. With a website chatbot, it's RM1,600.")); after(); }
+  function included(){ say(()=>C("Every RM1,600 website includes <b>up to 8 pages or sections</b> in one language, a <b>website chatbot</b>, a custom-designed homepage, a mobile-friendly layout, a services section, WhatsApp and click-to-call buttons, a contact form, basic SEO setup and social media links. <b>Google Business Profile setup</b> and a <b>standard domain for the first year</b> are included free. Without the chatbot, it's RM1,500.")); after(); }
   function timing(){ say(()=>C("Usually <b>3–5 working days</b>, depending on the project and how quickly you can send your content (text, photos and logo). Each add-on adds 1 working day. Need it sooner? Rush delivery cuts <b>2 working days</b> for <b>+20%</b> of the project total.")); after(); }
   function rushInfo(){ say(()=>C("<b>Rush delivery</b> cuts your delivery time by <b>2 working days</b>, for example from 3–5 working days to 1–3. It costs an extra <b>20%</b> of the project total (website plus add-ons).")); after(); }
-  function payments(){ say(()=>C("You pay a <b>50% deposit</b> to start and the other <b>50% when your website is ready, before launch</b>. For the RM1,500 website, that's RM750 + RM750. You can pay by <b>DuitNow, Touch 'n Go eWallet or cash</b>. Adam works as a freelancer, so payments go to him personally.")); after(); }
+  function payments(){ say(()=>C("You pay a <b>50% deposit</b> to start and the other <b>50% when your website is ready, before launch</b>. For the RM1,600 website, that's RM800 + RM800. You can pay by <b>DuitNow, Touch 'n Go eWallet or cash</b>. Adam works as a freelancer, so payments go to him personally.")); after(); }
   function urgent(){ say(()=>C("Without Website Care, urgent fixes and small changes are <b>RM100 per hour</b>. With Website Care (RM199/month), minor updates and support are included.")); after(); }
   function careInfo(){ say(()=>C("Website Care is optional at <b>RM199/month</b>: hosting and standard domain renewal included, website health monitoring, minor updates, security and maintenance checks, social media update monitoring where supported, and ongoing support.")); after(); }
   function domainInfo(){ say(()=>C("Two things are included free with your website: <b>Google Business Profile setup</b>, and a <b>standard domain (.com, .com.my or .my) for the first year</b>. Premium domains are quoted separately. From the second year, you pay the domain renewal yourself, unless you're on Website Care.")); after(); }
   function content(){ say(()=>C("You send your services, contact details, the areas you cover and any photos or logo you have, and Adam turns it into a clear, professional website. He can help tidy up the wording.")); after(); }
   function langInfo(){ say(()=>C("Your website includes <b>one language</b>: English, Bahasa Melayu or Chinese. Each extra language is an add-on: RM500 on its own, or <b>RM400</b> when bundled with the website or another add-on.")); after(); }
-  function assistInfo(){ say(()=>C("There are two kinds of chatbot. A <b>website chatbot</b> answers the questions you approve on your website and passes customers to your WhatsApp with a chat summary: <b>RM100</b> extra with a new website (RM1,600 in total), or <b>RM500</b> for an existing website. A <b>chatbot for WhatsApp, Telegram, Facebook or Instagram</b> is a pilot service: <b>RM800 one-time setup plus a monthly fee based on usage</b>, confirmed in writing before starting.")); after(); }
+  function assistInfo(){ say(()=>C("There are two kinds of chatbot. A <b>website chatbot</b> answers the questions you approve on your website and passes customers to your WhatsApp with a chat summary. It's <b>included in the RM1,600 website</b> (RM1,500 without it), or <b>RM500</b> to add to an existing website. A <b>chatbot for WhatsApp, Telegram, Facebook or Instagram</b> is a pilot service: <b>RM800 one-time setup plus a monthly fee based on usage</b>, confirmed in writing before starting.")); after(); }
   function meetInfo(){ say(()=>C("Adam can chat with you by WhatsApp, Zoom or Google Meet, or meet in person if you're in Johor Bahru. He replies within 1 working day.")); after(); }
   const formLink = (label) => `<a href="#contact" class="chat-link" data-goform>${label||C("Open the contact form")} ${ico("arrow")}</a>`;
   log.addEventListener("click",e=>{ const a=e.target.closest("[data-goform]"); if(!a) return; e.preventDefault(); e.stopPropagation(); closeChat(); go("contact"); setTimeout(()=>$("#f-name").focus({preventScroll:true}),50); });
@@ -2182,24 +2186,26 @@ When someone compares two businesses side by side, the one that looks profession
 
   /* ----- Estimates ----- */
   function priceOf(sel){
-    const n = sel.items.length, each = eachPrice(sel.base, n);
-    const sub = (sel.base ? BASE : 0) + sel.items.reduce((t,id)=>t+itemPrice(id, sel.base, n),0), rushFee = sel.rush ? Math.round(sub*RUSH) : 0, total = sub + rushFee;
-    return {each, n, sub, rushFee, total};
+    if(sel.base) sel.items = sel.items.filter(id=>id!=="a-bot");
+    const n = sel.items.length, each = eachPrice(sel.base, n), basePrice = sel.base ? BASE - (sel.nobot ? BOT_WITH_SITE : 0) : 0;
+    const sub = basePrice + sel.items.reduce((t,id)=>t+itemPrice(id, sel.base, n),0), rushFee = sel.rush ? Math.round(sub*RUSH) : 0, total = sub + rushFee;
+    return {each, n, sub, rushFee, total, basePrice};
   }
   const labelOf = id => C(ADDONS.find(a=>a[0]===id)[1]);
   function remember(sel, p){
     const counts = {}; sel.items.forEach(id=>counts[id]=(counts[id]||0)+1);
-    const items = (sel.base?[()=>C("Professional website")]:[]).concat(Object.entries(counts).map(([id,c])=>labelOf(id)+(c>1?` × ${c}`:"")));
+    const items = (sel.base?[sel.nobot?()=>C("Professional website without chatbot"):()=>C("Professional website with chatbot")]:[]).concat(Object.entries(counts).map(([id,c])=>labelOf(id)+(c>1?` × ${c}`:"")));
     if(sel.rush) items.push(C("Rush delivery (+20%)"));
     lastEstimate = p.total ? {total:p.total, items, days: sel.base ? cdays(p.n, sel.rush) : C("timing to be confirmed"), care: sel.care} : null;
   }
   function calc(pre){
-    const st = pre ? {...pre, items:[...pre.items]} : {base:true, items:[], rush:false, care:false};
+    const st = pre ? {...pre, items:[...pre.items]} : {base:true, nobot:false, items:[], rush:false, care:false};
     const html = () => C("Tick what you need. Add-ons are <b>RM400</b> each when bundled with the website or another add-on, or RM500 on their own.")+`
       <div class="calc">
-        <label class="base"><input type="checkbox" data-base ${st.base?"checked":""}>${C("Professional website (up to 8 pages)")}<span>${money(BASE)}</span></label>
+        <label class="base"><input type="checkbox" data-base ${st.base?"checked":""}>${C("Professional website with chatbot (up to 8 pages)")}<span>${money(BASE)}</span></label>
+        <label class="nobot"><input type="checkbox" data-nobot ${st.nobot?"checked":""}>${C("Without the chatbot")}<span>−${money(BOT_WITH_SITE)}</span></label>
         <div class="calc-sub">${C("Add-ons")}</div>
-        ${ADDONS.map(([id,label])=>`<label><input type="checkbox" data-a="${id}" ${st.items.includes(id)?"checked":""}>${C(label)}<span data-p></span></label>`).join("")}
+        ${ADDONS.map(([id,label])=>`<label${id==="a-bot"?' class="botsolo"':""}><input type="checkbox" data-a="${id}" ${st.items.includes(id)?"checked":""}>${C(label)}<span data-p></span></label>`).join("")}
         <div class="calc-sub">${C("Options")}</div>
         <label><input type="checkbox" data-rush ${st.rush?"checked":""}>${C("Rush delivery")}<span>+20%</span></label>
         <label><input type="checkbox" data-care ${st.care?"checked":""}>${C("Website Care")}<span>${C("{p}/month",{p:money(CARE)})}</span></label>
@@ -2209,9 +2215,9 @@ When someone compares two businesses side by side, the one that looks profession
       </div>`;
     const wire = m => {
       const box = m.querySelector(".calc");
-      const read = () => ({base: box.querySelector("[data-base]").checked, items:[...box.querySelectorAll("[data-a]:checked")].map(c=>c.dataset.a), rush: box.querySelector("[data-rush]").checked, care: box.querySelector("[data-care]").checked});
+      const read = () => ({base: box.querySelector("[data-base]").checked, nobot: box.querySelector("[data-nobot]").checked, items:[...box.querySelectorAll("[data-a]:checked")].map(c=>c.dataset.a), rush: box.querySelector("[data-rush]").checked, care: box.querySelector("[data-care]").checked});
       const upd = () => {
-        Object.assign(st, read()); const p = priceOf(st);
+        Object.assign(st, read()); box.querySelector(".nobot").hidden = !st.base; box.querySelector(".botsolo").hidden = st.base; const p = priceOf(st);
         box.querySelectorAll("[data-p]").forEach(x=>{ x.textContent = "+"+money(itemPrice(x.closest("label").querySelector("[data-a]").dataset.a, st.base, p.n)); });
         box.querySelector(".tot").innerHTML = p.total === 0 ? `<span class="muted">${C("Tick at least one item to see an estimate.")}</span>` :
           `${C("Estimated total")} <b>${money(p.total)}</b>`+
@@ -2240,7 +2246,8 @@ When someone compares two businesses side by side, the one that looks profession
     let pages = pm ? (words[pm[1]] || parseInt(pm[1],10)) : (/\b(extra|additional|another|gallery) (page|section)|halaman tambahan|额外页/.test(t) ? 1 : 0);
     pages = Math.min(pages||0, 10);
     for(let i=0;i<Math.ceil(pages/2);i++) items.push("a-page");
-    if(/chat ?bot|chatbot|聊天机器人|机器人/.test(t)) items.push("a-bot");
+    const nobot = /(no|without|don'?t need( a)?|tanpa|tak perlu)\s+(the\s+|a\s+)?chat ?bot|不要.{0,4}(聊天)?机器人|不需要.{0,4}(聊天)?机器人|没有.{0,4}(聊天)?机器人/.test(t);
+    if(!nobot && /chat ?bot|chatbot|聊天机器人|机器人/.test(t)) items.push("a-bot");
     const langHits = (t.match(/\b(bm|malay|bahasa melayu|chinese|mandarin|english|tamil|bahasa cina|bahasa inggeris)\b|中文|华文|英文|马来文|淡米尔/g)||[]).length;
     if(langHits>=2 || /\b(another|extra|additional|second) language|bahasa tambahan|dua bahasa|双语|多语|加.?语言/.test(t)) items.push("a-lang");
     if(/booking|appointment|schedul|reserv|tempahan|temujanji|预约|预订/.test(t)) items.push("a-book");
@@ -2248,8 +2255,8 @@ When someone compares two businesses side by side, the one that looks profession
     const rush = /rush|urgent|asap|sooner|hurry|segera|cepat|加急|赶/.test(t);
     const care = /care plan|website care|hosting|maintenance|monthly|penjagaan|bulanan|维护|托管/.test(t);
     const base = !/(no|without|don'?t need( a)?|already have( a)?|only)\s+(new\s+)?(website|site)|add-?ons? only|sudah ada laman web|已经有网站/.test(t);
-    const found = items.length || rush || care;
-    return found ? {base, items, rush, care} : null;
+    const found = items.length || rush || care || nobot;
+    return found ? {base, nobot, items, rush, care} : null;
   }
   function showEstimate(sel){
     const p = priceOf(sel);
@@ -2257,7 +2264,7 @@ When someone compares two businesses side by side, the one that looks profession
     say(()=>{
       const counts = {}, lines = [];
       sel.items.forEach(id=>counts[id]=(counts[id]||0)+1);
-      if(sel.base) lines.push([C("Professional website"), BASE]);
+      if(sel.base) lines.push([sel.nobot ? C("Professional website without chatbot") : C("Professional website with chatbot"), p.basePrice]);
       Object.entries(counts).forEach(([id,n])=>lines.push([labelOf(id)+(n>1?` × ${n}`:""), n*itemPrice(id, sel.base, p.n)]));
       if(sel.rush) lines.push([C("Rush delivery (+20%)"), p.rushFee]);
       return C("Here's a rough estimate based on what you described:")+`
