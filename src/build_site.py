@@ -145,7 +145,7 @@ def build(show_missing=False, preview_dir=None):
     ALL_JS = {}
     for c in ("bm", "zh"):
         Dc = json.load(open(os.path.join(ROOT, "src", "i18n", c + ".json"), encoding="utf-8"))
-        ALL_JS[c] = {k: Dc[k] for k in keys if k in Dc}
+        ALL_JS[c] = {k: Dc[k] for k in sorted(keys) if k in Dc}
     report = {}
     for code, cfg in LANGS.items():
         s = src
@@ -157,7 +157,7 @@ def build(show_missing=False, preview_dir=None):
         missing = set()
         if code != "en":
             s = translate_html(s, D, missing)
-            js = {k: D[k] for k in keys if k in D}
+            js = {k: D[k] for k in sorted(keys) if k in D}
             missing |= {k for k in keys if k not in D}
             s = s.replace('/*LANG*/"en"/*/LANG*/', '/*LANG*/"%s"/*/LANG*/' % code)
             s = s.replace("/*I18N*/{}/*/I18N*/", "/*I18N*/" + json.dumps(js, ensure_ascii=False).replace("</", "<\\/") + "/*/I18N*/")
