@@ -20,18 +20,21 @@ FB = "https://www.facebook.com/profile.php?id=61595360692132"
 LANGS = {
   "en": {"path": "/", "html_lang": "en-MY", "hreflang": "en", "og_locale": "en_MY",
          "title": "Professional Websites for Malaysian Businesses | Ace Digital Solutions",
-         "desc": "Professional, mobile-friendly websites for businesses in Malaysia, built by Adam in Johor Bahru. RM2,400 for up to 5 pages, with a free domain for the first year and free Google Business Profile setup.",
+         "desc": "Professional, mobile-friendly websites for businesses in Malaysia, built by Adam in Johor Bahru. RM1,500 for up to 8 pages, or RM1,600 with a website chatbot, with a free domain for the first year and free Google Business Profile setup.",
          "wa_text": "Hi Adam, I'm interested in a website for my business.",
+         "wa_tuition": "Hi Adam, I'd like to know more about the tuition centre website pilot.",
          "blog_note": ""},
   "bm": {"path": "/bm/", "html_lang": "ms-MY", "hreflang": "ms", "og_locale": "ms_MY",
          "title": "Laman Web Profesional untuk Perniagaan di Malaysia | Ace Digital Solutions",
-         "desc": "Laman web profesional dan mesra telefon untuk perniagaan di Malaysia, dibina oleh Adam di Johor Bahru. RM2,400 untuk sehingga 5 halaman, dengan domain percuma untuk tahun pertama dan persediaan Google Business Profile percuma.",
+         "desc": "Laman web profesional dan mesra telefon untuk perniagaan di Malaysia, dibina oleh Adam di Johor Bahru. RM1,500 untuk sehingga 8 halaman, atau RM1,600 bersama chatbot laman web, dengan domain percuma untuk tahun pertama dan persediaan Google Business Profile percuma.",
          "wa_text": "Hai Adam, saya berminat dengan laman web untuk perniagaan saya.",
+         "wa_tuition": "Hai Adam, saya ingin tahu lebih lanjut tentang perintis laman web untuk pusat tuisyen.",
          "blog_note": "Artikel blog buat masa ini dalam Bahasa Inggeris sahaja."},
   "zh": {"path": "/zh/", "html_lang": "zh-Hans", "hreflang": "zh-Hans", "og_locale": "zh_CN",
          "title": "为马来西亚企业打造的专业网站 | Ace Digital Solutions",
-         "desc": "由新山的 Adam 亲自为马来西亚企业打造专业、适合手机浏览的网站。RM2,400，最多 5 个页面，首年域名免费，并免费设置 Google 商家资料（Google Business Profile）。",
+         "desc": "由新山的 Adam 亲自为马来西亚企业打造专业、适合手机浏览的网站。RM1,500，最多 8 个页面（加上网站聊天机器人 RM1,600），首年域名免费，并免费设置 Google 商家资料（Google Business Profile）。",
          "wa_text": "Adam 你好，我想了解为我的生意制作网站。",
+         "wa_tuition": "Adam 你好，我想了解补习中心网站试行配套。",
          "blog_note": "博客文章目前只有英文版。"},
 }
 # Text used by the page script through a variable rather than L("…"), so it is not found automatically
@@ -105,14 +108,15 @@ def head_for(code, cfg):
     org = {"@context": "https://schema.org", "@type": "ProfessionalService", "name": "Ace Digital Solutions",
            "url": url, "image": DOMAIN + "/og-image.jpg", "logo": DOMAIN + "/og-image.jpg", "sameAs": [FB],
            "description": cfg["desc"], "email": "adamteokokwei@gmail.com", "telephone": "+60102641824",
-           "priceRange": "RM2,400", "inLanguage": cfg["html_lang"],
+           "priceRange": "RM1,500–RM1,600", "inLanguage": cfg["html_lang"],
            "founder": {"@type": "Person", "name": "Adam", "jobTitle": "Freelance Web Designer"},
            "address": {"@type": "PostalAddress", "addressLocality": "Johor Bahru", "addressRegion": "Johor", "addressCountry": "MY"},
            "areaServed": {"@type": "Country", "name": "Malaysia"},
            "serviceType": "Website design for businesses", "availableLanguage": ["English", "Malay", "Chinese"],
            "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Website services", "itemListElement": [
-             {"@type": "Offer", "name": "Professional website (up to 5 pages or sections)", "price": "2400", "priceCurrency": "MYR"},
-             {"@type": "Offer", "name": "Website add-on, bundled with the website or another add-on", "price": "400", "priceCurrency": "MYR"},
+             {"@type": "Offer", "name": "Professional website (up to 8 pages or sections)", "price": "1500", "priceCurrency": "MYR"},
+            {"@type": "Offer", "name": "Professional website with a website chatbot (up to 8 pages or sections)", "price": "1600", "priceCurrency": "MYR"},
+              {"@type": "Offer", "name": "Website add-on, bundled with the website or another add-on", "price": "400", "priceCurrency": "MYR"},
              {"@type": "Offer", "name": "Website add-on on its own", "price": "500", "priceCurrency": "MYR"},
              {"@type": "Offer", "name": "Website Care (hosting and domain renewal included)", "price": "199", "priceCurrency": "MYR",
               "priceSpecification": {"@type": "UnitPriceSpecification", "price": "199", "priceCurrency": "MYR", "unitText": "MONTH"}}]}}
@@ -125,7 +129,7 @@ def head_for(code, cfg):
             f'<meta property="og:locale" content="{cfg["og_locale"]}">\n'
             + "".join(f'<meta property="og:locale:alternate" content="{c["og_locale"]}">\n' for k, c in LANGS.items() if k != code) +
             f'<meta property="og:image" content="{DOMAIN}/og-image.jpg">\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n'
-            '<meta property="og:image:alt" content="Ace Digital Solutions: professional websites for businesses in Malaysia, RM2,400">\n'
+            '<meta property="og:image:alt" content="Ace Digital Solutions: professional websites for businesses in Malaysia, from RM1,500">\n'
             f'<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:title" content="{t}">\n<meta name="twitter:description" content="{d}">\n'
             f'<meta name="twitter:image" content="{DOMAIN}/og-image.jpg">\n'
             f'<script type="application/ld+json">{json.dumps(org, ensure_ascii=False)}</script>\n')
@@ -168,6 +172,7 @@ def build(show_missing=False, preview_dir=None):
                    lambda m: m.group(0) if m.group(1) == code else "", s, flags=re.S)
         s = re.sub(r"<!-- (Bahasa Melayu|Simplified Chinese) blog posts[^>]*-->\n?", "", s)
         s = s.replace("/*I18N_ALL*/{}/*/I18N_ALL*/", "/*I18N_ALL*/" + json.dumps(ALL_JS, ensure_ascii=False).replace("</", "<\\/") + "/*/I18N_ALL*/")
+        s = s.replace("{{WA_TUITION}}", H.escape(wa_link(cfg["wa_tuition"]), quote=True))
         s = s.replace("{{WA}}", H.escape(wa_link(cfg["wa_text"]), quote=True))
         head = head_for(code, cfg)
         head += f'<script type="application/ld+json">{json.dumps(faq_jsonld(s), ensure_ascii=False)}</script>\n'
