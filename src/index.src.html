@@ -936,14 +936,6 @@ form.enq{grid-template-columns:repeat(2,minmax(0,1fr))}
 .price-card .amount{font-size:clamp(48px,4.6vw,64px)}
 html[lang^="ms"] .hero h1{font-size:clamp(32px,4vw,50px)}
 html[lang^="zh"] .hero h1 span{white-space:nowrap}
-/* Floating buttons appear only after the hero buttons scroll away */
-.side-social a,.chat-fab{opacity:0;pointer-events:none;transition:opacity .45s ease,transform .5s cubic-bezier(.22,1,.36,1)}
-.side-social a{transform:translateX(-18px)}
-.side-social a+a{transition-delay:.06s}
-.chat-fab{transform:translateY(18px) scale(.92)}
-body.show-float .side-social a,body.show-float .chat-fab,body.chat-open .chat-fab{opacity:1;pointer-events:auto;transform:none}
-body.show-float .side-social a:hover{transform:translateX(3px) scale(1.06)}
-@media (prefers-reduced-motion:reduce){.side-social a,.chat-fab{transform:none}}
 /* Footer */
 .foot-contact{display:flex;gap:8px 18px;flex-wrap:wrap}
 .foot-contact a{display:inline-flex;align-items:center;gap:6px}
@@ -1984,11 +1976,6 @@ When someone compares two businesses side by side, the one that looks profession
   function openChat(e){ opener = e && e.currentTarget || null; chat.hidden = false; document.body.classList.add("chat-open"); fab.setAttribute("aria-expanded","true"); fab.innerHTML = ico("x"); if(!started){ started = true; greet(); } setTimeout(()=>$("#chatInput").focus(),50); }
   function closeChat(){ chat.hidden = true; document.body.classList.remove("chat-open"); fab.setAttribute("aria-expanded","false"); fab.innerHTML = ico("msg"); if(opener) opener.focus({preventScroll:true}); }
   fab.addEventListener("click",e=>{ if(chat.hidden) openChat(e); else closeChat(); });
-  // Show the floating WhatsApp/Facebook/chat buttons only once the hero buttons are off screen
-  const heroCta = document.querySelector(".hero .hero-cta");
-  if(heroCta && "IntersectionObserver" in window){
-    new IntersectionObserver(([en])=>document.body.classList.toggle("show-float", !en.isIntersecting && en.boundingClientRect.top < 0), {rootMargin:"-60px 0px 0px 0px"}).observe(heroCta);
-  } else document.body.classList.add("show-float");
   $("#chatClose").addEventListener("click",closeChat);
   $("#chatReset").addEventListener("click",()=>{ if(!busy) resetChat(); });
   document.querySelectorAll("[data-open-chat]").forEach(b=>b.addEventListener("click",openChat));
