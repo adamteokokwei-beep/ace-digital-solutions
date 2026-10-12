@@ -950,6 +950,9 @@ html[lang^="zh"] .hero h1 span{white-space:nowrap}
 @media (max-width:600px){.chat-fab{right:10px;bottom:calc(12px + env(safe-area-inset-bottom,0px));width:48px;height:48px}.chat-fab .ico{width:22px;height:22px}}
 .site-head .wrap{padding-inline:clamp(16px,4vw,48px)}
 .pricing>div{min-width:0}
+.inc-grid>*{min-width:0}
+@media (max-width:600px){.price-card{padding:22px 16px}.price-card .amount{font-size:44px}.price-card .pc-sub{font-size:12.5px}.founder div{min-width:0}.founder{padding:16px;flex-direction:column;align-items:flex-start}
+  .inc-list li,.bonus-fine{overflow-wrap:anywhere}.bonus{grid-template-columns:36px minmax(0,1fr) auto;gap:10px;padding:12px}.bonus .bonus-ico{width:36px;height:36px}.bonus .bonus-free{font-size:14px;padding:7px 8px}}
 @media (max-width:480px){.addon-list li{grid-template-columns:24px minmax(0,1fr) 40px 64px;gap:6px;padding-inline:8px}.addon-list .ai{width:24px;height:24px}}
 /* Footer */
 .foot-contact{display:flex;gap:8px 18px;flex-wrap:wrap}
@@ -1950,9 +1953,18 @@ When someone compares two businesses side by side, the one that looks profession
   const transcript = [];
   let lastEstimate = null;
   const plain = html => { const d = document.createElement("div"); d.innerHTML = html.replace(/<br\s*\/?>/gi,"\n"); return (d.textContent||"").replace(/[ \t]+/g," ").replace(/\n\s*/g,"\n").trim(); };
-  function say(html, who="bot", cls="", rec){
-    const m = document.createElement("div"); m.className = "msg "+who+(cls?" "+cls:""); m.innerHTML = html; log.appendChild(m); log.scrollTop = log.scrollHeight;
-    if(cls!=="typing" && rec!==false){ transcript.push({role: who==="me" ? "user" : "assistant", content: (rec || plain(html)).slice(0,600)}); if(transcript.length>40) transcript.shift(); }
+  // Every bubble is kept as an "entry", so the whole chat can be redrawn in another language
+  const entries = [];
+  const txt = v => typeof v === "function" ? v() : v;
+  function drawSay(en){
+    const m = document.createElement("div"); m.className = "msg "+en.who+(en.cls?" "+en.cls:""); m.innerHTML = txt(en.html); log.appendChild(m);
+    if(en.wire) en.wire(m); log.scrollTop = log.scrollHeight; return m;
+  }
+  function say(html, who="bot", cls="", rec, wire){
+    const en = {k:"say", html, who, cls, wire};
+    if(cls!=="typing") entries.push(en);
+    const m = drawSay(en); en.el = m;
+    if(cls!=="typing" && rec!==false){ transcript.push({role: who==="me" ? "user" : "assistant", content: (rec || plain(txt(html))).slice(0,600)}); if(transcript.length>40) transcript.shift(); }
     if(who==="me") handoffBtn.hidden = false;
     return m;
   }
@@ -1962,33 +1974,35 @@ When someone compares two businesses side by side, the one that looks profession
   let busy = false, estMode = false, strikes = 0;
   function lock(on){ busy = on; chatInput.disabled = on; chatSend.disabled = on; handoffBtn.disabled = on; chatInput.placeholder = on ? C("Assistant is typing…") : C("Ask a question…"); if(!on && !chat.hidden) chatInput.focus(); }
   function typing(){ return say("<i></i><i></i><i></i>","bot","typing"); }
-  async function respond(fn, mult=1){ lock(true); const d = typing(); await wait(thinkTime()*mult); d.remove(); lock(false); fn(); }
-  function quick(opts){
-    log.querySelectorAll(".quick").forEach(x=>x.remove());
+  function drawQuick(en){
     const q = document.createElement("div"); q.className = "quick";
-    opts.forEach(([label,fn,cls])=>{ const b=document.createElement("button"); b.type="button"; b.textContent=label; if(cls) b.className=cls;
-      b.addEventListener("click",()=>{ if(busy) return; q.remove(); if(fn===resetChat) return resetChat(); if(fn===handoff) return handoff(); say(escapeHtml(label),"me","","["+label+"]"); respond(fn); }); q.appendChild(b); });
+    en.opts.forEach(([label,fn,cls])=>{ const b=document.createElement("button"); b.type="button"; b.textContent=txt(label); if(cls) b.className=cls;
+      b.addEventListener("click",()=>{ if(busy) return; q.remove(); entries.splice(entries.indexOf(en),1); if(fn===resetChat) return resetChat(); if(fn===handoff) return handoff(); say(()=>escapeHtml(txt(label)),"me","","["+txt(label)+"]"); respond(fn); }); q.appendChild(b); });
     log.appendChild(q); log.scrollTop = log.scrollHeight;
   }
-  const WA_CTA = () => [C("Talk to Adam on WhatsApp"),handoff,"q-wa"];
-  function after(){ quick([[C("Estimate my cost"),calc],WA_CTA(),[C("Main menu"),menu],[C("Reset chat"),resetChat,"q-reset"]]); }
-  function menu(){ say(C("What would you like to know?")); quick([[C("Estimate my cost"),calc],[C("What's included?"),included],[C("Free domain and Google profile"),domainInfo],[C("How long does it take?"),timing],[C("How do payments work?"),payments],[C("Website Care"),careInfo],[C("Enquiry assistant"),assistInfo],WA_CTA()]); }
-  function greet(){ say(C("Hi! I'm the Ace Digital Solutions assistant. I can answer quick questions, estimate what your website would cost, or pass you to Adam on WhatsApp.")); menu(); }
-  function resetChat(){ log.innerHTML = ""; aiHistory.length = 0; transcript.length = 0; lastEstimate = null; estMode = false; strikes = 0; handoffBtn.hidden = true; lock(false); greet(); }
-  function included(){ say(C("Every RM2,400 website includes <b>up to 5 pages or sections</b> in one language, a custom-designed homepage, a mobile-friendly layout, a services section, WhatsApp and click-to-call buttons, a contact form, basic SEO setup and social media links. <b>Google Business Profile setup</b> and a <b>standard domain for the first year</b> are included free.")); after(); }
-  function timing(){ say(C("Usually <b>3–5 working days</b>, depending on the project and how quickly you can send your content (text, photos and logo). Each add-on adds 1 working day. Need it sooner? Rush delivery cuts <b>2 working days</b> for <b>+20%</b> of the project total.")); after(); }
-  function rushInfo(){ say(C("<b>Rush delivery</b> cuts your delivery time by <b>2 working days</b>, for example from 3–5 working days to 1–3. It costs an extra <b>20%</b> of the project total (website plus add-ons).")); after(); }
-  function payments(){ say(C("You pay a <b>50% deposit</b> to start and the other <b>50% when your website is ready, before launch</b>. For the RM2,400 website, that's RM1,200 + RM1,200. You can pay by <b>DuitNow, Touch 'n Go eWallet or cash</b>. Adam works as a freelancer, so payments go to him personally.")); after(); }
-  function urgent(){ say(C("Without Website Care, urgent fixes and small changes are <b>RM100 per hour</b>. With Website Care (RM199/month), minor updates and support are included.")); after(); }
-  function careInfo(){ say(C("Website Care is optional at <b>RM199/month</b>: hosting and standard domain renewal included, website health monitoring, minor updates, security and maintenance checks, social media update monitoring where supported, and ongoing support.")); after(); }
-  function domainInfo(){ say(C("Two things are included free with your website: <b>Google Business Profile setup</b>, and a <b>standard domain (.com, .com.my or .my) for the first year</b>. Premium domains are quoted separately. From the second year, you pay the domain renewal yourself, unless you're on Website Care.")); after(); }
-  function content(){ say(C("You send your services, contact details, the areas you cover and any photos or logo you have, and Adam turns it into a clear, professional website. He can help tidy up the wording.")); after(); }
-  function langInfo(){ say(C("Your website includes <b>one language</b>: English, Bahasa Melayu or Chinese. Each extra language is an add-on: RM500 on its own, or <b>RM400</b> when bundled with the website or another add-on.")); after(); }
-  function assistInfo(){ say(C("The <b>customer enquiry assistant</b> is a separate pilot service: <b>RM1,000 plus a monthly fee depending on usage</b>. It answers the questions you approve on your website, in your chosen language, and passes customers to your WhatsApp with a short chat summary. Versions for WhatsApp and Facebook Messenger are quoted on request.")); after(); }
-  function meetInfo(){ say(C("Adam can chat with you by WhatsApp, Zoom or Google Meet, or meet in person if you're in Johor Bahru. He replies within 1 working day.")); after(); }
+  function clearQuick(){ log.querySelectorAll(".quick").forEach(x=>x.remove()); for(let k=entries.length-1;k>=0;k--) if(entries[k].k==="quick") entries.splice(k,1); }
+  function redraw(){ log.innerHTML = ""; entries.forEach(en=> en.k==="quick" ? drawQuick(en) : (en.el = drawSay(en))); }
+  async function respond(fn, mult=1){ lock(true); const d = typing(); await wait(thinkTime()*mult); d.remove(); lock(false); fn(); }
+  function quick(opts){ clearQuick(); const en = {k:"quick", opts}; entries.push(en); drawQuick(en); }
+  const WA_CTA = () => [()=>C("Talk to Adam on WhatsApp"),handoff,"q-wa"];
+  function after(){ quick([[()=>C("Estimate my cost"),calc],WA_CTA(),[()=>C("Main menu"),menu],[()=>C("Reset chat"),resetChat,"q-reset"]]); }
+  function menu(){ say(()=>C("What would you like to know?")); quick([[()=>C("Estimate my cost"),calc],[()=>C("What's included?"),included],[()=>C("Free domain and Google profile"),domainInfo],[()=>C("How long does it take?"),timing],[()=>C("How do payments work?"),payments],[()=>C("Website Care"),careInfo],[()=>C("Enquiry assistant"),assistInfo],WA_CTA()]); }
+  function greet(){ say(()=>C("Hi! I'm the Ace Digital Solutions assistant. I can answer quick questions, estimate what your website would cost, or pass you to Adam on WhatsApp.")); menu(); }
+  function resetChat(){ log.innerHTML = ""; entries.length = 0; if(chatLang!==LANG) applyChatLang(LANG); aiHistory.length = 0; transcript.length = 0; lastEstimate = null; estMode = false; strikes = 0; handoffBtn.hidden = true; lock(false); greet(); }
+  function included(){ say(()=>C("Every RM2,400 website includes <b>up to 5 pages or sections</b> in one language, a custom-designed homepage, a mobile-friendly layout, a services section, WhatsApp and click-to-call buttons, a contact form, basic SEO setup and social media links. <b>Google Business Profile setup</b> and a <b>standard domain for the first year</b> are included free.")); after(); }
+  function timing(){ say(()=>C("Usually <b>3–5 working days</b>, depending on the project and how quickly you can send your content (text, photos and logo). Each add-on adds 1 working day. Need it sooner? Rush delivery cuts <b>2 working days</b> for <b>+20%</b> of the project total.")); after(); }
+  function rushInfo(){ say(()=>C("<b>Rush delivery</b> cuts your delivery time by <b>2 working days</b>, for example from 3–5 working days to 1–3. It costs an extra <b>20%</b> of the project total (website plus add-ons).")); after(); }
+  function payments(){ say(()=>C("You pay a <b>50% deposit</b> to start and the other <b>50% when your website is ready, before launch</b>. For the RM2,400 website, that's RM1,200 + RM1,200. You can pay by <b>DuitNow, Touch 'n Go eWallet or cash</b>. Adam works as a freelancer, so payments go to him personally.")); after(); }
+  function urgent(){ say(()=>C("Without Website Care, urgent fixes and small changes are <b>RM100 per hour</b>. With Website Care (RM199/month), minor updates and support are included.")); after(); }
+  function careInfo(){ say(()=>C("Website Care is optional at <b>RM199/month</b>: hosting and standard domain renewal included, website health monitoring, minor updates, security and maintenance checks, social media update monitoring where supported, and ongoing support.")); after(); }
+  function domainInfo(){ say(()=>C("Two things are included free with your website: <b>Google Business Profile setup</b>, and a <b>standard domain (.com, .com.my or .my) for the first year</b>. Premium domains are quoted separately. From the second year, you pay the domain renewal yourself, unless you're on Website Care.")); after(); }
+  function content(){ say(()=>C("You send your services, contact details, the areas you cover and any photos or logo you have, and Adam turns it into a clear, professional website. He can help tidy up the wording.")); after(); }
+  function langInfo(){ say(()=>C("Your website includes <b>one language</b>: English, Bahasa Melayu or Chinese. Each extra language is an add-on: RM500 on its own, or <b>RM400</b> when bundled with the website or another add-on.")); after(); }
+  function assistInfo(){ say(()=>C("The <b>customer enquiry assistant</b> is a separate pilot service: <b>RM1,000 plus a monthly fee depending on usage</b>. It answers the questions you approve on your website, in your chosen language, and passes customers to your WhatsApp with a short chat summary. Versions for WhatsApp and Facebook Messenger are quoted on request.")); after(); }
+  function meetInfo(){ say(()=>C("Adam can chat with you by WhatsApp, Zoom or Google Meet, or meet in person if you're in Johor Bahru. He replies within 1 working day.")); after(); }
   const formLink = (label) => `<a href="#contact" class="chat-link" data-goform>${label||C("Open the contact form")} ${ico("arrow")}</a>`;
   log.addEventListener("click",e=>{ const a=e.target.closest("[data-goform]"); if(!a) return; e.preventDefault(); e.stopPropagation(); closeChat(); go("contact"); setTimeout(()=>$("#f-name").focus({preventScroll:true}),50); });
-  function enquire(){ say(C("The quickest way is WhatsApp. Adam replies within 1 working day. Tap below and I'll prepare a short summary of our chat, so you don't have to repeat yourself.")+`<br>${formLink(C("Or use the contact form"))}`); quick([WA_CTA(),[C("Estimate my cost first"),calc],[C("Main menu"),menu]]); }
+  function enquire(){ say(()=>C("The quickest way is WhatsApp. Adam replies within 1 working day. Tap below and I'll prepare a short summary of our chat, so you don't have to repeat yourself.")+`<br>${formLink(C("Or use the contact form"))}`); quick([WA_CTA(),[()=>C("Estimate my cost first"),calc],[()=>C("Main menu"),menu]]); }
 
   /* ----- Hand over to WhatsApp with a summary of the chat ----- */
   const estimateText = e => e ? C("{total} for {items} ({days})",{total:money(e.total), items:e.items.join(chatLang==="zh"?"、":", "), days:e.days}) + (e.care?", "+C("plus Website Care {care}/month",{care:money(CARE)}):"") : "";
@@ -2012,25 +2026,29 @@ When someone compares two businesses side by side, the one that looks profession
   }
   async function handoff(){
     if(busy) return;
-    say(escapeHtml(C("Talk to Adam on WhatsApp")),"me","",false);
+    clearQuick(); say(()=>escapeHtml(C("Talk to Adam on WhatsApp")),"me","",false);
     lock(true); const d = typing();
     const [ai] = await Promise.all([aiSummary(), wait(1200)]);
     d.remove(); lock(false);
     const summary = ai || fallbackSummary();
-    const text = C("Hi Adam, I was chatting with the assistant on your website.") + (summary ? "\n\n" + summary : "");
-    say(C("Here's the message I've prepared for Adam. WhatsApp will open with it filled in, and you can edit it before sending.")+
-      `<div class="wa-preview">${escapeHtml(text).replace(/\n/g,"<br>")}</div><a class="chat-link wa" href="${waLink(text)}" target="_blank" rel="noopener">${ico("chat")}${C("Open WhatsApp")}</a>`, "bot", "", false);
-    quick([[C("Main menu"),menu],[C("Reset chat"),resetChat,"q-reset"]]);
+    const msg = () => C("Hi Adam, I was chatting with the assistant on your website.") + (summary ? "\n\n" + summary : "");
+    say(()=>C("Here's the message I've prepared for Adam. WhatsApp will open with it filled in, and you can edit it before sending.")+
+      `<div class="wa-preview">${escapeHtml(msg()).replace(/\n/g,"<br>")}</div><a class="chat-link wa" href="${waLink(msg())}" target="_blank" rel="noopener">${ico("chat")}${C("Open WhatsApp")}</a>`, "bot", "", false);
+    quick([[()=>C("Main menu"),menu],[()=>C("Reset chat"),resetChat,"q-reset"]]);
   }
   handoffBtn.addEventListener("click",handoff);
-  function setChatLang(l){
-    if(l===chatLang && started) return;
+  // Switching language redraws everything already in the chat in the new language
+  function applyChatLang(l){
     chatLang = l;
     document.querySelectorAll("[data-chat-lang]").forEach(b=>b.setAttribute("aria-pressed", b.dataset.chatLang===l));
-    chatInput.placeholder = C("Ask a question…");
+    chatInput.placeholder = busy ? C("Assistant is typing…") : C("Ask a question…");
     $("#chat .chat-top small").textContent = C("Automated assistant · quick answers");
+    $("#chatReset span").textContent = C("Reset");
     handoffBtn.querySelector("span").textContent = C("Continue on WhatsApp with Adam");
-    if(started && !busy){ log.querySelectorAll(".quick").forEach(x=>x.remove()); say(C("Sure, let's continue in English."),"bot","",false); menu(); }
+  }
+  function setChatLang(l){
+    if(l===chatLang || busy) return;
+    applyChatLang(l); redraw();
   }
   document.querySelectorAll("[data-chat-lang]").forEach(b=>b.addEventListener("click",()=>setChatLang(b.dataset.chatLang)));
   document.querySelectorAll("[data-chat-lang]").forEach(b=>b.setAttribute("aria-pressed", b.dataset.chatLang===chatLang));
@@ -2044,43 +2062,46 @@ When someone compares two businesses side by side, the one that looks profession
   const labelOf = id => C(ADDONS.find(a=>a[0]===id)[1]);
   function remember(sel, p){
     const counts = {}; sel.items.forEach(id=>counts[id]=(counts[id]||0)+1);
-    const items = (sel.base?[C("Professional website")]:[]).concat(Object.entries(counts).map(([id,c])=>labelOf(id)+(c>1?` × ${c}`:"")));
+    const items = (sel.base?[()=>C("Professional website")]:[]).concat(Object.entries(counts).map(([id,c])=>labelOf(id)+(c>1?` × ${c}`:"")));
     if(sel.rush) items.push(C("Rush delivery (+20%)"));
     lastEstimate = p.total ? {total:p.total, items, days: sel.base ? cdays(p.n, sel.rush) : C("timing to be confirmed"), care: sel.care} : null;
   }
   function calc(pre){
-    pre = pre || {base:true, items:[], rush:false, care:false};
-    const m = say(C("Tick what you need. Add-ons are <b>RM400</b> each when bundled with the website or another add-on, or RM500 on their own.")+`
+    const st = pre ? {...pre, items:[...pre.items]} : {base:true, items:[], rush:false, care:false};
+    const html = () => C("Tick what you need. Add-ons are <b>RM400</b> each when bundled with the website or another add-on, or RM500 on their own.")+`
       <div class="calc">
-        <label class="base"><input type="checkbox" data-base ${pre.base?"checked":""}>${C("Professional website (up to 5 pages)")}<span>${money(BASE)}</span></label>
+        <label class="base"><input type="checkbox" data-base ${st.base?"checked":""}>${C("Professional website (up to 5 pages)")}<span>${money(BASE)}</span></label>
         <div class="calc-sub">${C("Add-ons")}</div>
-        ${ADDONS.map(([id,label])=>`<label><input type="checkbox" data-a="${id}" ${pre.items.includes(id)?"checked":""}>${C(label)}<span data-p></span></label>`).join("")}
+        ${ADDONS.map(([id,label])=>`<label><input type="checkbox" data-a="${id}" ${st.items.includes(id)?"checked":""}>${C(label)}<span data-p></span></label>`).join("")}
         <div class="calc-sub">${C("Options")}</div>
-        <label><input type="checkbox" data-rush ${pre.rush?"checked":""}>${C("Rush delivery")}<span>+20%</span></label>
-        <label><input type="checkbox" data-care ${pre.care?"checked":""}>${C("Website Care")}<span>${C("{p}/month",{p:money(CARE)})}</span></label>
+        <label><input type="checkbox" data-rush ${st.rush?"checked":""}>${C("Rush delivery")}<span>+20%</span></label>
+        <label><input type="checkbox" data-care ${st.care?"checked":""}>${C("Website Care")}<span>${C("{p}/month",{p:money(CARE)})}</span></label>
         <div class="tot"></div>
         <button type="button" class="btn btn-wa" data-use>${ico("chat")}${C("Send this estimate to Adam")}</button>
         <button type="button" class="linkbtn" data-words>${C("Or describe what you need in your own words")}</button>
-      </div>`, "bot", "", C("[Price calculator shown]"));
-    const box = m.querySelector(".calc");
-    const read = () => ({base: box.querySelector("[data-base]").checked, items:[...box.querySelectorAll("[data-a]:checked")].map(c=>c.dataset.a), rush: box.querySelector("[data-rush]").checked, care: box.querySelector("[data-care]").checked});
-    const upd = () => {
-      const sel = read(), p = priceOf(sel);
-      box.querySelectorAll("[data-p]").forEach(x=>{ x.textContent = "+"+money(p.each); });
-      box.querySelector(".tot").innerHTML = p.total === 0 ? `<span class="muted">${C("Tick at least one item to see an estimate.")}</span>` :
-        `${C("Estimated total")} <b>${money(p.total)}</b>`+
-        `<br><span class="muted">${C("{a} to start, {b} before launch",{a:money(Math.round(p.total/2)), b:money(p.total-Math.round(p.total/2))})}`+
-        `${sel.rush?` · ${C("includes {f} rush fee",{f:money(p.rushFee)})}`:""}${sel.base?` · ${cdays(p.n,sel.rush)}`:""}${sel.care?` · ${C("plus {p}/month Website Care",{p:money(CARE)})}`:""}</span>`;
-      box.querySelector("[data-use]").disabled = p.total === 0;
-      remember(sel, p);
+      </div>`;
+    const wire = m => {
+      const box = m.querySelector(".calc");
+      const read = () => ({base: box.querySelector("[data-base]").checked, items:[...box.querySelectorAll("[data-a]:checked")].map(c=>c.dataset.a), rush: box.querySelector("[data-rush]").checked, care: box.querySelector("[data-care]").checked});
+      const upd = () => {
+        Object.assign(st, read()); const p = priceOf(st);
+        box.querySelectorAll("[data-p]").forEach(x=>{ x.textContent = "+"+money(p.each); });
+        box.querySelector(".tot").innerHTML = p.total === 0 ? `<span class="muted">${C("Tick at least one item to see an estimate.")}</span>` :
+          `${C("Estimated total")} <b>${money(p.total)}</b>`+
+          `<br><span class="muted">${C("{a} to start, {b} before launch",{a:money(Math.round(p.total/2)), b:money(p.total-Math.round(p.total/2))})}`+
+          `${st.rush?` · ${C("includes {f} rush fee",{f:money(p.rushFee)})}`:""}${st.base?` · ${cdays(p.n,st.rush)}`:""}${st.care?` · ${C("plus {p}/month Website Care",{p:money(CARE)})}`:""}</span>`;
+        box.querySelector("[data-use]").disabled = p.total === 0;
+        remember(st, p);
+      };
+      box.addEventListener("change",upd); upd();
+      box.querySelector("[data-use]").addEventListener("click",()=>{ if(!busy){ remember(st, priceOf(st)); handoff(); } });
+      box.querySelector("[data-words]").addEventListener("click",()=>{
+        if(busy) return; estMode = true; clearQuick();
+        say(()=>C("Sure. Type what you need and I'll estimate it, for example: <i>\"website in English and BM with 2 extra pages and a booking form, rush\"</i>."));
+        chatInput.focus();
+      });
     };
-    box.addEventListener("change",upd); upd();
-    box.querySelector("[data-use]").addEventListener("click",()=>{ if(!busy){ const sel = read(); remember(sel, priceOf(sel)); handoff(); } });
-    box.querySelector("[data-words]").addEventListener("click",()=>{
-      if(busy) return; estMode = true;
-      say(C("Sure. Type what you need and I'll estimate it, for example: <i>\"website in English and BM with 2 extra pages and a booking form, rush\"</i>."));
-      chatInput.focus();
-    });
+    say(html, "bot", "", C("[Price calculator shown]"), wire);
     after();
   }
   // Read an estimate from a typed message (English, BM and Chinese keywords)
@@ -2103,26 +2124,27 @@ When someone compares two businesses side by side, the one that looks profession
     return found ? {base, items, rush, care} : null;
   }
   function showEstimate(sel){
-    const p = priceOf(sel), counts = {};
-    sel.items.forEach(id=>counts[id]=(counts[id]||0)+1);
-    const lines = [];
-    if(sel.base) lines.push([C("Professional website"), BASE]);
-    Object.entries(counts).forEach(([id,c])=>lines.push([labelOf(id)+(c>1?` × ${c}`:""), c*p.each]));
-    if(sel.rush) lines.push([C("Rush delivery (+20%)"), p.rushFee]);
+    const p = priceOf(sel);
     remember(sel, p);
-    say(C("Here's a rough estimate based on what you described:")+`
+    say(()=>{
+      const counts = {}, lines = [];
+      sel.items.forEach(id=>counts[id]=(counts[id]||0)+1);
+      if(sel.base) lines.push([C("Professional website"), BASE]);
+      Object.entries(counts).forEach(([id,n])=>lines.push([labelOf(id)+(n>1?` × ${n}`:""), n*p.each]));
+      if(sel.rush) lines.push([C("Rush delivery (+20%)"), p.rushFee]);
+      return C("Here's a rough estimate based on what you described:")+`
       <div class="est-lines">${lines.map(([l,v])=>`<div><span>${escapeHtml(l)}</span><span>${money(v)}</span></div>`).join("")}
       <div class="t"><span>${C("Estimated total")}</span><span>${money(p.total)}</span></div></div>
       <span class="muted">${C("{a} to start",{a:money(Math.round(p.total/2))})}${sel.base?` · ${cdays(p.n,sel.rush)}`:""}${sel.care?` · ${C("plus {p}/month Website Care",{p:money(CARE)})}`:""}</span><br>
-      <span class="muted">${C("Adam confirms the final price in a written quote.")}</span>`);
-    quick([[C("Send this estimate to Adam"),handoff,"q-wa"],[C("Adjust in calculator"),()=>calc(sel)],[C("Main menu"),menu],[C("Reset chat"),resetChat,"q-reset"]]);
+      <span class="muted">${C("Adam confirms the final price in a written quote.")}</span>`; });
+    quick([[()=>C("Send this estimate to Adam"),handoff,"q-wa"],[()=>C("Adjust in calculator"),()=>calc(sel)],[()=>C("Main menu"),menu],[()=>C("Reset chat"),resetChat,"q-reset"]]);
   }
 
   /* ----- Respectful chat ----- */
   const ABUSE = /\b(f+u+c+k\w*|fck\w*|sh[i1]t\w*|bitch\w*|bastard\w*|asshole\w*|a\$\$hole|dick(head)?|cunt\w*|wh[o0]re|slut|retard\w*|idiot\w*|stupid|dumb(ass)?|moron\w*|loser|wtf|stfu|piss off|shut up|screw you|go to hell|hate you|useless|trash bot|garbage|bodoh|babi|sial|celaka|lancau|pukimak)\b|傻逼|操你|他妈的|白痴/i;
   function abuseReply(){
     strikes++;
-    say(C("Let's keep our chat respectful, please. I'm here to help with questions about your website, pricing and getting started. Please return to the main topic and I'll be happy to help."),"bot","warn");
+    say(()=>C("Let's keep our chat respectful, please. I'm here to help with questions about your website, pricing and getting started. Please return to the main topic and I'll be happy to help."),"bot","warn");
     after();
   }
 
@@ -2158,20 +2180,20 @@ When someone compares two businesses side by side, the one that looks profession
       /(content|text|photo|logo|write|copy|gambar|照片|内容)/.test(t) ? content :
       /(include|what do i get|termasuk|包括)/.test(t) ? included :
       /(contact|enquir|inquir|talk|whatsapp|email|start|hire|consult|call|hubungi|联系)/.test(t) ? enquire : null;
-    if(route) route(); else { say(C("I'm a simple assistant, so I may not know that one. Pick a topic below, or ask Adam directly on WhatsApp.")); after(); }
+    if(route) route(); else { say(()=>C("I'm a simple assistant, so I may not know that one. Pick a topic below, or ask Adam directly on WhatsApp.")); after(); }
   }
   $("#chatForm").addEventListener("submit", async e=>{
     e.preventDefault(); if(busy) return;
     const q = chatInput.value.trim().slice(0,800); if(!q) return; chatInput.value = "";
     say(escapeHtml(q),"me");
-    log.querySelectorAll(".quick").forEach(x=>x.remove());
+    clearQuick();
     // 1. Abusive messages: a reminder after double the usual wait
     if(ABUSE.test(q)) return respond(abuseReply, 2);
     // 2. Estimates from typed needs
     const costy = /(cost|price|how much|quote|estimate|budget|total|harga|berapa|kos|价格|多少钱|报价|预算)/i.test(q);
     const needs = (estMode || costy) ? parseNeeds(q) : null;
     if(needs){ estMode = false; return respond(()=>showEstimate(needs)); }
-    if(estMode){ estMode = false; return respond(()=>{ say(C("I couldn't spot specific features in that. Try the calculator, or mention things like extra pages, another language, a booking form, listings or rush delivery.")); quick([[C("Open calculator"),()=>calc()],[C("Main menu"),menu],[C("Reset chat"),resetChat,"q-reset"]]); }); }
+    if(estMode){ estMode = false; return respond(()=>{ say(()=>C("I couldn't spot specific features in that. Try the calculator, or mention things like extra pages, another language, a booking form, listings or rush delivery.")); quick([[()=>C("Open calculator"),()=>calc()],[()=>C("Main menu"),menu],[()=>C("Reset chat"),resetChat,"q-reset"]]); }); }
     // 3. AI (if connected), shown with the typing bubble for a moment
     lock(true); const d = typing();
     const [reply] = await Promise.all([askAI(q), wait(thinkTime())]);
