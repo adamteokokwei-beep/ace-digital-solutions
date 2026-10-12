@@ -467,6 +467,12 @@ body.base-only .mbar{grid-template-columns:1fr 1fr}
 .wa-open{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;background:#15803D;color:#fff;border:0;border-radius:10px;padding:10px 14px;font:700 14px "Archivo";cursor:pointer}
 .wa-open .ico{width:16px;height:16px}
 .wasim[hidden],.handoff[hidden]{display:none}
+/* Floating buttons and the phone action bar appear only after the hero buttons scroll away */
+.social a,.chat-fab,.mbar{transition:opacity .45s ease,transform .5s cubic-bezier(.22,1,.36,1)}
+body:not(.show-float) .social a{opacity:0;transform:translateX(-18px);pointer-events:none}
+body:not(.show-float):not(.chat-open) .chat-fab{opacity:0;transform:translateY(18px) scale(.92);pointer-events:none}
+body:not(.show-float) .mbar{opacity:0;transform:translateY(110%);pointer-events:none}
+.social a+a{transition-delay:.05s}.social a+a+a{transition-delay:.1s}
 @media (max-width:520px){.chat-h .addon-tag{display:none}}
 .wasim{position:fixed;inset:0;z-index:120;background:rgba(6,14,28,.72);display:grid;place-items:center;padding:16px}
 .wa-phone{width:min(360px,100%);background:#ECE5DD;border-radius:22px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(0,0,0,.7)}
@@ -1118,8 +1124,8 @@ body.base-only .mbar{grid-template-columns:1fr 1fr}
     busy=true; const t=document.createElement("div"); t.className="msg typing"; t.innerHTML="<i></i><i></i><i></i>"; log.appendChild(t); log.scrollTop=log.scrollHeight;
     const [reply]=await Promise.all([askAI(q),wait(1200)]); t.remove(); busy=false;
     if(reply){say(fmtAI(reply)); after();} else scripted(q);});
-  function openChat(){chat.hidden=false; fab.setAttribute("aria-expanded",true); if(!started){started=true; respond(menu,600);} setTimeout(()=>input.focus(),50);}
-  function closeChat(){chat.hidden=true; fab.setAttribute("aria-expanded",false);}
+  function openChat(){document.body.classList.add("chat-open"); chat.hidden=false; fab.setAttribute("aria-expanded",true); if(!started){started=true; respond(menu,600);} setTimeout(()=>input.focus(),50);}
+  function closeChat(){document.body.classList.remove("chat-open"); chat.hidden=true; fab.setAttribute("aria-expanded",false);}
   fab.addEventListener("click",()=>chat.hidden?openChat():closeChat());
   $("#chatClose").addEventListener("click",closeChat);
   document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!chat.hidden) closeChat();});
@@ -1138,6 +1144,11 @@ body.base-only .mbar{grid-template-columns:1fr 1fr}
   $("#callEnd").addEventListener("click",endCall);
   sim.addEventListener("click",e=>{if(e.target===sim) endCall();});
   document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!sim.hidden) endCall();});
+
+  /* ---------- Show floating buttons once the hero buttons are off screen ---------- */
+  const heroCtas=$(".hero .ctas");
+  if(heroCtas && "IntersectionObserver" in window) new IntersectionObserver(([en])=>document.body.classList.toggle("show-float",!en.isIntersecting&&en.boundingClientRect.top<0),{rootMargin:"-60px 0px 0px 0px"}).observe(heroCtas);
+  else document.body.classList.add("show-float");
 
   /* ---------- Site language buttons ---------- */
   $$("[data-lang]").forEach(b=>b.addEventListener("click",()=>setLang(b.dataset.lang)));
