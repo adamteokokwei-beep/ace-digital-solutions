@@ -17,7 +17,7 @@
   --f-hand:"Caveat", "Segoe Print", "Comic Sans MS", cursive;
   --r:10px; --r-lg:16px;
   --shadow:0 18px 40px -18px rgba(11,18,32,.35);
-  --wrap:1200px; --gut:clamp(16px,4vw,48px);
+  --wrap:1248px; --gut:clamp(72px,6vw,76px);
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -944,6 +944,13 @@ html[lang^="zh"] .hero h1 span{white-space:nowrap}
 .chat-langbar{display:flex;gap:6px;justify-content:flex-end;padding:6px 12px;background:#0E1E45;border-top:1px solid rgba(255,255,255,.08)}
 .chat-langbar button{background:transparent;border:1px solid rgba(255,255,255,.25);color:#C7D2E6;border-radius:6px;padding:3px 9px;font-size:12.5px;font-weight:700}
 .chat-langbar button[aria-pressed="true"]{background:#fff;color:var(--navy);border-color:#fff}
+/* Wider side margins so the floating buttons don't cover content */
+@media (max-width:600px){:root{--gut:64px}}
+.chat-fab{right:14px;width:54px;height:54px}
+@media (max-width:600px){.chat-fab{right:10px;bottom:calc(12px + env(safe-area-inset-bottom,0px));width:48px;height:48px}.chat-fab .ico{width:22px;height:22px}}
+.site-head .wrap{padding-inline:clamp(16px,4vw,48px)}
+.pricing>div{min-width:0}
+@media (max-width:480px){.addon-list li{grid-template-columns:24px minmax(0,1fr) 40px 64px;gap:6px;padding-inline:8px}.addon-list .ai{width:24px;height:24px}}
 /* Footer */
 .foot-contact{display:flex;gap:8px 18px;flex-wrap:wrap}
 .foot-contact a{display:inline-flex;align-items:center;gap:6px}
