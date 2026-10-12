@@ -2136,7 +2136,7 @@ When someone compares two businesses side by side, the one that looks profession
   function enquire(){ say(()=>C("The quickest way is WhatsApp. Adam replies within 1 working day. Tap below and I'll prepare a short summary of our chat, so you don't have to repeat yourself.")+`<br>${formLink(C("Or use the contact form"))}`); quick([WA_CTA(),[()=>C("Main menu"),menu]]); }
 
   /* ----- Hand over to WhatsApp with a summary of the chat ----- */
-  const estimateText = e => e ? C("{total} for {items} ({days})",{total:money(e.total), items:e.items.join(chatLang==="zh"?"、":", "), days:e.days}) + (e.care?", "+C("plus Website Care {care}/month",{care:money(CARE)}):"") : "";
+  const estimateText = e => e ? C("{total} for {items} ({days})",{total:money(e.total), items:e.items.map(x=>typeof x==="function"?x():x).join(chatLang==="zh"?"、":", "), days:e.days}) + (e.care?", "+C("plus Website Care {care}/month",{care:money(CARE)}):"") : "";
   function fallbackSummary(){
     const qs = transcript.filter(m=>m.role==="user").map(m=>m.content).filter(q=>!q.startsWith("[")).slice(-6);
     const lines = [];
@@ -2299,9 +2299,12 @@ When someone compares two businesses side by side, the one that looks profession
       return data.reply;
     }catch(e){ aiHistory.pop(); return null; }
   }
+  function helpInfo(){ say(()=>C("I can tell you what's included in a website, estimate your cost, explain timing and payment, or pass you to Adam on WhatsApp. Pick a topic below, or type your question.")); menu(); }
+  function canBuild(){ say(()=>C("Yes. Adam builds websites for all kinds of small businesses in Malaysia, for example bakeries, cafés, tuition centres, clinics, salons and workshops. The standard website is <b>RM1,600</b> for up to 8 pages or sections, including a website chatbot (RM1,500 without the chatbot). Adam can talk through what your business needs on WhatsApp.")); quick([[()=>C("Estimate my cost"),calc],[()=>C("What's included?"),included],WA_CTA()]); }
   function scripted(q){
     const t = q.toLowerCase();
     const route =
+      /(how can you help|what can you do|what do you do|help me|apa yang (anda|awak) boleh buat|boleh bantu apa|你能做什么|能帮我什么|可以帮我什么)/.test(t) ? helpInfo :
       /(rush|asap|sooner|faster|express|priority|segera|加急)/.test(t) ? rushInfo :
       /(urgent|emergency|hourly|per hour|broken|fix|rosak|坏了|修复)/.test(t) ? urgent :
       /(domain|google business|gbp|google profile|domian|域名)/.test(t) ? domainInfo :
@@ -2314,6 +2317,7 @@ When someone compares two businesses side by side, the one that looks profession
       /(meet|zoom|google meet|in person|jumpa|见面)/.test(t) ? meetInfo :
       /(content|text|photo|logo|write|copy|gambar|照片|内容)/.test(t) ? content :
       /(include|what do i get|termasuk|包括)/.test(t) ? included :
+      /((can|could|do) (you|adam) (create|build|make|design|do)|website for (a |an |my )?\w+|buat laman web|bina laman web|laman web untuk|做网站|建网站|设计网站)/.test(t) ? canBuild :
       /(contact|enquir|inquir|talk|whatsapp|email|start|hire|consult|call|hubungi|联系)/.test(t) ? enquire : null;
     if(route) route(); else { say(()=>C("I'm a simple assistant, so I may not know that one. Pick a topic below, or ask Adam directly on WhatsApp.")); after(); }
   }
