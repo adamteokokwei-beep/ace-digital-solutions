@@ -3,19 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Austin Plumbers 24/7 | Capitol Creek Plumbing (Demo)</title>
-<meta name="description" content="Fictional demo website by Ace Digital Solutions: 24/7 Austin plumbing with upfront price ranges, 3-step online booking and a chat assistant.">
+<title>Johor Bahru Plumbers, 24 Hours | Arus Biru Plumbing (Demo)</title>
+<meta name="description" content="Fictional demo website by Ace Digital Solutions: a Johor Bahru plumbing business with upfront price ranges, 3-step booking and a chat assistant that hands over to WhatsApp.">
 <!-- Fictional business: keep this demo out of Google so it is never mistaken for a real company -->
 <meta name="robots" content="noindex, nofollow">
-<meta property="og:title" content="Capitol Creek Plumbing: Austin plumbing website demo">
+<meta property="og:title" content="Arus Biru Plumbing: Johor Bahru plumbing website demo">
 <meta property="og:description" content="A fictional demo website by Ace Digital Solutions, showing what a modern plumbing website can do.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"Do you offer emergency plumbing in Austin?","acceptedAnswer":{"@type":"Answer","text":"Yes. We answer 24/7, including nights, weekends and holidays. For burst pipes or major leaks, shut off your main water valve and call us."}},
-{"@type":"Question","name":"How quickly can a plumber come?","acceptedAnswer":{"@type":"Answer","text":"Most Austin-area calls get a same-day appointment. Emergencies are dispatched right away."}},
-{"@type":"Question","name":"Do you give prices before starting work?","acceptedAnswer":{"@type":"Answer","text":"Yes. Our website shows typical price ranges, and your plumber confirms the exact price on site before any work begins."}}]}</script>
 <style>
 :root{
   --navy:#0B2545; --navy-2:#13315C; --blue:#1D5FD1; --blue-d:#174CA8; --red:#D7262E; --red-d:#B51E25;
@@ -434,7 +430,7 @@ main .wrap,footer .wrap,.emerg .wrap{max-width:calc(1180px + 2*var(--side) - 36p
 .cform button{background:var(--blue);color:#fff;border:0;border-radius:10px;padding:0 14px;cursor:pointer}
 .cnote{font-size:11.5px;color:#7B879B;text-align:center;padding:0 10px 8px;background:#fff}
 
-/* "$250 only" view */
+/* "RM2,400 only" view */
 body.base-only [data-addon]{position:relative}
 body.base-only [data-addon]>*{filter:grayscale(1);opacity:.28;pointer-events:none}
 body.base-only [data-addon]::after{content:attr(data-addon);position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:#312E81;color:#fff;font:700 15px/1.3 "Archivo";padding:12px 18px;border-radius:12px;box-shadow:var(--sh);text-align:center;max-width:86%;z-index:2}
@@ -449,6 +445,41 @@ body.base-only .needs-addon{display:none !important}
 .reveal.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ===== Malaysia (JB) version ===== */
+.btn-wa{background:#15803D;color:#fff;box-shadow:0 10px 22px -12px rgba(21,128,61,.9)}
+.btn-wa:hover{background:#166534}
+.langs button{min-width:40px;justify-content:center}
+.langs span{display:inline!important}
+.chat-langs button{font:700 12px "Archivo";min-width:34px;justify-content:center}
+.final{background:radial-gradient(70% 120% at 85% 10%,rgba(29,95,209,.55),transparent 60%),linear-gradient(135deg,#0B2545,#123A75)}
+.final::before{display:none}
+.social .tt{background:#111}
+.social .tt .ico{fill:none;stroke:#fff;stroke-width:2.4}
+.mbar{grid-template-columns:1fr 1fr 1fr}
+.mbar .w{background:#15803D;color:#fff}
+body.base-only .mbar{grid-template-columns:1fr 1fr}
+.person .initials{display:grid;place-items:center;width:100%;aspect-ratio:1/1.05;background:#1D5FD1;color:#fff;font:800 clamp(30px,5vw,46px)/1 "Archivo";letter-spacing:.02em}
+.handoff{display:flex;align-items:center;justify-content:center;gap:8px;border:0;border-top:1px solid #BBF7D0;background:#F0FDF4;color:#166534;font:700 14px "Archivo";padding:10px;cursor:pointer}
+.handoff .ico{width:17px;height:17px}
+.handoff:hover{background:#DCFCE7}
+.quick button.wa{background:#15803D;border-color:#15803D;color:#fff}
+.wa-open{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;background:#15803D;color:#fff;border:0;border-radius:10px;padding:10px 14px;font:700 14px "Archivo";cursor:pointer}
+.wa-open .ico{width:16px;height:16px}
+.wasim[hidden],.handoff[hidden]{display:none}
+@media (max-width:520px){.chat-h .addon-tag{display:none}}
+.wasim{position:fixed;inset:0;z-index:120;background:rgba(6,14,28,.72);display:grid;place-items:center;padding:16px}
+.wa-phone{width:min(360px,100%);background:#ECE5DD;border-radius:22px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(0,0,0,.7)}
+.wa-top{display:flex;align-items:center;gap:10px;background:#075E54;color:#fff;padding:12px 14px}
+.wa-top b{display:block;font-family:"Archivo"}
+.wa-top small{color:#CDEBE5;font-size:12px}
+.wa-av{width:38px;height:38px;border-radius:50%;background:#1D5FD1;display:grid;place-items:center;flex:none}
+.wa-av .ico{width:20px;height:20px}
+.wa-x{margin-left:auto;background:none;border:0;color:#fff;cursor:pointer;padding:6px}
+.wa-x .ico{width:20px;height:20px}
+.wa-body{padding:18px 14px;min-height:150px;display:flex;justify-content:flex-end;align-items:flex-start}
+.wa-bubble{background:#DCF8C6;color:#111;border-radius:10px 2px 10px 10px;padding:9px 11px;max-width:92%;font-size:14.5px;line-height:1.45;white-space:pre-wrap;box-shadow:0 1px 1px rgba(0,0,0,.12)}
+.wa-note{background:#fff;margin:0;padding:12px 14px;font-size:13px;color:#475569;line-height:1.45}
 </style>
 </head>
 <body>
@@ -484,31 +515,31 @@ body.base-only .needs-addon{display:none !important}
 <!-- Demo disclosure bar -->
 <div class="demobar">
   <div class="wrap">
-    <span><b>Fictional demo website</b><span class="dl"> by Ace Digital Solutions. The business, phone, reviews and prices are made up.</span></span>
+    <span><b>Fictional demo website</b><span class="dl"> by Ace Digital Solutions. The business, phone number, reviews and prices are made up.</span></span>
     <a href="/">← Back to Ace<span class="dl"> Digital Solutions</span></a>
-    <label class="toggle"><input type="checkbox" id="baseToggle"><span class="sw" aria-hidden="true"></span><span class="dl">Show what the </span>$250 website<span class="dl"> includes</span><span class="dm"> only</span></label>
+    <label class="toggle"><input type="checkbox" id="baseToggle"><span class="sw" aria-hidden="true"></span><span class="dl">Show what the </span>RM2,400 website<span class="dl"> includes</span><span class="dm"> only</span></label>
   </div>
 </div>
 
 <header class="site">
   <div class="wrap">
-    <a class="brand" href="#top" aria-label="Capitol Creek Plumbing, demo, home">
+    <a class="brand" href="#top" aria-label="Arus Biru Plumbing, demo, home">
       <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#1D5FD1"/><path d="M6 15c4-3 7-3 11 0s7 3 11 0 6-2 6-2M6 22c4-3 7-3 11 0s7 3 11 0 6-2 6-2M6 29c4-3 7-3 11 0s7 3 11 0 6-2 6-2" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg>
-      <span><b>Capitol Creek Plumbing <span class="demo">DEMO</span></b><small>Straight answers. Solid plumbing.</small></span>
+      <span><b>Arus Biru Plumbing <span class="demo">DEMO</span></b><small>Straight answers. Solid plumbing.</small></span>
     </a>
     <nav class="main" aria-label="Main">
-      <a href="#services">Services</a><a href="#prices">Prices</a><a href="#reviews">Reviews</a><a href="#areas">Service Areas</a><a href="#faq">FAQ</a>
+      <a href="#services">Services</a><a href="#prices">Prices</a><a href="#reviews">Reviews</a><a href="#areas">Areas</a><a href="#faq">FAQ</a>
     </nav>
-    <a class="hphone" href="tel:5125550147"><svg class="ico"><use href="#i-phone"/></svg><span>512-555-0147 <span class="demo">DEMO</span><small>24/7 emergency service</small></span></a>
+    <a class="hphone" href="tel:+6070000000"><svg class="ico"><use href="#i-phone"/></svg><span>07-000 0000 <span class="demo">DEMO</span><small>24-hour emergency service</small></span></a>
     <a class="btn btn-blue btn-sm" href="#book"><svg class="ico"><use href="#i-cal"/></svg>Book a Time</a>
-    <div class="langs" role="group" aria-label="Language / Idioma">
-      <button type="button" data-lang="en" aria-pressed="true" title="English"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#fff"/><g fill="#B22234"><rect width="30" height="1.54"/><rect y="3.08" width="30" height="1.54"/><rect y="6.15" width="30" height="1.54"/><rect y="9.23" width="30" height="1.54"/><rect y="12.3" width="30" height="1.54"/><rect y="15.38" width="30" height="1.54"/><rect y="18.46" width="30" height="1.54"/></g><rect width="13" height="10.77" fill="#3C3B6E"/><g fill="#fff"><circle cx="2.5" cy="2.2" r=".6"/><circle cx="6.5" cy="2.2" r=".6"/><circle cx="10.5" cy="2.2" r=".6"/><circle cx="4.5" cy="4.6" r=".6"/><circle cx="8.5" cy="4.6" r=".6"/><circle cx="2.5" cy="7" r=".6"/><circle cx="6.5" cy="7" r=".6"/><circle cx="10.5" cy="7" r=".6"/><circle cx="4.5" cy="9.2" r=".6"/><circle cx="8.5" cy="9.2" r=".6"/></g></svg><span>EN</span></button>
-      <button type="button" data-lang="es" aria-pressed="false" title="Español"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="10" height="20" fill="#006847"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#CE1126"/><circle cx="15" cy="10" r="2.6" fill="none" stroke="#8C6A2F" stroke-width="1.2"/></svg><span>ES</span></button>
+    <div class="langs" role="group" aria-label="Language / Bahasa" title="Add-on: additional language">
+      <button type="button" data-lang="en" aria-pressed="true" title="English"><span>EN</span></button>
+      <button type="button" data-lang="bm" aria-pressed="false" title="Bahasa Melayu"><span>BM</span></button>
     </div>
     <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mnav"><svg class="ico" style="width:28px;height:28px"><use href="#i-menu"/></svg></button>
   </div>
   <nav class="mnav" id="mnav" aria-label="Mobile">
-    <a href="#services">Services</a><a href="#prices">Prices</a><a href="#reviews">Reviews</a><a href="#book">Book a time</a><a href="#areas">Service Areas</a><a href="#faq">FAQ</a><a href="tel:5125550147">Call 512-555-0147 (demo)</a>
+    <a href="#services">Services</a><a href="#prices">Prices</a><a href="#reviews">Reviews</a><a href="#book">Book a time</a><a href="#areas">Areas</a><a href="#faq">FAQ</a><a href="tel:+6070000000">Call 07-000 0000 (demo)</a>
   </nav>
 </header>
 
@@ -517,20 +548,20 @@ body.base-only .needs-addon{display:none !important}
 <section class="hero">
   <div class="wrap">
     <div>
-      <span class="pill-red"><span class="dot"></span>24/7 emergency plumbing in Austin</span>
-      <h1>Austin Plumbers, 24/7: <span>Clear Prices, Easy Booking</span></h1>
-      <p class="lead">Plumbing service that makes the next step easy. Leaks, clogged drains, broken water heaters or a 2 a.m. emergency: see a typical price range and book a real appointment time without a long form.</p>
+      <span class="pill-red"><span class="dot"></span>24-hour emergency plumbing in Johor Bahru</span>
+      <h1>Johor Bahru Plumbers, 24 Hours: <span>Clear Prices, Easy Booking</span></h1>
+      <p class="lead">Plumbing service that makes the next step easy. Leaks, choked drains, a water heater that won't heat or a 2 a.m. burst pipe: see a typical price range and book a real time slot without a long form.</p>
       <div class="ctas">
-        <a class="btn btn-red" href="tel:5125550147"><svg class="ico"><use href="#i-phone"/></svg>Call 512-555-0147</a>
+        <a class="btn btn-red" href="tel:+6070000000"><svg class="ico"><use href="#i-phone"/></svg>Call 07-000 0000</a>
+        <a class="btn btn-wa" href="#whatsapp" data-wa><svg class="ico"><use href="#i-chat"/></svg>WhatsApp Us</a>
         <a class="btn btn-blue needs-addon" href="#book"><svg class="ico"><use href="#i-cal"/></svg>Book a Time</a>
-        <a class="btn btn-ghost needs-addon" href="#prices"><svg class="ico"><use href="#i-tag"/></svg>Get a Price Range</a>
         <a class="btn btn-blue" href="#book" style="display:none" data-base-show><svg class="ico"><use href="#i-msg"/></svg>Request Service</a>
       </div>
       <div class="trust">
-        <div><svg class="ico star"><use href="#i-star"/></svg><span><b>4.9★ rating</b>1,240 reviews <span class="demo">DEMO</span></span></div>
-        <div><svg class="ico"><use href="#i-cal"/></svg><span><b>12 years</b>serving Austin</span></div>
-        <div><svg class="ico"><use href="#i-badge"/></svg><span><b>License M-00000</b>demo license</span></div>
-        <div><svg class="ico"><use href="#i-shield"/></svg><span><b>Licensed</b>&amp; insured</span></div>
+        <div><svg class="ico star"><use href="#i-star"/></svg><span><b>4.9★ on Google</b>320 reviews <span class="demo">DEMO</span></span></div>
+        <div><svg class="ico"><use href="#i-cal"/></svg><span><b>10 years</b>serving JB</span></div>
+        <div><svg class="ico"><use href="#i-tag"/></svg><span><b>Price agreed</b>before work starts</span></div>
+        <div><svg class="ico"><use href="#i-clock"/></svg><span><b>Same-day</b>visits in JB</span></div>
       </div>
     </div>
     <div class="hero-img">
@@ -543,17 +574,17 @@ body.base-only .needs-addon{display:none !important}
 <div class="emerg" role="region" aria-label="Emergency help">
   <div class="wrap">
     <svg class="ico warn"><use href="#i-alert"/></svg>
-    <div><h2>Water everywhere?</h2><p>Shut off your main water valve first, then call us. We answer 24/7.</p></div>
+    <div><h2>Water everywhere?</h2><p>Turn off your main water valve first, then call or WhatsApp us. We're on call 24 hours.</p></div>
     <div class="acts">
-      <button class="btn btn-ghost btn-sm" type="button" id="shutBtn" aria-expanded="false" aria-controls="shutoff">How to shut it off</button>
-      <a class="btn btn-red btn-sm" href="tel:5125550147"><svg class="ico"><use href="#i-phone"/></svg>Call 24/7</a>
+      <button class="btn btn-ghost btn-sm" type="button" id="shutBtn" aria-expanded="false" aria-controls="shutoff">How to turn it off</button>
+      <a class="btn btn-red btn-sm" href="tel:+6070000000"><svg class="ico"><use href="#i-phone"/></svg>Call 24 hours</a>
     </div>
     <div class="shutoff" id="shutoff">
-      <b>Find and close your main water valve (most Austin homes):</b>
+      <b>Find and close your main water valve:</b>
       <ol>
-        <li>Look where the water line enters the house: often the garage, a utility closet, or outside near the front hose bib.</li>
-        <li>Turn the round handle clockwise, or turn a lever handle so it sits across the pipe.</li>
-        <li>No luck? The meter box near the street has a shut-off too. Then call us and we'll talk you through it.</li>
+        <li>Landed house: look next to the water meter, usually near the front gate or the boundary wall.</li>
+        <li>Condo or apartment: check the meter compartment along the corridor, or ask the management office.</li>
+        <li>Turn the handle clockwise, or turn a lever so it sits across the pipe. Still stuck? Call us and we'll talk you through it.</li>
       </ol>
     </div>
   </div>
@@ -563,33 +594,33 @@ body.base-only .needs-addon{display:none !important}
 <section id="services">
   <div class="wrap">
     <div class="shead">
-      <div><span class="eyebrow">Austin plumbing services</span><h2 style="margin-top:8px">Plumbing help for the problems homeowners actually have</h2></div>
-      <span class="incl-tag">✓ Included in $250</span>
+      <div><span class="eyebrow">Plumbing services in JB</span><h2 style="margin-top:8px">Help for the plumbing problems homes actually have</h2></div>
+      <span class="incl-tag">✓ Included in RM2,400</span>
     </div>
     <div class="svc-grid">
-      <article class="svc reveal"><div class="ic r"><svg class="ico"><use href="#i-alert"/></svg></div><h3>Emergency Plumbing</h3><p>Burst pipes, major leaks and backups that can't wait. Day or night, weekends and holidays.</p><button type="button" data-price="emergency">See typical price <svg class="ico" style="width:18px"><use href="#i-arrow"/></svg></button></article>
-      <article class="svc reveal"><div class="ic"><svg class="ico"><use href="#i-drain"/></svg></div><h3>Drain Cleaning</h3><p>Slow or clogged sinks, showers and tubs cleared properly, not just pushed further down the line.</p><button type="button" data-price="drain">See typical price <svg class="ico" style="width:18px"><use href="#i-arrow"/></svg></button></article>
-      <article class="svc reveal"><div class="ic"><svg class="ico"><use href="#i-heater"/></svg></div><h3>Water Heater Repair</h3><p>No hot water, leaking tanks or strange noises. Repairs and same-day replacements, tank or tankless.</p><button type="button" data-price="heater">See typical price <svg class="ico" style="width:18px"><use href="#i-arrow"/></svg></button></article>
-      <article class="svc reveal"><div class="ic"><svg class="ico"><use href="#i-search"/></svg></div><h3>Leak Detection</h3><p>Hidden leaks found with listening and camera tools before a small drip becomes expensive damage.</p><button type="button" data-price="leak">See typical price <svg class="ico" style="width:18px"><use href="#i-arrow"/></svg></button></article>
-      <article class="svc reveal"><div class="ic"><svg class="ico"><use href="#i-faucet"/></svg></div><h3>Toilet &amp; Faucet Repair</h3><p>Running toilets, dripping faucets and fixture upgrades done neatly, usually in one visit.</p><button type="button" data-price="toilet">See typical price <svg class="ico" style="width:18px"><use href="#i-arrow"/></svg></button></article>
-      <article class="svc reveal"><div class="ic"><svg class="ico"><use href="#i-pipe"/></svg></div><h3>Sewer &amp; Main Line</h3><p>Recurring backups and root problems, with camera footage so you see exactly what's wrong.</p><button type="button" data-price="sewer">See typical price <svg class="ico" style="width:18px"><use href="#i-arrow"/></svg></button></article>
+      <article class="svc reveal"><div class="ic r"><svg class="ico"><use href="#i-alert"/></svg></div><h3>Emergency Plumbing</h3><p>Burst pipes, major leaks and overflowing drains that can't wait. Day or night, weekends and public holidays.</p><button type="button" data-price="emergency">See typical price <svg class="ico" style="width:18px"><use href="#i-arrow"/></svg></button></article>
+      <article class="svc reveal"><div class="ic"><svg class="ico"><use href="#i-drain"/></svg></div><h3>Choked Drains</h3><p>Slow or choked sinks, floor traps and showers cleared properly, not just pushed further down the pipe.</p><button type="button" data-price="drain">See typical price <svg class="ico" style="width:18px"><use href="#i-arrow"/></svg></button></article>
+      <article class="svc reveal"><div class="ic"><svg class="ico"><use href="#i-heater"/></svg></div><h3>Water Heater Repair</h3><p>No hot water, tripping heaters or leaking tanks. Instant and storage heaters repaired or replaced.</p><button type="button" data-price="heater">See typical price <svg class="ico" style="width:18px"><use href="#i-arrow"/></svg></button></article>
+      <article class="svc reveal"><div class="ic"><svg class="ico"><use href="#i-search"/></svg></div><h3>Leak Detection</h3><p>Hidden leaks in walls, floors and ceilings found before a small drip becomes expensive damage.</p><button type="button" data-price="leak">See typical price <svg class="ico" style="width:18px"><use href="#i-arrow"/></svg></button></article>
+      <article class="svc reveal"><div class="ic"><svg class="ico"><use href="#i-faucet"/></svg></div><h3>Toilet &amp; Tap Repair</h3><p>Running toilets, dripping taps and new fittings done neatly, usually in one visit.</p><button type="button" data-price="toilet">See typical price <svg class="ico" style="width:18px"><use href="#i-arrow"/></svg></button></article>
+      <article class="svc reveal"><div class="ic"><svg class="ico"><use href="#i-pipe"/></svg></div><h3>Main Pipe &amp; Sewer</h3><p>Repeated blockages in several drains, traced to the source so the problem stops coming back.</p><button type="button" data-price="sewer">See typical price <svg class="ico" style="width:18px"><use href="#i-arrow"/></svg></button></article>
     </div>
   </div>
 </section>
 
-<!-- PRICE TOOL (add-on) -->
-<section class="dark" id="prices" data-addon="Add-on: interactive price tool">
+<!-- PRICE TOOL (extra section add-on) -->
+<section class="dark" id="prices" data-addon="Extra section · add-on">
   <div class="wrap">
     <div class="shead">
-      <div><span class="eyebrow">Upfront pricing</span><h2 style="margin-top:8px">What might your plumbing problem cost?</h2><p class="sub">Pick the problem you're seeing to get a typical Austin price range. No phone call needed.</p></div>
-      <span class="addon-tag">Add-on · Interactive price tool</span>
+      <div><span class="eyebrow">Upfront pricing</span><h2 style="margin-top:8px">What might your plumbing problem cost?</h2><p class="sub">Pick the problem you're seeing to get a typical JB price range. No phone call needed.</p></div>
+      <span class="addon-tag">Add-on · Extra section</span>
     </div>
     <div class="price">
       <div class="chips" id="chips" role="group" aria-label="Choose a plumbing problem"></div>
       <div class="pcard" aria-live="polite">
         <div class="pc-title"><svg class="ico"><use href="#i-tag"/></svg><b>Price estimator</b><span class="pc-hint pc-m">Tap a problem below</span><span class="pc-hint pc-d">Pick a problem on the left</span></div>
         <span class="lbl">Typical range <span class="demo">DEMO PRICES</span></span>
-        <div class="range" id="pRange">$200 – $650</div>
+        <div class="range" id="pRange">RM120 – RM350</div>
         <div class="what" id="pWhat">Water heater repair</div>
         <p class="note" id="pNote">Common repairs like thermostats, heating elements and valves. Your plumber confirms the final price on site before any work begins.</p>
         <a class="btn btn-blue" href="#book" id="pBook"><svg class="ico"><use href="#i-cal"/></svg>Book this service</a>
@@ -602,20 +633,20 @@ body.base-only .needs-addon{display:none !important}
 <section id="reviews" style="background:var(--bg)">
   <div class="wrap">
     <div class="shead">
-      <div><span class="eyebrow">Customer reviews</span><h2 style="margin-top:8px">Real people. Real plumbing problems.</h2></div>
-      <span class="incl-tag">✓ Included in $250</span>
+      <div><span class="eyebrow">Customer reviews</span><h2 style="margin-top:8px">Real homes. Real plumbing problems.</h2></div>
+      <span class="incl-tag">✓ Included in RM2,400</span>
     </div>
     <div class="rev-top">
       <span class="big-rate">4.9</span>
-      <div><div class="stars" aria-label="4.9 out of 5 stars">★★★★★</div><div style="color:var(--muted)">from 1,240 customer reviews <span class="demo">DEMO REVIEWS</span></div></div>
+      <div><div class="stars" aria-label="4.9 out of 5 stars">★★★★★</div><div style="color:var(--muted)">from 320 Google reviews <span class="demo">DEMO REVIEWS</span></div></div>
     </div>
     <div class="rev-grid">
-      <article class="rev reveal"><div class="stars">★★★★★</div><p>"Marcus found the leak behind our dishwasher in about twenty minutes and showed me photos before fixing anything. Very easy experience."</p><span class="tech">Technician: Marcus</span><span class="who"><b>Sarah M.</b> · Austin (78745)</span></article>
-      <article class="rev reveal"><div class="stars">★★★★★</div><p>"Booked online at 9 p.m., got a 10 a.m. slot the next morning. Daniel had our water heater working before lunch, and the price matched the range on the website."</p><span class="tech">Technician: Daniel</span><span class="who"><b>Kevin R.</b> · Round Rock</span></article>
-      <article class="rev reveal"><div class="stars">★★★★★</div><p>"Luis ran a camera down our main line and showed us the root problem on his tablet. No upselling, just a clear plan and a fair price."</p><span class="tech">Technician: Luis</span><span class="who"><b>Michelle P.</b> · Cedar Park</span></article>
-      <article class="rev reveal"><div class="stars">★★★★★</div><p>"Pipe burst on a Sunday. They answered on the second ring, talked me through shutting off the water, and someone was here within the hour."</p><span class="tech">Technician: Marcus</span><span class="who"><b>Jason T.</b> · Pflugerville</span></article>
-      <article class="rev reveal"><div class="stars">★★★★★</div><p>"Got a text with Daniel's photo before he arrived, which my mom really appreciated. Professional, and he cleaned up after himself."</p><span class="tech">Technician: Daniel</span><span class="who"><b>Rachel P.</b> · Georgetown</span></article>
-      <article class="rev reveal"><div class="stars">★★★★★</div><p>"Luis explained our options in Spanish for my father and in English for me. Kitchen drain fixed the same day."</p><span class="tech">Technician: Luis</span><span class="who"><b>Thomas R.</b> · Leander</span></article>
+      <article class="rev reveal"><div class="stars">★★★★★</div><p>"Hafiz found the leak behind our washing machine in about twenty minutes and sent me photos before fixing anything. Very easy."</p><span class="tech">Technician: Hafiz</span><span class="who"><b>Nurul A.</b> · Skudai</span></article>
+      <article class="rev reveal"><div class="stars">★★★★★</div><p>"Booked online at 9 p.m. and got a 10 a.m. slot the next morning. Ah Seng had our water heater working before lunch, and the price matched the range on the website."</p><span class="tech">Technician: Ah Seng</span><span class="who"><b>Kelvin T.</b> · Taman Molek</span></article>
+      <article class="rev reveal"><div class="stars">★★★★★</div><p>"Ravi traced the blockage in our main pipe and showed us on his phone. No upselling, just a clear plan and a fair price."</p><span class="tech">Technician: Ravi</span><span class="who"><b>Priya S.</b> · Iskandar Puteri</span></article>
+      <article class="rev reveal"><div class="stars">★★★★★</div><p>"Pipe burst on a Sunday. They replied on WhatsApp straight away, told me how to turn off the water, and someone was here within the hour."</p><span class="tech">Technician: Hafiz</span><span class="who"><b>Daniel L.</b> · Kulai</span></article>
+      <article class="rev reveal"><div class="stars">★★★★★</div><p>"Got a WhatsApp with Ah Seng's name before he arrived, which my mother really appreciated. Professional, and he cleaned up after."</p><span class="tech">Technician: Ah Seng</span><span class="who"><b>Siti R.</b> · Bukit Indah</span></article>
+      <article class="rev reveal"><div class="stars">★★★★★</div><p>"Hafiz explained everything in BM for my father and in English for me. Kitchen sink fixed the same day."</p><span class="tech">Technician: Hafiz</span><span class="who"><b>Jason W.</b> · Masai</span></article>
     </div>
   </div>
 </section>
@@ -625,7 +656,7 @@ body.base-only .needs-addon{display:none !important}
   <div class="wrap">
     <div class="shead">
       <div><span class="eyebrow">Online booking</span><h2 style="margin-top:8px">Book a plumber in 3 simple steps</h2><p class="sub">Tell us the problem, pick a time, leave your name and number. That's it.</p></div>
-      <span class="addon-tag needs-addon">Add-on · Online booking</span>
+      <span class="addon-tag needs-addon">Add-on · Enquiry &amp; booking request form</span>
     </div>
 
     <div class="book booking-tool" id="booking">
@@ -652,9 +683,9 @@ body.base-only .needs-addon{display:none !important}
         <h3>Where should we send your plumber?</h3>
         <form id="bForm" autocomplete="on" onsubmit="return false">
         <div class="fields">
-          <label class="f">Your name<input id="bName" name="name" autocomplete="name" placeholder="First and last name"></label>
-          <label class="f">Mobile number<input id="bPhone" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="(512) 555-0100"></label>
-          <label class="f">Street address<input id="bAddr" name="address" autocomplete="street-address" placeholder="Street, city"></label>
+          <label class="f">Your name<input id="bName" name="name" autocomplete="name" placeholder="Your full name"></label>
+          <label class="f">Mobile number<input id="bPhone" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="012-345 6789"></label>
+          <label class="f">Address<input id="bAddr" name="address" autocomplete="street-address" placeholder="No., jalan, taman, city"></label>
         </div>
         <div class="autofill-row">
           <span class="hint"><svg class="ico"><use href="#i-check"/></svg>Tap a field and your phone or Google can fill in your saved name, number and address.</span>
@@ -667,20 +698,20 @@ body.base-only .needs-addon{display:none !important}
       </div>
       <div class="bpane" data-pane="4" hidden>
         <div class="ok"><span class="tick"><svg class="ico" style="width:30px;height:30px"><use href="#i-check"/></svg></span>
-          <div><h3 id="okTitle">You're booked!</h3><p class="bsum" id="okText" style="margin-top:6px"></p><p class="bsum" style="margin-top:8px">This is a demo, so no real booking was made. On a real website, the business gets your request instantly.</p>
+          <div><h3 id="okTitle">You're booked!</h3><p class="bsum" id="okText" style="margin-top:6px"></p><p class="bsum" style="margin-top:8px">This is a demo, so no real booking was made. On a real website, the business gets your request straight away by email.</p>
           <button class="btn btn-ghost btn-sm" type="button" id="bAgain" style="margin-top:14px">Start over</button></div>
         </div>
       </div>
     </div>
 
     <div class="book simple-form" style="padding:26px">
-      <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center"><h3>Request service</h3><span class="incl-tag">✓ Included in $250: contact form</span></div>
+      <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center"><h3>Request service</h3><span class="incl-tag">✓ Included in RM2,400: contact form</span></div>
       <div class="fields">
-        <label class="f">Your name<input placeholder="First and last name"></label>
-        <label class="f">Mobile number<input type="tel" placeholder="(512) 555-0100"></label>
-        <label class="f">What's the problem?<input placeholder="e.g. kitchen sink is clogged"></label>
+        <label class="f">Your name<input placeholder="Your full name"></label>
+        <label class="f">Mobile number<input type="tel" placeholder="012-345 6789"></label>
+        <label class="f">What's the problem?<input placeholder="e.g. kitchen sink is choked"></label>
       </div>
-      <div class="bnav"><span class="bsum">We call you back to set a time.</span><button class="btn btn-blue" type="button" onclick="this.textContent='Sent! (demo)'">Send request</button></div>
+      <div class="bnav"><span class="bsum">We call or WhatsApp you back to set a time.</span><button class="btn btn-blue" type="button" onclick="this.textContent=this.dataset.sent||'Sent! (demo)'">Send request</button></div>
     </div>
   </div>
 </section>
@@ -690,21 +721,21 @@ body.base-only .needs-addon{display:none !important}
   <div class="wrap">
     <div class="shead">
       <div><span class="eyebrow">Know who's coming</span><h2 style="margin-top:8px">Who's coming, and what we promise</h2></div>
-      <span class="incl-tag">✓ Included in $250</span>
+      <span class="incl-tag">✓ Included in RM2,400</span>
     </div>
     <div class="team-grid">
       <div>
         <div class="people">
-          <figure class="person reveal" style="margin:0"><img loading="lazy" src="img/marcus.jpg" alt="Marcus, service plumber, smiling in a navy work jacket and cap" width="500" height="520"><div><b>Marcus</b><span>Service plumber</span></div></figure>
-          <figure class="person reveal" style="margin:0"><img loading="lazy" src="img/daniel.jpg" alt="Daniel, water heater specialist, in a blue work uniform and cap" width="500" height="520"><div><b>Daniel</b><span>Water heater specialist</span></div></figure>
-          <figure class="person reveal" style="margin:0"><img loading="lazy" src="img/luis.jpg" alt="Luis, drain and sewer plumber, smiling in a blue shirt" width="500" height="520"><div><b>Luis</b><span>Drain &amp; sewer · habla español</span></div></figure>
+          <figure class="person reveal" style="margin:0"><span class="initials" aria-hidden="true">H</span><div><b>Hafiz</b><span>Service plumber</span></div></figure>
+          <figure class="person reveal" style="margin:0"><span class="initials" aria-hidden="true" style="background:#0E7490">AS</span><div><b>Ah Seng</b><span>Water heaters &amp; pumps</span></div></figure>
+          <figure class="person reveal" style="margin:0"><span class="initials" aria-hidden="true" style="background:#7C3AED">R</span><div><b>Ravi</b><span>Drains &amp; main pipes</span></div></figure>
         </div>
-        <div class="text-note"><svg class="ico"><use href="#i-msg"/></svg>Before every visit, we text you your plumber's name and photo, so you know exactly who's at the door.</div>
+        <div class="text-note"><svg class="ico"><use href="#i-msg"/></svg>Before every visit, we WhatsApp you your plumber's name and photo, so you know exactly who's at the door.</div>
       </div>
       <div>
-        <div class="promise reveal"><span class="ic"><svg class="ico"><use href="#i-clock"/></svg></span><div><h3>We show up when we say we will</h3><p>If we're more than 15 minutes late to your scheduled appointment without contacting you first, we'll credit $25 toward your service.</p><small>Scheduled appointments in our normal service area. Emergency arrival times can vary.</small></div></div>
+        <div class="promise reveal"><span class="ic"><svg class="ico"><use href="#i-clock"/></svg></span><div><h3>We show up when we say we will</h3><p>If we're more than 15 minutes late for your booked time without letting you know first, we'll take RM20 off your bill.</p><small>Booked appointments in our usual service area. Emergency arrival times can vary.</small></div></div>
         <div class="promise reveal"><span class="ic"><svg class="ico"><use href="#i-shield"/></svg></span><div><h3>Every repair comes with a written warranty</h3><p>You get it in writing: what's covered and for how long. If something we fixed fails, we come back and make it right.</p></div></div>
-        <div class="promise reveal"><span class="ic"><svg class="ico"><use href="#i-tag"/></svg></span><div><h3>Price agreed before work starts</h3><p>Your plumber explains the problem and confirms the price first. No surprise invoices, no extra charge for nights or weekends.</p></div></div>
+        <div class="promise reveal"><span class="ic"><svg class="ico"><use href="#i-tag"/></svg></span><div><h3>Price agreed before work starts</h3><p>Your plumber explains the problem and confirms the price first. No surprise bills, and the same rates on weekends and public holidays.</p></div></div>
       </div>
     </div>
   </div>
@@ -714,38 +745,36 @@ body.base-only .needs-addon{display:none !important}
 <section data-addon="Extra section · add-on">
   <div class="wrap">
     <div class="shead">
-      <div><span class="eyebrow">More reasons Austin chooses us</span><h2 style="margin-top:8px">See the difference</h2></div>
+      <div><span class="eyebrow">More reasons JB homes choose us</span><h2 style="margin-top:8px">See the difference</h2></div>
       <span class="addon-tag">Add-on · Extra section</span>
     </div>
     <div class="more">
       <div class="box reveal">
         <h3>Before &amp; after</h3>
         <div class="ba">
-          <figure><img loading="lazy" src="img/before-drain.jpg" alt="Before: murky water backed up around a clogged drain" width="420" height="420"><figcaption>Before: clogged drain</figcaption></figure>
+          <figure><img loading="lazy" src="img/before-drain.jpg" alt="Before: murky water backed up around a choked drain" width="420" height="420"><figcaption>Before: choked drain</figcaption></figure>
           <figure><img loading="lazy" src="img/after-drain.jpg" alt="After: clean water draining freely from a sink" width="420" height="420"><figcaption>After: flowing freely</figcaption></figure>
           <figure><img loading="lazy" src="img/before-heater.jpg" alt="Before: old corroded water heater tank" width="420" height="420"><figcaption>Before: old heater</figcaption></figure>
           <figure><img loading="lazy" src="img/after-heater.jpg" alt="After: new water heater being connected by a plumber" width="420" height="420"><figcaption>After: new install</figcaption></figure>
         </div>
       </div>
       <div class="box club reveal">
-        <span class="addon-tag">Add-on</span>
-        <h3>CreekCare Club</h3>
-        <div class="amt">$12<small>/month <span class="demo">DEMO</span></small></div>
+        <h3>Arus Biru Care Plan</h3>
+        <div class="amt">RM15<small>/month <span class="demo">DEMO</span></small></div>
         <ul>
-          <li><svg class="ico"><use href="#i-check"/></svg>No diagnostic fee, ever</li>
-          <li><svg class="ico"><use href="#i-check"/></svg>Priority scheduling</li>
-          <li><svg class="ico"><use href="#i-check"/></svg>Yearly plumbing inspection</li>
-          <li><svg class="ico"><use href="#i-check"/></svg>Yearly water heater flush</li>
+          <li><svg class="ico"><use href="#i-check"/></svg>No inspection fee</li>
+          <li><svg class="ico"><use href="#i-check"/></svg>Priority booking</li>
+          <li><svg class="ico"><use href="#i-check"/></svg>Yearly plumbing check</li>
+          <li><svg class="ico"><use href="#i-check"/></svg>Yearly water heater check</li>
           <li><svg class="ico"><use href="#i-check"/></svg>10% off repairs</li>
         </ul>
-        <a class="btn btn-ghost btn-sm" href="#book">Join CreekCare</a>
+        <a class="btn btn-ghost btn-sm" href="#book">Join the Care Plan</a>
       </div>
       <div class="box fin reveal">
-        <span class="addon-tag">Add-on</span>
-        <h3>Fix it now, pay over time</h3>
-        <div class="amt">$1,800 repair ≈ $75/mo</div>
-        <p>Example: 24 monthly payments. Actual terms depend on approval and the lender. <span class="demo">DEMO</span></p>
-        <a class="btn btn-ghost btn-sm" href="#book" style="margin-top:16px">See financing options</a>
+        <h3>Fix it now, pay in parts</h3>
+        <div class="amt">RM900 job = 3 × RM300</div>
+        <p>Example: 3 monthly payments for larger jobs like a new water heater. Terms depend on the payment provider's approval. <span class="demo">DEMO</span></p>
+        <a class="btn btn-ghost btn-sm" href="#book" style="margin-top:16px">See payment options</a>
       </div>
     </div>
   </div>
@@ -756,35 +785,36 @@ body.base-only .needs-addon{display:none !important}
   <div class="wrap area">
     <div>
       <span class="eyebrow">Service area</span>
-      <h2 style="margin-top:8px">Your local Austin-area plumber</h2>
-      <p class="sub">Same-day service across Austin and nearby communities.</p>
+      <h2 style="margin-top:8px">Your local Johor Bahru plumber</h2>
+      <p class="sub">Same-day service across Johor Bahru and nearby areas.</p>
       <ul class="cities">
-        <li><svg class="ico"><use href="#i-check"/></svg>Austin</li><li><svg class="ico"><use href="#i-check"/></svg>Georgetown</li>
-        <li><svg class="ico"><use href="#i-check"/></svg>Round Rock</li><li><svg class="ico"><use href="#i-check"/></svg>Leander</li>
-        <li><svg class="ico"><use href="#i-check"/></svg>Cedar Park</li><li><svg class="ico"><use href="#i-check"/></svg>Kyle</li>
-        <li><svg class="ico"><use href="#i-check"/></svg>Pflugerville</li><li><svg class="ico"><use href="#i-check"/></svg>Buda</li>
+        <li><svg class="ico"><use href="#i-check"/></svg>Johor Bahru</li><li><svg class="ico"><use href="#i-check"/></svg>Kulai</li>
+        <li><svg class="ico"><use href="#i-check"/></svg>Skudai</li><li><svg class="ico"><use href="#i-check"/></svg>Senai</li>
+        <li><svg class="ico"><use href="#i-check"/></svg>Iskandar Puteri</li><li><svg class="ico"><use href="#i-check"/></svg>Masai</li>
+        <li><svg class="ico"><use href="#i-check"/></svg>Gelang Patah</li><li><svg class="ico"><use href="#i-check"/></svg>Pasir Gudang</li>
       </ul>
       <div class="contact-card">
-        <b>Don't see your neighborhood?</b>
-        <p style="color:var(--muted);margin-top:4px">Call <a href="tel:5125550147">512-555-0147</a> <span class="demo">DEMO</span> and we'll tell you straight away. Open 24/7 for emergencies; regular service Mon–Sat, 7 a.m.–7 p.m.</p>
+        <b>Don't see your area?</b>
+        <p style="color:var(--muted);margin-top:4px">Call or WhatsApp <a href="tel:+6070000000">07-000 0000</a> <span class="demo">DEMO</span> and we'll tell you straight away. 24 hours for emergencies; regular service Mon–Sat, 8 a.m.–8 p.m.</p>
       </div>
-      <span class="incl-tag" style="margin-top:14px">✓ Included in $250</span>
+      <span class="incl-tag" style="margin-top:14px">✓ Included in RM2,400</span>
     </div>
-    <div class="map" aria-label="Map of the Austin service area">
-      <svg viewBox="0 0 400 420" role="img" aria-labelledby="mapT"><title id="mapT">Service area: Georgetown, Leander, Cedar Park, Round Rock, Pflugerville, Austin, Buda and Kyle</title>
+    <div class="map" aria-label="Map of the Johor Bahru service area">
+      <svg viewBox="0 0 400 420" role="img" aria-labelledby="mapT"><title id="mapT">Service area: Kulai, Senai, Skudai, Gelang Patah, Iskandar Puteri, Johor Bahru, Masai and Pasir Gudang</title>
         <rect width="400" height="420" rx="16" fill="#E3ECF9"/>
-        <path d="M30 330 C110 300 150 250 210 240 S330 210 380 150" stroke="#9CC0F0" stroke-width="10" fill="none" stroke-linecap="round"/>
-        <path d="M200 20 L200 400" stroke="#fff" stroke-width="7"/><path d="M170 20 C180 140 190 260 175 400" stroke="#fff" stroke-width="4" fill="none"/>
-        <circle cx="205" cy="235" r="120" fill="#1D5FD1" opacity=".09" stroke="#1D5FD1" stroke-dasharray="6 6"/>
+        <path d="M0 372 C80 352 150 384 230 368 S340 330 400 344 L400 420 L0 420Z" fill="#9CC0F0" opacity=".75"/>
+        <path d="M170 30 C175 120 165 200 150 250 S120 320 60 330" stroke="#fff" stroke-width="7" fill="none"/>
+        <path d="M150 250 C200 270 260 290 330 290" stroke="#fff" stroke-width="5" fill="none"/>
+        <circle cx="200" cy="245" r="135" fill="#1D5FD1" opacity=".09" stroke="#1D5FD1" stroke-dasharray="6 6"/>
         <g font-family="Archivo" font-weight="700" font-size="14" fill="#0B2545">
-          <circle cx="210" cy="60" r="6" fill="#1D5FD1"/><text x="222" y="65">Georgetown</text>
-          <circle cx="110" cy="105" r="6" fill="#1D5FD1"/><text x="40" y="95">Leander</text>
-          <circle cx="135" cy="140" r="6" fill="#1D5FD1"/><text x="40" y="150">Cedar Park</text>
-          <circle cx="215" cy="125" r="6" fill="#1D5FD1"/><text x="227" y="130">Round Rock</text>
-          <circle cx="265" cy="170" r="6" fill="#1D5FD1"/><text x="277" y="175">Pflugerville</text>
-          <circle cx="200" cy="240" r="10" fill="#D7262E"/><text x="218" y="246" font-size="17">Austin</text>
-          <circle cx="170" cy="330" r="6" fill="#1D5FD1"/><text x="95" y="335">Buda</text>
-          <circle cx="180" cy="370" r="6" fill="#1D5FD1"/><text x="196" y="375">Kyle</text>
+          <circle cx="170" cy="62" r="6" fill="#1D5FD1"/><text x="182" y="67">Kulai</text>
+          <circle cx="178" cy="128" r="6" fill="#1D5FD1"/><text x="190" y="133">Senai</text>
+          <circle cx="150" cy="200" r="6" fill="#1D5FD1"/><text x="60" y="205">Skudai</text>
+          <circle cx="58" cy="318" r="6" fill="#1D5FD1"/><text x="14" y="342">Gelang Patah</text>
+          <circle cx="118" cy="296" r="6" fill="#1D5FD1"/><text x="96" y="280">Iskandar Puteri</text>
+          <circle cx="232" cy="322" r="10" fill="#D7262E"/><text x="190" y="352" font-size="17">Johor Bahru</text>
+          <circle cx="296" cy="250" r="6" fill="#1D5FD1"/><text x="308" y="255">Masai</text>
+          <circle cx="352" cy="300" r="6" fill="#1D5FD1"/><text x="290" y="326">Pasir Gudang</text>
         </g>
       </svg>
     </div>
@@ -794,25 +824,25 @@ body.base-only .needs-addon{display:none !important}
 <!-- FAQ (extra section add-on) -->
 <section id="faq" data-addon="Extra section · add-on">
   <div class="wrap">
-    <div class="shead"><div><span class="eyebrow">FAQ</span><h2 style="margin-top:8px">Austin plumbing questions, answered</h2></div></div>
+    <div class="shead"><div><span class="eyebrow">FAQ</span><h2 style="margin-top:8px">JB plumbing questions, answered</h2></div></div>
     <div class="faq">
-      <details><summary>Do you offer emergency plumbing in Austin?</summary><p>Yes. We answer 24/7, including nights, weekends and holidays. For burst pipes or major leaks, shut off your main water valve and call us right away.</p></details>
-      <details><summary>How quickly can a plumber come?</summary><p>Most Austin-area calls get a same-day appointment. Emergencies are dispatched right away, and we'll give you an honest arrival time on the phone.</p></details>
+      <details><summary>Do you offer emergency plumbing in Johor Bahru?</summary><p>Yes. We're on call 24 hours, including nights, weekends and public holidays. For burst pipes or major leaks, turn off your main water valve and call us right away.</p></details>
+      <details><summary>How quickly can a plumber come?</summary><p>Most calls in the JB area get a same-day visit. Emergencies are sent out right away, and we'll give you an honest arrival time on the phone.</p></details>
       <details><summary>Do you give prices before starting work?</summary><p>Yes. Our website shows typical price ranges, and your plumber confirms the exact price on site before any work begins.</p></details>
-      <details><summary>Do you charge extra for nights or weekends?</summary><p>No. Same pricing every day of the week.</p></details>
-      <details><summary>Can I book online?</summary><p>Yes. Pick your problem, choose a time window, and leave your name and number. It takes about a minute.</p></details>
-      <details><summary>Do you offer financing?</summary><p>Yes, for larger jobs like water heater replacement or sewer repair, subject to approval.</p></details>
-      <details><summary>¿Hablan español?</summary><p>Sí. Varios de nuestros plomeros hablan español. Use el chat o llámenos.</p></details>
+      <details><summary>Do you charge extra on weekends or public holidays?</summary><p>No. Same rates every day of the week.</p></details>
+      <details><summary>Can I book online?</summary><p>Yes. Pick your problem, choose a time slot, and leave your name and number. It takes about a minute.</p></details>
+      <details><summary>Do you work in condos and apartments?</summary><p>Yes. We can coordinate with your management office if a work permit or access to the water meter is needed.</p></details>
+      <details><summary>How do I pay?</summary><p>By cash, bank transfer or DuitNow after the job is done.</p></details>
     </div>
   </div>
 </section>
 
 <!-- FINAL CTA -->
-<section class="final" style="background-image:url('img/austin.jpg')">
+<section class="final">
   <div class="wrap">
     <div><h2>A plumbing problem shouldn't take all day to solve.</h2><p>Get a clear next step, a real appointment time and straightforward communication.</p></div>
     <div class="acts">
-      <a class="btn btn-red" href="tel:5125550147"><svg class="ico"><use href="#i-phone"/></svg>Call 512-555-0147</a>
+      <a class="btn btn-red" href="tel:+6070000000"><svg class="ico"><use href="#i-phone"/></svg>Call 07-000 0000</a>
       <a class="btn btn-blue needs-addon" href="#book"><svg class="ico"><use href="#i-cal"/></svg>Book a Time</a>
     </div>
   </div>
@@ -822,30 +852,40 @@ body.base-only .needs-addon{display:none !important}
 <footer>
   <div class="wrap">
     <div class="cols">
-      <div><b style="color:#fff;font-family:Archivo;font-size:18px">Capitol Creek Plumbing <span class="demo">DEMO</span></b><p style="margin-top:8px">Straight answers. Solid plumbing. Serving Austin and nearby communities 24/7.</p><p style="margin-top:8px">512-555-0147 (demo) · License M-00000 (demo)</p></div>
-      <div><h4>Services</h4><a href="#services">Emergency plumbing</a><a href="#services">Drain cleaning</a><a href="#services">Water heaters</a><a href="#services">Leak detection</a></div>
-      <div><h4>Service areas</h4><a href="#areas">Austin</a><a href="#areas">Round Rock</a><a href="#areas">Cedar Park</a><a href="#areas">Pflugerville</a></div>
+      <div><b style="color:#fff;font-family:Archivo;font-size:18px">Arus Biru Plumbing <span class="demo">DEMO</span></b><p style="margin-top:8px">Straight answers. Solid plumbing. Serving Johor Bahru and nearby areas, 24 hours.</p><p style="margin-top:8px">07-000 0000 (demo)</p></div>
+      <div><h4>Services</h4><a href="#services">Emergency plumbing</a><a href="#services">Choked drains</a><a href="#services">Water heaters</a><a href="#services">Leak detection</a></div>
+      <div><h4>Areas</h4><a href="#areas">Johor Bahru</a><a href="#areas">Skudai</a><a href="#areas">Iskandar Puteri</a><a href="#areas">Kulai</a></div>
       <div><h4>Company</h4><a href="#reviews">Reviews</a><a href="#book">Book a time</a><a href="#faq">FAQ</a><a href="/">Built by Ace Digital Solutions</a></div>
     </div>
-    <p class="disclose"><b>This entire website is a fictional demonstration created by Ace Digital Solutions.</b> The business name, phone number, license number, reviews, technicians, prices, guarantees and other details are made up for demonstration only. Photos from Unsplash (Timur Shakerzianov, Iain Feeney, Divaris Shirichena, Samuel Yongbo Kwon, Murphy Stay, Alex Gorin, Sies Kranen, Marian Florinel Condruz, Carlos Delgado).</p>
+    <p class="disclose"><b>This entire website is a fictional demonstration created by Ace Digital Solutions.</b> The business name, phone number, reviews, technicians, prices, guarantees and other details are made up for demonstration only. Photos from Unsplash (Timur Shakerzianov, Iain Feeney, Divaris Shirichena, Samuel Yongbo Kwon, Murphy Stay, Alex Gorin, Sies Kranen, Marian Florinel Condruz, Carlos Delgado).</p>
   </div>
 </footer>
 
 <!-- Mobile action bar -->
 <div class="mbar" aria-label="Quick actions">
-  <a class="c" href="tel:5125550147"><svg class="ico"><use href="#i-phone"/></svg>Call</a>
-  <a class="b" href="#book"><svg class="ico"><use href="#i-cal"/></svg>Book</a>
+  <a class="c" href="tel:+6070000000"><svg class="ico"><use href="#i-phone"/></svg>Call</a>
+  <a class="w" href="#whatsapp" data-wa><svg class="ico"><use href="#i-chat"/></svg>WhatsApp</a>
+  <a class="b needs-addon" href="#book"><svg class="ico"><use href="#i-cal"/></svg>Book</a>
 </div>
 
 <!-- Pretend call screen: phone numbers on this demo are fictional, so "Call" shows this instead of dialing -->
 <div class="callsim" id="callSim" hidden role="dialog" aria-modal="true" aria-labelledby="callName">
   <div class="phone">
     <div class="avatar"><svg class="ico"><use href="#i-phone"/></svg></div>
-    <h3 id="callName">Capitol Creek Plumbing</h3>
-    <div class="num">512-555-0147</div>
+    <h3 id="callName">Arus Biru Plumbing</h3>
+    <div class="num">07-000 0000</div>
     <div class="st" id="callStatus">Calling…</div>
     <p class="note" id="callNote">Demo: this number isn't real. On a real website, tapping Call dials the business straight away.</p>
     <button class="end" type="button" id="callEnd" aria-label="End call"><svg class="ico"><use href="#i-phone"/></svg></button>
+  </div>
+</div>
+
+<!-- Pretend WhatsApp screen: the demo number is fictional, so WhatsApp links show this instead -->
+<div class="wasim" id="waSim" hidden role="dialog" aria-modal="true" aria-labelledby="waName">
+  <div class="wa-phone">
+    <div class="wa-top"><span class="wa-av"><svg class="ico"><use href="#i-wrench"/></svg></span><div><b id="waName">Arus Biru Plumbing</b><small>07-000 0000 · demo</small></div><button type="button" class="wa-x" id="waClose" aria-label="Close"><svg class="ico"><use href="#i-x"/></svg></button></div>
+    <div class="wa-body"><div class="wa-bubble" id="waText"></div></div>
+    <p class="wa-note" id="waNote">Demo: this number isn't real. On a real website, WhatsApp opens with this message already typed, and the customer can edit it before sending.</p>
   </div>
 </div>
 
@@ -853,21 +893,21 @@ body.base-only .needs-addon{display:none !important}
 <div class="social" aria-label="Social media (demo links)">
   <a class="fb" href="#" aria-label="Facebook (demo link)" title="Facebook (demo)">f</a>
   <a class="ig" href="#" aria-label="Instagram (demo link)" title="Instagram (demo)"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></a>
-  <a class="yt" href="#" aria-label="YouTube (demo link)" title="YouTube (demo)"><svg class="ico" viewBox="0 0 24 24"><path d="M9 7.5v9l8-4.5z" fill="currentColor" stroke="none"/></svg></a>
-  <a class="rd" href="#" aria-label="Reddit (demo link)" title="Reddit (demo)">r</a>
+  <a class="tt" href="#" aria-label="TikTok (demo link)" title="TikTok (demo)"><svg class="ico" viewBox="0 0 24 24"><path d="M14 3v11.5a3.5 3.5 0 1 1-3-3.46M14 3c.5 2.5 2.3 4 5 4.2"/></svg></a>
 </div>
 <button class="chat-fab" id="chatFab" type="button" aria-controls="chat" aria-expanded="false" aria-label="Chat with us"><svg class="ico"><use href="#i-chat"/></svg><span class="live"></span></button>
-<div class="chat" id="chat" hidden role="dialog" aria-label="Capitol Creek chat assistant">
+<div class="chat" id="chat" hidden role="dialog" aria-label="Arus Biru chat assistant">
   <div class="chat-h">
     <span class="av"><svg class="ico"><use href="#i-wrench"/></svg></span>
-    <div><b>Capitol Creek Assistant</b><small><i></i><span id="chatOnline">Online 24/7</span> · <span class="addon-tag">Add-on · chatbot</span></small></div>
+    <div><b>Arus Biru Assistant</b><small><i></i><span id="chatOnline">Online 24 hours</span> · <span class="addon-tag">Enquiry assistant · separate service</span></small></div>
     <div class="chat-langs" role="group" aria-label="Chat language">
-      <button type="button" data-chat-lang="en" aria-pressed="true" title="English"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#fff"/><g fill="#B22234"><rect width="30" height="1.54"/><rect y="3.08" width="30" height="1.54"/><rect y="6.15" width="30" height="1.54"/><rect y="9.23" width="30" height="1.54"/><rect y="12.3" width="30" height="1.54"/><rect y="15.38" width="30" height="1.54"/><rect y="18.46" width="30" height="1.54"/></g><rect width="13" height="10.77" fill="#3C3B6E"/><g fill="#fff"><circle cx="2.5" cy="2.2" r=".6"/><circle cx="6.5" cy="2.2" r=".6"/><circle cx="10.5" cy="2.2" r=".6"/><circle cx="4.5" cy="4.6" r=".6"/><circle cx="8.5" cy="4.6" r=".6"/><circle cx="2.5" cy="7" r=".6"/><circle cx="6.5" cy="7" r=".6"/><circle cx="10.5" cy="7" r=".6"/><circle cx="4.5" cy="9.2" r=".6"/><circle cx="8.5" cy="9.2" r=".6"/></g></svg></button>
-      <button type="button" data-chat-lang="es" aria-pressed="false" title="Español"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="10" height="20" fill="#006847"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#CE1126"/><circle cx="15" cy="10" r="2.6" fill="none" stroke="#8C6A2F" stroke-width="1.2"/></svg></button>
+      <button type="button" data-chat-lang="en" aria-pressed="true" title="English">EN</button>
+      <button type="button" data-chat-lang="bm" aria-pressed="false" title="Bahasa Melayu">BM</button>
     </div>
     <button type="button" id="chatClose" aria-label="Close chat"><svg class="ico"><use href="#i-x"/></svg></button>
   </div>
   <div class="clog" id="clog" aria-live="polite"></div>
+  <button type="button" class="handoff" id="handoff" hidden><svg class="ico"><use href="#i-chat"/></svg><span id="handoffTxt">Continue on WhatsApp</span></button>
   <form class="cform" id="cform"><label for="cin" class="sr">Type your message</label><input id="cin" autocomplete="off" maxlength="500" placeholder="Type your question…"><button type="submit" aria-label="Send"><svg class="ico"><use href="#i-send"/></svg></button></form>
   <div class="cnote">Demo assistant. Don't share private information.</div>
 </div>
@@ -878,7 +918,7 @@ body.base-only .needs-addon{display:none !important}
   const ico=n=>`<svg class="ico"><use href="#i-${n}"/></svg>`;
 
   $$(".social a").forEach(a=>a.addEventListener("click",e=>e.preventDefault()));
-  /* ---------- $250 toggle ---------- */
+  /* ---------- RM2,400 toggle ---------- */
   const tg=$("#baseToggle");
   tg.addEventListener("change",()=>{document.body.classList.toggle("base-only",tg.checked); if(tg.checked && lang!=="en") setLang("en");$$("[data-base-show]").forEach(e=>e.style.display=tg.checked?"inline-flex":"none"); if(tg.checked) closeChat();});
 
@@ -890,65 +930,67 @@ body.base-only .needs-addon{display:none !important}
   /* ---------- Shut-off help ---------- */
   $("#shutBtn").addEventListener("click",e=>{const o=$("#shutoff").classList.toggle("open");e.currentTarget.setAttribute("aria-expanded",o)});
 
-  /* ---------- Language (English default, Spanish optional) ---------- */
-  const ES={"Straight answers. Solid plumbing.": "Respuestas claras. Plomería sólida.", "Services": "Servicios", "Prices": "Precios", "Reviews": "Reseñas", "Service Areas": "Zonas de servicio", "FAQ": "Preguntas", "24/7 emergency service": "Emergencias 24/7", "Book a Time": "Reservar cita", "Book a time": "Reservar cita", "Call 512-555-0147 (demo)": "Llamar al 512-555-0147 (demo)", "24/7 emergency plumbing in Austin": "Plomería de emergencia 24/7 en Austin", "Austin Plumbers, 24/7:": "Plomeros en Austin, 24/7:", "Clear Prices, Easy Booking": "Precios claros, citas fáciles", "Plumbing service that makes the next step easy. Leaks, clogged drains, broken water heaters or a 2 a.m. emergency: see a typical price range and book a real appointment time without a long form.": "Un servicio de plomería que le facilita el siguiente paso. Fugas, drenajes tapados, calentadores descompuestos o una emergencia a las 2 a.m.: vea un rango de precio típico y reserve una cita real sin llenar un formulario largo.", "Call 512-555-0147": "Llamar al 512-555-0147", "Get a Price Range": "Ver rango de precios", "Request Service": "Solicitar servicio", "4.9★ rating": "4.9★ de calificación", "1,240 reviews": "1,240 reseñas", "12 years": "12 años", "serving Austin": "sirviendo a Austin", "License M-00000": "Licencia M-00000", "demo license": "licencia demo", "Licensed": "Con licencia", "& insured": "y asegurados", "Water everywhere?": "¿Agua por todas partes?", "Shut off your main water valve first, then call us. We answer 24/7.": "Primero cierre la llave principal de agua y luego llámenos. Contestamos 24/7.", "How to shut it off": "Cómo cerrarla", "Call 24/7": "Llamar 24/7", "Find and close your main water valve (most Austin homes):": "Encuentre y cierre la llave principal de agua (en la mayoría de las casas de Austin):", "Look where the water line enters the house: often the garage, a utility closet, or outside near the front hose bib.": "Busque donde la tubería de agua entra a la casa: a menudo en el garaje, un clóset de servicio o afuera cerca de la llave de la manguera.", "Turn the round handle clockwise, or turn a lever handle so it sits across the pipe.": "Gire la manija redonda en el sentido de las agujas del reloj, o gire la palanca hasta que quede atravesada sobre el tubo.", "No luck? The meter box near the street has a shut-off too. Then call us and we'll talk you through it.": "¿No la encuentra? La caja del medidor cerca de la calle también tiene una llave. Luego llámenos y le guiamos paso a paso.", "Austin plumbing services": "Servicios de plomería en Austin", "Plumbing help for the problems homeowners actually have": "Ayuda de plomería para los problemas reales de su hogar", "✓ Included in $250": "✓ Incluido en $250", "Emergency Plumbing": "Plomería de emergencia", "Burst pipes, major leaks and backups that can't wait. Day or night, weekends and holidays.": "Tuberías reventadas, fugas grandes y drenajes desbordados que no pueden esperar. De día o de noche, fines de semana y días festivos.", "See typical price": "Ver precio típico", "Drain Cleaning": "Limpieza de drenajes", "Slow or clogged sinks, showers and tubs cleared properly, not just pushed further down the line.": "Lavabos, regaderas y tinas lentos o tapados, destapados correctamente, no solo empujando el problema más adentro.", "Water Heater Repair": "Reparación de calentadores", "No hot water, leaking tanks or strange noises. Repairs and same-day replacements, tank or tankless.": "Sin agua caliente, tanques con fugas o ruidos extraños. Reparaciones y reemplazos el mismo día, con tanque o sin tanque.", "Leak Detection": "Detección de fugas", "Hidden leaks found with listening and camera tools before a small drip becomes expensive damage.": "Encontramos fugas ocultas con equipos de sonido y cámara antes de que una pequeña gota se convierta en un daño costoso.", "Toilet & Faucet Repair": "Reparación de inodoros y llaves", "Running toilets, dripping faucets and fixture upgrades done neatly, usually in one visit.": "Inodoros que no dejan de correr, llaves que gotean y cambio de accesorios, con trabajo limpio y casi siempre en una sola visita.", "Sewer & Main Line": "Drenaje principal y alcantarillado", "Recurring backups and root problems, with camera footage so you see exactly what's wrong.": "Atascos que se repiten y problemas de raíces, con video de cámara para que vea exactamente cuál es el problema.", "Upfront pricing": "Precios por adelantado", "What might your plumbing problem cost?": "¿Cuánto podría costar su problema de plomería?", "Pick the problem you're seeing to get a typical Austin price range. No phone call needed.": "Elija el problema que tiene para ver un rango de precio típico en Austin. Sin necesidad de llamar.", "Add-on · Interactive price tool": "Adicional · Herramienta de precios", "Typical range": "Rango típico", "DEMO PRICES": "PRECIOS DEMO", "Book this service": "Reservar este servicio", "Customer reviews": "Reseñas de clientes", "Real people. Real plumbing problems.": "Personas reales. Problemas de plomería reales.", "from 1,240 customer reviews": "de 1,240 reseñas de clientes", "DEMO REVIEWS": "RESEÑAS DEMO", "\"Marcus found the leak behind our dishwasher in about twenty minutes and showed me photos before fixing anything. Very easy experience.\"": "\"Marcus encontró la fuga detrás de nuestra lavavajillas en unos veinte minutos y me mostró fotos antes de arreglar nada. Una experiencia muy fácil.\"", "Technician: Marcus": "Técnico: Marcus", "Technician: Daniel": "Técnico: Daniel", "Technician: Luis": "Técnico: Luis", "\"Booked online at 9 p.m., got a 10 a.m. slot the next morning. Daniel had our water heater working before lunch, and the price matched the range on the website.\"": "\"Reservé en línea a las 9 p.m. y conseguí cita a las 10 a.m. del día siguiente. Daniel dejó funcionando nuestro calentador antes del almuerzo, y el precio coincidió con el rango de la página.\"", "\"Luis ran a camera down our main line and showed us the root problem on his tablet. No upselling, just a clear plan and a fair price.\"": "\"Luis metió una cámara en nuestro drenaje principal y nos mostró el problema de raíces en su tableta. Sin ventas forzadas, solo un plan claro y un precio justo.\"", "\"Pipe burst on a Sunday. They answered on the second ring, talked me through shutting off the water, and someone was here within the hour.\"": "\"Se reventó un tubo un domingo. Contestaron al segundo timbre, me explicaron cómo cerrar el agua y alguien llegó en menos de una hora.\"", "\"Got a text with Daniel's photo before he arrived, which my mom really appreciated. Professional, and he cleaned up after himself.\"": "\"Recibí un mensaje con la foto de Daniel antes de que llegara, algo que mi mamá apreció mucho. Muy profesional, y dejó todo limpio.\"", "\"Luis explained our options in Spanish for my father and in English for me. Kitchen drain fixed the same day.\"": "\"Luis le explicó las opciones en español a mi papá y en inglés a mí. El drenaje de la cocina quedó arreglado el mismo día.\"", "Online booking": "Citas en línea", "Book a plumber in 3 simple steps": "Reserve un plomero en 3 pasos sencillos", "Tell us the problem, pick a time, leave your name and number. That's it.": "Díganos el problema, elija un horario y deje su nombre y número. Eso es todo.", "Add-on · Online booking": "Adicional · Citas en línea", "Tell us the problem": "Díganos el problema", "Pick a time": "Elija un horario", "Your name & phone": "Su nombre y teléfono", "What's going on?": "¿Qué está pasando?", "Not sure? Pick \"Something else\" and we'll figure it out.": "¿No está seguro? Elija \"Otra cosa\" y lo averiguamos juntos.", "Next: pick a time": "Siguiente: elegir horario", "Pick a time that works": "Elija un horario que le funcione", "Back": "Atrás", "Next: your details": "Siguiente: sus datos", "Where should we send your plumber?": "¿A dónde enviamos a su plomero?", "Your name": "Su nombre", "Mobile number": "Número de celular", "Street address": "Dirección", "Confirm booking": "Confirmar cita", "You're booked!": "¡Su cita está reservada!", "This is a demo, so no real booking was made. On a real website, the business gets your request instantly.": "Esto es una demostración, así que no se hizo ninguna cita real. En un sitio real, la empresa recibe su solicitud al instante.", "Start over": "Empezar de nuevo", "Request service": "Solicitar servicio", "✓ Included in $250: contact form": "✓ Incluido en $250: formulario de contacto", "What's the problem?": "¿Cuál es el problema?", "We call you back to set a time.": "Le llamamos para acordar un horario.", "Send request": "Enviar solicitud", "Know who's coming": "Sepa quién llega", "Who's coming, and what we promise": "Quién llega a su casa y lo que le prometemos", "Service plumber": "Plomero de servicio", "Water heater specialist": "Especialista en calentadores", "Drain & sewer · habla español": "Drenajes · habla español", "Before every visit, we text you your plumber's name and photo, so you know exactly who's at the door.": "Antes de cada visita le enviamos por mensaje el nombre y la foto de su plomero, para que sepa exactamente quién toca a su puerta.", "We show up when we say we will": "Llegamos cuando decimos que llegaremos", "If we're more than 15 minutes late to your scheduled appointment without contacting you first, we'll credit $25 toward your service.": "Si llegamos más de 15 minutos tarde a su cita sin avisarle antes, le descontamos $25 de su servicio.", "Scheduled appointments in our normal service area. Emergency arrival times can vary.": "Aplica a citas programadas en nuestra zona de servicio normal. Los tiempos de llegada en emergencias pueden variar.", "Every repair comes with a written warranty": "Cada reparación incluye garantía por escrito", "You get it in writing: what's covered and for how long. If something we fixed fails, we come back and make it right.": "Se la damos por escrito: qué cubre y por cuánto tiempo. Si algo que reparamos falla, regresamos y lo arreglamos.", "Price agreed before work starts": "Precio acordado antes de empezar", "Your plumber explains the problem and confirms the price first. No surprise invoices, no extra charge for nights or weekends.": "Su plomero le explica el problema y confirma el precio primero. Sin facturas sorpresa y sin cargos extra por noches o fines de semana.", "More reasons Austin chooses us": "Más razones por las que Austin nos elige", "See the difference": "Vea la diferencia", "Add-on · Extra section": "Adicional · Sección extra", "Before & after": "Antes y después", "Before: clogged drain": "Antes: drenaje tapado", "After: flowing freely": "Después: fluye sin problema", "Before: old heater": "Antes: calentador viejo", "After: new install": "Después: instalación nueva", "Add-on": "Adicional", "/month": "/mes", "No diagnostic fee, ever": "Nunca pagará cargo por diagnóstico", "Priority scheduling": "Citas con prioridad", "Yearly plumbing inspection": "Inspección de plomería anual", "Yearly water heater flush": "Limpieza anual del calentador", "10% off repairs": "10% de descuento en reparaciones", "Join CreekCare": "Unirse a CreekCare", "Fix it now, pay over time": "Arréglelo hoy, pague a plazos", "$1,800 repair ≈ $75/mo": "Reparación de $1,800 ≈ $75/mes", "Example: 24 monthly payments. Actual terms depend on approval and the lender.": "Ejemplo: 24 pagos mensuales. Los términos reales dependen de la aprobación y del prestamista.", "See financing options": "Ver opciones de financiamiento", "Service area": "Zona de servicio", "Your local Austin-area plumber": "Su plomero local en el área de Austin", "Same-day service across Austin and nearby communities.": "Servicio el mismo día en Austin y comunidades cercanas.", "Don't see your neighborhood?": "¿No ve su colonia o vecindario?", "Call": "Llame al", "and we'll tell you straight away. Open 24/7 for emergencies; regular service Mon–Sat, 7 a.m.–7 p.m.": "y se lo decimos de inmediato. Abierto 24/7 para emergencias; servicio regular de lunes a sábado, 7 a.m.–7 p.m.", "Austin plumbing questions, answered": "Preguntas de plomería en Austin, respondidas", "Do you offer emergency plumbing in Austin?": "¿Ofrecen plomería de emergencia en Austin?", "Yes. We answer 24/7, including nights, weekends and holidays. For burst pipes or major leaks, shut off your main water valve and call us right away.": "Sí. Contestamos 24/7, incluso noches, fines de semana y días festivos. Si se revienta un tubo o hay una fuga grande, cierre la llave principal y llámenos de inmediato.", "How quickly can a plumber come?": "¿Qué tan rápido puede llegar un plomero?", "Most Austin-area calls get a same-day appointment. Emergencies are dispatched right away, and we'll give you an honest arrival time on the phone.": "La mayoría de las llamadas en el área de Austin reciben cita el mismo día. Las emergencias se atienden de inmediato y le damos una hora de llegada honesta por teléfono.", "Do you give prices before starting work?": "¿Dan precios antes de empezar el trabajo?", "Yes. Our website shows typical price ranges, and your plumber confirms the exact price on site before any work begins.": "Sí. Nuestra página muestra rangos de precios típicos y su plomero confirma el precio exacto en el lugar antes de empezar cualquier trabajo.", "Do you charge extra for nights or weekends?": "¿Cobran extra por noches o fines de semana?", "No. Same pricing every day of the week.": "No. Los mismos precios todos los días de la semana.", "Can I book online?": "¿Puedo reservar en línea?", "Yes. Pick your problem, choose a time window, and leave your name and number. It takes about a minute.": "Sí. Elija su problema, escoja un horario y deje su nombre y número. Toma alrededor de un minuto.", "Do you offer financing?": "¿Ofrecen financiamiento?", "Yes, for larger jobs like water heater replacement or sewer repair, subject to approval.": "Sí, para trabajos grandes como el reemplazo de calentadores o reparaciones de drenaje, sujeto a aprobación.", "A plumbing problem shouldn't take all day to solve.": "Un problema de plomería no debería quitarle todo el día.", "Get a clear next step, a real appointment time and straightforward communication.": "Obtenga un siguiente paso claro, una cita real y comunicación directa.", "Straight answers. Solid plumbing. Serving Austin and nearby communities 24/7.": "Respuestas claras. Plomería sólida. Sirviendo a Austin y comunidades cercanas 24/7.", "512-555-0147 (demo) · License M-00000 (demo)": "512-555-0147 (demo) · Licencia M-00000 (demo)", "Emergency plumbing": "Plomería de emergencia", "Drain cleaning": "Limpieza de drenajes", "Water heaters": "Calentadores de agua", "Leak detection": "Detección de fugas", "Service areas": "Zonas de servicio", "Company": "Empresa", "Built by Ace Digital Solutions": "Creado por Ace Digital Solutions", "Book": "Reservar", "Price estimator": "Calculadora de precios", "Tap a problem below": "Toque un problema abajo", "Pick a problem on the left": "Elija un problema a la izquierda", "Emergency: no time slot needed. We'll call you within 5 minutes and send the nearest plumber right away.": "Emergencia: no necesita elegir horario. Le llamaremos en menos de 5 minutos y enviaremos al plomero más cercano de inmediato.", "Tap a field and your phone or Google can fill in your saved name, number and address.": "Toque un campo y su teléfono o Google puede completar su nombre, número y dirección guardados.", "Use my current location": "Usar mi ubicación actual", "PH:First and last name": "Nombre y apellido", "PH:(512) 555-0100": "(512) 555-0100", "PH:Street, city": "Calle, ciudad", "PH:e.g. kitchen sink is clogged": "p. ej. el fregadero está tapado", "PH:Type your question…": "Escriba su pregunta…"};
+  /* ---------- Language (English default, Bahasa Melayu optional) ---------- */
+  const BM=/*BM*/{"Straight answers. Solid plumbing.": "Jawapan jujur. Kerja paip yang kemas.", "Services": "Perkhidmatan", "Prices": "Harga", "Reviews": "Ulasan", "Areas": "Kawasan", "FAQ": "Soalan Lazim", "24-hour emergency service": "Servis kecemasan 24 jam", "Book a Time": "Tempah Masa", "Book a time": "Tempah masa", "Call 07-000 0000 (demo)": "Hubungi 07-000 0000 (demo)", "24-hour emergency plumbing in Johor Bahru": "Servis paip kecemasan 24 jam di Johor Bahru", "Johor Bahru Plumbers, 24 Hours:": "Tukang Paip Johor Bahru, 24 Jam:", "Clear Prices, Easy Booking": "Harga Jelas, Tempahan Mudah", "Plumbing service that makes the next step easy. Leaks, choked drains, a water heater that won't heat or a 2 a.m. burst pipe: see a typical price range and book a real time slot without a long form.": "Servis paip yang memudahkan langkah seterusnya. Paip bocor, longkang tersumbat, pemanas air yang tidak panas atau paip pecah pukul 2 pagi: lihat julat harga biasa dan tempah slot masa sebenar tanpa borang yang panjang.", "Call 07-000 0000": "Hubungi 07-000 0000", "WhatsApp Us": "WhatsApp Kami", "Request Service": "Minta Servis", "4.9★ on Google": "4.9★ di Google", "320 reviews": "320 ulasan", "10 years": "10 tahun", "serving JB": "berkhidmat di JB", "Price agreed": "Harga dipersetujui", "before work starts": "sebelum kerja bermula", "Same-day": "Pada hari sama", "visits in JB": "lawatan di JB", "Water everywhere?": "Air melimpah?", "Turn off your main water valve first, then call or WhatsApp us. We're on call 24 hours.": "Tutup injap air utama dahulu, kemudian hubungi atau WhatsApp kami. Kami bersedia 24 jam.", "How to turn it off": "Cara menutupnya", "Call 24 hours": "Hubungi 24 jam", "Find and close your main water valve:": "Cari dan tutup injap air utama anda:", "Landed house: look next to the water meter, usually near the front gate or the boundary wall.": "Rumah teres atau banglo: lihat di sebelah meter air, biasanya berhampiran pintu pagar atau tembok sempadan.", "Condo or apartment: check the meter compartment along the corridor, or ask the management office.": "Kondominium atau apartmen: semak petak meter di sepanjang koridor, atau tanya pejabat pengurusan.", "Turn the handle clockwise, or turn a lever so it sits across the pipe. Still stuck? Call us and we'll talk you through it.": "Pusing pemegang mengikut arah jam, atau pusing tuil supaya melintang paip. Masih tak boleh? Hubungi kami dan kami akan pandu anda.", "Plumbing services in JB": "Servis paip di JB", "Help for the plumbing problems homes actually have": "Bantuan untuk masalah paip yang benar-benar berlaku di rumah", "✓ Included in RM2,400": "✓ Termasuk dalam RM2,400", "Emergency Plumbing": "Paip Kecemasan", "Burst pipes, major leaks and overflowing drains that can't wait. Day or night, weekends and public holidays.": "Paip pecah, kebocoran besar dan longkang melimpah yang tidak boleh tunggu. Siang atau malam, hujung minggu dan cuti umum.", "See typical price": "Lihat harga biasa", "Choked Drains": "Longkang Tersumbat", "Slow or choked sinks, floor traps and showers cleared properly, not just pushed further down the pipe.": "Sinki, perangkap lantai dan bilik mandi yang perlahan atau tersumbat dibersihkan dengan betul, bukan sekadar ditolak lebih jauh ke dalam paip.", "Water Heater Repair": "Pembaikan Pemanas Air", "No hot water, tripping heaters or leaking tanks. Instant and storage heaters repaired or replaced.": "Tiada air panas, pemanas yang trip atau tangki bocor. Pemanas segera dan pemanas tangki dibaiki atau diganti.", "Leak Detection": "Pengesanan Bocor", "Hidden leaks in walls, floors and ceilings found before a small drip becomes expensive damage.": "Kebocoran tersembunyi di dinding, lantai dan siling dikesan sebelum titisan kecil menjadi kerosakan yang mahal.", "Toilet & Tap Repair": "Pembaikan Tandas & Paip Air", "Running toilets, dripping taps and new fittings done neatly, usually in one visit.": "Tandas yang air tidak berhenti, paip yang menitis dan kelengkapan baharu dibuat dengan kemas, biasanya dalam satu lawatan.", "Main Pipe & Sewer": "Paip Utama & Pembetungan", "Repeated blockages in several drains, traced to the source so the problem stops coming back.": "Sumbatan berulang di beberapa longkang, dikesan hingga ke punca supaya masalah tidak berulang.", "Upfront pricing": "Harga yang jelas", "What might your plumbing problem cost?": "Berapakah kos masalah paip anda?", "Pick the problem you're seeing to get a typical JB price range. No phone call needed.": "Pilih masalah yang anda hadapi untuk melihat julat harga biasa di JB. Tidak perlu membuat panggilan.", "Add-on · Extra section": "Tambahan · Seksyen tambahan", "Price estimator": "Anggaran harga", "Tap a problem below": "Ketik masalah di bawah", "Pick a problem on the left": "Pilih masalah di sebelah kiri", "Typical range": "Julat biasa", "DEMO PRICES": "HARGA DEMO", "Book this service": "Tempah servis ini", "Customer reviews": "Ulasan pelanggan", "Real homes. Real plumbing problems.": "Rumah sebenar. Masalah paip sebenar.", "from 320 Google reviews": "daripada 320 ulasan Google", "DEMO REVIEWS": "ULASAN DEMO", "\"Hafiz found the leak behind our washing machine in about twenty minutes and sent me photos before fixing anything. Very easy.\"": "\"Hafiz jumpa kebocoran di belakang mesin basuh kami dalam masa lebih kurang dua puluh minit dan hantar gambar sebelum membaiki apa-apa. Sangat mudah.\"", "Technician: Hafiz": "Juruteknik: Hafiz", "Technician: Ah Seng": "Juruteknik: Ah Seng", "Technician: Ravi": "Juruteknik: Ravi", "\"Booked online at 9 p.m. and got a 10 a.m. slot the next morning. Ah Seng had our water heater working before lunch, and the price matched the range on the website.\"": "\"Tempah dalam talian pukul 9 malam dan dapat slot pukul 10 pagi keesokan harinya. Ah Seng baiki pemanas air kami sebelum tengah hari, dan harganya sama dengan julat di laman web.\"", "\"Ravi traced the blockage in our main pipe and showed us on his phone. No upselling, just a clear plan and a fair price.\"": "\"Ravi kesan sumbatan dalam paip utama kami dan tunjukkan di telefonnya. Tiada paksaan beli lebih, cuma pelan yang jelas dan harga yang berpatutan.\"", "\"Pipe burst on a Sunday. They replied on WhatsApp straight away, told me how to turn off the water, and someone was here within the hour.\"": "\"Paip pecah pada hari Ahad. Mereka terus balas di WhatsApp, ajar saya cara tutup air, dan ada orang sampai dalam masa sejam.\"", "\"Got a WhatsApp with Ah Seng's name before he arrived, which my mother really appreciated. Professional, and he cleaned up after.\"": "\"Dapat WhatsApp dengan nama Ah Seng sebelum dia sampai, dan ibu saya sangat menghargainya. Profesional, dan dia kemaskan semula selepas kerja.\"", "\"Hafiz explained everything in BM for my father and in English for me. Kitchen sink fixed the same day.\"": "\"Hafiz terangkan semuanya dalam BM untuk ayah saya dan dalam bahasa Inggeris untuk saya. Sinki dapur siap dibaiki pada hari yang sama.\"", "Online booking": "Tempahan dalam talian", "Book a plumber in 3 simple steps": "Tempah tukang paip dalam 3 langkah mudah", "Tell us the problem, pick a time, leave your name and number. That's it.": "Beritahu masalahnya, pilih masa, tinggalkan nama dan nombor anda. Itu sahaja.", "Add-on · Enquiry & booking request form": "Tambahan · Borang pertanyaan & permintaan tempahan", "Tell us the problem": "Beritahu masalahnya", "Pick a time": "Pilih masa", "Your name & phone": "Nama & telefon anda", "What's going on?": "Apa masalahnya?", "Not sure? Pick \"Something else\" and we'll figure it out.": "Tidak pasti? Pilih \"Lain-lain\" dan kita cari puncanya bersama.", "Next: pick a time": "Seterusnya: pilih masa", "Pick a time that works": "Pilih masa yang sesuai", "Back": "Kembali", "Next: your details": "Seterusnya: butiran anda", "Emergency: no time slot needed. We'll call you within 5 minutes and send the nearest plumber right away.": "Kecemasan: tidak perlu pilih slot masa. Kami akan hubungi anda dalam masa 5 minit dan terus menghantar tukang paip terdekat.", "Where should we send your plumber?": "Ke mana kami perlu hantar tukang paip?", "Your name": "Nama anda", "Mobile number": "Nombor telefon bimbit", "Address": "Alamat", "Tap a field and your phone or Google can fill in your saved name, number and address.": "Ketik ruangan dan telefon atau Google anda boleh mengisi nama, nombor dan alamat yang disimpan.", "Use my current location": "Guna lokasi semasa saya", "Confirm booking": "Sahkan tempahan", "You're booked!": "Tempahan berjaya!", "This is a demo, so no real booking was made. On a real website, the business gets your request straight away by email.": "Ini demo, jadi tiada tempahan sebenar dibuat. Di laman web sebenar, perniagaan menerima permintaan anda serta-merta melalui e-mel.", "Start over": "Mula semula", "Request service": "Minta servis", "✓ Included in RM2,400: contact form": "✓ Termasuk dalam RM2,400: borang hubungan", "What's the problem?": "Apa masalahnya?", "We call or WhatsApp you back to set a time.": "Kami akan hubungi atau WhatsApp anda untuk tetapkan masa.", "Send request": "Hantar permintaan", "Know who's coming": "Kenali siapa yang datang", "Who's coming, and what we promise": "Siapa yang datang, dan janji kami", "Service plumber": "Tukang paip servis", "Water heaters & pumps": "Pemanas air & pam", "Drains & main pipes": "Longkang & paip utama", "Before every visit, we WhatsApp you your plumber's name and photo, so you know exactly who's at the door.": "Sebelum setiap lawatan, kami WhatsApp nama dan gambar tukang paip anda, supaya anda tahu siapa yang datang.", "We show up when we say we will": "Kami datang seperti yang dijanjikan", "If we're more than 15 minutes late for your booked time without letting you know first, we'll take RM20 off your bill.": "Jika kami lewat lebih 15 minit daripada masa tempahan tanpa memaklumkan anda dahulu, kami potong RM20 daripada bil anda.", "Booked appointments in our usual service area. Emergency arrival times can vary.": "Untuk temujanji yang ditempah dalam kawasan servis biasa kami. Masa ketibaan kecemasan mungkin berbeza.", "Every repair comes with a written warranty": "Setiap pembaikan disertakan waranti bertulis", "You get it in writing: what's covered and for how long. If something we fixed fails, we come back and make it right.": "Anda terima secara bertulis: apa yang dilindungi dan untuk berapa lama. Jika apa yang kami baiki rosak semula, kami datang semula dan betulkan.", "Price agreed before work starts": "Harga dipersetujui sebelum kerja bermula", "Your plumber explains the problem and confirms the price first. No surprise bills, and the same rates on weekends and public holidays.": "Tukang paip anda terangkan masalahnya dan sahkan harga dahulu. Tiada bil mengejut, dan kadar yang sama pada hujung minggu dan cuti umum.", "More reasons JB homes choose us": "Lagi sebab penduduk JB memilih kami", "See the difference": "Lihat perbezaannya", "Before & after": "Sebelum & selepas", "Before: choked drain": "Sebelum: longkang tersumbat", "After: flowing freely": "Selepas: air mengalir lancar", "Before: old heater": "Sebelum: pemanas lama", "After: new install": "Selepas: pemasangan baharu", "Arus Biru Care Plan": "Pelan Penjagaan Arus Biru", "/month": "/bulan", "No inspection fee": "Tiada caj pemeriksaan", "Priority booking": "Tempahan keutamaan", "Yearly plumbing check": "Pemeriksaan paip tahunan", "Yearly water heater check": "Pemeriksaan pemanas air tahunan", "10% off repairs": "Diskaun 10% untuk pembaikan", "Join the Care Plan": "Sertai Pelan Penjagaan", "Fix it now, pay in parts": "Baiki sekarang, bayar ansuran", "RM900 job = 3 × RM300": "Kerja RM900 = 3 × RM300", "Example: 3 monthly payments for larger jobs like a new water heater. Terms depend on the payment provider's approval.": "Contoh: 3 bayaran bulanan untuk kerja yang lebih besar seperti pemanas air baharu. Terma bergantung pada kelulusan penyedia pembayaran.", "See payment options": "Lihat pilihan bayaran", "Service area": "Kawasan servis", "Your local Johor Bahru plumber": "Tukang paip tempatan anda di Johor Bahru", "Same-day service across Johor Bahru and nearby areas.": "Servis pada hari yang sama di seluruh Johor Bahru dan kawasan berhampiran.", "Don't see your area?": "Kawasan anda tiada dalam senarai?", "Call or WhatsApp": "Hubungi atau WhatsApp", "and we'll tell you straight away. 24 hours for emergencies; regular service Mon–Sat, 8 a.m.–8 p.m.": "dan kami akan beritahu anda segera. 24 jam untuk kecemasan; servis biasa Isnin–Sabtu, 8 pagi–8 malam.", "JB plumbing questions, answered": "Soalan paip di JB, dijawab", "Do you offer emergency plumbing in Johor Bahru?": "Adakah anda menyediakan servis paip kecemasan di Johor Bahru?", "Yes. We're on call 24 hours, including nights, weekends and public holidays. For burst pipes or major leaks, turn off your main water valve and call us right away.": "Ya. Kami bersedia 24 jam, termasuk waktu malam, hujung minggu dan cuti umum. Untuk paip pecah atau kebocoran besar, tutup injap air utama dan terus hubungi kami.", "How quickly can a plumber come?": "Berapa cepat tukang paip boleh datang?", "Most calls in the JB area get a same-day visit. Emergencies are sent out right away, and we'll give you an honest arrival time on the phone.": "Kebanyakan panggilan di kawasan JB mendapat lawatan pada hari yang sama. Kecemasan dihantar serta-merta, dan kami beri anggaran masa ketibaan yang jujur melalui telefon.", "Do you give prices before starting work?": "Adakah anda beri harga sebelum memulakan kerja?", "Yes. Our website shows typical price ranges, and your plumber confirms the exact price on site before any work begins.": "Ya. Laman web kami menunjukkan julat harga biasa, dan tukang paip mengesahkan harga sebenar di lokasi sebelum kerja bermula.", "Do you charge extra on weekends or public holidays?": "Adakah caj tambahan pada hujung minggu atau cuti umum?", "No. Same rates every day of the week.": "Tidak. Kadar yang sama setiap hari.", "Can I book online?": "Boleh saya tempah dalam talian?", "Yes. Pick your problem, choose a time slot, and leave your name and number. It takes about a minute.": "Boleh. Pilih masalah anda, pilih slot masa, dan tinggalkan nama serta nombor anda. Ia mengambil masa kira-kira seminit.", "Do you work in condos and apartments?": "Adakah anda buat kerja di kondominium dan apartmen?", "Yes. We can coordinate with your management office if a work permit or access to the water meter is needed.": "Ya. Kami boleh berurusan dengan pejabat pengurusan jika permit kerja atau akses ke meter air diperlukan.", "How do I pay?": "Bagaimana cara membayar?", "By cash, bank transfer or DuitNow after the job is done.": "Dengan tunai, pindahan bank atau DuitNow selepas kerja siap.", "A plumbing problem shouldn't take all day to solve.": "Masalah paip tidak sepatutnya mengambil masa sehari suntuk.", "Get a clear next step, a real appointment time and straightforward communication.": "Dapatkan langkah seterusnya yang jelas, masa temujanji sebenar dan komunikasi yang terus terang.", "Straight answers. Solid plumbing. Serving Johor Bahru and nearby areas, 24 hours.": "Jawapan jujur. Kerja paip yang kemas. Berkhidmat di Johor Bahru dan kawasan berhampiran, 24 jam.", "Emergency plumbing": "Paip kecemasan", "Choked drains": "Longkang tersumbat", "Water heaters": "Pemanas air", "Leak detection": "Pengesanan bocor", "Company": "Syarikat", "Built by Ace Digital Solutions": "Dibina oleh Ace Digital Solutions", "Call": "Hubungi", "Book": "Tempah", "Calling…": "Memanggil…", "Demo: this number isn't real. On a real website, tapping Call dials the business straight away.": "Demo: nombor ini bukan nombor sebenar. Di laman web sebenar, menekan Panggil terus mendail perniagaan.", "PH:Your full name": "Nama penuh anda", "PH:No., jalan, taman, city": "No., jalan, taman, bandar", "PH:e.g. kitchen sink is choked": "cth. sinki dapur tersumbat", "PH:Type your question…": "Taip soalan anda…"}/*/BM*/;
   let lang="en";
-  const T2=(en,es)=>lang==="es"?es:en;
+  const T2=(en,bm)=>lang==="bm"?bm:en;
   const orig=new WeakMap();
-  const SKIP="script,style,svg,#clog,#chips,#bProblems,#bDays,#bSlots,.chat,.demobar,.disclose,.langs";
+  const SKIP="script,style,svg,#clog,#chips,#bProblems,#bDays,#bSlots,.chat,.demobar,.disclose,.langs,.wasim";
   function translatePage(){
     const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT); let n;
     while(n=w.nextNode()){
       if(n.parentElement.closest(SKIP)) continue;
       if(!orig.has(n)) orig.set(n,n.nodeValue);
       const o=orig.get(n), key=o.replace(/\s+/g," ").trim();
-      if(lang==="es"&&ES[key]){const lead=o.match(/^\s*/)[0], tail=o.match(/\s*$/)[0]; n.nodeValue=lead+ES[key]+tail;} else n.nodeValue=o;
+      if(lang==="bm"&&BM[key]){const lead=o.match(/^\s*/)[0], tail=o.match(/\s*$/)[0]; n.nodeValue=lead+BM[key]+tail;} else n.nodeValue=o;
     }
-    $$("[placeholder]").forEach(el=>{ if(el.closest(".chat")&&el.id!=="cin") return; if(!el.dataset.phEn) el.dataset.phEn=el.placeholder; el.placeholder=lang==="es"&&ES["PH:"+el.dataset.phEn]?ES["PH:"+el.dataset.phEn]:el.dataset.phEn;});
+    $$("[placeholder]").forEach(el=>{ if(el.closest(".chat")&&el.id!=="cin") return; if(!el.dataset.phEn) el.dataset.phEn=el.placeholder; el.placeholder=lang==="bm"&&BM["PH:"+el.dataset.phEn]?BM["PH:"+el.dataset.phEn]:el.dataset.phEn;});
+    $$("[data-sent]").forEach(()=>{}); $$(".simple-form .bnav .btn").forEach(b=>b.dataset.sent=T2("Sent! (demo)","Dihantar! (demo)"));
   }
   function setLang(l,fromChat){
-    lang=l; document.documentElement.lang=l;
+    lang=l; document.documentElement.lang=l==="bm"?"ms":"en";
     $$("[data-lang]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===l));
     translatePage(); renderChips(); pick(cur); renderProblems(); renderDays(); if(bk.day!==null) renderSlots(bk.day,true); renderOk(); nextLabel();
     if(!fromChat) setChatLang(l,true);
   }
 
-  /* ---------- Price tool ---------- */
+  /* ---------- Price tool (demo prices, RM) ---------- */
   const PRICES={
-    heater:{name:["Water heater repair","Reparación de calentador"],icon:"heater",r:"$200 – $650",n:["Common repairs like thermostats, heating elements and valves. A full replacement typically runs $1,600 – $3,200 installed.","Reparaciones comunes como termostatos, resistencias y válvulas. Un reemplazo completo suele costar $1,600 – $3,200 instalado."]},
-    drain:{name:["Clogged drain","Drenaje tapado"],icon:"drain",r:"$150 – $350",n:["Kitchen, bathroom or tub drains cleared with a snake or hydro-jetting where needed.","Drenajes de cocina, baño o tina destapados con guía o hidrolavado cuando hace falta."]},
-    toilet:{name:["Toilet repair","Reparación de inodoro"],icon:"toilet",r:"$125 – $325",n:["Running, leaking or clogged toilets. Full toilet replacement is quoted separately.","Inodoros que corren, gotean o están tapados. El reemplazo completo se cotiza aparte."]},
-    faucet:{name:["Faucet leak","Llave que gotea"],icon:"faucet",r:"$125 – $300",n:["Dripping or leaking faucets repaired, or replaced with a fixture you choose.","Llaves que gotean reparadas, o reemplazadas por un modelo que usted elija."]},
-    sewer:{name:["Main line backup","Drenaje principal tapado"],icon:"pipe",r:"$250 – $700",n:["Main sewer line clearing, with a camera inspection when backups keep coming back.","Destape del drenaje principal, con inspección por cámara cuando el problema se repite."]},
-    leak:{name:["Leak detection","Detección de fugas"],icon:"search",r:"$200 – $450",n:["Finding hidden leaks in walls, ceilings or under the yard. Repair is quoted once the leak is found.","Localizamos fugas ocultas en paredes, techos o bajo el jardín. La reparación se cotiza al encontrar la fuga."]},
-    disposal:{name:["Garbage disposal","Triturador de basura"],icon:"wrench",r:"$150 – $450",n:["Jammed or leaking disposals repaired, or replaced with a new unit.","Trituradores atascados o con fugas reparados, o reemplazados por uno nuevo."]},
-    slab:{name:["Slab leak","Fuga bajo la losa"],icon:"drop",r:"$500 – $2,500",n:["Leaks under your foundation, common in Austin's clay soil. Price depends on access and reroute options.","Fugas bajo los cimientos, comunes en el suelo arcilloso de Austin. El precio depende del acceso y de las opciones de desvío."]},
-    emergency:{name:["Emergency call-out","Servicio de emergencia"],icon:"alert",r:"$175 – $450",n:["Burst pipes, major leaks and backups, any time of day. No extra charge for nights or weekends.","Tubos reventados, fugas grandes y drenajes desbordados a cualquier hora. Sin cargo extra por noches o fines de semana."]}
+    heater:{name:["Water heater repair","Pembaikan pemanas air"],icon:"heater",r:"RM120 – RM350",n:["Common repairs like thermostats, heating elements and valves. A new heater typically costs RM450 – RM1,200 installed.","Pembaikan biasa seperti termostat, elemen pemanas dan injap. Pemanas baharu biasanya RM450 – RM1,200 termasuk pemasangan."]},
+    drain:{name:["Choked sink or drain","Sinki atau longkang tersumbat"],icon:"drain",r:"RM80 – RM250",n:["Kitchen sinks, basins, floor traps and showers cleared properly.","Sinki dapur, besen, perangkap lantai dan bilik mandi dibersihkan dengan betul."]},
+    toilet:{name:["Toilet repair","Pembaikan tandas"],icon:"toilet",r:"RM80 – RM250",n:["Running, leaking or choked toilets. A full toilet replacement is quoted separately.","Tandas yang air tidak berhenti, bocor atau tersumbat. Penggantian tandas penuh disebut harga berasingan."]},
+    faucet:{name:["Leaking tap","Paip air bocor"],icon:"faucet",r:"RM60 – RM180",n:["Dripping or leaking taps repaired, or replaced with a new tap you choose.","Paip yang menitis atau bocor dibaiki, atau diganti dengan paip baharu pilihan anda."]},
+    sewer:{name:["Main pipe blockage","Paip utama tersumbat"],icon:"pipe",r:"RM200 – RM600",n:["Blockages in the main pipe or sewer line, traced to the source when they keep coming back.","Sumbatan dalam paip utama atau saluran pembetungan, dikesan hingga ke punca jika berulang."]},
+    leak:{name:["Hidden leak detection","Pengesanan bocor tersembunyi"],icon:"search",r:"RM150 – RM400",n:["Finding hidden leaks in walls, floors or ceilings. Repair is quoted once the leak is found.","Mencari kebocoran tersembunyi di dinding, lantai atau siling. Pembaikan disebut harga selepas bocor ditemui."]},
+    disposal:{name:["Sink pipes & trap","Paip & perangkap sinki"],icon:"wrench",r:"RM80 – RM300",n:["Leaking or broken pipes and traps under the sink, repaired or replaced.","Paip dan perangkap di bawah sinki yang bocor atau rosak, dibaiki atau diganti."]},
+    slab:{name:["Burst or concealed pipe","Paip pecah atau tersembunyi"],icon:"drop",r:"RM200 – RM800",n:["Burst pipes, or leaks in pipes inside walls and floors. Price depends on access and how much needs replacing.","Paip pecah, atau bocor pada paip dalam dinding dan lantai. Harga bergantung pada akses dan berapa banyak yang perlu diganti."]},
+    emergency:{name:["Emergency call-out","Panggilan kecemasan"],icon:"alert",r:"RM100 – RM250",n:["Burst pipes, major leaks and overflowing drains, any time of day or night.","Paip pecah, kebocoran besar dan longkang melimpah, pada bila-bila masa, siang atau malam."]}
   };
-  const L2=a=>a[lang==="es"?1:0];
+  const L2=a=>a[lang==="bm"?1:0];
   const chips=$("#chips"); let cur="heater";
   function renderChips(){chips.innerHTML=Object.entries(PRICES).filter(([k])=>k!=="emergency").map(([k,p])=>`<button class="chip" type="button" data-k="${k}" aria-pressed="${k===cur}"><img src="img/p-${k}.jpg" alt="" loading="lazy" width="412" height="464"><span>${ico(p.icon)}${L2(p.name)}</span></button>`).join("");}
-  function pick(k){const p=PRICES[k]; if(!p) return; cur=k; $("#pRange").textContent=p.r; $("#pWhat").textContent=L2(p.name); $("#pNote").textContent=L2(p.n)+T2(" Your plumber confirms the final price on site before any work begins."," Su plomero confirma el precio final en el lugar antes de empezar cualquier trabajo."); $$(".chip").forEach(c=>c.setAttribute("aria-pressed",c.dataset.k===k)); $("#pBook").dataset.k=k;}
+  function pick(k){const p=PRICES[k]; if(!p) return; cur=k; $("#pRange").textContent=p.r; $("#pWhat").textContent=L2(p.name); $("#pNote").textContent=L2(p.n)+T2(" Your plumber confirms the final price on site before any work begins."," Tukang paip anda mengesahkan harga akhir di lokasi sebelum kerja bermula."); $$(".chip").forEach(c=>c.setAttribute("aria-pressed",c.dataset.k===k)); $("#pBook").dataset.k=k;}
   chips.addEventListener("click",e=>{const c=e.target.closest(".chip"); if(!c) return; pick(c.dataset.k);
     const card=$(".pcard"), r=card.getBoundingClientRect(); if(r.top<60||r.bottom>innerHeight-90) card.scrollIntoView({behavior:"smooth",block:"nearest"});});
   renderChips(); pick("heater");
   $$("[data-price]").forEach(b=>b.addEventListener("click",()=>{ if(document.body.classList.contains("base-only")){location.hash="#areas";return;} pick(b.dataset.price); $("#prices").scrollIntoView({behavior:"smooth"});}));
-  $("#pBook").addEventListener("click",()=>{const k=$("#pBook").dataset.k; const map={heater:"heater",drain:"drain",toilet:"toilet",faucet:"faucet",sewer:"sewer",leak:"leak",disposal:"other",slab:"leak",emergency:"emergency"}; setProblem(map[k]||"other");});
+  $("#pBook").addEventListener("click",()=>{const k=$("#pBook").dataset.k; const map={heater:"heater",drain:"drain",toilet:"toilet",faucet:"faucet",sewer:"sewer",leak:"leak",disposal:"drain",slab:"leak",emergency:"emergency"}; setProblem(map[k]||"other");});
 
   /* ---------- Booking ---------- */
-  const PROB=[["emergency","Emergency","Water everywhere / burst pipe","Emergencia","Agua por todas partes / tubo reventado"],["drain","Clogged drain","Sink, tub or shower","Drenaje tapado","Lavabo, tina o regadera"],["heater","Water heater","No hot water or leaking","Calentador de agua","Sin agua caliente o con fuga"],["leak","Leak","Dripping, stains or high bill","Fuga","Goteo, manchas o recibo alto"],["toilet","Toilet","Running, leaking or clogged","Inodoro","Corre, gotea o está tapado"],["faucet","Faucet / fixture","Repair or replace","Llave / accesorio","Reparar o reemplazar"],["sewer","Sewer / main line","Backups in several drains","Drenaje principal","Atascos en varios drenajes"],["other","Something else","We'll figure it out together","Otra cosa","Lo averiguamos juntos"]];
+  const PROB=[["emergency","Emergency","Water everywhere / burst pipe","Kecemasan","Air melimpah / paip pecah"],["drain","Choked drain","Sink, basin or floor trap","Longkang tersumbat","Sinki, besen atau perangkap lantai"],["heater","Water heater","No hot water or tripping","Pemanas air","Tiada air panas atau trip"],["leak","Leak","Dripping, damp patches or high bill","Bocor","Menitis, kesan lembap atau bil tinggi"],["toilet","Toilet","Running, leaking or choked","Tandas","Air tak berhenti, bocor atau tersumbat"],["faucet","Tap / fitting","Repair or replace","Paip / kelengkapan","Baiki atau ganti"],["sewer","Main pipe","Blockages in several drains","Paip utama","Sumbatan di beberapa longkang"],["other","Something else","We'll figure it out together","Lain-lain","Kita sama-sama cari puncanya"]];
   const probName=id=>{const r=PROB.find(x=>x[0]===id); return r?T2(r[1],r[3]):"";};
   const bk={problem:null,day:null,slot:null};
   function renderProblems(){$("#bProblems").innerHTML=PROB.map(([id,t,s,te,se])=>`<button type="button" class="opt${id==="emergency"?" emerg":""}" data-p="${id}" aria-pressed="${bk.problem===id}">${T2(t,te)}<small>${T2(s,se)}</small></button>`).join("");}
-  function nextLabel(){const b=$('#booking [data-next="2"]'); b.firstChild.nodeValue=bk.problem==="emergency"?T2("Next: your details ","Siguiente: sus datos "):T2("Next: pick a time ","Siguiente: elegir horario "); b.classList.toggle("btn-red",bk.problem==="emergency"); b.classList.toggle("btn-blue",bk.problem!=="emergency");}
+  function nextLabel(){const b=$('#booking [data-next="2"]'); b.firstChild.nodeValue=bk.problem==="emergency"?T2("Next: your details ","Seterusnya: butiran anda "):T2("Next: pick a time ","Seterusnya: pilih masa "); b.classList.toggle("btn-red",bk.problem==="emergency"); b.classList.toggle("btn-blue",bk.problem!=="emergency");}
   function setProblem(id){bk.problem=id; $$("#bProblems .opt").forEach(o=>o.setAttribute("aria-pressed",o.dataset.p===id)); $("#err1").textContent=""; nextLabel();}
   $("#bProblems").addEventListener("click",e=>{const o=e.target.closest(".opt"); if(o) setProblem(o.dataset.p)});
-  const fmt=d=>d.toLocaleDateString(lang==="es"?"es-US":"en-US",{weekday:"short",month:"short",day:"numeric"});
+  const fmt=d=>d.toLocaleDateString(lang==="bm"?"ms-MY":"en-MY",{weekday:"short",month:"short",day:"numeric"});
   const days=[]; for(let i=0;days.length<4;i++){const d=new Date(); d.setDate(d.getDate()+i); if(d.getDay()!==0) days.push(d);}
-  function renderDays(){$("#bDays").innerHTML=days.map((d,i)=>{const on=bk.day===i; return `<button type="button" class="btn btn-sm ${on?"btn-blue":"btn-ghost"}" data-d="${i}" aria-pressed="${on}">${i===0&&d.toDateString()===new Date().toDateString()?T2("Today","Hoy"):fmt(d)}</button>`}).join("");}
-  const SLOTS=["8–10 a.m.","10 a.m.–12 p.m.","12–2 p.m.","2–4 p.m.","4–6 p.m.","6–7 p.m."];
+  function renderDays(){$("#bDays").innerHTML=days.map((d,i)=>{const on=bk.day===i; return `<button type="button" class="btn btn-sm ${on?"btn-blue":"btn-ghost"}" data-d="${i}" aria-pressed="${on}">${i===0&&d.toDateString()===new Date().toDateString()?T2("Today","Hari ini"):fmt(d)}</button>`}).join("");}
+  const SLOTS=[["8–10 a.m.","8–10 pagi"],["10 a.m.–12 p.m.","10 pagi–12 tgh"],["12–2 p.m.","12–2 ptg"],["2–4 p.m.","2–4 ptg"],["4–6 p.m.","4–6 ptg"],["6–8 p.m.","6–8 mlm"]];
+  const slotName=s=>{const r=SLOTS.find(x=>x[0]===s); return r?T2(r[0],r[1]):s;};
   function renderSlots(i,keep){ const taken=[1,4].map(x=>(x+i)%SLOTS.length); const today=days[i].toDateString()===new Date().toDateString(); const h=new Date().getHours();
-    $("#bSlots").innerHTML=SLOTS.map((s,j)=>{const past=today && (8+j*2)<=h+1; const off=past||taken.includes(j); return `<button type="button" class="opt" data-s="${s}" aria-pressed="${keep&&bk.slot===s}" ${off?'disabled style="opacity:.4;cursor:not-allowed"':""}>${s}<small>${off?(past?T2("Passed","Ya pasó"):T2("Booked","Ocupado")):T2("Available","Disponible")}</small></button>`}).join(""); if(!keep) bk.slot=null;}
+    $("#bSlots").innerHTML=SLOTS.map(([s,sb],j)=>{const past=today && (8+j*2)<=h+1; const off=past||taken.includes(j); return `<button type="button" class="opt" data-s="${s}" aria-pressed="${keep&&bk.slot===s}" ${off?'disabled style="opacity:.4;cursor:not-allowed"':""}>${T2(s,sb)}<small>${off?(past?T2("Passed","Sudah lepas"):T2("Booked","Penuh")):T2("Available","Kosong")}</small></button>`}).join(""); if(!keep) bk.slot=null;}
   renderProblems(); renderDays();
   $("#bDays").addEventListener("click",e=>{const b=e.target.closest("[data-d]"); if(!b) return; bk.day=+b.dataset.d; renderDays(); renderSlots(bk.day); $("#err2").textContent="";});
   $("#bSlots").addEventListener("click",e=>{const o=e.target.closest(".opt"); if(!o||o.disabled) return; bk.slot=o.dataset.s; $$("#bSlots .opt").forEach(x=>x.setAttribute("aria-pressed",x===o)); $("#err2").textContent="";});
@@ -957,90 +999,120 @@ body.base-only .needs-addon{display:none !important}
     $$("#booking .steps div").forEach(s=>{const k=+s.dataset.step; s.className=(k===2&&isEmerg()&&n>2)?"skip":k<n?"done":k===n?"on":""});
     $("#emergNote").hidden=!isEmerg(); }
   $$("#booking [data-next]").forEach(b=>b.addEventListener("click",()=>{const n=+b.dataset.next;
-    if(n===2&&!bk.problem){$("#err1").textContent=T2("Please pick the problem first.","Por favor elija primero el problema."); return;}
+    if(n===2&&!bk.problem){$("#err1").textContent=T2("Please pick the problem first.","Sila pilih masalah dahulu."); return;}
     if(n===2&&isEmerg()){ bk.day=null; bk.slot=null; go(3); return; } // emergencies skip the time step
-    if(n===3&&(bk.day===null||!bk.slot)){$("#err2").textContent=T2("Please choose a day and a time window.","Por favor elija un día y un horario."); return;}
-    if(n===2&&bk.day===null){ // open on the first day that still has a free time window
+    if(n===3&&(bk.day===null||!bk.slot)){$("#err2").textContent=T2("Please choose a day and a time slot.","Sila pilih hari dan slot masa."); return;}
+    if(n===2&&bk.day===null){ // open on the first day that still has a free time slot
       const h=new Date().getHours(), first=days[0].toDateString()===new Date().toDateString() && SLOTS.every((x,j)=>(8+j*2)<=h+1||[1,4].includes(j)) ? 1 : 0;
       bk.day=first; renderDays(); renderSlots(first);}
     go(n);}));
   $$("#booking [data-back]").forEach(b=>b.addEventListener("click",()=>{const n=+b.dataset.back; go(n===2&&isEmerg()?1:n);}));
   // Use my current location -> fills the address (OpenStreetMap lookup), with a Google Maps check link
   $("#bLocate").addEventListener("click",()=>{const msg=$("#locMsg");
-    if(!navigator.geolocation){msg.textContent=T2("Location isn't available on this device. Please type your address.","La ubicación no está disponible en este dispositivo. Escriba su dirección."); return;}
-    msg.textContent=T2("Finding your location…","Buscando su ubicación…");
+    if(!navigator.geolocation){msg.textContent=T2("Location isn't available on this device. Please type your address.","Lokasi tidak tersedia pada peranti ini. Sila taip alamat anda."); return;}
+    msg.textContent=T2("Finding your location…","Mencari lokasi anda…");
     navigator.geolocation.getCurrentPosition(async pos=>{const {latitude:la,longitude:lo}=pos.coords;
       const gm=`https://www.google.com/maps?q=${la.toFixed(6)},${lo.toFixed(6)}`;
-      try{const r=await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&addressdetails=1&lat=${la}&lon=${lo}`,{headers:{"Accept-Language":lang}}); const d=await r.json(); const a=d.address||{};
-        const line=[[a.house_number,a.road].filter(Boolean).join(" "),a.city||a.town||a.village||a.suburb,a.postcode].filter(Boolean).join(", ");
+      try{const r=await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&addressdetails=1&lat=${la}&lon=${lo}`,{headers:{"Accept-Language":lang==="bm"?"ms":"en"}}); const d=await r.json(); const a=d.address||{};
+        const line=[[a.house_number,a.road].filter(Boolean).join(" "),a.suburb||a.neighbourhood,a.city||a.town||a.village,a.postcode].filter(Boolean).join(", ");
         $("#bAddr").value=line||d.display_name||`${la.toFixed(5)}, ${lo.toFixed(5)}`;
       }catch(e){ $("#bAddr").value=`${la.toFixed(5)}, ${lo.toFixed(5)}`; }
-      msg.innerHTML=T2(`Address filled in. Please check it, or <a href="${gm}" target="_blank" rel="noopener">see the spot on Google Maps</a>.`,`Dirección completada. Revísela o <a href="${gm}" target="_blank" rel="noopener">vea el punto en Google Maps</a>.`);
-    },()=>{msg.textContent=T2("We couldn't get your location. Please allow location access or type your address.","No pudimos obtener su ubicación. Permita el acceso o escriba su dirección.");},{enableHighAccuracy:true,timeout:10000});});
+      msg.innerHTML=T2(`Address filled in. Please check it, or <a href="${gm}" target="_blank" rel="noopener">see the spot on Google Maps</a>.`,`Alamat telah diisi. Sila semak, atau <a href="${gm}" target="_blank" rel="noopener">lihat lokasi di Google Maps</a>.`);
+    },()=>{msg.textContent=T2("We couldn't get your location. Please allow location access or type your address.","Kami tidak dapat mengesan lokasi anda. Sila benarkan akses lokasi atau taip alamat anda.");},{enableHighAccuracy:true,timeout:10000});});
   $("#bConfirm").addEventListener("click",()=>{const nm=$("#bName").value.trim(), ph=$("#bPhone").value.replace(/\D/g,""), ad=$("#bAddr").value.trim();
-    if(!nm||ph.length<10||!ad){$("#err3").textContent=T2("Please enter your name, a 10-digit phone number and your address.","Por favor escriba su nombre, un teléfono de 10 dígitos y su dirección."); return;}
+    if(!nm||ph.length<9||ph.length>12||!ad){$("#err3").textContent=T2("Please enter your name, a mobile number and your address.","Sila masukkan nama, nombor telefon bimbit dan alamat anda."); return;}
     done={first:nm.split(" ")[0], phone:$("#bPhone").value.trim()}; renderOk(); go(4);});
   let done=null;
   function renderOk(){ if(!done) return;
-    if(isEmerg()){ $("#okTitle").textContent=T2(`Help is on the way, ${done.first}!`,`¡La ayuda va en camino, ${done.first}!`);
-      $("#okText").textContent=T2(`Emergency request received. We'll call ${done.phone} within 5 minutes and send the nearest plumber. If water is still running, shut off your main valve now.`,`Recibimos su solicitud de emergencia. Le llamaremos al ${done.phone} en menos de 5 minutos y enviaremos al plomero más cercano. Si el agua sigue corriendo, cierre ahora la llave principal.`); return; }
-    const end=bk.slot.endsWith(".")?" ":". ";
-    $("#okTitle").textContent=T2(`You're booked, ${done.first}!`,`¡Listo, ${done.first}! Su cita está reservada.`);
-    $("#okText").textContent=T2(`${probName(bk.problem)} · ${fmt(days[bk.day])}, ${bk.slot}${end}We'll text ${done.phone} with your plumber's name and photo before they arrive.`,
-                                `${probName(bk.problem)} · ${fmt(days[bk.day])}, ${bk.slot}${end}Le enviaremos al ${done.phone} el nombre y la foto de su plomero antes de que llegue.`);}
+    if(isEmerg()){ $("#okTitle").textContent=T2(`Help is on the way, ${done.first}!`,`Bantuan dalam perjalanan, ${done.first}!`);
+      $("#okText").textContent=T2(`Emergency request received. We'll call ${done.phone} within 5 minutes and send the nearest plumber. If water is still running, turn off your main valve now.`,`Permintaan kecemasan diterima. Kami akan menghubungi ${done.phone} dalam masa 5 minit dan menghantar tukang paip terdekat. Jika air masih mengalir, tutup injap utama sekarang.`); return; }
+    $("#okTitle").textContent=T2(`You're booked, ${done.first}!`,`Tempahan anda berjaya, ${done.first}!`);
+    $("#okText").textContent=T2(`${probName(bk.problem)} · ${fmt(days[bk.day])}, ${slotName(bk.slot)}. We'll WhatsApp ${done.phone} with your plumber's name and photo before they arrive.`,
+                                `${probName(bk.problem)} · ${fmt(days[bk.day])}, ${slotName(bk.slot)}. Kami akan menghantar nama dan gambar tukang paip anda ke WhatsApp ${done.phone} sebelum dia tiba.`);}
   $("#bAgain").addEventListener("click",()=>{done=null;setTimeout(nextLabel);$("#locMsg").textContent="";bk.problem=null;bk.slot=null;bk.day=null;["#bName","#bPhone","#bAddr"].forEach(s=>$(s).value="");renderProblems();renderDays();$("#bSlots").innerHTML="";go(1);});
 
   /* ---------- Reveal on scroll ---------- */
   if("IntersectionObserver" in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12}); $$(".reveal").forEach(el=>io.observe(el));} else $$(".reveal").forEach(el=>el.classList.add("in"));
 
+  /* ---------- Pretend WhatsApp (the demo number is fictional) ---------- */
+  const waSim=$("#waSim");
+  function fakeWA(text){ $("#waText").textContent=text||T2("Hi, I'd like to ask about a plumbing problem.","Hai, saya nak tanya tentang masalah paip.");
+    $("#waNote").textContent=T2("Demo: this number isn't real. On a real website, WhatsApp opens with this message already typed, and the customer can edit it before sending.","Demo: nombor ini bukan nombor sebenar. Di laman web sebenar, WhatsApp akan dibuka dengan mesej ini sudah ditaip, dan pelanggan boleh mengubahnya sebelum menghantar.");
+    waSim.hidden=false; $("#waClose").focus(); }
+  function closeWA(){ waSim.hidden=true; }
+  document.addEventListener("click",e=>{const a=e.target.closest("[data-wa]"); if(!a) return; e.preventDefault(); fakeWA();});
+  $("#waClose").addEventListener("click",closeWA);
+  waSim.addEventListener("click",e=>{if(e.target===waSim) closeWA();});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!waSim.hidden) closeWA();});
+
   /* ---------- Chat assistant ---------- */
-  const CHAT_API="https://ace-chat.adamteokokwei.workers.dev/chat"; // same server as Ace's own chat; bot:"capitol-demo" selects this business's facts
-  const chat=$("#chat"), fab=$("#chatFab"), log=$("#clog"), input=$("#cin");
-  let started=false, es=false, busy=false; const hist=[];
+  const CHAT_API="https://ace-chat.adamteokokwei.workers.dev/chat"; // same server as Ace's own chat; bot:"jb-demo" selects this business's facts
+  const SUMMARY_API=CHAT_API.replace(/\/chat$/,"/summary");
+  const chat=$("#chat"), fab=$("#chatFab"), log=$("#clog"), input=$("#cin"), handoffBtn=$("#handoff");
+  let started=false, bm=false, busy=false; const hist=[], transcript=[];
   const esc=s=>s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
   const fmtAI=t=>esc(t).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/\n+/g,"<br>");
   const wait=ms=>new Promise(r=>setTimeout(r,ms));
-  function say(html,me){const d=document.createElement("div"); d.className="msg"+(me?" me":""); d.innerHTML=html; log.appendChild(d); log.scrollTop=log.scrollHeight; return d;}
-  function quick(items){const q=document.createElement("div"); q.className="quick"; items.forEach(([t,fn,cls])=>{const b=document.createElement("button"); b.type="button"; b.textContent=t; if(cls) b.className=cls; b.onclick=()=>{q.remove(); say(esc(t),true); respond(fn);}; q.appendChild(b)}); log.appendChild(q); log.scrollTop=log.scrollHeight;}
+  const plain=h=>{const d=document.createElement("div"); d.innerHTML=h; return (d.textContent||"").trim();};
+  function say(html,me,rec){const d=document.createElement("div"); d.className="msg"+(me?" me":""); d.innerHTML=html; log.appendChild(d); log.scrollTop=log.scrollHeight;
+    if(rec!==false){ transcript.push({role:me?"user":"assistant",content:(rec||plain(html)).slice(0,500)}); if(transcript.length>30) transcript.shift(); }
+    if(me) handoffBtn.hidden=false; return d;}
+  function quick(items){const q=document.createElement("div"); q.className="quick"; items.forEach(([t,fn,cls])=>{const b=document.createElement("button"); b.type="button"; b.textContent=t; if(cls) b.className=cls; b.onclick=()=>{q.remove(); if(fn===handoff) return handoff(); say(esc(t),true,"["+t+"]"); respond(fn);}; q.appendChild(b)}); log.appendChild(q); log.scrollTop=log.scrollHeight;}
   async function respond(fn,ms){busy=true; const t=document.createElement("div"); t.className="msg typing"; t.innerHTML="<i></i><i></i><i></i>"; log.appendChild(t); log.scrollTop=log.scrollHeight; await wait(ms||900); t.remove(); busy=false; fn();}
   const T={
-    en:{hi:"Hi! I'm the Capitol Creek assistant. I can help with an emergency, give you a typical price, or book a plumber. What's going on?",
-        q:[["🚨 I have an emergency",()=>emergency(),"red"],["What will it cost?",()=>prices()],["Book a plumber",()=>book()],["Areas you serve",()=>areas()]],
-        sw:"Sure, let's continue in English.", ph:"Type your question…", note:"Demo assistant. Don't share private information.", on:"Online 24/7"},
-    es:{hi:"¡Hola! Soy el asistente de Capitol Creek. Puedo ayudarle con una emergencia, darle un precio típico o reservar un plomero. ¿Qué está pasando?",
-        q:[["🚨 Tengo una emergencia",()=>emergency(),"red"],["¿Cuánto cuesta?",()=>prices()],["Reservar un plomero",()=>book()],["Zonas de servicio",()=>areas()]],
-        sw:"Perfecto, seguimos en español.", ph:"Escriba su pregunta…", note:"Asistente de demostración. No comparta información privada.", on:"En línea 24/7"}
+    en:{hi:"Hi! I'm the Arus Biru assistant. I can help with an emergency, give you a typical price, or book a plumber. What's going on?",
+        q:()=>[["🚨 I have an emergency",()=>emergency(),"red"],["What will it cost?",()=>prices()],["Book a plumber",()=>book()],["Areas you serve",()=>areas()],["Continue on WhatsApp",handoff,"wa"]],
+        sw:"Sure, let's continue in English.", ph:"Type your question…", note:"Demo assistant. Don't share private information.", on:"Online 24 hours", ho:"Continue on WhatsApp"},
+    bm:{hi:"Hai! Saya pembantu Arus Biru. Saya boleh bantu jika ada kecemasan, beri anggaran harga, atau tempah tukang paip. Apa masalahnya?",
+        q:()=>[["🚨 Saya ada kecemasan",()=>emergency(),"red"],["Berapa kosnya?",()=>prices()],["Tempah tukang paip",()=>book()],["Kawasan servis",()=>areas()],["Sambung di WhatsApp",handoff,"wa"]],
+        sw:"Baik, kita teruskan dalam Bahasa Melayu.", ph:"Taip soalan anda…", note:"Pembantu demo. Jangan kongsi maklumat peribadi.", on:"Dalam talian 24 jam", ho:"Sambung di WhatsApp"}
   };
-  const L=()=>T[es?"es":"en"];
-  function menu(){say(L().hi); quick(L().q);}
-  function after(){quick(L().q);}
+  const L=()=>T[bm?"bm":"en"];
+  function menu(){say(L().hi); quick(L().q());}
+  function after(){quick(L().q());}
   function setChatLang(l,silent){
-    const was=es; es=(l==="es");
+    const was=bm; bm=(l==="bm");
     $$("[data-chat-lang]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.chatLang===l));
-    input.placeholder=L().ph; $(".cnote").textContent=L().note; $("#chatOnline").textContent=L().on;
-    if(started && was!==es && !silent){ log.querySelectorAll(".quick").forEach(x=>x.remove()); say(L().sw); after(); }
-    else if(started && was!==es && silent){ log.querySelectorAll(".quick").forEach(x=>x.remove()); say(L().sw); after(); }
+    input.placeholder=L().ph; $(".cnote").textContent=L().note; $("#chatOnline").textContent=L().on; $("#handoffTxt").textContent=L().ho;
+    if(started && was!==bm){ log.querySelectorAll(".quick").forEach(x=>x.remove()); say(L().sw,false,false); after(); }
   }
   $$("[data-chat-lang]").forEach(b=>b.addEventListener("click",()=>setChatLang(b.dataset.chatLang)));
-  function emergency(){say(es?"Primero, <b>cierre la llave principal de agua</b> (normalmente en el garaje, un clóset o cerca de la llave exterior). Luego llámenos 24/7: <a href='tel:5125550147'>512-555-0147</a> (demo). Enviamos un plomero de inmediato."
-    :"First, <b>shut off your main water valve</b> (usually in the garage, a utility closet, or outside near the hose bib). Then call us 24/7 at <a href='tel:5125550147'>512-555-0147</a> (demo). We dispatch a plumber right away."); after();}
-  function prices(){say(es?"Rangos típicos en Austin (demo): destapar drenaje <b>$150–$350</b>, reparar calentador <b>$200–$650</b>, inodoro <b>$125–$325</b>, detección de fugas <b>$200–$450</b>. El plomero confirma el precio final antes de empezar. <a href='#prices'>Ver todos los precios</a>"
-    :"Typical Austin ranges (demo): clogged drain <b>$150–$350</b>, water heater repair <b>$200–$650</b>, toilet repair <b>$125–$325</b>, leak detection <b>$200–$450</b>. Your plumber confirms the final price before any work starts. <a href='#prices'>See all prices</a>"); after();}
-  function book(){say(es?"Puede reservar en 3 pasos: problema, horario, nombre y teléfono. <a href='#book'>Reservar ahora</a>, o llame al 512-555-0147 (demo)."
-    :"You can book in 3 quick steps: problem, time, name and phone. <a href='#book'>Book now</a>, or call 512-555-0147 (demo). Most Austin calls get a same-day slot."); after();}
-  function areas(){say(es?"Atendemos Austin, Round Rock, Cedar Park, Pflugerville, Georgetown, Leander, Kyle y Buda."
-    :"We serve Austin, Round Rock, Cedar Park, Pflugerville, Georgetown, Leander, Kyle and Buda. Not sure about your area? Just ask."); after();}
+  function emergency(){say(bm?"Pertama, <b>tutup injap air utama</b> (biasanya di sebelah meter air, dekat pintu pagar, atau di petak meter koridor jika kondominium). Kemudian hubungi kami 24 jam: <a href='tel:+6070000000'>07-000 0000</a> (demo). Kami hantar tukang paip dengan segera."
+    :"First, <b>turn off your main water valve</b> (usually next to the water meter near the gate, or in the corridor meter compartment for condos). Then call us any time at <a href='tel:+6070000000'>07-000 0000</a> (demo). We send a plumber right away."); after();}
+  function prices(){say(bm?"Julat harga biasa di JB (demo): sinki atau longkang tersumbat <b>RM80–RM250</b>, pembaikan pemanas air <b>RM120–RM350</b>, tandas <b>RM80–RM250</b>, pengesanan bocor <b>RM150–RM400</b>. Tukang paip mengesahkan harga akhir sebelum kerja bermula. <a href='#prices'>Lihat semua harga</a>"
+    :"Typical JB ranges (demo): choked sink or drain <b>RM80–RM250</b>, water heater repair <b>RM120–RM350</b>, toilet repair <b>RM80–RM250</b>, leak detection <b>RM150–RM400</b>. Your plumber confirms the final price before any work starts. <a href='#prices'>See all prices</a>"); after();}
+  function book(){say(bm?"Anda boleh tempah dalam 3 langkah: masalah, masa, nama dan telefon. <a href='#book'>Tempah sekarang</a>, atau hubungi 07-000 0000 (demo). Kebanyakan panggilan di JB dapat lawatan pada hari yang sama."
+    :"You can book in 3 quick steps: problem, time, name and phone. <a href='#book'>Book now</a>, or call 07-000 0000 (demo). Most calls in JB get a same-day visit."); after();}
+  function areas(){say(bm?"Kami melayani Johor Bahru, Skudai, Iskandar Puteri, Kulai, Senai, Masai, Pasir Gudang dan Gelang Patah."
+    :"We serve Johor Bahru, Skudai, Iskandar Puteri, Kulai, Senai, Masai, Pasir Gudang and Gelang Patah. Not sure about your area? Just ask."); after();}
   function scripted(q){const t=q.toLowerCase();
-    if(/(burst|flood|water everywhere|emergenc|urgent|inund|emergencia)/.test(t)) return emergency();
-    if(/(cost|price|how much|cuánto|cuanto|precio)/.test(t)) return prices();
-    if(/(book|appointment|schedule|come out|reserv|cita)/.test(t)) return book();
-    if(/(area|serve|city|zona|round rock|cedar|kyle|buda|georgetown|leander|pfluger)/.test(t)) return areas();
-    say(es?"Buena pregunta. Para eso es mejor hablar con nuestro equipo: llame al 512-555-0147 (demo) o reserve en línea.":"Good question. Our team can answer that best: call 512-555-0147 (demo) or book online and we'll call you."); after();}
+    if(/(burst|flood|water everywhere|emergenc|urgent|pecah|banjir|kecemasan|segera|melimpah)/.test(t)) return emergency();
+    if(/(cost|price|how much|harga|berapa|kos)/.test(t)) return prices();
+    if(/(book|appointment|schedule|come|tempah|janji|datang)/.test(t)) return book();
+    if(/(area|serve|city|kawasan|skudai|kulai|senai|masai|pasir gudang|gelang patah|iskandar|puteri|jb|johor)/.test(t)) return areas();
+    say(bm?"Soalan yang bagus. Pasukan kami boleh jawab dengan lebih tepat: hubungi 07-000 0000 (demo), atau ketik \"Sambung di WhatsApp\".":"Good question. Our team can answer that best: call 07-000 0000 (demo), or tap \"Continue on WhatsApp\"."); after();}
   async function askAI(q){ if(!CHAT_API) return null; hist.push({role:"user",content:q});
     try{const c=new AbortController(); const to=setTimeout(()=>c.abort(),30000);
-      const r=await fetch(CHAT_API,{method:"POST",signal:c.signal,headers:{"Content-Type":"application/json"},body:JSON.stringify({bot:"capitol-demo",messages:hist.slice(-10)})});
+      const r=await fetch(CHAT_API,{method:"POST",signal:c.signal,headers:{"Content-Type":"application/json"},body:JSON.stringify({bot:"jb-demo",lang:bm?"bm":"en",messages:hist.slice(-10)})});
       clearTimeout(to); const d=await r.json().catch(()=>({})); if(!r.ok||!d.reply){hist.pop();return null;} hist.push({role:"assistant",content:d.reply}); return d.reply;
     }catch(e){hist.pop();return null;}}
+  // Hand the chat over to WhatsApp with a short summary, so the customer doesn't repeat themselves
+  async function handoff(){
+    if(busy) return; say(esc(L().ho),true,false); busy=true;
+    const t=document.createElement("div"); t.className="msg typing"; t.innerHTML="<i></i><i></i><i></i>"; log.appendChild(t); log.scrollTop=log.scrollHeight;
+    let summary="";
+    if(transcript.some(m=>m.role==="user")) try{const c=new AbortController(); const to=setTimeout(()=>c.abort(),9000);
+      const r=await fetch(SUMMARY_API,{method:"POST",signal:c.signal,headers:{"Content-Type":"application/json"},body:JSON.stringify({bot:"jb-demo",lang:bm?"bm":"en",messages:transcript.slice(-30)})});
+      clearTimeout(to); const d=await r.json().catch(()=>({})); if(r.ok&&d.summary) summary=String(d.summary).trim().slice(0,600);
+    }catch(e){}
+    if(!summary){ const qs=transcript.filter(m=>m.role==="user"&&!m.content.startsWith("[")).map(m=>"- "+m.content.slice(0,140)).slice(-5); if(qs.length) summary=(bm?"Soalan saya:\n":"My questions:\n")+qs.join("\n"); }
+    await wait(600); t.remove(); busy=false;
+    const text=(bm?"Hai Arus Biru, saya baru berbual dengan pembantu di laman web anda.":"Hi Arus Biru, I was just chatting with the assistant on your website.")+(summary?"\n\n"+summary:"");
+    say(bm?"Saya sediakan mesej ini untuk pasukan kami. WhatsApp akan dibuka dengan mesej ini, dan anda boleh mengubahnya sebelum menghantar.":"I've prepared this message for our team. WhatsApp opens with it filled in, and you can edit it before sending.",false,false);
+    const b=document.createElement("button"); b.type="button"; b.className="wa-open"; b.innerHTML=ico("chat")+esc(bm?"Buka WhatsApp":"Open WhatsApp"); b.onclick=()=>fakeWA(text); log.appendChild(b); log.scrollTop=log.scrollHeight;
+    after();
+  }
+  handoffBtn.addEventListener("click",handoff);
   $("#cform").addEventListener("submit",async e=>{e.preventDefault(); if(busy) return; const q=input.value.trim().slice(0,500); if(!q) return; input.value="";
     say(esc(q),true); log.querySelectorAll(".quick").forEach(x=>x.remove());
     busy=true; const t=document.createElement("div"); t.className="msg typing"; t.innerHTML="<i></i><i></i><i></i>"; log.appendChild(t); log.scrollTop=log.scrollHeight;
@@ -1057,17 +1129,17 @@ body.base-only .needs-addon{display:none !important}
   const sim=$("#callSim"); let simT=[];
   function endCall(){simT.forEach(clearTimeout); simT=[]; sim.hidden=true;}
   function fakeCall(){ endCall(); sim.hidden=false;
-    $("#callStatus").textContent=T2("Calling…","Llamando…");
-    $("#callNote").textContent=T2("Demo: this number isn't real. On a real website, tapping Call dials the business straight away.","Demo: este número no es real. En un sitio real, al tocar Llamar se marca directamente a la empresa.");
-    simT.push(setTimeout(()=>{$("#callStatus").textContent=T2("Connected · 0:01","Conectado · 0:01");},2200));
-    let sec=1; simT.push(setTimeout(function tick(){sec++; $("#callStatus").textContent=T2("Connected · ","Conectado · ")+"0:"+String(sec).padStart(2,"0"); if(sec<59) simT.push(setTimeout(tick,1000));},3200));
+    $("#callStatus").textContent=T2("Calling…","Memanggil…");
+    $("#callNote").textContent=T2("Demo: this number isn't real. On a real website, tapping Call dials the business straight away.","Demo: nombor ini bukan nombor sebenar. Di laman web sebenar, menekan Panggil terus mendail perniagaan.");
+    simT.push(setTimeout(()=>{$("#callStatus").textContent=T2("Connected · 0:01","Bersambung · 0:01");},2200));
+    let sec=1; simT.push(setTimeout(function tick(){sec++; $("#callStatus").textContent=T2("Connected · ","Bersambung · ")+"0:"+String(sec).padStart(2,"0"); if(sec<59) simT.push(setTimeout(tick,1000));},3200));
     $("#callEnd").focus(); }
   document.addEventListener("click",e=>{const a=e.target.closest('a[href^="tel:"]'); if(!a) return; e.preventDefault(); fakeCall();});
   $("#callEnd").addEventListener("click",endCall);
   sim.addEventListener("click",e=>{if(e.target===sim) endCall();});
   document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!sim.hidden) endCall();});
 
-  /* ---------- Site language flags ---------- */
+  /* ---------- Site language buttons ---------- */
   $$("[data-lang]").forEach(b=>b.addEventListener("click",()=>setLang(b.dataset.lang)));
 })();
 </script>

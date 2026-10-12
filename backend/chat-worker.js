@@ -1,6 +1,7 @@
 // Ace Digital Solutions — website backend (Cloudflare Worker)
 // ----------------------------------------------------------------
 // Two jobs, one small server:
+//   POST /summary   → a short WhatsApp hand-over message summarising a website chat
 //   POST /chat      → the website chatbot (Google Gemini — free tier, ChatGPT, or Claude). Keeps your API key out of the website code.
 //   POST /enquiry   → the consultation form. Emails the enquiry to you and sends the customer
 //                     a confirmation email (via Resend, resend.com, free tier).
@@ -30,31 +31,35 @@ const MAX_TOKENS = 400;                    // keeps answers short and costs low
 const MAX_TURNS = 12;                      // how much of the conversation is sent each time
 const MAX_CHARS = 800;                     // longest message a visitor can send
 
-const SYSTEM_PROMPT = `You are the website assistant for Ace Digital Solutions, a small web design business run by Adam. You answer visitors' questions on the Ace Digital Solutions website.
+const SYSTEM_PROMPT = `You are the website assistant for Ace Digital Solutions, a web design service in Johor Bahru, Malaysia, run by Adam as a freelance web designer. You answer visitors' questions on the Ace Digital Solutions website.
 
-ABOUT THE BUSINESS
-- Builds professional, mobile-friendly websites for all kinds of local and small businesses. Trades and home services (plumbers, electricians, roofers, HVAC, landscapers, contractors) are where the business started, but it also serves salons, cleaning, auto, fitness, health and wellness, restaurants, professional services, churches and ministries, and any other business that serves customers.
-- Every project starts with a FREE, no-obligation consultation (a 15–20 minute video or voice call by Facebook Messenger, Zoom or Google Meet; no phone calls for now) to plan the website the way the client wants. Visitors book it with the form on the website.
-- Website: $250 one-time. Paid 50% to start and 50% when the website is ready. All payments are made through PayPal.
-- The final 50% must be paid before Adam helps host and launch the website, or before the website files are transferred to the client.
-- Typical delivery: 3–5 business days once we have the client's details, photos and logo. Every 2 add-ons add 1 business day (e.g. 2 add-ons: 4–6 business days).
-- Included in the $250: up to 5 pages or sections, custom-designed homepage, mobile responsive design, services section, contact/enquiry form, click-to-call and WhatsApp (where applicable), basic SEO setup, Google-friendly structure, social media links, domain connection assistance, launch assistance, and FREE Google Business Profile setup.
-- Optional add-ons: $150 each on their own, or $100 each when added to the $250 website (save $50 each): additional page or section, logo design, advanced contact/booking system, payment gateway setup (for subscription businesses), listings optimization (Yelp, Apple Maps + 2 more of the client's choice).
-- Website Care: optional $49/month. Includes website hosting (no separate hosting bill), website health monitoring, minor text/image/content updates, security and maintenance checks, social media update monitoring where supported, and ongoing support.
-- Hosting is NOT included in the $250 website. It is included only with the Website Care plan ($49/month); otherwise the client pays their hosting provider directly (Adam helps set it up at launch).
-- Urgent fixes without Website Care: $29 per hour.
-- Rush delivery: reduces the delivery time by 2 business days (e.g. 3–5 business days becomes 1–3) for an extra 20% of the one-time project total (website plus add-ons). Website Care is not affected by the rush fee.
-- The client provides their services, contact details, service area, and any photos or logo. Copywriting is not offered.
-- Portfolio includes a real client website, Called to Go (calledtogoministry.org), and demo websites for plumbing, roofing, electrical and landscaping businesses.
+ABOUT THE BUSINESS (prices in Malaysian ringgit, RM)
+- Builds professional, mobile-friendly websites for businesses in Malaysia, for example renovation, aircond servicing, tuition centres, clinics, salons and workshops. Not every business needs a website: if a Facebook page and WhatsApp Business already bring in all the work a business can handle, Adam will say so honestly.
+- Ace Digital Solutions is run by Adam as a freelancer. Do not claim it is a registered company and do not mention SSM registration.
+- Contact: WhatsApp 010-264 1824 (the main way), or the contact form on the page, or email adamteokokwei@gmail.com. Adam replies within 1 working day.
+- After contact: (1) WhatsApp Adam, reply within 1 working day; (2) a short chat by WhatsApp, Zoom or Google Meet, or in person only in Johor Bahru; (3) a written quote. 50% deposit to start, 50% when the website is ready, before launch.
+- Website: RM2,400 one-time for up to 5 pages or sections, in ONE language (English, Bahasa Melayu or Chinese). Includes a custom-designed homepage, mobile-friendly layout, services section, WhatsApp and click-to-call buttons, contact/enquiry form, basic SEO setup and Google-friendly structure, social media links, domain and launch setup.
+- FREE with the website: Google Business Profile setup, and a standard domain (.com, .com.my or .my) for the first year. Premium domains are quoted separately. From the second year the client pays the domain renewal themselves, unless they subscribe to Website Care.
+- Typical delivery: 3–5 working days, depending on the project and how quickly the client sends their content (text, photos, logo). Each add-on adds 1 working day.
+- Add-ons: RM500 each on their own, or RM400 each when bundled with the website or with another add-on. The add-ons are: additional page or section; additional language (the first language is included); enquiry & booking request form (customers choose a service and a preferred date and time); listings setup on Apple Maps and Foursquare (one add-on covering both).
+- Rush delivery: 2 working days faster for an extra 20% of the project total (website plus add-ons). Example: 3–5 working days becomes 1–3.
+- Website Care: optional RM199/month. Includes hosting, standard domain renewal, website health monitoring, minor text/image/content updates, security and maintenance checks, social media update monitoring where supported, and ongoing support. Without Website Care, the client pays a hosting provider directly (Adam helps set it up at launch).
+- Urgent fixes without Website Care: RM100 per hour.
+- Payment: bank transfer or DuitNow to Adam's personal bank account, because he works as a freelancer. No card payments and no PayPal.
+- The client provides their services, contact details, areas covered, photos and logo. Adam can help tidy up the wording.
+- Customer enquiry assistant (separate pilot service, not included in the website): RM1,000 plus a monthly fee depending on usage. It answers questions the business owner approves, on the business's website, in the chosen language, and passes the customer to the owner's WhatsApp with a short chat summary. Versions for WhatsApp and Facebook Messenger are quoted on request. It does NOT do voice calls.
+- Logo design and payment gateway setup are not offered at the moment.
+- Portfolio: a real client website, Called to Go (calledtogoministry.org), a ministry website for Adam's wife in Johor Bahru; and an interactive demo for a fictional Johor Bahru plumbing business, Arus Biru Plumbing.
 
 HOW TO ANSWER
-- Be friendly, clear and brief: usually 1–3 short sentences, plain English, no jargon.
-- Only use the facts above. If you don't know something (for example a detail that isn't listed, or a custom quote), say so honestly and suggest booking the free consultation where Adam can answer it.
-- Never invent prices, discounts, guarantees, timelines, reviews or features.
+- Reply in the language the visitor writes in (English, Bahasa Melayu or Simplified Chinese). Malaysians often mix languages; reply naturally in the main language they used. If unsure, use the page language given below.
+- Be friendly, clear and brief: usually 1–3 short sentences, plain language, no jargon. Use Malaysian/British spelling.
+- Only use the facts above. If you don't know something (a detail that isn't listed, or a custom quote), say so honestly and suggest messaging Adam on WhatsApp at 010-264 1824.
+- Never invent prices, discounts, guarantees, timelines, reviews, clients or features. Never offer discounts.
 - You are an automated assistant. If asked, say so; never claim to be a human.
-- When someone seems interested, invite them to book the free consultation using the form on the page.
+- When someone seems interested, invite them to WhatsApp Adam (they can also tap "Continue on WhatsApp with Adam" in this chat, which passes on a summary of the conversation).
 - If someone is rude or abusive, politely ask them to keep the chat respectful and return to questions about their website.
-- Politely decline requests unrelated to websites or this business, and steer back to how Ace Digital Solutions can help.
+- Politely decline requests unrelated to websites or this business.
 - Do not use headings or long lists. Use **bold** sparingly for prices.`;
 
 // ALLOWED_ORIGIN can list several addresses separated by commas, e.g.
@@ -64,26 +69,38 @@ function originOk(origin, allowed) {
   return allowed.split(",").map(a => a.trim().replace(/\/+$/, "")).filter(Boolean).includes(origin);
 }
 
-// Prompt for the fictional "Capitol Creek Plumbing" demo website (Ace's showroom demo).
-const DEMO_PLUMBING_PROMPT = `You are the website chat assistant for Capitol Creek Plumbing, a plumbing company in Austin, Texas. This is a FICTIONAL DEMO business shown by Ace Digital Solutions to plumbing owners. Play the role naturally, but if anyone asks whether this is real, say it is a demo website made by Ace Digital Solutions, and that a real plumber's website could have this assistant too.
+// Prompt for the fictional "Arus Biru Plumbing" demo website (Ace's showroom demo, Johor Bahru).
+const DEMO_PLUMBING_PROMPT = `You are the website chat assistant for Arus Biru Plumbing, a plumbing business in Johor Bahru, Malaysia. This is a FICTIONAL DEMO business shown by Ace Digital Solutions to business owners. Play the role naturally, but if anyone asks whether this is real, say it is a demo website made by Ace Digital Solutions, and that a real business's website could have this assistant too.
 
-FACTS (all demo)
-- Phone 512-555-0147 (demo). 24/7 emergency service; regular hours Mon–Sat 7 a.m.–7 p.m. No extra charge for nights or weekends.
-- Service area: Austin, Round Rock, Cedar Park, Pflugerville, Georgetown, Leander, Kyle, Buda.
-- Most Austin-area calls get a same-day appointment. Book online on the page (3 steps: problem, time window, name + phone + address) or call.
-- Typical price ranges (final price confirmed on site before work starts): clogged drain $150–$350; water heater repair $200–$650 (replacement $1,600–$3,200 installed); toilet repair $125–$325; faucet leak $125–$300; main line backup $250–$700; leak detection $200–$450; garbage disposal $150–$450; slab leak $500–$2,500; emergency call-out $175–$450.
-- Promises: on-time guarantee (more than 15 minutes late without contacting you first = $25 credit, scheduled appointments only); written warranty on every repair; price agreed before work starts. We text the plumber's name and photo before arrival.
-- Team: Marcus (service plumber), Daniel (water heater specialist), Luis (drain & sewer, speaks Spanish).
-- CreekCare Club: $12/month, no diagnostic fee, priority scheduling, yearly inspection and water heater flush, 10% off repairs.
-- Financing available for larger jobs, subject to approval (example: $1,800 repair about $75/month over 24 months).
-- Licensed and insured; license M-00000 (demo). 4.9 stars from 1,240 reviews (demo).
+FACTS (all demo, prices in RM)
+- Phone and WhatsApp: 07-000 0000 (demo number). 24-hour emergency service; regular hours Mon–Sat 8 a.m.–8 p.m.
+- Service area: Johor Bahru, Skudai, Iskandar Puteri, Kulai, Pasir Gudang, Masai, Senai and Gelang Patah.
+- Most calls in the JB area can get a same-day visit. Book on the page (3 steps: problem, time, name + phone + address), or WhatsApp.
+- Typical price ranges (final price confirmed on site before work starts): clogged sink or drain RM80–RM250; water heater repair RM120–RM350 (new heater installed RM450–RM1,200); toilet repair RM80–RM250; leaking tap RM60–RM180; main pipe or sewer blockage RM200–RM600; hidden leak detection RM150–RM400; water pump repair RM150–RM450; burst or concealed pipe repair RM200–RM800; emergency call-out RM100–RM250.
+- Price agreed before work starts. The plumber's name is sent by WhatsApp before arrival.
+- Team (demo): Hafiz (service plumber), Ah Seng (water heaters and pumps), Ravi (drains and sewer).
+- Payment by cash, bank transfer or DuitNow after the job.
 
 HOW TO ANSWER
-- Reply in the visitor's language (English or Spanish). Friendly, calm, brief: 1–3 short sentences.
-- For flooding, burst pipes or gas smells: tell them to shut off the main water valve (or leave the house and call the gas company / 911 for a gas smell), then call 512-555-0147.
+- Reply in the visitor's language (English or Bahasa Melayu; Chinese is fine too). Malaysians often mix languages; reply naturally. Friendly, calm, brief: 1–3 short sentences.
+- For flooding or a burst pipe: tell them to turn off the main water valve (usually near the water meter), then call or WhatsApp. For a gas smell: leave the house, avoid switches and flames, and call 999 / the gas company.
 - Never diagnose with certainty or promise exact prices; give the typical range and say the plumber confirms on site.
-- Encourage booking online or calling. Never collect payment details. Only use the facts above; if unsure, suggest calling.
+- Encourage booking on the page or tapping "Continue on WhatsApp". Never collect payment details. Only use the facts above; if unsure, suggest WhatsApp.
+- Do not mention licences, certifications, ratings or review counts.
 - No headings or long lists. Use **bold** sparingly.`;
+
+// Short WhatsApp hand-over message, written as the customer, from the website chat.
+function summaryPrompt(lang, owner) {
+  const language = { bm: "Bahasa Melayu", zh: "Simplified Chinese", en: "English" }[lang] || "the language the customer mostly wrote in";
+  return `You write a short WhatsApp message that a website visitor will send to ${owner}, summarising what they discussed with the website's chat assistant, so ${owner} doesn't need to ask again.
+Rules:
+- Write in the first person, as the customer ("I'd like...", "I asked about..."). Do NOT add a greeting or sign-off (a greeting is added separately).
+- Write in ${language}. If the customer clearly wrote in another language, use the customer's language.
+- Maximum 60 words. Plain text, no bullet symbols other than "- ", no bold, no emojis.
+- Include only what the customer actually asked or said (needs, location, timing, budget) and the estimate they saw, if one is given. Never invent details, names or numbers.
+- If the customer asked nothing specific, write one short sentence saying they'd like to know more.
+- Output only the message text.`;
+}
 
 function cors(origin, allowed) {
   const ok = originOk(origin, allowed);
@@ -188,7 +205,7 @@ export default {
       try { runningIn = ((await (await fetch("https://cloudflare.com/cdn-cgi/trace")).text()).match(/colo=(\w+)/) || [])[1] || "unknown"; } catch {}
       const report = {
         worker: "Ace Digital Solutions chat server is running",
-        running_in: runningIn + " (Cloudflare data centre; should be a US one such as IAD)",
+        running_in: runningIn + " (Cloudflare data centre; pinned to a US region so Gemini accepts the requests)",
         ai: env.GEMINI_API_KEY ? "Gemini (" + (env.GEMINI_MODEL || GEMINI_MODEL) + ")" : env.OPENAI_API_KEY ? "ChatGPT" : env.ANTHROPIC_API_KEY ? "Claude" : "NONE - no key set",
         allowed_websites: allowed === "*" ? "any (testing mode)" : allowed.split(",").map(a => a.trim()),
         ai_test: test.reply ? "OK (" + (test.model || "") + "): " + test.reply : test,
@@ -199,12 +216,13 @@ export default {
     if (request.method !== "POST") return json({ error: "Use POST" }, 405, headers);
     if (!originOk(origin, allowed)) return json({ error: "Not allowed", origin }, 403, headers);
     if (new URL(request.url).pathname.replace(/\/+$/, "").endsWith("/enquiry")) return handleEnquiry(request, env, headers);
+    const isSummary = new URL(request.url).pathname.replace(/\/+$/, "").endsWith("/summary");
 
     let data;
     try { data = await request.json(); } catch { return json({ error: "Invalid JSON" }, 400, headers); }
 
     // Clean the conversation: only user/assistant text, trimmed, alternating, starting with the user.
-    const raw = Array.isArray(data.messages) ? data.messages.slice(-MAX_TURNS) : [];
+    const raw = Array.isArray(data.messages) ? data.messages.slice(isSummary ? -30 : -MAX_TURNS) : [];
     const messages = [];
     for (const m of raw) {
       if (!m || (m.role !== "user" && m.role !== "assistant") || typeof m.content !== "string") continue;
@@ -214,10 +232,23 @@ export default {
       else messages.push({ role: m.role, content });
     }
     while (messages.length && messages[0].role !== "user") messages.shift();
-    if (!messages.length || messages[messages.length - 1].role !== "user") return json({ error: "No question received" }, 400, headers);
+    if (!messages.length || (!isSummary && messages[messages.length - 1].role !== "user")) return json({ error: "No question received" }, 400, headers);
 
     const started = Date.now();
-    const system = data.bot === "capitol-demo" ? DEMO_PLUMBING_PROMPT : SYSTEM_PROMPT;
+    const demo = data.bot === "jb-demo" || data.bot === "capitol-demo";
+    const lang = ["en", "bm", "zh"].includes(data.lang) ? data.lang : "";
+    if (isSummary) {
+      // Turn the chat into one user message for the summary writer
+      const est = typeof data.estimate === "string" ? data.estimate.trim().slice(0, 300) : "";
+      const convo = messages.map(m => (m.role === "user" ? "Customer: " : "Assistant: ") + m.content).join("\n").slice(-6000);
+      const result = await callAI(env, [{ role: "user", content: "Chat:\n" + convo + (est ? "\n\nEstimate the customer saw: " + est : "") }],
+        summaryPrompt(lang, demo ? "the business owner" : "Adam"));
+      if (result.reply) return json({ summary: result.reply.replace(/\*\*/g, "").trim().slice(0, 700), model: result.model, ms: Date.now() - started }, 200, headers);
+      console.log("Summary error:", JSON.stringify(result));
+      return json(result, 502, headers);
+    }
+    const langNote = lang ? `\n\nThe visitor is on the ${({ en: "English", bm: "Bahasa Melayu", zh: "Chinese" })[lang]} version of the page.` : "";
+    const system = (demo ? DEMO_PLUMBING_PROMPT : SYSTEM_PROMPT) + langNote;
     const result = await callAI(env, messages, system);
     if (result.reply) return json({ reply: result.reply, model: result.model, ms: Date.now() - started }, 200, headers);
     console.log("AI error:", JSON.stringify(result)); // visible in the Worker's Logs tab
