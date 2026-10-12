@@ -45,7 +45,7 @@ ABOUT THE BUSINESS (prices in Malaysian ringgit, RM)
 - Rush delivery: 2 working days faster for an extra 20% of the project total (website plus add-ons). Example: 3–5 working days becomes 1–3.
 - Website Care: optional RM199/month. Includes hosting, standard domain renewal, website health monitoring, minor text/image/content updates, security and maintenance checks, social media update monitoring where supported, and ongoing support. Without Website Care, the client pays a hosting provider directly (Adam helps set it up at launch).
 - Urgent fixes without Website Care: RM100 per hour.
-- Payment: bank transfer or DuitNow to Adam's personal bank account, because he works as a freelancer. No card payments and no PayPal.
+- Payment: DuitNow, Touch 'n Go eWallet or cash only. Payments go to Adam personally, because he works as a freelancer. No bank cards, no PayPal and no other methods.
 - The client provides their services, contact details, areas covered, photos and logo. Adam can help tidy up the wording.
 - Customer enquiry assistant (separate pilot service, not included in the website): RM1,000 plus a monthly fee depending on usage. It answers questions the business owner approves, on the business's website, in the chosen language, and passes the customer to the owner's WhatsApp with a short chat summary. Versions for WhatsApp and Facebook Messenger are quoted on request. It does NOT do voice calls.
 - Logo design and payment gateway setup are not offered at the moment.
@@ -247,7 +247,7 @@ export default {
       console.log("Summary error:", JSON.stringify(result));
       return json(result, 502, headers);
     }
-    const langNote = lang ? `\n\nThe visitor is on the ${({ en: "English", bm: "Bahasa Melayu", zh: "Chinese" })[lang]} version of the page.` : "";
+    const langNote = lang ? `\n\nThe visitor has chosen ${({ en: "English", bm: "Bahasa Melayu", zh: "Simplified Chinese" })[lang]} for this chat; reply in that language unless they clearly write in another one.` : "";
     const system = (demo ? DEMO_PLUMBING_PROMPT : SYSTEM_PROMPT) + langNote;
     const result = await callAI(env, messages, system);
     if (result.reply) return json({ reply: result.reply, model: result.model, ms: Date.now() - started }, 200, headers);

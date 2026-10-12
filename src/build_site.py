@@ -81,7 +81,7 @@ def tr_chunk(c, D, missing):
 
 def js_keys(s):
     keys = set(EXTRA_JS_KEYS)
-    for m in re.finditer(r'\bL\("((?:[^"\\]|\\.)*)"', s):
+    for m in re.finditer(r'\b[LC]\("((?:[^"\\]|\\.)*)"', s):
         keys.add(json.loads('"' + m.group(1) + '"'))
     keys.discard("English text")                  # appears only in a code comment
     return keys
@@ -141,6 +141,11 @@ def preview_paths(page, root):
 def build(show_missing=False, preview_dir=None):
     src = open(SRC, encoding="utf-8").read()
     keys = js_keys(src)
+    global ALL_JS
+    ALL_JS = {}
+    for c in ("bm", "zh"):
+        Dc = json.load(open(os.path.join(ROOT, "src", "i18n", c + ".json"), encoding="utf-8"))
+        ALL_JS[c] = {k: Dc[k] for k in keys if k in Dc}
     report = {}
     for code, cfg in LANGS.items():
         s = src
@@ -157,6 +162,12 @@ def build(show_missing=False, preview_dir=None):
             s = s.replace('/*LANG*/"en"/*/LANG*/', '/*LANG*/"%s"/*/LANG*/' % code)
             s = s.replace("/*I18N*/{}/*/I18N*/", "/*I18N*/" + json.dumps(js, ensure_ascii=False).replace("</", "<\\/") + "/*/I18N*/")
         s = s.replace("{{BLOG_NOTE}}", cfg["blog_note"])
+        # Blog: keep only the posts written in this page's language
+        s = s.replace("<!--BLOG_TRANSLATIONS-->", open(os.path.join(ROOT, "src", "blog-translations.html"), encoding="utf-8").read())
+        s = re.sub(r'<script type="text/plain" class="blog-post"[^>]*data-lang="(\w+)"[^>]*>.*?</script>\n?',
+                   lambda m: m.group(0) if m.group(1) == code else "", s, flags=re.S)
+        s = re.sub(r"<!-- (Bahasa Melayu|Simplified Chinese) blog posts[^>]*-->\n?", "", s)
+        s = s.replace("/*I18N_ALL*/{}/*/I18N_ALL*/", "/*I18N_ALL*/" + json.dumps(ALL_JS, ensure_ascii=False).replace("</", "<\\/") + "/*/I18N_ALL*/")
         s = s.replace("{{WA}}", H.escape(wa_link(cfg["wa_text"]), quote=True))
         head = head_for(code, cfg)
         head += f'<script type="application/ld+json">{json.dumps(faq_jsonld(s), ensure_ascii=False)}</script>\n'
