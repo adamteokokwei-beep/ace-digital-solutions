@@ -22,19 +22,16 @@ LANGS = {
          "title": "Professional Websites for Malaysian Businesses | Ace Digital Solutions",
          "desc": "Professional, mobile-friendly websites for businesses in Malaysia, built by Adam in Johor Bahru. RM1,600 for up to 8 pages with a website chatbot, or RM1,500 without, with a free domain for the first year and free Google Business Profile setup.",
          "wa_text": "Hi Adam, I'm interested in a website for my business.",
-         "wa_tuition": "Hi Adam, I'd like to know more about the tuition centre website pilot.",
          "blog_note": ""},
   "bm": {"path": "/bm/", "html_lang": "ms-MY", "hreflang": "ms", "og_locale": "ms_MY",
          "title": "Laman Web Profesional untuk Perniagaan di Malaysia | Ace Digital Solutions",
          "desc": "Laman web profesional dan mesra telefon untuk perniagaan di Malaysia, dibina oleh Adam di Johor Bahru. RM1,600 untuk sehingga 8 halaman bersama chatbot laman web, atau RM1,500 tanpanya, dengan domain percuma untuk tahun pertama dan persediaan Google Business Profile percuma.",
          "wa_text": "Hai Adam, saya berminat dengan laman web untuk perniagaan saya.",
-         "wa_tuition": "Hai Adam, saya ingin tahu lebih lanjut tentang perintis laman web untuk pusat tuisyen.",
          "blog_note": "Artikel blog buat masa ini dalam Bahasa Inggeris sahaja."},
   "zh": {"path": "/zh/", "html_lang": "zh-Hans", "hreflang": "zh-Hans", "og_locale": "zh_CN",
          "title": "为马来西亚企业打造的专业网站 | Ace Digital Solutions",
          "desc": "由新山的 Adam 亲自为马来西亚企业打造专业、适合手机浏览的网站。RM1,600，最多 8 个页面并含网站聊天机器人（不含则 RM1,500），首年域名免费，并免费设置 Google 商家资料（Google Business Profile）。",
          "wa_text": "Adam 你好，我想了解为我的生意制作网站。",
-         "wa_tuition": "Adam 你好，我想了解补习中心网站试行配套。",
          "blog_note": "博客文章目前只有英文版。"},
 }
 # Text used by the page script through a variable rather than L("…"), so it is not found automatically
@@ -172,7 +169,6 @@ def build(show_missing=False, preview_dir=None):
                    lambda m: m.group(0) if m.group(1) == code else "", s, flags=re.S)
         s = re.sub(r"<!-- (Bahasa Melayu|Simplified Chinese) blog posts[^>]*-->\n?", "", s)
         s = s.replace("/*I18N_ALL*/{}/*/I18N_ALL*/", "/*I18N_ALL*/" + json.dumps(ALL_JS, ensure_ascii=False).replace("</", "<\\/") + "/*/I18N_ALL*/")
-        s = s.replace("{{WA_TUITION}}", H.escape(wa_link(cfg["wa_tuition"]), quote=True))
         s = s.replace("{{WA}}", H.escape(wa_link(cfg["wa_text"]), quote=True))
         head = head_for(code, cfg)
         head += f'<script type="application/ld+json">{json.dumps(faq_jsonld(s), ensure_ascii=False)}</script>\n'

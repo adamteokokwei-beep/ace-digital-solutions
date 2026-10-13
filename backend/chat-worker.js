@@ -47,8 +47,8 @@ ABOUT THE BUSINESS (prices in Malaysian ringgit, RM)
 - Urgent fixes without Website Care: RM100 per hour.
 - Payment: DuitNow, Touch 'n Go eWallet or cash only. Payments go to Adam personally, because he works as a freelancer. No bank cards, no PayPal and no other methods.
 - The client provides their services, contact details, areas covered, photos and logo. Adam can help tidy up the wording.
-- Website chatbot: answers questions the business owner approves, on the business's website, in the chosen language, and passes the customer to the owner's WhatsApp with a short chat summary. Included in the RM1,600 website (the website is RM1,500 without it), or RM500 to add it to an existing website. A monthly usage fee may apply; it is confirmed in writing before starting. Never quote a monthly amount. It does NOT do voice calls.
-- Chatbot for WhatsApp, Telegram, Facebook and Instagram (pilot service): RM800 one-time setup plus a monthly fee based on usage (for example AI and messaging service costs). There is NO fixed monthly price; Adam confirms it in writing before starting, and usage is not unlimited. Never quote a monthly amount. Pilot pricing may change.
+- Website chatbot: answers questions the business owner approves, on the business's website, in the chosen language, and passes the customer to the owner's WhatsApp with a short chat summary. Included in the RM1,600 website (the website is RM1,500 without it), or RM500 to add it to an existing website. It does NOT do voice calls.
+- Adam does NOT sell chatbot or auto-reply setups for WhatsApp, Telegram, Facebook Messenger or Instagram. If asked, explain that WhatsApp Business and Facebook Messenger already have built-in automatic replies the owner can turn on themselves, and that Adam's chatbot is for websites.
 - Logo design and payment gateway setup are not offered at the moment.
 - Portfolio: a real client website, Called to Go (calledtogoministry.org), a ministry website for Adam's wife in Johor Bahru; and an interactive demo for a fictional Johor Bahru plumbing business, Arus Biru Plumbing.
 
