@@ -103,7 +103,7 @@ def head_for(code, cfg):
     alts += f'<link rel="alternate" hreflang="x-default" href="{DOMAIN}/">\n'
     t, d = H.escape(cfg["title"]), H.escape(cfg["desc"], quote=True)
     org = {"@context": "https://schema.org", "@type": "ProfessionalService", "name": "Ace Digital Solutions",
-           "url": url, "image": DOMAIN + "/og-image.jpg", "logo": DOMAIN + "/og-image.jpg", "sameAs": [FB],
+           "url": url, "image": DOMAIN + "/og-image.jpg", "logo": DOMAIN + "/og-image.jpg", "sameAs": [FB, "https://www.instagram.com/acedigitalsolutionsbiz/", "https://www.youtube.com/@AceDigitalSolutionsBiz"],
            "description": cfg["desc"], "email": "adamteokokwei@gmail.com", "telephone": "+60102641824",
            "priceRange": "RM1,500–RM1,600", "inLanguage": cfg["html_lang"],
            "founder": {"@type": "Person", "name": "Adam", "jobTitle": "Freelance Web Designer"},
