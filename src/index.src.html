@@ -1061,6 +1061,124 @@ details summary::after{transition:transform .25s cubic-bezier(.2,.9,.25,1)}
 }
 
 @media (prefers-reduced-motion:reduce){.chat-fab:hover,.chat-fab:hover .ico{transform:none!important}.fab-tip{transform:none!important}}
+
+/* =====================================================================
+   APPLE-STYLE THEME — light, airy, big type, pill buttons, soft panels
+   ===================================================================== */
+:root{
+  --ink:#1D1D1F; --muted:#6E6E73; --muted-d:#6E6E73; --bg:#FFFFFF; --tint:#F5F5F7; --tint-2:#F5F5F7;
+  --blue:#0071E3; --blue-d:#0062C4; --blue-l:#0071E3; --line:#E8E8ED; --line-d:#E8E8ED;
+  --f-head:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter","Segoe UI",system-ui,sans-serif;
+  --f-body:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",system-ui,sans-serif;
+  --r:14px; --r-lg:22px; --shadow:0 4px 24px rgba(0,0,0,.06);
+}
+body{background:#fff;color:var(--ink);font-size:17px;letter-spacing:-.011em}
+h1,h2,h3,h4{font-family:var(--f-head);font-weight:700;letter-spacing:-.022em}
+.muted,.dark .muted{color:var(--muted)}
+.eyebrow,.dark .eyebrow{color:#BF4800;font:600 14px/1.2 var(--f-body);letter-spacing:0;text-transform:none}
+/* every former navy band becomes Apple's light grey */
+.dark{background:#F5F5F7!important;color:var(--ink)!important}
+.band{padding-block:clamp(72px,9vw,128px)}
+
+/* Header: light frosted glass, small type */
+.site-head{background:rgba(255,255,255,.72)!important;color:var(--ink)!important;box-shadow:0 1px 0 rgba(0,0,0,.08)!important}
+.logo{color:var(--ink)}
+.logo b{font-weight:700;letter-spacing:0}
+.nav a{color:rgba(0,0,0,.8);font-size:13px;font-weight:400}
+.nav a.on{color:#000}
+.nav a.on::after{background:#000;height:1.5px}
+@media (hover:hover) and (pointer:fine){.nav a:hover{color:#000}.lang a:hover{color:#000}}
+.lang a{color:rgba(0,0,0,.6)}
+.lang a.on{color:#000;text-decoration-color:#000}
+.burger{color:var(--ink)}
+@media (max-width:1024px){
+  .nav{background:rgba(255,255,255,.98)!important;box-shadow:0 20px 40px -20px rgba(0,0,0,.25)}
+  .nav a{color:var(--ink);font-size:20px;font-weight:600;padding:12px 4px}
+  .head-in>.lang{border-color:rgba(0,0,0,.15)}
+  .head-in>.lang a.on{background:var(--ink);color:#fff}
+}
+
+/* Buttons: pills */
+.btn{border-radius:980px;font-weight:500;font-size:16px;padding:.85em 1.5em;letter-spacing:-.01em}
+.btn-primary{background:var(--blue);box-shadow:none}
+.btn-wa{background:#1F9D55;box-shadow:none}
+.btn-red,.head-cta{border-radius:980px;box-shadow:none!important}
+@media (hover:hover) and (pointer:fine){.btn-primary:hover{background:var(--blue-d);transform:none}.btn-wa:hover{background:#178A49;transform:none}.btn-red:hover{transform:none}}
+.text-link,.text-link.dark-ink{color:var(--blue);text-decoration:none;font-weight:500}
+@media (hover:hover) and (pointer:fine){.text-link:hover,.text-link.dark-ink:hover{text-decoration:underline;color:var(--blue)}}
+
+/* Hero: centred, huge headline, product shot underneath */
+.hero.dark{background:#fff!important}
+.hero{padding-block:clamp(56px,8vw,104px) 0}
+.hero-grid{grid-template-columns:1fr;justify-items:center;text-align:center;gap:clamp(36px,5vw,64px)}
+.hero h1{font-size:clamp(44px,7.2vw,96px);line-height:1.03;letter-spacing:-.038em;max-width:12em}
+.hero h1 span{background:linear-gradient(90deg,#0071E3 0%,#7A5CFF 55%,#E34B8F 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .lede{color:var(--muted)!important;font-size:clamp(19px,2vw,24px);line-height:1.4;max-width:34em;margin-inline:auto;text-shadow:none!important}
+.hero h1,.hero .fact,.consult-note{text-shadow:none!important}
+.hero-facts{justify-content:center}
+.fact{color:var(--ink);text-shadow:none!important}
+.fact .ico{color:var(--blue)}
+.hero-cta{justify-content:center}
+.hero .eyebrow{display:block}
+.stage{justify-self:center;max-width:980px;margin-bottom:-2px}
+.consult-note{justify-content:center;color:var(--muted)}
+
+/* Section headings: big and centred where they stand alone */
+.sec-title{font-size:clamp(34px,4.6vw,56px);letter-spacing:-.03em;line-height:1.06}
+.why h2{font-size:clamp(36px,5vw,64px);letter-spacing:-.035em;line-height:1.05}
+.why h2 span{color:var(--blue)}
+.why p.copy,.contact .copy{color:var(--muted)!important;font-size:19px}
+
+/* Panels: soft, borderless, generously rounded */
+.why .card,.why .compare > *,.fit-card,.price-card,.care-card,.bot-card,.post-card,.work-card,.founder,.faq-sec details,.contact-form,form.contact-form{border:0!important;border-radius:var(--r-lg)!important}
+
+/* --- second pass: fix dark-designed pieces --- */
+.stage .note{display:none}
+.why-pill,.faq-pill{background:none;color:#BF4800;padding:0;font:600 15px/1.2 var(--f-body);letter-spacing:0;text-transform:none;border-radius:0}
+.why-pill .ico,.faq-pill .ico{display:none}
+.vs-social{background:#fff;border:0;color:var(--muted)}
+.vs-social h3,.vs-social li b{color:var(--ink)}
+.vs-social .x{background:#F5F5F7;color:var(--muted)}
+.vs-site{box-shadow:0 30px 60px -30px rgba(0,0,0,.25);border-radius:var(--r-lg)}
+.fit,.fit.yes{background:#F5F5F7;border:0}
+.fit ul{color:#424245}
+.inc-list li{color:var(--ink)}
+.pricing .right{background:#fff}
+.contact-alt{color:var(--muted)}
+.contact-alt a{color:var(--blue)}
+footer{background:#F5F5F7;color:var(--muted);font-size:12.5px;border-top:1px solid #E8E8ED}
+footer .logo{color:var(--ink)}
+.foot a{color:#424245}
+@media (hover:hover) and (pointer:fine){.foot a:hover{color:#000;text-decoration:underline}}
+.inc-list li.hl-li b{color:var(--ink)}
+.bonus-fine{color:var(--muted)}
+
+/* --- third pass --- */
+.about-hero .lede,.article-hero .lede,.cta-panel p,.about-cta p,.article-cta p{color:var(--muted)!important}
+.article-hero .meta{color:var(--muted)}
+.article-hero .meta b{color:var(--ink)}
+.article-hero .back{color:var(--blue)}
+.article-hero .eyebrow::before{display:none}
+.article-hero h1{font-size:clamp(36px,5vw,64px);letter-spacing:-.035em;line-height:1.05}
+.cat-filter button{border:0;background:#fff;color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.cat-filter button[aria-pressed="true"]{background:var(--ink);color:#fff}
+/* article pages keep their photo header: dark, white text */
+.article-hero.has-cover{background:#000!important;color:#fff!important}
+.article-hero.has-cover::before{background:linear-gradient(90deg,#000 0%,#000 36%,rgba(0,0,0,.72) 52%,rgba(0,0,0,.08) 82%)}
+.article-hero.has-cover .lede{color:rgba(255,255,255,.82)!important}
+.article-hero.has-cover .meta{color:rgba(255,255,255,.7)}
+.article-hero.has-cover .meta b{color:#fff}
+.article-hero.has-cover .eyebrow{color:#FF9F45}
+.article-hero.has-cover .back{color:#4DA3FF}
+.article-hero.has-cover h1 .hl{background:linear-gradient(90deg,#4DA3FF,#A98BFF);-webkit-background-clip:text;background-clip:text;color:transparent}
+@media (max-width:900px){.article-hero.has-cover::before{background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.82) 45%,rgba(0,0,0,.94) 75%)}}
+
+/* header call button keeps compact sizes */
+.site-head .head-cta{font-size:14px;padding:.55em 1.05em}
+@media (max-width:440px){.site-head .head-cta{font-size:13px;padding:.55em .75em}}
+@media (max-width:380px){.site-head .head-cta{padding:0}}
+@media (max-width:400px){html:lang(ms) .site-head .head-cta{padding:0}}
+.chat-scrim{width:100%;right:auto}
 </style>
 
 <!-- Icon sprite -->
