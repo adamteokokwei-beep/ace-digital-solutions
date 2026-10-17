@@ -1082,6 +1082,18 @@ details summary::after{transition:transform .25s cubic-bezier(.2,.9,.25,1)}
 @media (prefers-reduced-transparency:reduce){.site-head,.nav{background:var(--navy)!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}}
 @media (prefers-contrast:more){.site-head{background:var(--navy);border-bottom:1px solid rgba(255,255,255,.5)}}
 @media (prefers-reduced-motion:reduce){.btn:active,.quick button:active,.chat-fab:active,.side-social a:active,.post-card:active{transform:none}.nav{transform:none!important}}
+
+/* Chat bubble hover: lifts, icon tilts, a label slides out (mouse only) */
+.chat-fab .ico{transition:transform .35s cubic-bezier(.2,.9,.25,1)}
+.fab-tip{position:fixed;right:80px;bottom:calc(31px + env(safe-area-inset-bottom,0px));z-index:59;background:#fff;color:var(--ink,#0F172A);border:1px solid rgba(11,18,32,.08);font:600 13.5px/1 var(--f-body);padding:10px 14px;border-radius:999px;white-space:nowrap;box-shadow:0 12px 28px -12px rgba(11,18,32,.6);opacity:0;transform:translateX(10px) scale(.96);transform-origin:right center;pointer-events:none;transition:opacity .18s ease,transform .3s cubic-bezier(.2,.9,.25,1)}
+@media (hover:hover) and (pointer:fine){
+  body:not(.chat-open) .chat-fab:hover{transform:translateY(-3px) scale(1.06);box-shadow:0 20px 38px -12px rgba(37,99,235,.95)}
+  body:not(.chat-open) .chat-fab:hover .ico{transform:rotate(-10deg) scale(1.05)}
+  body:not(.chat-open) .chat-fab:hover + .fab-tip{opacity:1;transform:none}
+  body:not(.chat-open) .chat-fab:active{transform:scale(.96)}
+}
+
+@media (prefers-reduced-motion:reduce){.chat-fab:hover,.chat-fab:hover .ico{transform:none!important}.fab-tip{transform:none!important}}
 </style>
 </head>
 <body>
@@ -1566,6 +1578,7 @@ details summary::after{transition:transform .25s cubic-bezier(.2,.9,.25,1)}
   <a class="ss-yt" href="https://www.youtube.com/@AceDigitalSolutionsBiz/shorts" target="_blank" rel="noopener" aria-label="Ace Digital Solutions di YouTube" title="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#FF0000" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8z"/><path fill="#fff" d="M9.6 15.6V8.4l6.2 3.6z"/></svg></a>
 </div>
 <button class="chat-fab" id="chatFab" type="button" aria-label="Buka sembang" aria-expanded="false" aria-controls="chat"><svg class="ico"><use href="#i-msg"/></svg></button>
+<span class="fab-tip" aria-hidden="true">Ada soalan? Tanya di sini</span>
 <div class="chat" id="chat" hidden role="dialog" aria-label="Pembantu laman web">
   <div class="chat-top"><span class="av"><svg class="ico"><use href="#i-bot"/></svg></span><div><b>Pembantu Ace</b><small>Pembantu automatik · jawapan pantas</small></div><button type="button" id="chatReset" class="reset-btn" aria-label="Set semula sembang" title="Set semula sembang"><svg class="ico"><use href="#i-reset"/></svg><span>Set semula</span></button><button type="button" id="chatClose" aria-label="Tutup sembang"><svg class="ico" style="width:20px;height:20px"><use href="#i-x"/></svg></button></div>
   <div class="chat-langbar" role="group" aria-label="Bahasa sembang"><button type="button" data-chat-lang="en">EN</button><button type="button" data-chat-lang="bm">BM</button><button type="button" data-chat-lang="zh">中文</button></div>
