@@ -1222,6 +1222,51 @@ footer .logo{color:var(--ink)}
 .hero .stage .phone .screen{background:radial-gradient(120% 70% at 50% 0%,rgba(122,92,255,.12),transparent 65%),linear-gradient(180deg,#FBFBFD,#F1F4FF)}
 @media (max-width:900px){.hero .stage{width:112%;top:-16px;transform:translateX(-50%)}.hero .stage .laptop{left:0;width:100%}.hero .stage .phone{display:none}}
 @media (prefers-reduced-transparency:reduce){.hero .stage{display:none}}
+/* NEAT PRICING (under the hero) */
+.pricing{display:block!important;background:#fff!important;padding:clamp(64px,8vw,112px) 0 clamp(40px,5vw,64px)}
+.pricing .left,.pricing .right{padding:0 var(--gut)!important;max-width:var(--wrap);margin:0 auto;background:none!important}
+.pricing .left > .sec-title,.pricing .left > .sec-lede{text-align:center;margin-left:auto;margin-right:auto}
+.pricing .left > .sec-lede{max-width:34em}
+.pricing .inc-grid{grid-template-columns:minmax(0,360px) minmax(0,1fr)!important;gap:20px 40px;align-items:start!important;margin-top:40px;background:#F5F5F7;border-radius:32px;padding:clamp(20px,3vw,40px)}
+.pricing .inc-grid .price-card{grid-column:1;grid-row:1 / span 4;box-shadow:0 24px 50px -32px rgba(0,0,0,.28)!important;order:0}
+.pricing .inc-grid .inc-list{grid-column:2;grid-row:1;margin:4px 0 8px;grid-template-columns:1fr 1fr;gap:14px 28px;order:0}
+.pricing .inc-list li{font-size:15.5px;line-height:1.4}
+.pricing .inc-list .tick{flex:none}
+.pricing .inc-grid .bonus{grid-column:2;margin:0!important;background:#fff;color:var(--ink);box-shadow:none;border-radius:18px;padding:14px 18px;order:0}
+.pricing .bonus .bonus-ico{background:#E9F8EE}.pricing .bonus .bonus-ico .ico{color:#15803D}
+.pricing .bonus .bonus-txt em{color:#15803D}.pricing .bonus .bonus-txt small{color:var(--muted)}
+.pricing .bonus .bonus-free{background:#E9F8EE;color:#15803D;transform:none;box-shadow:none;font-size:13px;padding:7px 12px;border-radius:999px}
+.pricing .inc-grid .bonus-fine{grid-column:2;margin:0!important;color:var(--muted);order:0}
+.pricing .right.addons{margin-top:clamp(56px,7vw,88px);max-width:860px}
+.pricing .addons h2{text-align:center;font-size:clamp(28px,3.4vw,40px);letter-spacing:-.02em}
+.pricing .addons p.lede{text-align:center;max-width:36em;margin-left:auto;margin-right:auto;color:var(--muted)}
+.pricing .save-banner{justify-content:center;background:#EEF9F1;border:0;border-radius:16px;color:#14532D}
+.pricing .addon-list{border:0;box-shadow:none;background:#F5F5F7;border-radius:22px;padding:6px 10px}
+.pricing .addon-list li{border-top:1px solid rgba(0,0,0,.06);background:none!important;padding:12px 10px}
+.pricing .addon-list li.hd{background:none;color:var(--muted);border-top:0}
+.pricing .addon-list .ai{background:#fff;color:var(--ink)}
+.pricing .addon-list .deal{background:#fff;border:0;color:#15803D}
+.pricing .addon-note{justify-content:center;text-align:center}
+.pricing .rush-note{background:#FFF8EC;border:0;border-radius:16px}
+@media (max-width:1100px){.pricing .inc-grid .inc-list{grid-template-columns:1fr}}
+@media (max-width:860px){
+  .pricing .inc-grid{grid-template-columns:1fr!important;border-radius:24px}
+  .pricing .inc-grid > *{grid-column:1!important;grid-row:auto!important}
+  .pricing .inc-grid .price-card{order:-1!important}
+  .pricing .left,.pricing .right{padding:0 16px!important}
+  .pricing .inc-grid{padding:14px;gap:14px}
+  .pricing .inc-grid .inc-list{padding:4px 6px}
+  .pricing .inc-grid .bonus{grid-template-columns:38px minmax(0,1fr) auto;gap:10px;padding:12px}
+  .pricing .bonus .bonus-ico{width:38px;height:38px}
+}
+@media (max-width:480px){
+  .pricing .addon-list{padding:4px 6px}
+  .pricing .addon-list li{grid-template-columns:24px minmax(0,1fr) 50px 64px;gap:8px;padding:12px 4px}
+  .pricing .addon-list .was{font-size:13.5px}
+  .pricing .addon-list .deal{font-size:14px;padding:5px 2px}
+  .pricing .addon-list .deal-word{font-size:11.5px}
+  .pricing .save-banner{flex-direction:row;align-items:center;text-align:left}
+}
 /* PRICING PAGE + TEASER */
 .price-teaser{display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;background:var(--paper-alt,#F5F5F7);border-radius:28px;padding:40px 44px}
 .price-teaser h2{font-size:clamp(28px,4vw,44px);letter-spacing:-.02em;margin:8px 0 10px;line-height:1.08}
@@ -1342,6 +1387,90 @@ footer .logo{color:var(--ink)}
   </div>
 </section>
 
+<!-- PRICING + ADD-ONS -->
+<section class="pricing" id="pricing">
+  <div class="left dark">
+    <h2 class="sec-title">What's included for RM1,600</h2>
+    <p class="sec-lede muted">A professional, mobile-friendly website with everything you need to get online and start getting enquiries.</p>
+    <div class="inc-grid">
+      <ul class="inc-list">
+        <li class="hl-li"><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span><b>Up to 8 pages or sections</b></span></li>
+        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Custom-designed homepage, an eye-catching landing page and a Services section</span></li>
+        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Mobile-friendly on phone, tablet and desktop</span></li>
+        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>WhatsApp and click-to-call buttons, a contact / enquiry form and social media links</span></li>
+        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>One language of your choice (English, BM or Chinese)</span></li>
+        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Basic SEO setup and a Google-friendly structure</span></li>
+        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Domain and launch setup</span></li>
+        <li class="hl-li"><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span><b>Website chatbot</b> (RM1,500 without it)</span></li>
+      </ul>
+      <div class="price-card">
+        <span class="pill">One-time project price</span>
+        <div class="amount"><sup>RM</sup>1,600</div>
+        <h3>Professional Website</h3>
+        <p class="pc-sub">Up to 8 pages or sections, with a website chatbot</p>
+        <p class="pc-bot">or <b>RM1,500</b> without the chatbot</p>
+        <div class="terms">
+          <div><svg class="ico"><use href="#i-tag"/></svg><span><b>50% deposit to start</b>50% when it's ready, before launch</span></div>
+          <div><svg class="ico"><use href="#i-clock"/></svg><span><b>3–5 working days</b>+1 working day per add-on</span></div>
+        </div>
+        <a class="btn btn-primary pc-cta" href="#contact" data-goform>Get started: fill in the form <svg class="ico"><use href="#i-arrow"/></svg></a>
+        <div class="pay-row"><span class="pay-badge"><svg class="ico"><use href="#i-bank"/></svg><span>DuitNow, TNG eWallet or cash</span></span></div>
+      </div>
+      <div class="bonus"><span class="bonus-ico"><svg class="ico"><use href="#i-pin"/></svg></span><span class="bonus-txt"><em>Free with your website</em><b>Google Business Profile setup</b><small>Show up on Google Maps and Search</small></span><span class="bonus-free">FREE</span></div>
+      <div class="bonus"><span class="bonus-ico"><svg class="ico"><use href="#i-link"/></svg></span><span class="bonus-txt"><em>Free with your website</em><b>Domain name for the first year</b><small>Standard .com, .com.my or .my</small></span><span class="bonus-free">FREE</span></div>
+      <p class="bonus-fine">Premium domains are quoted separately. From the second year, you pay the domain renewal yourself, unless you subscribe to Website Care.</p>
+    </div>
+  </div>
+  <div class="right addons" id="addons">
+    <h2>Optional add-ons</h2>
+    <p class="lede">Add only what your business needs. Each add-on is RM500 on its own, or RM400 when bundled with the website or another add-on.</p>
+    <div class="save-banner"><span class="big">RM400</span><span>per add-on when bundled with your website or another add-on.</span></div>
+    <ul class="addon-list">
+      <li class="hd"><span></span><span>Add-on</span><span>On its own</span><span>Bundled</span></li>
+      <li><span class="ai"><svg class="ico"><use href="#i-plusfile"/></svg></span><span class="nm"><b>2 extra pages or sections</b><small>e.g. a gallery and a service page</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
+      <li><span class="ai"><svg class="ico"><use href="#i-bot"/></svg></span><span class="nm"><b>Website chatbot</b><small>Included in the RM1,600 website · RM500 for an existing website</small></span><span class="was">RM500</span><span class="deal deal-word">Included</span></li>
+      <li><span class="ai"><svg class="ico"><use href="#i-globe"/></svg></span><span class="nm"><b>Additional language</b><small>e.g. add BM or Chinese to an English website</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
+      <li><span class="ai"><svg class="ico"><use href="#i-calcheck"/></svg></span><span class="nm"><b>Enquiry &amp; booking request form</b><small>Customers choose a service and a preferred date and time</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
+      <li><span class="ai"><svg class="ico"><use href="#i-pin"/></svg></span><span class="nm"><b>Listings setup</b><small>Your business on Apple Maps and Foursquare</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
+    </ul>
+    <p class="addon-note"><svg class="ico"><use href="#i-clock"/></svg><span>Each add-on adds 1 working day to delivery.</span></p>
+    <p class="addon-note rush-note"><svg class="ico"><use href="#i-zap"/></svg><span><b>Need it sooner?</b> Rush delivery cuts 2 working days off your delivery time for +20% of your project total.</span></p>
+  </div>
+</section>
+
+<!-- WEBSITE CARE -->
+<section class="care-sec" id="care">
+  <div class="wrap">
+    <div class="care-card">
+      <div class="care-head">
+        <span class="care-tag">Optional monthly plan</span>
+        <h2>Website Care</h2>
+        <div class="care-price"><span>RM199</span>/month</div>
+        <div class="care-host"><svg class="ico"><use href="#i-home"/></svg><span><b>Hosting and domain renewal included</b> · no separate bills</span></div>
+        <p>Keep your website running, updated and looked after, without worrying about the technical side.</p>
+      </div>
+      <ul class="care-list">
+        <li><span class="ci"><svg class="ico"><use href="#i-monitor"/></svg></span><span><b>Website health monitoring</b>I check regularly for errors, broken features and basic technical issues.</span></li>
+        <li><span class="ci"><svg class="ico"><use href="#i-pen"/></svg></span><span><b>Minor website updates</b>Small text, image and content changes.</span></li>
+        <li><span class="ci"><svg class="ico"><use href="#i-shield"/></svg></span><span><b>Security &amp; maintenance checks</b>Keep the website maintained and working properly.</span></li>
+        <li><span class="ci"><svg class="ico"><use href="#i-send"/></svg></span><span><b>Social media update monitoring</b>Where supported, I help keep your website in line with your social media updates.</span></li>
+        <li><span class="ci"><svg class="ico"><use href="#i-msg"/></svg></span><span><b>Ongoing support</b>Help on WhatsApp when you need small changes or fixes.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="band pricing-cta-sec">
+  <div class="wrap">
+    <div class="pricing-cta">
+      <h2>Ready to get your website?</h2>
+      <p>Tell me about your business in the form. I'll reply within 1 working day with a clear written quote. No obligation.</p>
+      <div class="hero-cta"><a class="btn btn-primary" href="#contact" data-goform>Fill in the enquiry form <svg class="ico"><use href="#i-arrow"/></svg></a><a class="btn btn-wa" href="{{WA}}" target="_blank" rel="noopener"><svg class="ico"><use href="#i-chat"/></svg>WhatsApp me</a></div>
+    </div>
+  </div>
+</section>
+
+
 <!-- WHY A WEBSITE -->
 <section class="why dark band" id="why">
   <div class="wrap">
@@ -1402,46 +1531,9 @@ footer .logo{color:var(--ink)}
   </div>
 </section>
 
-<!-- PRICING TEASER (full pricing is on its own page) -->
-<section class="band price-teaser-sec" id="price-teaser" style="padding-top:0">
-  <div class="wrap">
-    <div class="price-teaser">
-      <div>
-        <span class="eyebrow">Pricing</span>
-        <h2>Websites from <span>RM1,600.</span></h2>
-        <p class="muted">Up to 8 pages or sections, with a website chatbot. Free domain for the first year and Google Business Profile setup.</p>
-      </div>
-      <div class="pt-cta">
-        <a class="btn btn-primary" href="#pricing">See full pricing <svg class="ico"><use href="#i-arrow"/></svg></a>
-        <a class="text-link" href="#contact">Get a quote</a>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- CHATBOTS -->
-<section class="band assist-sec" id="assistant">
-  <div class="wrap">
-    <div class="bots-head">
-      <span class="eyebrow">Website chatbot</span>
-      <h2 class="sec-title">Answer common questions automatically</h2>
-      <p class="sec-lede muted">For businesses that answer the same customer questions every day. Not every business needs one: a clear website and a WhatsApp button is often enough.</p>
-    </div>
-    <div class="bots">
-      <div class="bot-card">
-        <h3>Pricing</h3>
-        <div class="amount amount-word">Included</div>
-        <p class="ap-sub">in the RM1,600 website (RM1,500 without it)</p>
-        <p class="ap-note">RM500 to add it to an existing website.</p>
-        <ul class="assist-list">
-          <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Answers the questions you approve, on your website, in the language you choose.</span></li>
-          <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Passes the customer to your WhatsApp with a short summary of the chat, so nobody has to start again.</span></li>
-        </ul>
-        <button class="text-link dark-ink" type="button" data-open-chat>Try the one on this website →</button>
-      </div>
-    </div>
-  </div>
-</section>
+
+
 
 <!-- MY WORK -->
 <section class="band" id="work">
@@ -1540,97 +1632,7 @@ footer .logo{color:var(--ink)}
 
 </div><!-- /homeView -->
 
-<!-- PRICING PAGE -->
-<div id="pricingView" hidden>
-  <section class="article-hero dark pricing-hero"><div class="wrap">
-    <span class="eyebrow">Pricing</span>
-    <h1>Clear prices.<span> No surprises.</span></h1>
-    <p class="lede">One-time project price, 50% deposit to start. Add only what your business needs.</p>
-    <div class="hero-cta"><a class="btn btn-primary" href="#contact" data-goform>Fill in the enquiry form <svg class="ico"><use href="#i-arrow"/></svg></a><a class="btn btn-wa" href="{{WA}}" target="_blank" rel="noopener"><svg class="ico"><use href="#i-chat"/></svg>WhatsApp me</a></div>
-  </div></section>
-<!-- PRICING + ADD-ONS -->
-<section class="pricing" id="plans">
-  <div class="left dark">
-    <h2 class="sec-title">What's included for RM1,600</h2>
-    <p class="sec-lede muted">A professional, mobile-friendly website with everything you need to get online and start getting enquiries.</p>
-    <div class="inc-grid">
-      <ul class="inc-list">
-        <li class="hl-li"><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span><b>Up to 8 pages or sections</b></span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Custom-designed homepage, an eye-catching landing page and a Services section</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Mobile-friendly on phone, tablet and desktop</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>WhatsApp and click-to-call buttons, a contact / enquiry form and social media links</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>One language of your choice (English, BM or Chinese)</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Basic SEO setup and a Google-friendly structure</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Domain and launch setup</span></li>
-        <li class="hl-li"><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span><b>Website chatbot</b> (RM1,500 without it)</span></li>
-      </ul>
-      <div class="price-card">
-        <span class="pill">One-time project price</span>
-        <div class="amount"><sup>RM</sup>1,600</div>
-        <h3>Professional Website</h3>
-        <p class="pc-sub">Up to 8 pages or sections, with a website chatbot</p>
-        <p class="pc-bot">or <b>RM1,500</b> without the chatbot</p>
-        <div class="terms">
-          <div><svg class="ico"><use href="#i-tag"/></svg><span><b>50% deposit to start</b>50% when it's ready, before launch</span></div>
-          <div><svg class="ico"><use href="#i-clock"/></svg><span><b>3–5 working days</b>+1 working day per add-on</span></div>
-        </div>
-        <a class="btn btn-primary pc-cta" href="#contact" data-goform>Get started: fill in the form <svg class="ico"><use href="#i-arrow"/></svg></a>
-        <div class="pay-row"><span class="pay-badge"><svg class="ico"><use href="#i-bank"/></svg><span>DuitNow, TNG eWallet or cash</span></span></div>
-      </div>
-      <div class="bonus"><span class="bonus-ico"><svg class="ico"><use href="#i-pin"/></svg></span><span class="bonus-txt"><em>Free with your website</em><b>Google Business Profile setup</b><small>Show up on Google Maps and Search</small></span><span class="bonus-free">FREE</span></div>
-      <div class="bonus"><span class="bonus-ico"><svg class="ico"><use href="#i-link"/></svg></span><span class="bonus-txt"><em>Free with your website</em><b>Domain name for the first year</b><small>Standard .com, .com.my or .my</small></span><span class="bonus-free">FREE</span></div>
-      <p class="bonus-fine">Premium domains are quoted separately. From the second year, you pay the domain renewal yourself, unless you subscribe to Website Care.</p>
-    </div>
-  </div>
-  <div class="right addons" id="addons">
-    <h2>Optional add-ons</h2>
-    <p class="lede">Add only what your business needs. Each add-on is RM500 on its own, or RM400 when bundled with the website or another add-on.</p>
-    <div class="save-banner"><span class="big">RM400</span><span>per add-on when bundled with your website or another add-on.</span></div>
-    <ul class="addon-list">
-      <li class="hd"><span></span><span>Add-on</span><span>On its own</span><span>Bundled</span></li>
-      <li><span class="ai"><svg class="ico"><use href="#i-plusfile"/></svg></span><span class="nm"><b>2 extra pages or sections</b><small>e.g. a gallery and a service page</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-      <li><span class="ai"><svg class="ico"><use href="#i-bot"/></svg></span><span class="nm"><b>Website chatbot</b><small>Included in the RM1,600 website · RM500 for an existing website</small></span><span class="was">RM500</span><span class="deal deal-word">Included</span></li>
-      <li><span class="ai"><svg class="ico"><use href="#i-globe"/></svg></span><span class="nm"><b>Additional language</b><small>e.g. add BM or Chinese to an English website</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-      <li><span class="ai"><svg class="ico"><use href="#i-calcheck"/></svg></span><span class="nm"><b>Enquiry &amp; booking request form</b><small>Customers choose a service and a preferred date and time</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-      <li><span class="ai"><svg class="ico"><use href="#i-pin"/></svg></span><span class="nm"><b>Listings setup</b><small>Your business on Apple Maps and Foursquare</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-    </ul>
-    <p class="addon-note"><svg class="ico"><use href="#i-clock"/></svg><span>Each add-on adds 1 working day to delivery.</span></p>
-    <p class="addon-note rush-note"><svg class="ico"><use href="#i-zap"/></svg><span><b>Need it sooner?</b> Rush delivery cuts 2 working days off your delivery time for +20% of your project total.</span></p>
-  </div>
-</section>
 
-<!-- WEBSITE CARE -->
-<section class="care-sec" id="care">
-  <div class="wrap">
-    <div class="care-card">
-      <div class="care-head">
-        <span class="care-tag">Optional monthly plan</span>
-        <h2>Website Care</h2>
-        <div class="care-price"><span>RM199</span>/month</div>
-        <div class="care-host"><svg class="ico"><use href="#i-home"/></svg><span><b>Hosting and domain renewal included</b> · no separate bills</span></div>
-        <p>Keep your website running, updated and looked after, without worrying about the technical side.</p>
-      </div>
-      <ul class="care-list">
-        <li><span class="ci"><svg class="ico"><use href="#i-monitor"/></svg></span><span><b>Website health monitoring</b>I check regularly for errors, broken features and basic technical issues.</span></li>
-        <li><span class="ci"><svg class="ico"><use href="#i-pen"/></svg></span><span><b>Minor website updates</b>Small text, image and content changes.</span></li>
-        <li><span class="ci"><svg class="ico"><use href="#i-shield"/></svg></span><span><b>Security &amp; maintenance checks</b>Keep the website maintained and working properly.</span></li>
-        <li><span class="ci"><svg class="ico"><use href="#i-send"/></svg></span><span><b>Social media update monitoring</b>Where supported, I help keep your website in line with your social media updates.</span></li>
-        <li><span class="ci"><svg class="ico"><use href="#i-msg"/></svg></span><span><b>Ongoing support</b>Help on WhatsApp when you need small changes or fixes.</span></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="band pricing-cta-sec">
-  <div class="wrap">
-    <div class="pricing-cta">
-      <h2>Ready to get your website?</h2>
-      <p>Tell me about your business in the form. I'll reply within 1 working day with a clear written quote. No obligation.</p>
-      <div class="hero-cta"><a class="btn btn-primary" href="#contact" data-goform>Fill in the enquiry form <svg class="ico"><use href="#i-arrow"/></svg></a><a class="btn btn-wa" href="{{WA}}" target="_blank" rel="noopener"><svg class="ico"><use href="#i-chat"/></svg>WhatsApp me</a></div>
-    </div>
-  </div>
-</section>
-</div><!-- /pricingView -->
 
 <!-- PROFILE PAGE -->
 <div id="aboutView" hidden>
@@ -2214,18 +2216,18 @@ When someone compares two businesses side by side, the one that looks profession
   new MutationObserver(()=>document.body.classList.toggle("menu-open", head.classList.contains("open"))).observe(head,{attributes:true,attributeFilter:["class"]});
   document.querySelectorAll("#nav a").forEach(a=>a.addEventListener("click",()=>{ head.classList.remove("open"); burger.setAttribute("aria-expanded","false"); }));
   const links = [...document.querySelectorAll("#nav a")];
-  const spy = ["top","work","faq","contact"].map(id=>document.getElementById(id));
-  const homeView = $("#homeView"), pricingView = $("#pricingView"), aboutView = $("#aboutView"), postView = $("#postView"), articlesView = $("#articlesView");
+  const spy = ["top","pricing","work","faq","contact"].map(id=>document.getElementById(id));
+  const homeView = $("#homeView"), aboutView = $("#aboutView"), postView = $("#postView"), articlesView = $("#articlesView");
   let current = null, lockUntil = 0, lastClicked = "";
-  function viewFor(id){ return ["pricing","plans","addons","care"].includes(id) ? "pricing" : id==="about" ? "about" : id==="articles" ? "articles" : POSTS.some(p=>p.id===id && !p.soon) ? "post" : "home"; }
+  function viewFor(id){ return id==="about" ? "about" : id==="articles" ? "articles" : POSTS.some(p=>p.id===id && !p.soon) ? "post" : "home"; }
   // Show the right page and scroll to the right place for any #id
   function show(id, smooth){
     const view = viewFor(id), post = POSTS.find(p=>p.id===id && !p.soon);
-    homeView.hidden = view!=="home"; pricingView.hidden = view!=="pricing"; aboutView.hidden = view!=="about"; postView.hidden = view!=="post"; articlesView.hidden = view!=="articles";
+    homeView.hidden = view!=="home"; aboutView.hidden = view!=="about"; postView.hidden = view!=="post"; articlesView.hidden = view!=="articles";
     if(post) showPost(post); else if(metaDesc) metaDesc.content = defaultDesc;
-    document.title = view==="pricing" ? L("Website Design Pricing in Johor Bahru | Ace Digital Solutions") : view==="about" ? L("About Adam, Freelance Web Designer in Johor Bahru | Ace Digital Solutions") : view==="articles" ? L("Blog: Website Tips for Malaysian Businesses | Ace Digital Solutions") : post ? post.title+" | Ace Digital Solutions" : HOME_TITLE;
+    document.title = view==="about" ? L("About Adam, Freelance Web Designer in Johor Bahru | Ace Digital Solutions") : view==="articles" ? L("Blog: Website Tips for Malaysian Businesses | Ace Digital Solutions") : post ? post.title+" | Ace Digital Solutions" : HOME_TITLE;
     const behavior = smooth && !matchMedia("(prefers-reduced-motion: reduce)").matches ? "smooth" : "auto";
-    const t = (view==="home" && id && id!=="top") || (view==="pricing" && id!=="pricing") ? document.getElementById(id) : null;
+    const t = view==="home" && id && id!=="top" ? document.getElementById(id) : null;
     if(t){ const y = t.getBoundingClientRect().top + scrollY - head.offsetHeight - 12; scrollTo({top:Math.max(0,y), behavior}); }
     else if(view==="home") scrollTo({top:0, behavior});
     else { scrollTo(0,0); }
@@ -2249,7 +2251,6 @@ When someone compares two businesses side by side, the one that looks profession
   function route(){ const id = location.hash.slice(1); if(id===current) return; current = id; show(id,false); onScroll(); }
   function onScroll(){
     if(Date.now() < lockUntil) return;
-    if(!pricingView.hidden) return setActive("#pricing");
     if(!aboutView.hidden) return setActive("#about");
     if(!postView.hidden || !articlesView.hidden) return setActive("#articles");
     let cur = "top";
@@ -2263,7 +2264,7 @@ When someone compares two businesses side by side, the one that looks profession
   addEventListener("scroll",setBack,{passive:true}); addEventListener("hashchange",()=>setTimeout(setBack,30));
   addEventListener("scroll",onScroll,{passive:true}); addEventListener("hashchange",route); addEventListener("popstate",route); route(); setBack();
   // Language switch: open the other language at the same place on the page
-  const spotList = () => { const v = [homeView,pricingView,aboutView,postView,articlesView].find(x=>!x.hidden) || homeView;
+  const spotList = () => { const v = [homeView,aboutView,postView,articlesView].find(x=>!x.hidden) || homeView;
     return v===homeView ? [...homeView.querySelectorAll(":scope > section[id]")] : [...v.querySelectorAll("h1,h2,h3,p,li,img,blockquote,.card,.post-card")]; };
   function saveSpot(){ try{ const top = head.offsetHeight, list = spotList(); let k = list.findIndex(el=>el.getBoundingClientRect().bottom > top);
       if(k<0) k = list.length-1; const r = list[k] ? list[k].getBoundingClientRect() : null;
