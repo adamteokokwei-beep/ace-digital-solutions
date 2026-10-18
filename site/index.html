@@ -1239,21 +1239,24 @@ footer .logo{color:var(--ink)}
 .ms.ctg .ms-row span{opacity:1;color:#6E6E73}
 .ms.ctg .ms-row span b{color:#1D1D1F}
 .wcard.client .mock{background:linear-gradient(160deg,#F5F5F7,#E8E8ED)}
-/* HERO: clean device outlines sit softly behind the words, taking no space of their own */
-.hero{position:relative;padding-bottom:clamp(56px,8vw,104px)!important}
+/* HERO: laptop and phone sit behind the words, with a soft colourful wallpaper on their screens */
+.hero{position:relative;padding-bottom:clamp(64px,8vw,110px)!important}
 .hero-grid{position:relative;isolation:isolate}
 .hero-grid > div:first-child{position:relative;z-index:1}
-.hero .stage{position:absolute;left:50%;top:clamp(-40px,-3vw,-20px);transform:translateX(-50%);width:min(1180px,118%);max-width:none;aspect-ratio:600/400;margin:0;z-index:0;pointer-events:none;
-  -webkit-mask-image:linear-gradient(180deg,#000 45%,transparent 88%);mask-image:linear-gradient(180deg,#000 45%,transparent 88%)}
-.hero .stage .lbase{display:none}
-.hero .stage .enquiry,.hero .stage .note{display:none}
+.hero .stage{position:absolute;left:50%;top:clamp(-44px,-3vw,-24px);transform:translateX(-50%);width:min(1120px,70vw);max-width:none;aspect-ratio:auto;height:auto;margin:0;z-index:0;pointer-events:none}
+.hero .stage .enquiry,.hero .stage .note,.hero .stage .lbase{display:none}
 .hero .stage .screen > *{visibility:hidden}
-.hero .stage .screen{background:radial-gradient(120% 90% at 20% 10%,rgba(0,113,227,.10),transparent 60%),radial-gradient(90% 80% at 85% 90%,rgba(227,75,143,.08),transparent 60%),linear-gradient(135deg,#FBFBFD,#F3F1FF)}
-.hero .stage .laptop{left:13%;top:0;width:74%}
-.hero .stage .lid{background:linear-gradient(#F2F2F5,#E8E8ED);border:1px solid rgba(0,0,0,.05);box-shadow:0 50px 90px -50px rgba(0,0,0,.18)}
-.hero .stage .phone{right:-1%;left:auto;bottom:-2%;top:auto;width:15%;background:linear-gradient(#F2F2F5,#E8E8ED);border:1px solid rgba(0,0,0,.06);box-shadow:0 40px 70px -40px rgba(0,0,0,.22)}
-.hero .stage .phone .screen{background:radial-gradient(120% 70% at 50% 0%,rgba(122,92,255,.12),transparent 65%),linear-gradient(180deg,#FBFBFD,#F1F4FF)}
-@media (max-width:900px){.hero .stage{width:112%;top:-16px;transform:translateX(-50%)}.hero .stage .laptop{left:0;width:100%}.hero .stage .phone{display:none}}
+.hero .stage .laptop{position:relative;left:0;top:0;width:100%}
+.hero .stage .lid{background:linear-gradient(#F5F5F7,#ECECF0);border:1px solid rgba(0,0,0,.06);border-radius:22px;padding:1.4%;box-shadow:0 60px 100px -60px rgba(0,0,0,.22)}
+.hero .stage .screen{border-radius:14px;
+  background:radial-gradient(55% 70% at 12% 18%,rgba(0,113,227,.20),transparent 62%),radial-gradient(50% 65% at 88% 22%,rgba(122,92,255,.18),transparent 62%),radial-gradient(60% 60% at 62% 100%,rgba(227,75,143,.14),transparent 62%),#FAFAFC}
+.hero .stage .laptop .screen::before{content:"";position:absolute;left:0;right:0;top:0;height:28px;background:rgba(255,255,255,.75);border-bottom:1px solid rgba(0,0,0,.05)}
+.hero .stage .laptop .screen::after{content:"";position:absolute;left:16px;top:10px;width:8px;height:8px;border-radius:50%;background:#FF5F57;box-shadow:14px 0 0 #FEBC2E,28px 0 0 #28C840}
+.hero .stage .phone{position:absolute;right:-7%;left:auto;top:auto;bottom:-6%;width:15%;background:linear-gradient(#F5F5F7,#ECECF0);border:1px solid rgba(0,0,0,.07);box-shadow:0 40px 70px -40px rgba(0,0,0,.28)}
+.hero .stage .phone .screen{background:radial-gradient(90% 55% at 30% 10%,rgba(0,113,227,.22),transparent 65%),radial-gradient(90% 55% at 80% 95%,rgba(227,75,143,.16),transparent 65%),#FAFAFC}
+.hero .stage .phone .screen::before{content:"";position:absolute;left:50%;top:3%;width:32%;height:3.2%;transform:translateX(-50%);border-radius:999px;background:#1D1D1F}
+@media (max-width:1200px){.hero .stage .phone{right:-3%}}
+@media (max-width:900px){.hero .stage{width:calc(100% + 24px);top:-20px}.hero .stage .phone{display:none}.hero .stage .lid{border-radius:20px}}
 @media (prefers-reduced-transparency:reduce){.hero .stage{display:none}}
 /* NEAT PRICING (under the hero) */
 .pricing{display:block!important;background:#fff!important;padding:clamp(64px,8vw,112px) 0 clamp(40px,5vw,64px)}
@@ -1301,6 +1304,10 @@ footer .logo{color:var(--ink)}
   .pricing .save-banner{flex-direction:row;align-items:center;text-align:left}
 }
 .cap-field{min-height:0}.cap-field #turnstile{min-height:65px}
+/* spacing tidy-up */
+.pricing{padding-bottom:clamp(24px,3vw,40px)!important}
+.care-sec{padding-block:clamp(24px,3vw,40px)!important;background:#fff!important}
+.pricing-cta-sec{padding-block:clamp(32px,4vw,56px)!important}
 /* PRICING PAGE + TEASER */
 .price-teaser{display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;background:var(--paper-alt,#F5F5F7);border-radius:28px;padding:40px 44px}
 .price-teaser h2{font-size:clamp(28px,4vw,44px);letter-spacing:-.02em;margin:8px 0 10px;line-height:1.08}

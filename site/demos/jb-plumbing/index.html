@@ -513,12 +513,16 @@ body.base-only .mbar{grid-template-columns:1fr 1fr}
 .wasim[hidden],.handoff[hidden]{display:none}
 /* Services and prices combined in one section */
 .anchor{display:block;position:relative;top:-90px;visibility:hidden}
-.chip-emerg{grid-column:1/-1;display:flex;align-items:center;gap:12px;text-align:left;cursor:pointer;color:#fff;background:rgba(215,38,46,.18);border:2px solid rgba(255,120,120,.55);border-radius:14px;padding:12px 16px;font:700 16px/1.25 "Archivo";transition:background .2s,transform .2s}
-.chip-emerg .ico{width:26px;height:26px;color:#FF8A8F;flex:none}
-.chip-emerg small{display:block;font:600 13.5px "Source Sans 3";color:#FFD3D5;margin-top:2px}
-.chip-emerg:hover{background:rgba(215,38,46,.32);transform:translateY(-2px)}
-.chip-emerg[aria-pressed="true"]{background:var(--red);border-color:var(--red)}
-.chip-emerg[aria-pressed="true"] .ico,.chip-emerg[aria-pressed="true"] small{color:#fff}
+.chip-emerg{grid-column:1/-1;display:flex;align-items:center;gap:14px;text-align:left;cursor:pointer;color:#fff;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:14px 16px;font:600 16px/1.25 var(--f-head,inherit);transition:background .25s,transform .25s,border-color .25s}
+.chip-emerg .em-ico{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#FF9F0A,#FF6B00);display:grid;place-items:center;flex:none;box-shadow:0 8px 20px -8px rgba(255,140,0,.7)}
+.chip-emerg .em-ico .ico{width:22px;height:22px;color:#fff}
+.chip-emerg .em-txt{flex:1;min-width:0}
+.chip-emerg small{display:block;font:500 13.5px/1.35 inherit;color:rgba(255,255,255,.66);margin-top:3px}
+.chip-emerg .em-247{flex:none;font:700 12px/1 inherit;letter-spacing:.04em;color:#FFB340;background:rgba(255,159,10,.14);border-radius:999px;padding:7px 10px}
+.chip-emerg:hover{background:rgba(255,255,255,.12);transform:translateY(-2px)}
+.chip-emerg[aria-pressed="true"]{background:#fff;border-color:#fff;color:#1D1D1F}
+.chip-emerg[aria-pressed="true"] small{color:#6E6E73}
+.chip-emerg[aria-pressed="true"] .em-247{background:#FFF1DE;color:#C25E00}
 @media (min-width:901px){.chips{grid-template-rows:auto 1fr 1fr!important}.pcard .note{min-height:9.5em}}
 @media (max-width:900px){.pcard .note{-webkit-line-clamp:3!important}}
 body.base-only .shead .addon-tag{display:none}
@@ -1010,7 +1014,7 @@ body:not(.show-float) .mbar{opacity:0;transform:translateY(110%);pointer-events:
   };
   const L2=a=>a[lang==="bm"?1:0];
   const chips=$("#chips"); let cur="heater";
-  function renderChips(){const e=PRICES.emergency; chips.innerHTML=`<button class="chip-emerg" type="button" data-k="emergency" aria-pressed="${cur==="emergency"}">${ico("alert")}<span><b>${T2("Emergency? Burst pipe or flooding","Kecemasan? Paip pecah atau banjir")}</b><small>${T2("24 hours · call-out","24 jam · panggilan")} ${e.r}</small></span></button>`+Object.entries(PRICES).filter(([k])=>k!=="emergency").map(([k,p])=>`<button class="chip" type="button" data-k="${k}" aria-pressed="${k===cur}"><img src="img/p-${k}.jpg" alt="" loading="lazy" width="412" height="464"><span>${ico(p.icon)}${L2(p.name)}</span></button>`).join("");}
+  function renderChips(){const e=PRICES.emergency; chips.innerHTML=`<button class="chip-emerg" type="button" data-k="emergency" aria-pressed="${cur==="emergency"}"><span class="em-ico">${ico("phone")}</span><span class="em-txt"><b>${T2("Emergency? Burst pipe or flooding","Kecemasan? Paip pecah atau banjir")}</b><small>${T2("Call-out","Panggilan")} ${e.r}</small></span><span class="em-247">24/7</span></button>`+Object.entries(PRICES).filter(([k])=>k!=="emergency").map(([k,p])=>`<button class="chip" type="button" data-k="${k}" aria-pressed="${k===cur}"><img src="img/p-${k}.jpg" alt="" loading="lazy" width="412" height="464"><span>${ico(p.icon)}${L2(p.name)}</span></button>`).join("");}
   function pick(k){const p=PRICES[k]; if(!p) return; cur=k; $("#pRange").textContent=p.r; $("#pWhat").textContent=L2(p.name); $("#pNote").textContent=L2(p.n)+T2(" Your plumber confirms the final price on site before any work begins."," Tukang paip anda mengesahkan harga akhir di lokasi sebelum kerja bermula."); $$(".chip,.chip-emerg").forEach(c=>c.setAttribute("aria-pressed",c.dataset.k===k)); $("#pBook").dataset.k=k;}
   chips.addEventListener("click",e=>{const c=e.target.closest(".chip,.chip-emerg"); if(!c) return; pick(c.dataset.k);
     const card=$(".pcard"), r=card.getBoundingClientRect(); if(r.top<60||r.bottom>innerHeight-90) card.scrollIntoView({behavior:"smooth",block:"nearest"});});
