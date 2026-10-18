@@ -135,7 +135,9 @@ def preview_paths(page, root):
     """Relative links so the files can be opened straight from a folder (no web server)."""
     for a, b in [('"/img/', '"' + root + 'img/'), ('href="/bm/"', 'href="' + root + 'bm/index.html"'),
                  ('href="/zh/"', 'href="' + root + 'zh/index.html"'), ('href="/privacy/"', 'href="' + root + 'privacy/index.html"'),
-                 ('"/demos/jb-plumbing/"', '"' + root + 'demos/jb-plumbing/index.html"'), ('href="/"', 'href="' + root + 'index.html"')]:
+                 ('"/demos/jb-plumbing/"', '"' + root + 'demos/jb-plumbing/index.html"'),
+                 ('"/demos/skudai-tuition/"', '"' + root + 'demos/skudai-tuition/index.html"'), ('href="/#work"', 'href="' + root + 'index.html#work"'),
+                 ('href="/"', 'href="' + root + 'index.html"')]:
         page = page.replace(a, b)
     return page
 
@@ -209,7 +211,7 @@ if __name__ == "__main__":
             shutil.copytree(os.path.join(SITE, d), os.path.join(pv, d), dirs_exist_ok=True)
         for f in ["og-image.jpg", "robots.txt", "sitemap.xml"]:
             shutil.copy(os.path.join(SITE, f), pv)
-        for rel, root in [("privacy/index.html", "../"), ("demos/jb-plumbing/index.html", "../../")]:
+        for rel, root in [("privacy/index.html", "../"), ("demos/jb-plumbing/index.html", "../../"), ("demos/skudai-tuition/index.html", "../../")]:
             src = open(os.path.join(SITE, rel), encoding="utf-8").read()
             os.makedirs(os.path.dirname(os.path.join(pv, rel)), exist_ok=True)
             open(os.path.join(pv, rel), "w", encoding="utf-8").write(preview_paths(src, root))
