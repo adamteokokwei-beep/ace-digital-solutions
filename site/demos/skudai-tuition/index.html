@@ -87,8 +87,10 @@ header .btn{padding:.6em 1.1em;font-size:14px}
 /* Photo of a teacher and students behind the words: add the photo as img/hero-class.jpg (wide, at least 1800px) */
 .hero{position:relative;isolation:isolate}
 .hero::before{content:"";position:absolute;left:0;right:0;top:0;height:min(820px,100%);z-index:-1;
-  background:linear-gradient(180deg,rgba(255,255,255,.80) 0%,rgba(255,255,255,.62) 30%,rgba(255,255,255,.80) 62%,#fff 92%),url("img/hero-class.jpg") center 35%/cover no-repeat}
-@media (max-width:700px){.hero::before{height:min(900px,100%);background:linear-gradient(180deg,rgba(255,255,255,.84) 0%,rgba(255,255,255,.72) 40%,#fff 92%),url("img/hero-class.jpg") 60% 30%/cover no-repeat}}
+  background:radial-gradient(ellipse 40% 36% at 50% 36%,rgba(255,255,255,.80),rgba(255,255,255,.35) 60%,rgba(255,255,255,0) 85%),linear-gradient(180deg,rgba(255,255,255,.34) 0%,rgba(255,255,255,.22) 35%,rgba(255,255,255,.55) 70%,#fff 96%),url("img/hero-class.jpg") center 35%/cover no-repeat}
+.hero .lede{color:#3A3A3C!important}
+.hero .eyebrow{display:inline-block;background:rgba(255,255,255,.88);padding:6px 14px;border-radius:999px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+@media (max-width:700px){.hero::before{height:min(900px,100%);background:linear-gradient(180deg,rgba(255,255,255,.60) 0%,rgba(255,255,255,.50) 45%,rgba(255,255,255,.75) 75%,#fff 96%),url("img/hero-class.jpg") 60% 30%/cover no-repeat}}
 .hero h1{font-size:clamp(44px,7.4vw,92px);line-height:1.02;letter-spacing:-.04em;max-width:11em;margin:14px auto 0}
 .hero h1 span{background:linear-gradient(90deg,#0071E3 0%,#7A5CFF 55%,#E34B8F 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero .lede{font-size:clamp(19px,2vw,23px);color:var(--muted);max-width:32em;margin:22px auto 0;line-height:1.42}
