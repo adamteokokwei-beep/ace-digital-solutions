@@ -182,6 +182,8 @@ def build(show_missing=False, preview_dir=None):
         assert "{{" not in page, re.findall(r"\{\{\w+\}\}", page)
         out = os.path.join(SITE, cfg["path"].strip("/"), "index.html")
         os.makedirs(os.path.dirname(out), exist_ok=True)
+        if code == "zh":  # Chinese needs no space after full-width punctuation
+            page = re.sub(r"([，。！？])<span> ", r"\1<span>", page)
         open(out, "w", encoding="utf-8").write(page)
         if preview_dir:
             pv = os.path.join(preview_dir, cfg["path"].strip("/"), "index.html")
