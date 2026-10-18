@@ -1239,25 +1239,21 @@ footer .logo{color:var(--ink)}
 .ms.ctg .ms-row span{opacity:1;color:#6E6E73}
 .ms.ctg .ms-row span b{color:#1D1D1F}
 .wcard.client .mock{background:linear-gradient(160deg,#F5F5F7,#E8E8ED)}
-/* HERO: laptop and phone sit behind the words, with a soft colourful wallpaper on their screens */
-.hero{position:relative;padding-bottom:clamp(64px,8vw,110px)!important}
-.hero-grid{position:relative;isolation:isolate}
-.hero-grid > div:first-child{position:relative;z-index:1}
-.hero .stage{position:absolute;left:50%;top:clamp(-44px,-3vw,-24px);transform:translateX(-50%);width:min(1120px,70vw);max-width:none;aspect-ratio:auto;height:auto;margin:0;z-index:0;pointer-events:none}
-.hero .stage .enquiry,.hero .stage .note,.hero .stage .lbase{display:none}
-.hero .stage .screen > *{visibility:hidden}
-.hero .stage .laptop{position:relative;left:0;top:0;width:100%}
-.hero .stage .lid{background:linear-gradient(#F5F5F7,#ECECF0);border:1px solid rgba(0,0,0,.06);border-radius:22px;padding:1.4%;box-shadow:0 60px 100px -60px rgba(0,0,0,.22)}
-.hero .stage .screen{border-radius:14px;
-  background:radial-gradient(55% 70% at 12% 18%,rgba(0,113,227,.20),transparent 62%),radial-gradient(50% 65% at 88% 22%,rgba(122,92,255,.18),transparent 62%),radial-gradient(60% 60% at 62% 100%,rgba(227,75,143,.14),transparent 62%),#FAFAFC}
-.hero .stage .laptop .screen::before{content:"";position:absolute;left:0;right:0;top:0;height:28px;background:rgba(255,255,255,.75);border-bottom:1px solid rgba(0,0,0,.05)}
-.hero .stage .laptop .screen::after{content:"";position:absolute;left:16px;top:10px;width:8px;height:8px;border-radius:50%;background:#FF5F57;box-shadow:14px 0 0 #FEBC2E,28px 0 0 #28C840}
-.hero .stage .phone{position:absolute;right:-7%;left:auto;top:auto;bottom:-6%;width:15%;background:linear-gradient(#F5F5F7,#ECECF0);border:1px solid rgba(0,0,0,.07);box-shadow:0 40px 70px -40px rgba(0,0,0,.28)}
-.hero .stage .phone .screen{background:radial-gradient(90% 55% at 30% 10%,rgba(0,113,227,.22),transparent 65%),radial-gradient(90% 55% at 80% 95%,rgba(227,75,143,.16),transparent 65%),#FAFAFC}
-.hero .stage .phone .screen::before{content:"";position:absolute;left:50%;top:3%;width:32%;height:3.2%;transform:translateX(-50%);border-radius:999px;background:#1D1D1F}
-@media (max-width:1200px){.hero .stage .phone{right:-3%}}
-@media (max-width:900px){.hero .stage{width:calc(100% + 24px);top:-20px}.hero .stage .phone{display:none}.hero .stage .lid{border-radius:20px}}
-@media (prefers-reduced-transparency:reduce){.hero .stage{display:none}}
+/* HERO (option 4): dark photo of someone at work, white words on the left */
+html .hero.dark{background:linear-gradient(90deg,rgba(6,10,20,.92) 0%,rgba(6,10,20,.78) 45%,rgba(6,10,20,.25) 100%),url("/img/why-cover.jpg") center 60%/cover no-repeat,#060A14!important}
+html .hero{padding-block:clamp(80px,10vw,140px)!important}
+.hero .stage{display:none!important}
+.hero-grid{text-align:left;justify-items:start}
+.hero h1{color:#fff;font-size:clamp(40px,5.4vw,72px);max-width:11em}
+.hero h1 span{background:linear-gradient(90deg,#64B5FF,#B49BFF 60%,#FF8FC0);-webkit-background-clip:text;background-clip:text;color:transparent}
+html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width:30em}
+.hero .fact,.hero .consult-note{color:rgba(255,255,255,.86)}
+.hero .fact .ico{color:#64B5FF}
+.hero .consult-note .ico{color:#4ADE80}
+.hero-facts,.hero-cta,.hero .consult-note{justify-content:flex-start}
+.hero .text-link{color:#9CCBFF}
+.hero .eyebrow{color:#FFB15C}
+@media (max-width:700px){html .hero.dark{background:linear-gradient(180deg,rgba(6,10,20,.88),rgba(6,10,20,.82)),url("/img/why-cover.jpg") 70% 50%/cover no-repeat,#060A14!important}}
 /* NEAT PRICING (under the hero) */
 .pricing{display:block!important;background:#fff!important;padding:clamp(64px,8vw,112px) 0 clamp(40px,5vw,64px)}
 .pricing .left,.pricing .right{padding:0 var(--gut)!important;max-width:var(--wrap);margin:0 auto;background:none!important}
