@@ -1206,6 +1206,15 @@ footer .logo{color:var(--ink)}
 .ms.ctg .ms-row span{opacity:1;color:#6E6E73}
 .ms.ctg .ms-row span b{color:#1D1D1F}
 .wcard.client .mock{background:linear-gradient(160deg,#F5F5F7,#E8E8ED)}
+/* HERO: laptop and phone sit faintly behind the words, taking no space of their own */
+.hero{position:relative;padding-bottom:clamp(56px,8vw,104px)!important}
+.hero-grid{position:relative;isolation:isolate}
+.hero-grid > div:first-child{position:relative;z-index:1}
+.hero .stage{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(1100px,130%);max-width:none;margin:0;z-index:0;opacity:.10;pointer-events:none;filter:saturate(.6) blur(.5px);
+  -webkit-mask-image:radial-gradient(ellipse 60% 55% at 50% 50%,#000 30%,transparent 80%);mask-image:radial-gradient(ellipse 60% 55% at 50% 50%,#000 30%,transparent 80%)}
+.hero .stage .enquiry,.hero .stage .note{display:none}
+@media (max-width:700px){.hero .stage{width:180%;opacity:.08}}
+@media (prefers-reduced-transparency:reduce){.hero .stage{display:none}}
 /* PRICING PAGE + TEASER */
 .price-teaser{display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;background:var(--paper-alt,#F5F5F7);border-radius:28px;padding:40px 44px}
 .price-teaser h2{font-size:clamp(28px,4vw,44px);letter-spacing:-.02em;margin:8px 0 10px;line-height:1.08}
