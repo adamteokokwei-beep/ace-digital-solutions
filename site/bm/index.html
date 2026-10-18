@@ -1243,10 +1243,12 @@ footer .logo{color:var(--ink)}
 .hero{position:relative;padding-bottom:clamp(56px,8vw,104px)!important}
 .hero-grid{position:relative;isolation:isolate}
 .hero-grid > div:first-child{position:relative;z-index:1}
-.hero .stage{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(1100px,130%);max-width:none;margin:0;z-index:0;opacity:.10;pointer-events:none;filter:saturate(.6) blur(.5px);
-  -webkit-mask-image:radial-gradient(ellipse 60% 55% at 50% 50%,#000 30%,transparent 80%);mask-image:radial-gradient(ellipse 60% 55% at 50% 50%,#000 30%,transparent 80%)}
+.hero .stage{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(1100px,130%);max-width:none;margin:0;z-index:0;opacity:.26;pointer-events:none;filter:saturate(.85);
+  -webkit-mask-image:radial-gradient(ellipse 70% 65% at 50% 50%,#000 45%,transparent 92%);mask-image:radial-gradient(ellipse 70% 65% at 50% 50%,#000 45%,transparent 92%)}
 .hero .stage .enquiry,.hero .stage .note{display:none}
-@media (max-width:700px){.hero .stage{width:180%;opacity:.08}}
+.hero h1,.hero .lede,.hero .fact,.consult-note,.hero .eyebrow{text-shadow:0 0 18px #fff,0 0 36px rgba(255,255,255,.9)!important}
+.hero h1 span{text-shadow:none!important;filter:drop-shadow(0 0 14px #fff)}
+@media (max-width:700px){.hero .stage{width:170%;opacity:.24}}
 @media (prefers-reduced-transparency:reduce){.hero .stage{display:none}}
 /* PRICING PAGE + TEASER */
 .price-teaser{display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;background:var(--paper-alt,#F5F5F7);border-radius:28px;padding:40px 44px}
@@ -1585,16 +1587,13 @@ footer .logo{color:var(--ink)}
     <div class="inc-grid">
       <ul class="inc-list">
         <li class="hl-li"><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span><b>Sehingga 8 halaman atau seksyen</b></span></li>
-        <li class="hl-li"><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span><b>Chatbot laman web</b> (RM1,500 tanpanya)</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Halaman utama yang direka khas</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Mesra peranti (telefon, tablet, desktop)</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Seksyen perkhidmatan</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Butang WhatsApp dan panggilan</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Borang hubungan / pertanyaan</span></li>
+        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Halaman utama yang direka khas, halaman pendaratan yang menarik dan seksyen Perkhidmatan</span></li>
+        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Mesra telefon, tablet dan komputer</span></li>
+        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Butang WhatsApp dan klik-untuk-telefon, borang hubungan / pertanyaan dan pautan media sosial</span></li>
         <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Satu bahasa pilihan anda (Inggeris, BM atau Cina)</span></li>
         <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Persediaan SEO asas dan struktur mesra Google</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Pautan media sosial</span></li>
         <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Persediaan domain dan pelancaran</span></li>
+        <li class="hl-li"><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span><b>Chatbot laman web</b> (RM1,500 tanpanya)</span></li>
       </ul>
       <div class="price-card">
         <span class="pill">Harga projek sekali bayar</span>

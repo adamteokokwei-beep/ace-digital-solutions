@@ -1243,10 +1243,12 @@ footer .logo{color:var(--ink)}
 .hero{position:relative;padding-bottom:clamp(56px,8vw,104px)!important}
 .hero-grid{position:relative;isolation:isolate}
 .hero-grid > div:first-child{position:relative;z-index:1}
-.hero .stage{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(1100px,130%);max-width:none;margin:0;z-index:0;opacity:.10;pointer-events:none;filter:saturate(.6) blur(.5px);
-  -webkit-mask-image:radial-gradient(ellipse 60% 55% at 50% 50%,#000 30%,transparent 80%);mask-image:radial-gradient(ellipse 60% 55% at 50% 50%,#000 30%,transparent 80%)}
+.hero .stage{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(1100px,130%);max-width:none;margin:0;z-index:0;opacity:.26;pointer-events:none;filter:saturate(.85);
+  -webkit-mask-image:radial-gradient(ellipse 70% 65% at 50% 50%,#000 45%,transparent 92%);mask-image:radial-gradient(ellipse 70% 65% at 50% 50%,#000 45%,transparent 92%)}
 .hero .stage .enquiry,.hero .stage .note{display:none}
-@media (max-width:700px){.hero .stage{width:180%;opacity:.08}}
+.hero h1,.hero .lede,.hero .fact,.consult-note,.hero .eyebrow{text-shadow:0 0 18px #fff,0 0 36px rgba(255,255,255,.9)!important}
+.hero h1 span{text-shadow:none!important;filter:drop-shadow(0 0 14px #fff)}
+@media (max-width:700px){.hero .stage{width:170%;opacity:.24}}
 @media (prefers-reduced-transparency:reduce){.hero .stage{display:none}}
 /* PRICING PAGE + TEASER */
 .price-teaser{display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;background:var(--paper-alt,#F5F5F7);border-radius:28px;padding:40px 44px}
@@ -1585,16 +1587,13 @@ footer .logo{color:var(--ink)}
     <div class="inc-grid">
       <ul class="inc-list">
         <li class="hl-li"><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span><b>Up to 8 pages or sections</b></span></li>
-        <li class="hl-li"><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span><b>Website chatbot</b> (RM1,500 without it)</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Custom-designed homepage</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Mobile-friendly (phone, tablet, desktop)</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Services section</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>WhatsApp and click-to-call buttons</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Contact / enquiry form</span></li>
+        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Custom-designed homepage, an eye-catching landing page and a Services section</span></li>
+        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Mobile-friendly on phone, tablet and desktop</span></li>
+        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>WhatsApp and click-to-call buttons, a contact / enquiry form and social media links</span></li>
         <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>One language of your choice (English, BM or Chinese)</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Basic SEO setup and Google-friendly structure</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Social media links</span></li>
+        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Basic SEO setup and a Google-friendly structure</span></li>
         <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Domain and launch setup</span></li>
+        <li class="hl-li"><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span><b>Website chatbot</b> (RM1,500 without it)</span></li>
       </ul>
       <div class="price-card">
         <span class="pill">One-time project price</span>
