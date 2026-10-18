@@ -1254,40 +1254,38 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 .hero .text-link{color:#9CCBFF}
 .hero .eyebrow{color:#FFB15C}
 @media (max-width:700px){html .hero.dark{background:linear-gradient(180deg,rgba(6,10,20,.88),rgba(6,10,20,.82)),url("/img/why-cover.jpg") 70% 50%/cover no-repeat,#060A14!important}}
-/* NEAT PRICING (under the hero) */
-.pricing{display:block!important;background:#fff!important;padding:clamp(64px,8vw,112px) 0 clamp(40px,5vw,64px)}
-.pricing .left,.pricing .right{padding:0 var(--gut)!important;max-width:var(--wrap);margin:0 auto;background:none!important}
-.pricing .left > .sec-title,.pricing .left > .sec-lede{text-align:center;margin-left:auto;margin-right:auto}
-.pricing .left > .sec-lede{max-width:34em}
-.pricing .inc-grid{grid-template-columns:minmax(0,360px) minmax(0,1fr)!important;gap:20px 40px;align-items:start!important;margin-top:40px;background:#F5F5F7;border-radius:32px;padding:clamp(20px,3vw,40px)}
-.pricing .inc-grid .price-card{grid-column:1;grid-row:1 / span 4;box-shadow:0 24px 50px -32px rgba(0,0,0,.28)!important;order:0}
-.pricing .inc-grid .inc-list{grid-column:2;grid-row:1;margin:4px 0 8px;grid-template-columns:1fr 1fr;gap:14px 28px;order:0}
-.pricing .inc-list li{font-size:15.5px;line-height:1.4}
+/* NEAT PRICING: "What's included" and "Optional add-ons" side by side, as one block */
+.pricing{display:grid!important;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:24px;align-items:stretch;
+  max-width:calc(var(--wrap) + 2*var(--gut));margin:0 auto;padding:clamp(48px,6vw,88px) var(--gut) clamp(24px,3vw,40px)!important;background:#fff!important}
+.pricing .left,.pricing .right{padding:clamp(24px,3vw,40px)!important;margin:0;max-width:none;background:#F5F5F7!important;border-radius:32px;min-width:0}
+.pricing .left > .sec-title{font-size:clamp(30px,3.4vw,44px);letter-spacing:-.025em}
+.pricing .left > .sec-lede{max-width:34em;color:var(--muted)}
+.pricing .inc-grid{grid-template-columns:minmax(0,1fr) minmax(0,260px)!important;gap:16px 24px;align-items:start!important;margin-top:24px}
+.pricing .inc-grid .inc-list{grid-column:1;grid-row:1;margin:0;gap:11px}
+.pricing .inc-grid .price-card{grid-column:2;grid-row:1;box-shadow:0 24px 50px -32px rgba(0,0,0,.28)!important;padding:24px 20px}
+.pricing .inc-list li{font-size:15px;line-height:1.4}
 .pricing .inc-list .tick{flex:none}
-.pricing .inc-grid .bonus{grid-column:2;margin:0!important;background:#fff;color:var(--ink);box-shadow:none;border-radius:18px;padding:14px 18px;order:0}
+.pricing .inc-grid .bonus{grid-column:1 / -1;margin:0!important;background:#fff;color:var(--ink);box-shadow:none;border-radius:18px;padding:12px 16px}
 .pricing .bonus .bonus-ico{background:#E9F8EE}.pricing .bonus .bonus-ico .ico{color:#15803D}
 .pricing .bonus .bonus-txt em{color:#15803D}.pricing .bonus .bonus-txt small{color:var(--muted)}
 .pricing .bonus .bonus-free{background:#E9F8EE;color:#15803D;transform:none;box-shadow:none;font-size:13px;padding:7px 12px;border-radius:999px}
-.pricing .inc-grid .bonus-fine{grid-column:2;margin:0!important;color:var(--muted);order:0}
-.pricing .right.addons{margin-top:clamp(56px,7vw,88px);max-width:860px}
-.pricing .addons h2{text-align:center;font-size:clamp(28px,3.4vw,40px);letter-spacing:-.02em}
-.pricing .addons p.lede{text-align:center;max-width:36em;margin-left:auto;margin-right:auto;color:var(--muted)}
-.pricing .save-banner{justify-content:center;background:#EEF9F1;border:0;border-radius:16px;color:#14532D}
-.pricing .addon-list{border:0;box-shadow:none;background:#F5F5F7;border-radius:22px;padding:6px 10px}
-.pricing .addon-list li{border-top:1px solid rgba(0,0,0,.06);background:none!important;padding:12px 10px}
+.pricing .inc-grid .bonus-fine{grid-column:1 / -1;margin:0!important;color:var(--muted)}
+.pricing .addons h2{font-size:clamp(26px,2.6vw,34px);letter-spacing:-.02em}
+.pricing .addons p.lede{color:var(--muted)}
+.pricing .save-banner{background:#EEF9F1;border:0;border-radius:16px;color:#14532D}
+.pricing .addon-list{border:0;box-shadow:none;background:#fff;border-radius:20px;padding:4px 8px}
+.pricing .addon-list li{border-top:1px solid rgba(0,0,0,.06);background:none!important;padding:11px 8px}
 .pricing .addon-list li.hd{background:none;color:var(--muted);border-top:0}
-.pricing .addon-list .ai{background:#fff;color:var(--ink)}
-.pricing .addon-list .deal{background:#fff;border:0;color:#15803D}
-.pricing .addon-note{justify-content:center;text-align:center}
+.pricing .addon-list .ai{background:#F5F5F7;color:var(--ink)}
+.pricing .addon-list .deal{background:#EEF9F1;border:0;color:#15803D}
 .pricing .rush-note{background:#FFF8EC;border:0;border-radius:16px}
-@media (max-width:1100px){.pricing .inc-grid .inc-list{grid-template-columns:1fr}}
-@media (max-width:860px){
-  .pricing .inc-grid{grid-template-columns:1fr!important;border-radius:24px}
+@media (max-width:1100px){.pricing{grid-template-columns:1fr}}
+@media (max-width:700px){
+  .pricing{padding-inline:16px!important}
+  .pricing .left,.pricing .right{padding:18px!important;border-radius:24px}
+  .pricing .inc-grid{grid-template-columns:1fr!important}
   .pricing .inc-grid > *{grid-column:1!important;grid-row:auto!important}
-  .pricing .inc-grid .price-card{order:-1!important}
-  .pricing .left,.pricing .right{padding:0 16px!important}
-  .pricing .inc-grid{padding:14px;gap:14px}
-  .pricing .inc-grid .inc-list{padding:4px 6px}
+  .pricing .inc-grid .price-card{order:-1}
   .pricing .inc-grid .bonus{grid-template-columns:38px minmax(0,1fr) auto;gap:10px;padding:12px}
   .pricing .bonus .bonus-ico{width:38px;height:38px}
 }
@@ -1299,9 +1297,9 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
   .pricing .addon-list .deal-word{font-size:11.5px}
   .pricing .save-banner{flex-direction:row;align-items:center;text-align:left}
 }
-.cap-field{min-height:0}.cap-field #turnstile{min-height:65px}
+/* Website Care price: smaller */
+.care-price span{font-size:clamp(28px,2.6vw,34px)!important}
 /* spacing tidy-up */
-.pricing{padding-bottom:clamp(24px,3vw,40px)!important}
 .care-sec{padding-block:clamp(24px,3vw,40px)!important;background:#fff!important}
 .pricing-cta-sec{padding-block:clamp(32px,4vw,56px)!important}
 /* PRICING PAGE + TEASER */
