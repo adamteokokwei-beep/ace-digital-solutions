@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Cahaya Learning Centre — Tuition in Skudai (Demo by Ace Digital Solutions)</title>
+<meta name="description" content="A fictional tuition centre website in Skudai, Johor Bahru, built by Ace Digital Solutions as a demo. Programmes, timetable, fees and a free trial class request.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230071E3'/><path d='M16 6l3 7 7 .6-5.3 4.6 1.7 7L16 21.4 9.6 25.2l1.7-7L6 13.6l7-.6z' fill='white'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1D1D1F; --ink-2:#424245; --muted:#6E6E73; --line:#E8E8ED; --grey:#F5F5F7;
+  --blue:#0071E3; --blue-d:#0062C4; --amber:#BF4800; --green:#1F9D55; --green-d:#178A49;
+  --f:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI","Noto Sans SC",system-ui,sans-serif;
+  --fd:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter","Segoe UI","Noto Sans SC",system-ui,sans-serif;
+  --wrap:1100px; --gut:clamp(20px,5vw,40px);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;scroll-padding-top:70px;-webkit-tap-highlight-color:transparent}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;font:400 17px/1.5 var(--f);color:var(--ink);background:#fff;letter-spacing:-.011em;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--fd);margin:0;letter-spacing:-.03em;line-height:1.08;text-wrap:balance}
+p{margin:0}
+a{color:inherit}
+button{font:inherit;cursor:pointer;touch-action:manipulation}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-inline:var(--gut)}
+.ico{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.eyebrow{font:600 15px/1.2 var(--f);color:var(--amber);letter-spacing:0}
+.muted{color:var(--muted)}
+.band{padding-block:clamp(72px,9vw,120px)}
+.grey{background:var(--grey)}
+.sec-head{text-align:center;max-width:44em;margin:0 auto clamp(36px,5vw,56px)}
+.sec-head h2{font-size:clamp(34px,4.8vw,56px);margin-top:10px}
+.sec-head p{font-size:19px;color:var(--muted);margin-top:14px}
+.sec-head p.eyebrow{font-size:15px;color:var(--amber);margin:0}
+html[lang^="zh"] .hero h1 span{display:inline-block}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:980px;padding:.85em 1.5em;font:600 16px/1 var(--f);text-decoration:none;transition:transform .16s cubic-bezier(.2,.9,.25,1),background-color .2s}
+.btn:active{transform:scale(.96);transition-duration:.06s}
+.btn .ico{width:18px;height:18px}
+.btn-blue{background:var(--blue);color:#fff}
+.btn-wa{background:var(--green);color:#fff}
+.btn-ghost{background:transparent;color:var(--blue);padding-inline:.4em}
+@media (hover:hover) and (pointer:fine){.btn-blue:hover{background:var(--blue-d)}.btn-wa:hover{background:var(--green-d)}.btn-ghost:hover{text-decoration:underline}}
+.demo{display:inline-block;font:700 10.5px/1 var(--f);letter-spacing:.03em;color:#8A5A00;background:#FFF4D6;border-radius:5px;padding:3px 5px;vertical-align:middle;margin-left:4px}
+
+/* demo bar */
+.demobar{background:var(--grey);color:var(--ink-2);font-size:13.5px;border-bottom:1px solid var(--line)}
+.demobar .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;min-height:40px;padding-block:6px}
+.demobar b{color:var(--amber)}
+.demobar a{color:var(--blue);text-decoration:none;font-weight:600}
+
+/* header */
+header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.75);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);box-shadow:0 1px 0 rgba(0,0,0,.08)}
+header .wrap{display:flex;align-items:center;gap:18px;min-height:56px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.brand .mk{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#0071E3,#7A5CFF);display:grid;place-items:center;color:#fff}
+.brand .mk svg{width:17px;height:17px;fill:#fff;stroke:none}
+.brand b{font:700 16px/1.1 var(--fd);letter-spacing:-.02em;display:block}
+.brand small{display:block;font-size:11.5px;color:var(--muted)}
+nav.main{display:flex;gap:22px;margin-left:auto}
+nav.main a{font-size:13.5px;color:rgba(0,0,0,.8);text-decoration:none}
+@media (hover:hover) and (pointer:fine){nav.main a:hover{color:#000}}
+.langs{display:flex;gap:2px;padding:2px;border-radius:999px;background:var(--grey)}
+.langs button{white-space:nowrap;border:0;background:none;border-radius:999px;padding:5px 9px;font-size:12.5px;font-weight:600;color:var(--muted)}
+.langs button[aria-pressed="true"]{background:var(--ink);color:#fff}
+header .btn{padding:.6em 1.1em;font-size:14px}
+.burger{display:none;background:none;border:0;padding:6px;color:var(--ink)}
+.burger .ico{width:24px;height:24px}
+.mnav{display:none}
+@media (max-width:480px){.brand small{display:none}.brand b{font-size:15px}header .wrap{gap:10px}.langs button{padding:5px 7px}}
+@media (max-width:900px){
+  nav.main,header .btn-blue{display:none}
+  .langs{margin-left:auto}
+  .burger{display:block}
+  .mnav{display:block;position:absolute;left:0;right:0;top:100%;background:#fff;box-shadow:0 24px 40px -24px rgba(0,0,0,.3);padding:6px var(--gut) 16px;transform:translateY(-8px);opacity:0;visibility:hidden;transition:transform .3s cubic-bezier(.2,.9,.25,1),opacity .2s,visibility 0s linear .3s}
+  header.open .mnav{transform:none;opacity:1;visibility:visible;transition:transform .3s cubic-bezier(.2,.9,.25,1),opacity .2s,visibility 0s}
+  .mnav a{display:block;padding:12px 0;font-size:20px;font-weight:600;text-decoration:none;border-bottom:1px solid var(--line)}
+  .mnav .btn{margin-top:14px;width:100%}
+}
+
+/* hero */
+.hero{text-align:center;padding-block:clamp(56px,8vw,96px) 0;overflow:hidden}
+.hero h1{font-size:clamp(44px,7.4vw,92px);line-height:1.02;letter-spacing:-.04em;max-width:11em;margin:14px auto 0}
+.hero h1 span{background:linear-gradient(90deg,#0071E3 0%,#7A5CFF 55%,#E34B8F 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .lede{font-size:clamp(19px,2vw,23px);color:var(--muted);max-width:32em;margin:22px auto 0;line-height:1.42}
+.hero .ctas{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 18px;margin-top:30px}
+.facts{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:28px}
+.facts span{display:inline-flex;align-items:center;gap:7px;background:var(--grey);border-radius:999px;padding:8px 14px;font-size:14px;color:var(--ink-2)}
+.facts .ico{color:var(--blue);width:16px;height:16px}
+
+/* hero collage */
+.collage{position:relative;max-width:900px;height:clamp(300px,40vw,400px);margin:clamp(44px,6vw,70px) auto 0}
+.card{background:#fff;border-radius:22px;box-shadow:0 30px 60px -30px rgba(0,0,0,.28),0 2px 10px rgba(0,0,0,.05);text-align:left}
+.c-time{position:absolute;left:50%;top:0;transform:translateX(-50%);width:min(520px,92%);padding:20px 22px}
+.c-time h3{font-size:17px;letter-spacing:-.02em;display:flex;align-items:center;justify-content:space-between}
+.c-time h3 small{font:500 13px var(--f);color:var(--muted)}
+.c-time ul{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:8px}
+.c-time li{display:grid;grid-template-columns:86px 1fr auto;gap:10px;align-items:center;padding:10px 12px;border-radius:12px;background:var(--grey);font-size:14.5px}
+.c-time li b{font-weight:600}
+.c-time li em{font-style:normal;font-size:12.5px;color:var(--muted)}
+.c-time .pill{font-size:11.5px;font-weight:600;border-radius:999px;padding:4px 8px;background:#E8F3FF;color:var(--blue)}
+.c-time .pill.full{background:#FFE9E3;color:#C0392B}
+.c-next{position:absolute;left:0;bottom:0;width:250px;padding:16px 18px}
+.c-next .k{font-size:12.5px;color:var(--muted)}
+.c-next b{display:block;font:700 22px/1.1 var(--fd);letter-spacing:-.03em;margin-top:6px}
+.c-next .row{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:13.5px;color:var(--ink-2)}
+.c-next .row .ico{color:var(--blue)}
+.c-wa{position:absolute;right:0;bottom:24px;width:270px;padding:14px 16px;display:grid;grid-template-columns:34px 1fr;gap:10px}
+.c-wa .av{width:34px;height:34px;border-radius:50%;background:#DCF8C6;display:grid;place-items:center;color:var(--green)}
+.c-wa b{font-size:13.5px}
+.c-wa p{font-size:13px;color:var(--ink-2);margin-top:2px}
+.c-wa small{font-size:11.5px;color:var(--muted)}
+@media (max-width:700px){.collage{height:auto;display:grid;gap:14px}.c-time,.c-next,.c-wa{position:static;transform:none;width:auto}.c-next,.c-wa{display:none}}
+
+/* programmes */
+.progs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media (max-width:860px){.progs{grid-template-columns:1fr}}
+.prog{background:var(--grey);border-radius:24px;padding:28px 26px;display:flex;flex-direction:column;gap:10px}
+.prog .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;color:#fff}
+.prog .ic .ico{width:22px;height:22px}
+.prog h3{font-size:24px;margin-top:8px}
+.prog .lv{font-size:14px;font-weight:600;color:var(--blue)}
+.prog p{color:var(--ink-2);font-size:16px}
+.prog ul{margin:4px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.prog li{background:#fff;border-radius:999px;padding:6px 11px;font-size:13.5px}
+
+/* timetable */
+.tt-tabs{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin-bottom:24px}
+.tt-tabs button{border:0;background:#fff;border-radius:999px;padding:9px 16px;font-size:15px;font-weight:500;color:var(--ink-2);box-shadow:0 1px 2px rgba(0,0,0,.06);transition:background-color .2s,color .2s}
+.tt-tabs button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.tt{background:#fff;border-radius:24px;overflow:hidden;max-width:860px;margin:0 auto}
+.tt table{width:100%;border-collapse:collapse;font-size:15.5px}
+.tt th{text-align:left;font-size:12.5px;font-weight:600;color:var(--muted);padding:14px 20px;border-bottom:1px solid var(--line)}
+.tt td{padding:16px 20px;border-bottom:1px solid var(--line)}
+.tt tr:last-child td{border-bottom:0}
+.tt td b{font-weight:600}
+.seat{font-size:12.5px;font-weight:600;border-radius:999px;padding:4px 9px;background:#E8F3FF;color:var(--blue);white-space:nowrap}
+.seat.full{background:#FFE9E3;color:#C0392B}
+@media (max-width:600px){.tt th:nth-child(3),.tt td:nth-child(3){display:none}.tt td,.tt th{padding:13px 14px}}
+.tt-note{text-align:center;font-size:14px;color:var(--muted);margin-top:16px}
+
+/* fees */
+.fees{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;max-width:980px;margin:0 auto}
+@media (max-width:860px){.fees{grid-template-columns:1fr;max-width:460px}}
+.fee{border-radius:24px;padding:30px 26px;background:var(--grey);display:flex;flex-direction:column;gap:6px}
+.fee.hi{background:#000;color:#fff}
+.fee.hi .muted{color:#A1A1A6}
+.fee h3{font-size:21px}
+.fee .amt{font:700 clamp(40px,4.4vw,52px)/1 var(--fd);letter-spacing:-.04em;margin-top:14px}
+.fee .amt small{font:500 15px var(--f);letter-spacing:0;color:var(--muted)}
+.fee ul{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:9px;font-size:15px}
+.fee li{display:flex;gap:9px}
+.fee li .ico{color:var(--green);margin-top:3px}
+.fee.hi li .ico{color:#30D158}
+.fee-note{text-align:center;font-size:14px;color:var(--muted);margin-top:18px}
+
+/* teachers */
+.teachers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;max-width:980px;margin:0 auto}
+@media (max-width:760px){.teachers{grid-template-columns:1fr;max-width:460px}}
+.t{background:#fff;border-radius:24px;padding:26px;display:flex;flex-direction:column;gap:8px}
+.t .av{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font:700 22px var(--fd);color:#fff}
+.t h3{font-size:20px;margin-top:8px}
+.t .sub{font-size:14px;font-weight:600;color:var(--blue)}
+.t p{font-size:15px;color:var(--ink-2)}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;max-width:980px;margin:0 auto;counter-reset:s}
+@media (max-width:760px){.steps{grid-template-columns:1fr;max-width:460px}}
+.step{background:var(--grey);border-radius:24px;padding:26px}
+.step .n{width:34px;height:34px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:700}
+.step h3{font-size:20px;margin-top:16px}
+.step p{font-size:15.5px;color:var(--ink-2);margin-top:6px}
+
+/* trial form */
+.trial{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(28px,5vw,64px);align-items:start}
+@media (max-width:860px){.trial{grid-template-columns:1fr}}
+.trial h2{font-size:clamp(34px,4.6vw,52px);margin-top:10px}
+.trial .copy p{font-size:18px;color:var(--muted);margin-top:14px}
+.trial .perks{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:10px}
+.trial .perks li{display:flex;gap:10px;font-size:16px}
+.trial .perks .ico{color:var(--green);margin-top:4px}
+form.tf{background:#fff;border-radius:28px;padding:clamp(22px,3vw,32px);box-shadow:0 10px 40px -12px rgba(0,0,0,.15)}
+.tf fieldset{border:0;margin:0 0 18px;padding:0}
+.tf legend,.tf label.l{display:block;font-size:14px;font-weight:600;margin-bottom:8px}
+.choices{display:flex;flex-wrap:wrap;gap:8px}
+.choices label{position:relative}
+.choices input{position:absolute;opacity:0;inset:0}
+.choices span{display:inline-block;border-radius:999px;padding:9px 14px;background:var(--grey);font-size:14.5px;transition:background-color .2s,color .2s}
+.choices input:checked+span{background:var(--ink);color:#fff}
+.choices input:focus-visible+span{outline:3px solid #8EC5FF;outline-offset:2px}
+.tf input[type=text],.tf input[type=tel],.tf select{width:100%;font:inherit;font-size:16px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--ink)}
+.tf .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:480px){.tf .two{grid-template-columns:1fr}}
+.tf .btn{width:100%;margin-top:6px}
+.tf .err{color:#C0392B;font-size:14px;margin-top:10px}
+.tf .fine{font-size:13px;color:var(--muted);margin-top:12px;text-align:center}
+.sent{display:none;text-align:center;padding:10px 0}
+.sent .ok{width:56px;height:56px;border-radius:50%;background:#E3F7EA;color:var(--green);display:grid;place-items:center;margin:0 auto}
+.sent .ok .ico{width:28px;height:28px}
+.sent h3{font-size:24px;margin-top:14px}
+.sent p{color:var(--ink-2);margin-top:8px;font-size:15.5px}
+.sent pre{white-space:pre-wrap;text-align:left;background:var(--grey);border-radius:14px;padding:14px 16px;font:14px/1.5 var(--f);margin:16px 0 0}
+form.tf.done .fields{display:none}
+form.tf.done .sent{display:block}
+
+/* faq */
+.faq{max-width:780px;margin:0 auto;display:grid;gap:10px}
+.faq details{background:var(--grey);border-radius:18px;padding:0 22px}
+.faq summary{list-style:none;cursor:pointer;padding:18px 0;font-weight:600;font-size:17px;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-weight:400;font-size:24px;line-height:1;color:var(--blue);transition:transform .25s cubic-bezier(.2,.9,.25,1)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details > div{overflow:hidden}
+.faq details p{padding-bottom:18px;color:var(--ink-2);font-size:16px}
+
+/* location */
+.loc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:center}
+@media (max-width:760px){.loc{grid-template-columns:1fr}}
+.loc h2{font-size:clamp(32px,4.2vw,48px);margin-top:10px}
+.loc dl{margin:22px 0 0;display:grid;gap:14px}
+.loc dt{font-size:13px;color:var(--muted)}
+.loc dd{margin:2px 0 0;font-size:17px}
+.map{border-radius:28px;aspect-ratio:4/3;background:
+  radial-gradient(circle at 55% 48%,#0071E3 0 7px,rgba(0,113,227,.22) 8px 30px,transparent 31px),
+  linear-gradient(115deg,transparent 46%,#fff 46.5% 49%,transparent 49.5%),
+  linear-gradient(25deg,transparent 58%,#fff 58.5% 60.5%,transparent 61%),
+  linear-gradient(160deg,transparent 30%,#fff 30.5% 32%,transparent 32.5%),
+  #E6EEF7;position:relative;overflow:hidden}
+.map span{position:absolute;font-size:13px;font-weight:600;color:var(--ink-2);background:rgba(255,255,255,.85);border-radius:999px;padding:5px 10px}
+
+/* footer */
+footer{background:var(--grey);color:var(--muted);font-size:13px;padding:36px 0 110px;border-top:1px solid var(--line)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 30px}
+footer a{color:var(--ink-2);text-decoration:none}
+
+/* floating WhatsApp */
+.wa-fab{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:50;display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#fff;border:0;border-radius:999px;padding:13px 18px;font-weight:600;font-size:15px;box-shadow:0 14px 30px -12px rgba(31,157,85,.8);text-decoration:none;transition:transform .9s cubic-bezier(.2,.9,.25,1),box-shadow .9s}
+.wa-fab svg{width:22px;height:22px;fill:#fff}
+@media (hover:hover) and (pointer:fine){.wa-fab:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 20px 40px -14px rgba(31,157,85,.9)}}
+.wa-fab:active{transform:scale(.95);transition-duration:.08s}
+
+/* scroll reveal */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform 1.1s cubic-bezier(.2,.9,.25,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}}
+html[lang^="zh"] body{line-height:1.6}
+</style>
+</head>
+<body>
+<div class="demobar"><div class="wrap"><span><b>Fictional demo website</b> by Ace Digital Solutions. The centre, teachers, phone number, timetable and prices are made up.</span><a href="/#work">← Back to Ace Digital Solutions</a></div></div>
+
+<header id="head">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Cahaya Learning Centre home">
+      <span class="mk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.6 6 6.4.5-4.9 4.2 1.5 6.3L12 16.2 6.4 19.5l1.5-6.3L3 9l6.4-.5z"/></svg></span>
+      <span><b>Cahaya Learning Centre</b><small>Skudai, Johor Bahru <span class="demo">DEMO</span></small></span>
+    </a>
+    <nav class="main" aria-label="Main">
+      <a href="#programmes">Programmes</a><a href="#timetable">Timetable</a><a href="#fees">Fees</a><a href="#teachers">Teachers</a><a href="#faq">FAQ</a>
+    </nav>
+    <div class="langs" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="bm" aria-pressed="false">BM</button><button type="button" data-lang="zh" aria-pressed="false">中文</button>
+    </div>
+    <a class="btn btn-blue" href="#trial">Book a free trial</a>
+    <button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false"><svg class="ico" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+  <div class="mnav" id="mnav">
+    <a href="#programmes">Programmes</a><a href="#timetable">Timetable</a><a href="#fees">Fees</a><a href="#teachers">Teachers</a><a href="#faq">FAQ</a>
+    <a class="btn btn-blue" href="#trial">Book a free trial</a>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Tuition centre · Skudai, Johor Bahru</p>
+    <h1>Small classes. <span>Big confidence.</span></h1>
+    <p class="lede">Primary and secondary tuition in Maths, Science, English, Bahasa Melayu and Chinese, in groups of no more than 8, so every child is seen and heard.</p>
+    <div class="ctas">
+      <a class="btn btn-blue" href="#trial">Book a free trial class</a>
+      <a class="btn btn-wa" href="#trial"><svg class="ico" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-12.6 7.3L3 21l2.2-5.3A8.5 8.5 0 1 1 21 11.5z"/></svg>WhatsApp us</a>
+    </div>
+    <div class="facts">
+      <span><svg class="ico" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg>Max 8 per class</span>
+      <span><svg class="ico" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Standard 1 to Form 5</span>
+      <span><svg class="ico" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Taman Universiti, Skudai</span>
+    </div>
+    <div class="collage" aria-hidden="true">
+      <div class="card c-time">
+        <h3>This week · Standard 4 <small>Taman Universiti</small></h3>
+        <ul>
+          <li><b>Mon 4:30</b><span><span>Mathematics</span> <em>· <span>Teacher Mei Ling</span></em></span><span class="pill">3 seats</span></li>
+          <li><b>Wed 4:30</b><span><span>Science</span> <em>· <span>Teacher Farid</span></em></span><span class="pill">2 seats</span></li>
+          <li><b>Sat 9:00</b><span><span>English</span> <em>· <span>Teacher Priya</span></em></span><span class="pill full">Full</span></li>
+        </ul>
+      </div>
+      <div class="card c-next"><span class="k">Next class</span><b>Maths · 4:30 pm</b><div class="row"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Today, Room 2</div></div>
+      <div class="card c-wa"><span class="av"><svg class="ico" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-12.6 7.3L3 21l2.2-5.3A8.5 8.5 0 1 1 21 11.5z"/></svg></span><div><b>New trial request</b><p>Standard 4 · Maths · Saturday morning</p><small>Just now</small></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="programmes">
+  <div class="wrap">
+    <div class="sec-head rv"><p class="eyebrow">Programmes</p><h2>The right class for every level.</h2><p>Each programme follows the KSSR and KSSM syllabus, with regular practice papers and a short progress note for parents every month.</p></div>
+    <div class="progs">
+      <article class="prog rv"><span class="ic" style="background:#0071E3"><svg class="ico" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg></span><span class="lv">Standard 1 – 6</span><h3>Primary</h3><p>Strong foundations and good study habits, with patient teachers and lots of practice.</p><ul><li>Mathematics</li><li>Science</li><li>English</li><li>Bahasa Melayu</li><li>Chinese</li></ul></article>
+      <article class="prog rv"><span class="ic" style="background:#7A5CFF"><svg class="ico" viewBox="0 0 24 24"><path d="M2 20h20M6 16V9M10 16V5M14 16v-6M18 16V8"/></svg></span><span class="lv">Form 1 – 3</span><h3>Lower secondary</h3><p>Steady support through the move to secondary school, so no topic gets left behind.</p><ul><li>Mathematics</li><li>Science</li><li>English</li><li>Bahasa Melayu</li></ul></article>
+      <article class="prog rv"><span class="ic" style="background:#E34B8F"><svg class="ico" viewBox="0 0 24 24"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></span><span class="lv">Form 4 – 5</span><h3>SPM</h3><p>Focused SPM preparation with past-year questions, exam technique and timed practice.</p><ul><li>Mathematics</li><li>Additional Mathematics</li><li>Physics</li><li>Chemistry</li><li>Biology</li></ul></article>
+    </div>
+  </div>
+</section>
+
+<section class="band grey" id="timetable">
+  <div class="wrap">
+    <div class="sec-head rv"><p class="eyebrow">Timetable</p><h2>Find a class that fits your week.</h2><p>Choose a level to see its classes and how many seats are left.</p></div>
+    <div class="tt-tabs" role="group" aria-label="Level">
+      <button type="button" data-lv="p" aria-pressed="true">Primary</button><button type="button" data-lv="l" aria-pressed="false">Form 1 – 3</button><button type="button" data-lv="s" aria-pressed="false">SPM</button>
+    </div>
+    <div class="tt rv">
+      <table>
+        <thead><tr><th>Day &amp; time</th><th>Subject</th><th>Teacher</th><th>Seats</th></tr></thead>
+        <tbody id="ttBody"></tbody>
+      </table>
+    </div>
+    <p class="tt-note">Holiday classes and the latest changes are announced on WhatsApp.</p>
+  </div>
+</section>
+
+<section class="band" id="fees">
+  <div class="wrap">
+    <div class="sec-head rv"><p class="eyebrow">Fees</p><h2>Simple monthly fees.</h2><p>Four lessons a month per subject. No registration fee, and your first class is free.</p></div>
+    <div class="fees">
+      <div class="fee rv"><h3>Primary</h3><span class="muted">Standard 1 – 6</span><div class="amt">RM90<small> /subject/month</small></div><ul><li><svg class="ico" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>4 × 1.5-hour lessons</li><li><svg class="ico" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Homework help included</li><li><svg class="ico" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Monthly progress note</li></ul></div>
+      <div class="fee hi rv"><h3>SPM</h3><span class="muted">Form 4 – 5</span><div class="amt">RM140<small> /subject/month</small></div><ul><li><svg class="ico" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>4 × 2-hour lessons</li><li><svg class="ico" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Past-year paper practice</li><li><svg class="ico" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Exam technique workshops</li></ul></div>
+      <div class="fee rv"><h3>Lower secondary</h3><span class="muted">Form 1 – 3</span><div class="amt">RM110<small> /subject/month</small></div><ul><li><svg class="ico" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>4 × 1.5-hour lessons</li><li><svg class="ico" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Topic tests every month</li><li><svg class="ico" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Monthly progress note</li></ul></div>
+    </div>
+    <p class="fee-note">Siblings get 10% off. Fees are paid monthly by DuitNow or cash. <span class="demo">DEMO PRICES</span></p>
+  </div>
+</section>
+
+<section class="band grey" id="teachers">
+  <div class="wrap">
+    <div class="sec-head rv"><p class="eyebrow">Teachers</p><h2>Patient teachers who explain things clearly.</h2></div>
+    <div class="teachers">
+      <div class="t rv"><span class="av" style="background:#0071E3">ML</span><h3>Teacher Mei Ling</h3><span class="sub">Mathematics · Chinese</span><p>Makes Maths feel less scary, one small step at a time. Teaches in English and Chinese.</p></div>
+      <div class="t rv"><span class="av" style="background:#7A5CFF">F</span><h3>Teacher Farid</h3><span class="sub">Science · Bahasa Melayu</span><p>Loves simple experiments that help students remember. Teaches in Bahasa Melayu and English.</p></div>
+      <div class="t rv"><span class="av" style="background:#E34B8F">P</span><h3>Teacher Priya</h3><span class="sub">English</span><p>Builds confidence in reading, writing and speaking, with plenty of encouragement.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="how">
+  <div class="wrap">
+    <div class="sec-head rv"><p class="eyebrow">Getting started</p><h2>Three simple steps.</h2></div>
+    <div class="steps">
+      <div class="step rv"><span class="n">1</span><h3>Book a free trial</h3><p>Tell us your child's level and subject. We'll suggest a class time.</p></div>
+      <div class="step rv"><span class="n">2</span><h3>Join one class</h3><p>Your child joins a real class. Stay and watch if you like.</p></div>
+      <div class="step rv"><span class="n">3</span><h3>Decide, no pressure</h3><p>We share how the class went. Register only if it feels right.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band grey" id="trial">
+  <div class="wrap trial">
+    <div class="copy rv">
+      <p class="eyebrow">Free trial class</p>
+      <h2>Try a class before you decide.</h2>
+      <p>Send your request and we'll reply on WhatsApp within the day with a suggested time.</p>
+      <ul class="perks">
+        <li><svg class="ico" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>First class is free</li>
+        <li><svg class="ico" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>No registration fee</li>
+        <li><svg class="ico" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Parents are welcome to sit in</li>
+      </ul>
+    </div>
+    <form class="tf rv" id="tf" novalidate>
+      <div class="fields">
+        <fieldset><legend>Level</legend><div class="choices" id="fLevel">
+          <label><input type="radio" name="level" value="Primary"><span>Primary</span></label>
+          <label><input type="radio" name="level" value="Form 1 – 3"><span>Form 1 – 3</span></label>
+          <label><input type="radio" name="level" value="SPM"><span>SPM</span></label>
+        </div></fieldset>
+        <fieldset><legend>Subject</legend><div class="choices" id="fSubject">
+          <label><input type="radio" name="subject" value="Mathematics"><span>Mathematics</span></label>
+          <label><input type="radio" name="subject" value="Science"><span>Science</span></label>
+          <label><input type="radio" name="subject" value="English"><span>English</span></label>
+          <label><input type="radio" name="subject" value="Bahasa Melayu"><span>Bahasa Melayu</span></label>
+          <label><input type="radio" name="subject" value="Chinese"><span>Chinese</span></label>
+        </div></fieldset>
+        <fieldset><legend>Preferred time</legend><div class="choices">
+          <label><input type="radio" name="time" value="Weekday afternoon"><span>Weekday afternoon</span></label>
+          <label><input type="radio" name="time" value="Weekday evening"><span>Weekday evening</span></label>
+          <label><input type="radio" name="time" value="Saturday morning"><span>Saturday morning</span></label>
+        </div></fieldset>
+        <div class="two">
+          <div><label class="l" for="fName">Parent's name</label><input type="text" id="fName" autocomplete="name"></div>
+          <div><label class="l" for="fPhone">WhatsApp number</label><input type="tel" id="fPhone" autocomplete="tel" placeholder="012-345 6789"></div>
+        </div>
+        <p class="err" id="fErr" hidden>Please choose a level and subject, and add your name and WhatsApp number.</p>
+        <button class="btn btn-wa" type="submit" style="margin-top:18px"><svg class="ico" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-12.6 7.3L3 21l2.2-5.3A8.5 8.5 0 1 1 21 11.5z"/></svg>Send trial request</button>
+        <p class="fine">In this demo nothing is sent. On a real website, this opens WhatsApp with the message ready.</p>
+      </div>
+      <div class="sent" aria-live="polite">
+        <span class="ok"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span>
+        <h3>Request ready</h3>
+        <p>On a real website, WhatsApp opens with this message:</p>
+        <pre id="fMsg"></pre>
+        <button class="btn btn-ghost" type="button" id="fAgain" style="margin-top:10px">Start again</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="band" id="faq">
+  <div class="wrap">
+    <div class="sec-head rv"><p class="eyebrow">FAQ</p><h2>Questions parents ask.</h2></div>
+    <div class="faq">
+      <details><summary>How big are the classes?</summary><div><p>No more than 8 students per class, so teachers can check every child's work.</p></div></details>
+      <details><summary>Which language are classes taught in?</summary><div><p>Most classes are in English, with explanations in Bahasa Melayu or Chinese when it helps. Language subjects are taught in that language.</p></div></details>
+      <details><summary>What if my child misses a class?</summary><div><p>Let us know on WhatsApp and we'll arrange a replacement class in the same month, subject to seats.</p></div></details>
+      <details><summary>Do you give homework?</summary><div><p>Yes, a little each week, and we help with school homework during primary classes.</p></div></details>
+      <details><summary>How do I pay?</summary><div><p>Monthly, by DuitNow or cash at the centre, before the first class of the month.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<section class="band grey" id="visit">
+  <div class="wrap loc">
+    <div class="rv">
+      <p class="eyebrow">Visit us</p>
+      <h2>In the heart of Taman Universiti.</h2>
+      <dl>
+        <dt>Address</dt><dd>12A, Jalan Pendidikan 3, Taman Universiti, 81300 Skudai <span class="demo">DEMO</span></dd>
+        <dt>Opening hours</dt><dd>Mon – Fri 2 pm – 9 pm · Sat 8:30 am – 1 pm</dd>
+        <dt>WhatsApp</dt><dd>07-000 0000 <span class="demo">DEMO</span></dd>
+      </dl>
+    </div>
+    <div class="map rv" role="img" aria-label="Map showing the centre in Taman Universiti, Skudai">
+      <span style="left:56%;top:36%">Cahaya Learning Centre</span>
+      <span style="left:8%;top:12%">Taman Universiti</span>
+      <span style="left:12%;bottom:12%">Skudai</span>
+      <span style="right:8%;bottom:20%">Jalan Pendidikan</span>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Cahaya Learning Centre <span class="demo">DEMO</span></span>
+    <span>Website by <a href="/">Ace Digital Solutions</a> · a fictional demo</span>
+  </div>
+</footer>
+
+<a class="wa-fab" href="#trial" aria-label="WhatsApp us"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5 2.5 1 3 .8 3.6.8.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.2-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.7 15.6 2.2 13.8 2.2 12 2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 7 2.9 1.9 1.9 2.9 4.3 2.9 7 0 5.4-4.5 9.7-9.9 9.7zm8.4-18.1A11.8 11.8 0 0 0 12 .2C5.5.2.2 5.5.2 12c0 2.1.5 4.1 1.6 5.9L.1 24l6.3-1.7a11.9 11.9 0 0 0 5.7 1.4C18.5 23.7 23.8 18.4 23.8 12c0-3.2-1.2-6.1-3.4-8.3z"/></svg><span>WhatsApp</span></a>
+
+<script>
+(function(){
+  /* ---------- Translations (BM + Chinese) ---------- */
+  const T = {
+    bm:{
+      "Fictional demo website":"Laman web demo rekaan","by Ace Digital Solutions. The centre, teachers, phone number, timetable and prices are made up.":"oleh Ace Digital Solutions. Pusat, guru, nombor telefon, jadual dan harga adalah rekaan.","← Back to Ace Digital Solutions":"← Kembali ke Ace Digital Solutions",
+      "Skudai, Johor Bahru":"Skudai, Johor Bahru","Programmes":"Program","Timetable":"Jadual","Fees":"Yuran","Teachers":"Guru","FAQ":"Soalan Lazim","Book a free trial":"Tempah kelas percubaan percuma",
+      "Tuition centre · Skudai, Johor Bahru":"Pusat tuisyen · Skudai, Johor Bahru","Small classes.":"Kelas kecil.","Big confidence.":"Keyakinan besar.",
+      "Primary and secondary tuition in Maths, Science, English, Bahasa Melayu and Chinese, in groups of no more than 8, so every child is seen and heard.":"Tuisyen sekolah rendah dan menengah untuk Matematik, Sains, Bahasa Inggeris, Bahasa Melayu dan Bahasa Cina, dalam kumpulan tidak lebih daripada 8 orang, supaya setiap anak diberi perhatian.",
+      "Book a free trial class":"Tempah kelas percubaan percuma","WhatsApp us":"WhatsApp kami","Max 8 per class":"Maksimum 8 sekelas","Standard 1 to Form 5":"Tahun 1 hingga Tingkatan 5","Taman Universiti, Skudai":"Taman Universiti, Skudai",
+      "The right class for every level.":"Kelas yang sesuai untuk setiap tahap.","Each programme follows the KSSR and KSSM syllabus, with regular practice papers and a short progress note for parents every month.":"Setiap program mengikut sukatan KSSR dan KSSM, dengan latihan kertas yang kerap dan nota kemajuan ringkas untuk ibu bapa setiap bulan.",
+      "Standard 1 – 6":"Tahun 1 – 6","Primary":"Sekolah rendah","Strong foundations and good study habits, with patient teachers and lots of practice.":"Asas yang kukuh dan tabiat belajar yang baik, dengan guru yang sabar dan banyak latihan.",
+      "Mathematics":"Matematik","Science":"Sains","English":"Bahasa Inggeris","Bahasa Melayu":"Bahasa Melayu","Chinese":"Bahasa Cina",
+      "Form 1 – 3":"Tingkatan 1 – 3","Lower secondary":"Menengah rendah","Steady support through the move to secondary school, so no topic gets left behind.":"Sokongan berterusan semasa beralih ke sekolah menengah, supaya tiada topik yang tertinggal.",
+      "Form 4 – 5":"Tingkatan 4 – 5","SPM":"SPM","Focused SPM preparation with past-year questions, exam technique and timed practice.":"Persediaan SPM yang fokus dengan soalan tahun lepas, teknik peperiksaan dan latihan bermasa.",
+      "Additional Mathematics":"Matematik Tambahan","Physics":"Fizik","Chemistry":"Kimia","Biology":"Biologi",
+      "Find a class that fits your week.":"Cari kelas yang sesuai dengan minggu anda.","Choose a level to see its classes and how many seats are left.":"Pilih tahap untuk melihat kelas dan baki tempat.",
+      "Day & time":"Hari & masa","Subject":"Subjek","Teacher":"Guru","Seats":"Tempat","Holiday classes and the latest changes are announced on WhatsApp.":"Kelas cuti dan perubahan terkini diumumkan di WhatsApp.",
+      "Simple monthly fees.":"Yuran bulanan yang mudah.","Four lessons a month per subject. No registration fee, and your first class is free.":"Empat kelas sebulan bagi setiap subjek. Tiada yuran pendaftaran, dan kelas pertama percuma.",
+      " /subject/month":" /subjek/bulan","4 × 1.5-hour lessons":"4 × kelas 1.5 jam","Homework help included":"Termasuk bantuan kerja rumah","Monthly progress note":"Nota kemajuan bulanan","4 × 2-hour lessons":"4 × kelas 2 jam","Past-year paper practice":"Latihan kertas tahun lepas","Exam technique workshops":"Bengkel teknik peperiksaan","Topic tests every month":"Ujian topik setiap bulan",
+      "Siblings get 10% off. Fees are paid monthly by DuitNow or cash.":"Adik-beradik dapat diskaun 10%. Yuran dibayar bulanan melalui DuitNow atau tunai.",
+      "Patient teachers who explain things clearly.":"Guru yang sabar dan menerangkan dengan jelas.","Teacher Mei Ling":"Cikgu Mei Ling","Teacher Farid":"Cikgu Farid","Teacher Priya":"Cikgu Priya",
+      "Mathematics · Chinese":"Matematik · Bahasa Cina","Science · Bahasa Melayu":"Sains · Bahasa Melayu",
+      "Makes Maths feel less scary, one small step at a time. Teaches in English and Chinese.":"Menjadikan Matematik kurang menakutkan, selangkah demi selangkah. Mengajar dalam Bahasa Inggeris dan Bahasa Cina.",
+      "Loves simple experiments that help students remember. Teaches in Bahasa Melayu and English.":"Suka eksperimen ringkas yang membantu pelajar mengingat. Mengajar dalam Bahasa Melayu dan Bahasa Inggeris.",
+      "Builds confidence in reading, writing and speaking, with plenty of encouragement.":"Membina keyakinan membaca, menulis dan bertutur, dengan banyak galakan.",
+      "Getting started":"Cara bermula","Three simple steps.":"Tiga langkah mudah.","Book a free trial":"Tempah kelas percubaan percuma","Tell us your child's level and subject. We'll suggest a class time.":"Beritahu tahap dan subjek anak anda. Kami akan cadangkan masa kelas.",
+      "Join one class":"Sertai satu kelas","Your child joins a real class. Stay and watch if you like.":"Anak anda menyertai kelas sebenar. Anda boleh tunggu dan lihat.","Decide, no pressure":"Buat keputusan, tanpa tekanan","We share how the class went. Register only if it feels right.":"Kami kongsikan perkembangan kelas. Daftar hanya jika anda yakin.",
+      "Free trial class":"Kelas percubaan percuma","Try a class before you decide.":"Cuba satu kelas sebelum membuat keputusan.","Send your request and we'll reply on WhatsApp within the day with a suggested time.":"Hantar permintaan anda dan kami akan membalas di WhatsApp pada hari yang sama dengan cadangan masa.",
+      "First class is free":"Kelas pertama percuma","No registration fee":"Tiada yuran pendaftaran","Parents are welcome to sit in":"Ibu bapa dialu-alukan untuk duduk bersama",
+      "Level":"Tahap","Preferred time":"Masa pilihan","Weekday afternoon":"Petang hari biasa","Weekday evening":"Malam hari biasa","Saturday morning":"Pagi Sabtu","Parent's name":"Nama ibu/bapa","WhatsApp number":"Nombor WhatsApp",
+      "Please choose a level and subject, and add your name and WhatsApp number.":"Sila pilih tahap dan subjek, serta isi nama dan nombor WhatsApp anda.","Send trial request":"Hantar permintaan percubaan",
+      "In this demo nothing is sent. On a real website, this opens WhatsApp with the message ready.":"Dalam demo ini tiada apa yang dihantar. Di laman web sebenar, WhatsApp dibuka dengan mesej yang sudah siap.",
+      "Request ready":"Permintaan sedia","On a real website, WhatsApp opens with this message:":"Di laman web sebenar, WhatsApp dibuka dengan mesej ini:","Start again":"Mula semula",
+      "Questions parents ask.":"Soalan yang ibu bapa tanya.","How big are the classes?":"Berapa besar setiap kelas?","No more than 8 students per class, so teachers can check every child's work.":"Tidak lebih daripada 8 pelajar sekelas, supaya guru boleh menyemak kerja setiap anak.",
+      "Which language are classes taught in?":"Kelas diajar dalam bahasa apa?","Most classes are in English, with explanations in Bahasa Melayu or Chinese when it helps. Language subjects are taught in that language.":"Kebanyakan kelas dalam Bahasa Inggeris, dengan penerangan dalam Bahasa Melayu atau Bahasa Cina apabila perlu. Subjek bahasa diajar dalam bahasa tersebut.",
+      "What if my child misses a class?":"Bagaimana jika anak saya tidak hadir?","Let us know on WhatsApp and we'll arrange a replacement class in the same month, subject to seats.":"Maklumkan di WhatsApp dan kami akan aturkan kelas ganti dalam bulan yang sama, tertakluk kepada tempat.",
+      "Do you give homework?":"Adakah kerja rumah diberi?","Yes, a little each week, and we help with school homework during primary classes.":"Ya, sedikit setiap minggu, dan kami bantu kerja rumah sekolah semasa kelas sekolah rendah.",
+      "How do I pay?":"Bagaimana cara membayar?","Monthly, by DuitNow or cash at the centre, before the first class of the month.":"Bulanan, melalui DuitNow atau tunai di pusat, sebelum kelas pertama setiap bulan.",
+      "Visit us":"Kunjungi kami","In the heart of Taman Universiti.":"Di tengah-tengah Taman Universiti.","Address":"Alamat","Opening hours":"Waktu operasi","Mon – Fri 2 pm – 9 pm · Sat 8:30 am – 1 pm":"Isnin – Jumaat 2 ptg – 9 mlm · Sabtu 8:30 pg – 1 tgh",
+      "Website by":"Laman web oleh","· a fictional demo":"· demo rekaan","WhatsApp":"WhatsApp",
+      "This week · Standard 4":"Minggu ini · Tahun 4","Taman Universiti":"Taman Universiti","Next class":"Kelas seterusnya","Maths · 4:30 pm":"Matematik · 4:30 ptg","Today, Room 2":"Hari ini, Bilik 2","New trial request":"Permintaan percubaan baharu","Standard 4 · Maths · Saturday morning":"Tahun 4 · Matematik · Pagi Sabtu","Just now":"Baru sahaja",
+      "Full":"Penuh","seats":"tempat","seat":"tempat","3 seats":"3 tempat","2 seats":"2 tempat","Mon 4:30":"Isnin 4:30","Wed 4:30":"Rabu 4:30","Sat 9:00":"Sabtu 9:00","Mathematics":"Matematik"
+    },
+    zh:{
+      "Fictional demo website":"虚构的示范网站","by Ace Digital Solutions. The centre, teachers, phone number, timetable and prices are made up.":"由 Ace Digital Solutions 制作。补习中心、老师、电话、时间表和价格都是虚构的。","← Back to Ace Digital Solutions":"← 返回 Ace Digital Solutions",
+      "Skudai, Johor Bahru":"新山士姑来","Programmes":"课程","Timetable":"时间表","Fees":"学费","Teachers":"老师","FAQ":"常见问题","Book a free trial":"预约免费试听",
+      "Tuition centre · Skudai, Johor Bahru":"补习中心 · 新山士姑来","Small classes.":"小班教学，","Big confidence.":"大大的自信。",
+      "Primary and secondary tuition in Maths, Science, English, Bahasa Melayu and Chinese, in groups of no more than 8, so every child is seen and heard.":"小学和中学的数学、科学、英文、国文和华文补习，每班不超过 8 人，让每个孩子都被看见、被关注。",
+      "Book a free trial class":"预约免费试听课","WhatsApp us":"WhatsApp 我们","Max 8 per class":"每班最多 8 人","Standard 1 to Form 5":"一年级至中五","Taman Universiti, Skudai":"士姑来大学花园",
+      "The right class for every level.":"每个年级都有适合的班级。","Each programme follows the KSSR and KSSM syllabus, with regular practice papers and a short progress note for parents every month.":"所有课程都依照 KSSR 和 KSSM 课纲，定期练习试卷，每月给家长一份简短的进度报告。",
+      "Standard 1 – 6":"一至六年级","Primary":"小学","Strong foundations and good study habits, with patient teachers and lots of practice.":"打好基础，养成良好学习习惯，有耐心的老师和充足的练习。",
+      "Mathematics":"数学","Science":"科学","English":"英文","Bahasa Melayu":"国文","Chinese":"华文",
+      "Form 1 – 3":"中一至中三","Lower secondary":"初中","Steady support through the move to secondary school, so no topic gets left behind.":"升上中学时给予稳定的支持，不让任何课题落后。",
+      "Form 4 – 5":"中四至中五","SPM":"SPM","Focused SPM preparation with past-year questions, exam technique and timed practice.":"专注 SPM 备考：历年考题、答题技巧和限时练习。",
+      "Additional Mathematics":"高级数学","Physics":"物理","Chemistry":"化学","Biology":"生物",
+      "Find a class that fits your week.":"找一个适合你时间的班。","Choose a level to see its classes and how many seats are left.":"选择年级，查看班级和剩余名额。",
+      "Day & time":"日期与时间","Subject":"科目","Teacher":"老师","Seats":"名额","Holiday classes and the latest changes are announced on WhatsApp.":"假期班和最新变动会在 WhatsApp 通知。",
+      "Simple monthly fees.":"简单的月费。","Four lessons a month per subject. No registration fee, and your first class is free.":"每科每月四堂课。无需报名费，第一堂课免费。",
+      " /subject/month":" /每科/每月","4 × 1.5-hour lessons":"4 堂 1.5 小时的课","Homework help included":"包括功课辅导","Monthly progress note":"每月进度报告","4 × 2-hour lessons":"4 堂 2 小时的课","Past-year paper practice":"历年试卷练习","Exam technique workshops":"考试技巧讲座","Topic tests every month":"每月单元测验",
+      "Siblings get 10% off. Fees are paid monthly by DuitNow or cash.":"兄弟姐妹享 9 折优惠。学费每月以 DuitNow 或现金支付。",
+      "Patient teachers who explain things clearly.":"耐心又讲解清楚的老师。","Teacher Mei Ling":"美玲老师","Teacher Farid":"Farid 老师","Teacher Priya":"Priya 老师",
+      "Mathematics · Chinese":"数学 · 华文","Science · Bahasa Melayu":"科学 · 国文",
+      "Makes Maths feel less scary, one small step at a time. Teaches in English and Chinese.":"一步一步让数学不再可怕。用英文和华文教学。",
+      "Loves simple experiments that help students remember. Teaches in Bahasa Melayu and English.":"喜欢用简单的实验帮学生记住重点。用国文和英文教学。",
+      "Builds confidence in reading, writing and speaking, with plenty of encouragement.":"在阅读、写作和口语上建立自信，给予大量鼓励。",
+      "Getting started":"如何开始","Three simple steps.":"三个简单步骤。","Tell us your child's level and subject. We'll suggest a class time.":"告诉我们孩子的年级和科目，我们会建议上课时间。",
+      "Join one class":"上一堂课","Your child joins a real class. Stay and watch if you like.":"孩子参加真正的课堂，家长也可以留下来旁听。","Decide, no pressure":"自己决定，没有压力","We share how the class went. Register only if it feels right.":"我们会分享上课情况，觉得合适才报名。",
+      "Free trial class":"免费试听课","Try a class before you decide.":"先试听，再决定。","Send your request and we'll reply on WhatsApp within the day with a suggested time.":"提交申请后，我们会在当天通过 WhatsApp 回复建议的上课时间。",
+      "First class is free":"第一堂课免费","No registration fee":"无需报名费","Parents are welcome to sit in":"欢迎家长旁听",
+      "Level":"年级","Preferred time":"希望的时间","Weekday afternoon":"平日下午","Weekday evening":"平日晚上","Saturday morning":"星期六早上","Parent's name":"家长姓名","WhatsApp number":"WhatsApp 号码",
+      "Please choose a level and subject, and add your name and WhatsApp number.":"请选择年级和科目，并填写姓名和 WhatsApp 号码。","Send trial request":"提交试听申请",
+      "In this demo nothing is sent. On a real website, this opens WhatsApp with the message ready.":"这是示范，不会发送任何信息。在真正的网站上，会打开 WhatsApp 并准备好信息。",
+      "Request ready":"申请已准备好","On a real website, WhatsApp opens with this message:":"在真正的网站上，WhatsApp 会打开并带上这则信息：","Start again":"重新填写",
+      "Questions parents ask.":"家长常问的问题。","How big are the classes?":"每班有多少人？","No more than 8 students per class, so teachers can check every child's work.":"每班不超过 8 人，老师能检查每个孩子的功课。",
+      "Which language are classes taught in?":"用什么语言教学？","Most classes are in English, with explanations in Bahasa Melayu or Chinese when it helps. Language subjects are taught in that language.":"大部分课程用英文教学，需要时会用国文或华文解释。语文科目用该语言教学。",
+      "What if my child misses a class?":"孩子缺课怎么办？","Let us know on WhatsApp and we'll arrange a replacement class in the same month, subject to seats.":"在 WhatsApp 通知我们，我们会在同一个月安排补课，视名额而定。",
+      "Do you give homework?":"有功课吗？","Yes, a little each week, and we help with school homework during primary classes.":"有，每周一点点。小学班也会帮忙辅导学校功课。",
+      "How do I pay?":"怎么付款？","Monthly, by DuitNow or cash at the centre, before the first class of the month.":"每月在第一堂课前，以 DuitNow 或现金在中心付款。",
+      "Visit us":"欢迎来访","In the heart of Taman Universiti.":"位于士姑来大学花园中心。","Address":"地址","Opening hours":"营业时间","Mon – Fri 2 pm – 9 pm · Sat 8:30 am – 1 pm":"周一至周五 下午 2 点 – 晚上 9 点 · 周六 早上 8:30 – 下午 1 点",
+      "Website by":"网站由","· a fictional demo":"制作 · 虚构示范","WhatsApp":"WhatsApp",
+      "This week · Standard 4":"本周 · 四年级","Taman Universiti":"大学花园","Next class":"下一堂课","Maths · 4:30 pm":"数学 · 下午 4:30","Today, Room 2":"今天，2 号教室","New trial request":"新的试听申请","Standard 4 · Maths · Saturday morning":"四年级 · 数学 · 星期六早上","Just now":"刚刚",
+      "Full":"已满","seats":"个名额","seat":"个名额","3 seats":"剩 3 个","2 seats":"剩 2 个","Mon 4:30":"周一 4:30","Wed 4:30":"周三 4:30","Sat 9:00":"周六 9:00"
+    }
+  };
+  const SCHED = {
+    p:[["Mon 4:30 pm","Mathematics","Teacher Mei Ling",3],["Tue 4:30 pm","English","Teacher Priya",4],["Wed 4:30 pm","Science","Teacher Farid",2],["Thu 4:30 pm","Chinese","Teacher Mei Ling",5],["Sat 9:00 am","Bahasa Melayu","Teacher Farid",0]],
+    l:[["Mon 7:00 pm","Mathematics","Teacher Mei Ling",2],["Wed 7:00 pm","Science","Teacher Farid",4],["Fri 7:00 pm","English","Teacher Priya",3],["Sat 10:30 am","Bahasa Melayu","Teacher Farid",5]],
+    s:[["Tue 7:30 pm","Additional Mathematics","Teacher Mei Ling",1],["Thu 7:30 pm","Physics","Teacher Farid",3],["Fri 7:30 pm","Chemistry","Teacher Farid",0],["Sat 2:00 pm","Biology","Teacher Priya",4]]
+  };
+  const DAYS = {bm:{Mon:"Isnin",Tue:"Selasa",Wed:"Rabu",Thu:"Khamis",Fri:"Jumaat",Sat:"Sabtu",am:"pg",pm:"ptg"},zh:{Mon:"周一",Tue:"周二",Wed:"周三",Thu:"周四",Fri:"周五",Sat:"周六",am:"上午",pm:"下午"}};
+  let lang = "en", lv = "p";
+  const tr = s => lang==="en" ? s : (T[lang][s] ?? s);
+  const day = s => { if(lang==="en") return s; const d=DAYS[lang]; const m=s.match(/^(\w+) ([\d:]+) (am|pm)$/); return m ? (lang==="zh" ? `${d[m[1]]} ${d[m[3]]} ${m[2]}` : `${d[m[1]]} ${m[2]} ${d[m[3]]}`) : s; };
+  function renderTT(){
+    document.getElementById("ttBody").innerHTML = SCHED[lv].map(([d,sub,t,n])=>`<tr><td><b>${day(d)}</b></td><td>${tr(sub)}</td><td>${tr(t)}</td><td><span class="seat${n?"":" full"}">${n? (lang==="zh"? `剩 ${n} ${tr("seats")}` : `${n} ${tr(n===1?"seat":"seats")}${lang==="en"?" left":lang==="bm"?" lagi":""}`) : tr("Full")}</span></td></tr>`).join("");
+  }
+  // text-node translation
+  const nodes = [];
+  (function walk(el){ for(const n of el.childNodes){ if(n.nodeType===3 && n.nodeValue.trim()){ nodes.push([n, n.nodeValue]); } else if(n.nodeType===1 && !["SCRIPT","STYLE","TBODY","PRE"].includes(n.tagName)) walk(n); } })(document.body);
+  const attrs = [...document.querySelectorAll("[aria-label],[placeholder]")].map(e=>[e,e.getAttribute("aria-label"),e.getAttribute("placeholder")]);
+  function setLang(l){
+    lang = l; document.documentElement.lang = l==="bm" ? "ms" : l==="zh" ? "zh-Hans" : "en";
+    nodes.forEach(([n,orig])=>{ const key=orig.trim(); const t=tr(key); n.nodeValue = orig.replace(key, t); });
+    attrs.forEach(([e,a])=>{ if(a) e.setAttribute("aria-label", tr(a)); });
+    document.querySelectorAll(".langs button").forEach(b=>b.setAttribute("aria-pressed", b.dataset.lang===l));
+    renderTT();
+    try{ localStorage.setItem("cahaya-lang", l); }catch(e){}
+  }
+  document.querySelectorAll(".langs button").forEach(b=>b.addEventListener("click",()=>setLang(b.dataset.lang)));
+  document.querySelectorAll(".tt-tabs button").forEach(b=>b.addEventListener("click",()=>{ lv=b.dataset.lv; document.querySelectorAll(".tt-tabs button").forEach(x=>x.setAttribute("aria-pressed",x===b)); renderTT(); }));
+  renderTT();
+  try{ const s=localStorage.getItem("cahaya-lang"); if(s && s!=="en") setLang(s); }catch(e){}
+
+  // mobile menu
+  const head=document.getElementById("head"), burger=document.getElementById("burger");
+  burger.addEventListener("click",()=>{ const o=head.classList.toggle("open"); burger.setAttribute("aria-expanded",o); });
+  document.querySelectorAll("#mnav a").forEach(a=>a.addEventListener("click",()=>{ head.classList.remove("open"); burger.setAttribute("aria-expanded",false); }));
+
+  // trial form (demo: shows the WhatsApp message instead of sending)
+  const f=document.getElementById("tf");
+  f.addEventListener("submit",e=>{
+    e.preventDefault();
+    const v=n=>{const x=f.querySelector(`input[name="${n}"]:checked`); return x?x.value:"";};
+    const name=document.getElementById("fName").value.trim(), phone=document.getElementById("fPhone").value.trim();
+    const ok = v("level") && v("subject") && name && phone.replace(/\D/g,"").length>=9;
+    document.getElementById("fErr").hidden = ok; if(!ok) return;
+    const msg = lang==="zh" ? `你好 Cahaya，我想为孩子预约免费试听课。\n年级：${tr(v("level"))}\n科目：${tr(v("subject"))}\n时间：${tr(v("time"))||"-"}\n家长：${name}（${phone}）`
+      : lang==="bm" ? `Hai Cahaya, saya ingin tempah kelas percubaan percuma untuk anak saya.\nTahap: ${tr(v("level"))}\nSubjek: ${tr(v("subject"))}\nMasa: ${tr(v("time"))||"-"}\nIbu/bapa: ${name} (${phone})`
+      : `Hi Cahaya, I'd like to book a free trial class for my child.\nLevel: ${v("level")}\nSubject: ${v("subject")}\nTime: ${v("time")||"-"}\nParent: ${name} (${phone})`;
+    document.getElementById("fMsg").textContent = msg; f.classList.add("done");
+  });
+  document.getElementById("fAgain").addEventListener("click",()=>{ f.reset(); f.classList.remove("done"); });
+
+  // FAQ: smooth open/close
+  const RM = matchMedia("(prefers-reduced-motion: reduce)");
+  document.querySelectorAll(".faq details").forEach(d=>{
+    const s=d.querySelector("summary"), body=d.querySelector("div"); let anim=null;
+    s.addEventListener("click",e=>{
+      if(RM.matches) return; e.preventDefault();
+      const closing = d.open && !d.classList.contains("closing");
+      const from = d.open ? body.getBoundingClientRect().height : 0;
+      if(anim) anim.cancel();
+      if(!closing){ d.open=true; d.classList.remove("closing"); } else d.classList.add("closing");
+      const to = closing ? 0 : body.scrollHeight;
+      anim = body.animate([{height:from+"px"},{height:to+"px"}],{duration:closing?280:420,easing:"cubic-bezier(.2,.9,.25,1)"});
+      anim.onfinish=()=>{ anim=null; if(closing){ d.open=false; d.classList.remove("closing"); } };
+    });
+  });
+
+  // scroll reveal
+  const io = "IntersectionObserver" in window ? new IntersectionObserver(es=>es.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target);} }),{rootMargin:"0px 0px -8% 0px"}) : null;
+  document.querySelectorAll(".rv").forEach(el=> io ? io.observe(el) : el.classList.add("in"));
+})();
+</script>
+</body>
+</html>

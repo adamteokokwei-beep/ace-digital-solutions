@@ -927,7 +927,8 @@ body.chat-open .back-float{display:none}
 .assist-price .btn{width:100%}
 @media (max-width:900px){.assist{grid-template-columns:1fr}}
 /* Work: two cards */
-#workGrid{grid-template-columns:repeat(2,minmax(0,1fr));max-width:920px}
+#workGrid{grid-template-columns:repeat(3,minmax(0,1fr));max-width:none}
+@media (max-width:900px){#workGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){#workGrid{grid-template-columns:1fr}}
 /* Three steps */
 .steps3{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -1179,6 +1180,32 @@ footer .logo{color:var(--ink)}
 @media (max-width:380px){.site-head .head-cta{padding:0}}
 @media (max-width:400px){html:lang(ms) .site-head .head-cta{padding:0}}
 .chat-scrim{width:100%;right:auto}
+
+/* light (Apple-style) mini mock-up, used for the tuition demo */
+.ms.light .ms-hero{background:#fff;color:#1D1D1F;grid-template-columns:1fr;text-align:center}
+.ms.light .ms-copy{padding:5cqw 6cqw 4cqw;align-items:center}
+.ms.light .ms-copy b{font-size:5cqw;letter-spacing:-.04em;background:linear-gradient(90deg,#1D1D1F 40%,#0071E3 60%,#7A5CFF 80%,#E34B8F);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ms.light .ms-copy small{color:#6E6E73;opacity:1;max-width:44cqw}
+.ms.light .ms-cta,.ms.light .ms-btn{border-radius:99cqw}
+.ms.light .ms-art{display:none}
+.ms.light .ms-row{background:#F5F5F7}
+.ms.light.m .ms-copy b{font-size:9cqw}
+/* hover animations: slower and smoother (about 1.5 s), presses stay instant */
+.side-social a,.chat-fab,.chat-fab .ico,.fab-tip,.post-card,.post-card .post-img img,.wcard,.wcard .mock{transition-duration:1.5s!important;transition-timing-function:cubic-bezier(.16,1,.3,1)!important}
+.side-social a:active,.chat-fab:active,.post-card:active{transition-duration:.08s!important}
+@media (hover:hover) and (pointer:fine){.wcard:hover .mock{transform:translateY(-6px) scale(1.015)}}
+
+/* Called to Go thumbnail: matches her new Apple-style site */
+.ms.ctg{--mbg:#FFFFFF;--mink:#1D1D1F}
+.ms.ctg .ms-hero{background:linear-gradient(100deg,#fff 0 55%,#F5F5F7 100%);color:#1D1D1F}
+.ms.ctg .ms-copy b,.ms.ctg .ms-row span b{font-family:-apple-system,BlinkMacSystemFont,"Inter",system-ui,sans-serif;letter-spacing:-.04em}
+.ms.ctg .ms-copy b i{color:#1D1D1F}
+.ms.ctg .ms-copy em{letter-spacing:0;text-transform:none;font-weight:600}
+.ms.ctg .ms-cta,.ms.ctg .ms-ghost{border-radius:99cqw}
+.ms.ctg .ms-row{background:#F5F5F7;color:#1D1D1F}
+.ms.ctg .ms-row span{opacity:1;color:#6E6E73}
+.ms.ctg .ms-row span b{color:#1D1D1F}
+.wcard.client .mock{background:linear-gradient(160deg,#F5F5F7,#E8E8ED)}
 </style>
 
 <!-- Icon sprite -->
@@ -1448,7 +1475,7 @@ footer .logo{color:var(--ink)}
   <div class="wrap">
     <div class="work-head">
       <h2 class="sec-title">My Work</h2>
-      <p class="muted">A client website and an interactive demo you can try.</p>
+      <p class="muted">A client website and interactive demos you can try.</p>
     </div>
     <div class="work-grid" id="workGrid"></div>
   </div>
@@ -1941,8 +1968,11 @@ When someone compares two businesses side by side, the one that looks profession
   /* ---------- Mini website mockups ---------- */
   const SITES = {
     demo:{name:"Arus Biru<br>Plumbing",icon:"wrench",m1:"#0B2545",m2:"#1D5FD1",acc:"#D7262E",accInk:"#FFFFFF",links:["Services","Prices","Reviews","Book"],btn:"WhatsApp",
-      head:"Johor Bahru Plumbers",sub:"Clear prices, easy online booking and a chat assistant.",cta:"Book a Time",art:"wrench",
+      head:"Johor Bahru Plumbers",sub:"Clear prices, easy online booking and a chat assistant.",cta:"Book a Time",art:"wrench",light:true,
       feats:[["clock","24/7 Service"],["tag","Price Ranges"],["chat","WhatsApp"],["thumb","On-Time"]]},
+    tuition:{name:"Cahaya<br>Learning",icon:"star",m1:"#FFFFFF",m2:"#F5F5F7",acc:"#0071E3",accInk:"#FFFFFF",links:["Programmes","Timetable","Fees","FAQ"],btn:"Free trial",
+      head:"Small classes. Big confidence.",sub:"Primary and secondary tuition in Skudai, in groups of no more than 8.",cta:"Book a free trial",art:"users",light:true,
+      feats:[["users","Max 8"],["calendar","Timetable"],["tag","Clear Fees"],["chat","WhatsApp"]]},
     yours:{name:"Your<br>Business",icon:"home",m1:"#13265A",m2:"#2563EB",acc:"#22C55E",accInk:"#0B1220",links:["Home","Services","Projects","Contact"],btn:"WhatsApp",
       head:"Renovation & Repairs in Johor Bahru",sub:"Kitchens, bathrooms and home repairs, with clear written quotes.",cta:"WhatsApp Us",art:"home",
       feats:[["chat","Fast Reply"],["tag","Clear Quotes"],["pin","JB Area"],["star","Real Photos"]]}
@@ -1953,7 +1983,7 @@ When someone compares two businesses side by side, the one that looks profession
     const style = `--m1:${s.m1};--m2:${s.m2};--macc:${s.acc};--macc-ink:${s.accInk||"#fff"}`;
     const nav = mobile ? `<span class="ms-burger"></span>` :
       `<span class="ms-links">${s.links.map(l=>`<span>${l}</span>`).join("")}</span><span class="ms-btn">${s.btn}</span>`;
-    return `<div class="ms${mobile?" m":""}" style="${style}">
+    return `<div class="ms${mobile?" m":""}${s.light?" light":""}" style="${style}">
       <div class="ms-nav"><span class="ms-logo"><i>${ico(s.icon)}</i><span>${mobile?s.name.replace("<br>"," "):s.name}</span></span>${nav}</div>
       <div class="ms-hero"><div class="ms-copy"><b>${s.head}</b><small>${s.sub}</small><span class="ms-cta">${s.cta}</span></div>${mobile?"":`<div class="ms-art"><svg class="ico big"><use href="#i-${s.art}"/></svg></div>`}</div>
       <div class="ms-row">${s.feats.map(f=>`<span><i>${ico(f[0])}</i>${f[1]}</span>`).join("")}</div></div>`;
@@ -1978,6 +2008,8 @@ When someone compares two businesses side by side, the one that looks profession
   const WORK = [
     {key:"ctg",title:"Called to Go",kind:L("Client Website"),client:true,url:"https://calledtogoministry.org",
       desc:L("Ministry website for Christine, a preacher, worship leader and missionary in Johor Bahru: her story, past and future missions, her book, prayer requests, giving and WhatsApp invitations.")},
+    {key:"tuition",title:"Cahaya Learning Centre",kind:L("Interactive Demo"),url:"/demos/skudai-tuition/",
+      desc:L("A fictional tuition centre in Skudai in English, Bahasa Melayu and Chinese: programmes by level, a timetable showing seats left, simple monthly fees and a free trial class request that goes to WhatsApp.")},
     {key:"demo",title:"Arus Biru Plumbing",kind:L("Interactive Demo"),url:"/demos/jb-plumbing/",
       desc:L("A fictional Johor Bahru plumbing business in English and Bahasa Melayu: upfront price ranges, a 3-step booking request, a chat assistant that hands over to WhatsApp, and a switch that shows what the RM1,600 website includes.")}
   ];
