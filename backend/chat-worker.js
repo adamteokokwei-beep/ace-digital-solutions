@@ -217,6 +217,7 @@ export default {
 
     if (request.method !== "POST") return json({ error: "Use POST" }, 405, headers);
     if (!originOk(origin, allowed)) return json({ error: "Not allowed", origin }, 403, headers);
+    if (new URL(request.url).pathname.replace(/\/+$/, "").endsWith("/notify")) return handleNotify(request, env, headers);
     if (new URL(request.url).pathname.replace(/\/+$/, "").endsWith("/enquiry")) return handleEnquiry(request, env, headers);
     const isSummary = new URL(request.url).pathname.replace(/\/+$/, "").endsWith("/summary");
 
@@ -324,4 +325,58 @@ async function handleEnquiry(request, env, headers) {
   } catch (e) {
     return json({ error: "Could not send email right now" }, 502, headers);
   }
+}
+
+// ------------------------------------------------------------------
+// Malaysian website form: check the captcha, then WhatsApp Adam
+// Settings (Cloudflare dashboard → ace-chat → Settings → Variables and secrets):
+//   TURNSTILE_SECRET   secret key of the Turnstile widget (captcha). If not set, the captcha check is skipped.
+//   CALLMEBOT_APIKEY   key from CallMeBot for WhatsApp alerts. If not set, no WhatsApp alert is sent.
+//   OWNER_WHATSAPP     optional, defaults to +60102641824
+// ------------------------------------------------------------------
+async function checkTurnstile(env, token, ip) {
+  if (!env.TURNSTILE_SECRET) return { ok: true, skipped: true };
+  if (!token) return { ok: false, reason: "missing" };
+  const body = new URLSearchParams({ secret: env.TURNSTILE_SECRET.trim(), response: String(token).slice(0, 2048) });
+  if (ip) body.set("remoteip", ip);
+  try {
+    const r = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", body });
+    const data = await r.json();
+    return { ok: !!data.success, reason: (data["error-codes"] || []).join(",") };
+  } catch (e) {
+    return { ok: false, reason: "verify-failed" };
+  }
+}
+
+async function handleNotify(request, env, headers) {
+  let d;
+  try { d = await request.json(); } catch { return json({ error: "Invalid JSON" }, 400, headers); }
+  if (d.company_website) return json({ ok: true }, 200, headers); // spam trap
+
+  const cap = await checkTurnstile(env, d.captcha, request.headers.get("CF-Connecting-IP"));
+  if (!cap.ok) return json({ error: "captcha", reason: cap.reason }, 403, headers);
+
+  const v = { name: clip(d.name, 100), phone: clip(d.phone, 40), business: clip(d.business, 120), help: clip(d.help, 80),
+              email: clip(d.email, 160), language: clip(d.language, 8), message: clip(d.message, 600) };
+  if (!v.name || !v.phone) return json({ error: "Missing name or phone" }, 400, headers);
+
+  let whatsapp = "not set up";
+  if (env.CALLMEBOT_APIKEY) {
+    const digits = v.phone.replace(/\D/g, "");
+    const waLink = digits ? "https://wa.me/" + (digits.startsWith("0") ? "6" + digits : digits) : "";
+    const text = ["New website enquiry (Ace Digital Solutions)",
+      "Name: " + v.name, "WhatsApp: " + v.phone + (waLink ? " " + waLink : ""), "Business: " + (v.business || "-"),
+      "Help with: " + (v.help || "-"), "Email: " + (v.email || "-"), "Language: " + (v.language || "-"),
+      "Message: " + (v.message || "-")].join("\n");
+    const phone = (env.OWNER_WHATSAPP || "+60102641824").trim();
+    const url = "https://api.callmebot.com/whatsapp.php?phone=" + encodeURIComponent(phone) +
+                "&text=" + encodeURIComponent(text) + "&apikey=" + encodeURIComponent(env.CALLMEBOT_APIKEY.trim());
+    try {
+      const r = await fetch(url);
+      const body = (await r.text()).slice(0, 300);
+      whatsapp = r.ok && !/error|invalid/i.test(body) ? "sent" : "failed: " + body.replace(/<[^>]+>/g, " ").trim().slice(0, 120);
+      if (whatsapp !== "sent") console.log("CallMeBot:", r.status, body);
+    } catch (e) { whatsapp = "failed: " + String(e).slice(0, 100); }
+  }
+  return json({ ok: true, captcha: cap.skipped ? "not set up" : "passed", whatsapp }, 200, headers);
 }

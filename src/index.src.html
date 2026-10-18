@@ -1267,6 +1267,7 @@ footer .logo{color:var(--ink)}
   .pricing .addon-list .deal-word{font-size:11.5px}
   .pricing .save-banner{flex-direction:row;align-items:center;text-align:left}
 }
+.cap-field{min-height:0}.cap-field #turnstile{min-height:65px}
 /* PRICING PAGE + TEASER */
 .price-teaser{display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;background:var(--paper-alt,#F5F5F7);border-radius:28px;padding:40px 44px}
 .price-teaser h2{font-size:clamp(28px,4vw,44px);letter-spacing:-.02em;margin:8px 0 10px;line-height:1.08}
@@ -1623,6 +1624,7 @@ footer .logo{color:var(--ink)}
       <div class="field full"><label for="f-msg">Message <span class="opt">(optional)</span></label><textarea id="f-msg" name="message" placeholder="What your business does, the areas you cover, and what you'd like your website to do."></textarea></div>
       <div class="field full"><label for="f-email">Email <span class="opt">(optional)</span></label><input id="f-email" name="email" type="email" autocomplete="email"><span class="err" hidden>Please check your email address.</span></div>
       <div class="hp" aria-hidden="true"><label for="f-hp">Company website</label><input id="f-hp" name="company_website" tabindex="-1" autocomplete="off"></div>
+      <div class="field full cap-field" id="capBox" hidden><div id="turnstile"></div><span class="err" id="capErr" hidden>Please complete the check above.</span></div>
       <div class="form-foot"><button class="btn btn-primary" type="submit" id="f-submit"><span>Send message</span> <svg class="ico"><use href="#i-arrow"/></svg></button><small>I reply within 1 working day. No obligation.</small></div>
       <p class="privacy-note">By sending this form, you agree that I use your details to reply to your enquiry, as explained in the <a href="/privacy/">privacy notice</a>.</p>
       <div class="status" id="f-status" hidden role="status"></div>
@@ -2015,6 +2017,10 @@ When someone compares two businesses side by side, the one that looks profession
   const SUMMARY_API = CHAT_API ? CHAT_API.replace(/\/chat$/,"/summary") : "";
   // Form delivery (FormSubmit sends to EMAIL)
   const FORM_ENDPOINT = "https://formsubmit.co/ajax/" + EMAIL;
+  // Captcha (Cloudflare Turnstile). Paste the widget's SITE key here to switch it on; leave "" to keep it off.
+  const TURNSTILE_SITEKEY = "";
+  // Checks the captcha and sends Adam a WhatsApp alert (see handleNotify in backend/chat-worker.js)
+  const NOTIFY_API = CHAT_API ? CHAT_API.replace(/\/chat$/,"/notify") : "";
 
   /* ---------- Prices (RM) ----------
      Add-ons: RM500 on their own, RM400 when bundled with the website or another add-on.
@@ -2296,6 +2302,23 @@ When someone compares two businesses side by side, the one that looks profession
       "Message:", d.message||"—"
     ].join("\n");
   }
+  /* ---------- Captcha: loads only when the form comes near the screen ---------- */
+  let capId = null;
+  const capBox = $("#capBox"), capErr = $("#capErr");
+  const capToken = () => (capId!==null && window.turnstile) ? window.turnstile.getResponse(capId) : "";
+  const capReset = () => { try{ if(capId!==null) window.turnstile.reset(capId); }catch(e){} };
+  if(TURNSTILE_SITEKEY){
+    window.onAceCaptcha = () => {
+      capBox.hidden = false;
+      capId = window.turnstile.render("#turnstile",{sitekey:TURNSTILE_SITEKEY, theme:"light", size:"flexible",
+        language: LANG==="bm" ? "ms" : LANG==="zh" ? "zh-cn" : "en", callback:()=>{ capErr.hidden = true; }});
+    };
+    const loadCap = () => { if(window.__capLoading) return; window.__capLoading = true;
+      const sc = document.createElement("script"); sc.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onAceCaptcha"; sc.async = true; sc.defer = true; document.head.appendChild(sc); };
+    if("IntersectionObserver" in window){ const io = new IntersectionObserver(es=>{ if(es.some(x=>x.isIntersecting)){ loadCap(); io.disconnect(); } },{rootMargin:"600px"}); io.observe(form); }
+    else loadCap();
+    form.addEventListener("focusin", loadCap, {once:true});
+  }
   form.addEventListener("submit", async e=>{
     e.preventDefault();
     const f = form.elements;
@@ -2304,6 +2327,7 @@ When someone compares two businesses side by side, the one that looks profession
                 check(f.phone, phoneOk(f.phone.value)),
                 check(f.email, !email || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))].every(Boolean);
     if(!ok){ form.querySelector("[aria-invalid=true]").focus(); return; }
+    if(TURNSTILE_SITEKEY && !capToken()){ capErr.textContent = L("Please complete the check above."); capErr.hidden = false; capBox.scrollIntoView({block:"center",behavior:"smooth"}); return; }
     const d = {name:f.name.value.trim(), phone:f.phone.value.trim(), business:f.business.value.trim(), help:f.help.value, email, message:f.message.value.trim()};
     const text = buildMessage(d);
     const btn = $("#f-submit"), btnLabel = btn.querySelector("span"), label0 = btnLabel.textContent;
@@ -2319,6 +2343,18 @@ When someone compares two businesses side by side, the one that looks profession
         L("No payment is needed now. A 50% deposit is only paid after you receive a written quote and decide to go ahead."),"",
         L("Thanks,"),"Adam","Ace Digital Solutions","WhatsApp: 010-264 1824"].join("\n");
     }
+    // 1) Check the captcha and WhatsApp Adam. If this server can't be reached, the email below still goes out.
+    if(NOTIFY_API){
+      try{
+        const c2 = new AbortController(); const t2 = setTimeout(()=>c2.abort(),9000);
+        const r2 = await fetch(NOTIFY_API,{method:"POST",signal:c2.signal,headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({captcha:capToken(), company_website:hp, name:d.name, phone:d.phone, business:d.business, help:d.help, email:d.email, language:LANG.toUpperCase(), message:d.message})});
+        clearTimeout(t2);
+        if(r2.status===403){ btn.disabled = false; btnLabel.textContent = label0; capReset();
+          capErr.textContent = L("The check didn't work. Please try again."); capErr.hidden = false; return; }
+      }catch(err){}
+    }
+    // 2) Email the enquiry
     try{
       const ctrl = new AbortController(); const t = setTimeout(()=>ctrl.abort(),12000);
       const res = await fetch(FORM_ENDPOINT,{method:"POST",signal:ctrl.signal,headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(payload)});
@@ -2327,7 +2363,7 @@ When someone compares two businesses side by side, the one that looks profession
       if(!sent) failReason = String(data.message||"");
       clearTimeout(t);
     }catch(err){ sent = false; }
-    btn.disabled = false; btnLabel.textContent = label0;
+    btn.disabled = false; btnLabel.textContent = label0; capReset();
     if(sent){ status.hidden = true; showSuccess(d); form.reset(); return; }
     status.hidden = false; status.className = "status fallback";
     if(/activat/i.test(failReason)){
