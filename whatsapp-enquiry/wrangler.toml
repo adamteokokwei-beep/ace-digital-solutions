@@ -1,0 +1,21 @@
+# Cloudflare settings for the WhatsApp enquiry endpoint (separate from the ace-chat chatbot server).
+# Deploy only when you're ready:  npx wrangler deploy   (from this folder)
+name = "ace-wa-enquiry"
+main = "worker.js"
+compatibility_date = "2026-01-01"
+
+# Keep the variables and secrets you set in the Cloudflare dashboard.
+keep_vars = true
+
+# Cloudflare's built-in rate limiter: 5 enquiries per IP per 60 seconds (counters only, no enquiry content).
+# The code also has a simple fallback limiter (5 per 10 minutes per Worker instance).
+[[ratelimits]]
+name = "RATE_LIMITER"
+namespace_id = "1001"
+
+  [ratelimits.simple]
+  limit = 5
+  period = 60
+
+[observability]
+enabled = true

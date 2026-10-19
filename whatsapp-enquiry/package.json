@@ -1,0 +1,10 @@
+{
+  "name": "ace-wa-enquiry",
+  "private": true,
+  "type": "module",
+  "description": "Website enquiry form -> owner's WhatsApp via the official WhatsApp Cloud API. No database.",
+  "scripts": {
+    "dev": "node dev-server.mjs",
+    "test": "node --test test/worker.test.mjs"
+  }
+}
