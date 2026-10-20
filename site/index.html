@@ -1302,6 +1302,27 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 /* spacing tidy-up */
 .care-sec{padding-block:clamp(24px,3vw,40px)!important;background:#fff!important}
 .pricing-cta-sec{padding-block:clamp(32px,4vw,56px)!important}
+/* Blog articles: tables, sub-headings and the one-time vs recurring cost graphic */
+.article .a-h3{font-size:clamp(18px,1.8vw,21px);letter-spacing:-.01em;margin:22px 0 8px}
+.article .a-table{overflow-x:auto;margin:18px 0 6px;border-radius:16px;background:#F5F5F7;-webkit-overflow-scrolling:touch}
+.article .a-table:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.article .a-table table{width:100%;border-collapse:collapse;font-size:15.5px;line-height:1.45;min-width:420px}
+.article .a-table th,.article .a-table td{text-align:left;padding:12px 16px;border-top:1px solid rgba(0,0,0,.07);vertical-align:top}
+.article .a-table thead th{border-top:0;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.article .a-table tbody th{font-weight:600;color:var(--ink)}
+.article .a-table td{white-space:nowrap}
+@media (max-width:600px){.article .a-table table{min-width:0}.article .a-table td{white-space:normal}.article .a-table th,.article .a-table td{padding:11px 12px}}
+.article .cost-split{margin:22px 0 4px}
+.article .cost-split figcaption{font-weight:700;font-size:16px;margin-bottom:12px}
+.article .cs-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.article .cs-card{border-radius:20px;padding:20px 22px;background:#F5F5F7}
+.article .cs-card.cs-once{background:linear-gradient(160deg,#EEF4FF,#F5F5F7)}
+.article .cs-card.cs-recur{background:linear-gradient(160deg,#EEF9F1,#F5F5F7)}
+.article .cs-card h4{margin:0 0 4px;font-size:17px}
+.article .cs-card p{margin:0 0 10px;color:var(--muted);font-size:14.5px}
+.article .cs-card ul{margin:0;padding-left:20px;list-style:disc;display:block}
+.article .cs-card li{display:list-item;font-size:15.5px;line-height:1.65;grid-template-columns:none}
+@media (max-width:640px){.article .cs-grid{grid-template-columns:1fr}}
 /* PRICING PAGE + TEASER */
 .price-teaser{display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;background:var(--paper-alt,#F5F5F7);border-radius:28px;padding:40px 44px}
 .price-teaser h2{font-size:clamp(28px,4vw,44px);letter-spacing:-.02em;margin:8px 0 10px;line-height:1.08}
@@ -1805,7 +1826,7 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 
 <!-- BLOG IMAGES: images used by blog posts as img:name. When the site is hosted you can
      instead use normal image paths in posts, e.g. COVER: images/my-photo.jpg -->
-<script type="application/json" id="blog-images">{"ai-en-card": "/img/blog-ai-en-card.jpg", "ai-bm-card": "/img/blog-ai-bm-card.jpg", "ai-zh-card": "/img/blog-ai-zh-card.jpg", "why-cover": "/img/why-cover.jpg", "why-card": "/img/why-card.jpg", "why-social": "/img/why-social.jpg", "why-laptop": "/img/why-laptop.jpg", "why-fix": "/img/why-fix.jpg", "ai-en-benefits": "/img/blog-ai-en-benefits.jpg", "ai-bm-benefits": "/img/blog-ai-bm-benefits.jpg", "ai-zh-benefits": "/img/blog-ai-zh-benefits.jpg"}</script>
+<script type="application/json" id="blog-images">{"ai-en-card": "/img/blog-ai-en-card.jpg", "ai-bm-card": "/img/blog-ai-bm-card.jpg", "ai-zh-card": "/img/blog-ai-zh-card.jpg", "why-cover": "/img/why-cover.jpg", "why-card": "/img/why-card.jpg", "why-social": "/img/why-social.jpg", "why-laptop": "/img/why-laptop.jpg", "why-fix": "/img/why-fix.jpg", "ai-en-benefits": "/img/blog-ai-en-benefits.jpg", "ai-bm-benefits": "/img/blog-ai-bm-benefits.jpg", "ai-zh-benefits": "/img/blog-ai-zh-benefits.jpg", "cost-hero": "/img/website-cost-malaysia-2026-hero.webp"}</script>
 
 <!-- =====================================================================
      BLOG POSTS
@@ -1830,6 +1851,128 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
             and start every bullet with [icon:pin] (etc.) to show them as icon tiles.
      All posts appear on the Blog page (the "Blog" tab in the menu).
      ===================================================================== -->
+<script type="text/plain" class="blog-post" data-date="2026-10-20" data-lang="en" data-id="website-cost-malaysia-2026">
+TITLE: How Much Might a Website Cost in Malaysia in 2026? A Small Business Guide
+SEO TITLE: Website Costs in Malaysia (2026): A Small Business Guide
+CATEGORY: Pricing
+EXCERPT: How much might a website cost in Malaysia in 2026? Explore indicative website prices, recurring fees, SEO inclusions and tips for comparing web design quotes.
+META DESCRIPTION: How much might a website cost in Malaysia in 2026? Explore indicative website prices, recurring fees, SEO inclusions and tips for comparing web design quotes.
+ICON: tag
+COVER: img:cost-hero
+CARD IMAGE: img:cost-hero
+COVER ALT: Laptop and smartphone displaying a small business website in Malaysia
+HIGHLIGHT: Malaysia
+BODY:
+If you're running a small business in Malaysia, you might receive a website quotation for RM1,000 and another for RM5,000. Why such a big difference?
+
+Website prices depend on the number of pages, design, features and services included. Here's what you should know before deciding.
+
+## 1. How much does a website cost in Malaysia? [icon:tag]
+These are **indicative budgeting ranges**, not official Malaysian market averages.
+
+| Website type | Estimated cost |
+|---|---|
+| Simple landing page | RM500–RM1,500 |
+| Small business website | RM1,500–RM5,000 |
+| Customised business website | RM5,000–RM10,000+ |
+| E-commerce or complex website | RM4,000–RM20,000+ |
+
+**How were these prices estimated?**
+
+These broad ranges are informed by publicly published Malaysian provider prices, including [TwoPeas](https://twopeas.my/blog/website-design-price-malaysia/) and [Kong](https://bookwithkong.com/blog/website-cost-malaysia). They are planning estimates, not the results of a nationwide pricing survey. Actual quotations may differ considerably.
+
+## 2. Why do website prices vary? [icon:monitor]
+Four main factors affect the cost:
+
+- **Pages and content:** More pages, writing and photography generally require more work.
+- **Design:** A template-based website may cost less than a customised design.
+- **Features:** Online payments, booking systems, customer accounts and integrations add complexity.
+- **Technical setup and SEO:** Mobile usability, performance, security and search optimisation can affect the quotation.
+
+### What does “SEO included” mean?
+Not every provider means the same thing.
+
+Some include only page titles, headings and meta descriptions. Others offer keyword research, local SEO, technical improvements or ongoing optimisation.
+
+**Ask exactly what SEO work is included.** Basic SEO setup does not guarantee first-page Google rankings.
+
+## 3. Are there yearly website costs? [icon:calendar]
+Yes, depending on your package.
+
+| Expense | What to check |
+|---|---|
+| Domain | Annual renewal and ownership |
+| Hosting | Hosting fees and renewal rates |
+| Business email | Included or separately charged |
+| Maintenance | Updates, backups and support |
+| Premium features | Paid plugins or subscriptions |
+
+A cheaper initial quotation may cost more over several years if recurring fees are high.
+
+Always ask for the **total setup cost and annual renewal cost** before agreeing.
+
+[costs: One-time setup costs and recurring costs]
+One-time setup costs | Usually paid when the website is built | Pages and content; Design; Features; Technical setup and SEO
+Recurring costs | May need renewing, depending on your package | Domain; Hosting; Business email; Maintenance; Premium features
+[/costs]
+
+## 4. What should you ask a web designer? [icon:msg]
+Before comparing quotations, check:
+
+1. How many pages are included?
+2. Who prepares the text and photographs?
+3. Is the design based on a template or customised?
+4. Does it work properly on mobile phones?
+5. What SEO services are included?
+6. What are the yearly costs?
+7. Who owns the domain and website, and can you access them?
+
+The cheapest option is not necessarily bad, and the most expensive is not necessarily better. Compare what you actually receive.
+
+## 5. What about Google and AI search? [icon:search]
+Customers can now discover businesses through Google Search and AI-powered search experiences.
+
+According to [Google Search Central's official guidance](https://developers.google.com/search/docs/appearance/ai-features), existing SEO fundamentals remain relevant to Google's AI features.
+
+For small businesses, this means:
+
+- Clearly describe your services and locations.
+- Provide accurate contact information.
+- Organise content with useful headings.
+- Ensure important pages are accessible to search engines.
+- Keep business information updated.
+
+A website can provide useful information for search systems, but **no provider can guarantee Google rankings or recommendations from ChatGPT and other AI tools.**
+
+## 6. What should Malaysian small businesses prioritise? [icon:pin]
+Whether your business is in Johor Bahru, Skudai or elsewhere in Malaysia, start with what your customers actually need.
+
+For example:
+
+- **Tuition centre:** Subjects, class levels, timetable and enquiry details.
+- **Renovation company:** Services, project photos and areas covered.
+- **Retail shop:** Products, business information and purchasing options.
+
+You don't necessarily need expensive features from the beginning. Start with a website that clearly explains your business and supports your customers' needs.
+
+## Frequently asked questions
+### Can I get a business website for under RM1,500?
+Possibly. Some providers offer basic landing pages within that budget. Check the included features and recurring costs.
+
+### Do I need to pay every year?
+Usually, domain registration and hosting or platform subscriptions require renewal. Other charges depend on your package.
+
+### Will my website automatically appear on Google or ChatGPT?
+No. A properly structured website can help make information accessible, but search rankings and AI recommendations are not guaranteed.
+
+## Final thoughts
+A website should fit your business needs and budget.
+
+Before choosing a provider, compare the features, SEO services, ownership arrangements and recurring costs—not just the initial price.
+
+**The best website investment is one where you understand exactly what you're paying for.**
+</script>
+
 <script type="text/plain" class="blog-post" data-date="2026-10-13" data-lang="en" data-id="tuition-website-generative-ai">
 TITLE: Why Your Tuition Centre Needs a Website in the Age of Generative AI
 CATEGORY: Getting found
@@ -2031,6 +2174,8 @@ When someone compares two businesses side by side, the one that looks profession
 
 
 
+
+
 <script>
 (function(){
   /* ---------- Language ----------
@@ -2166,15 +2311,27 @@ When someone compares two businesses side by side, the one that looks profession
   const noIcon = t => t.replace(/\s*\[icon:[\w-]+\]\s*/g," ").trim();
   // Turns the post text into article HTML. Sections (## headings) can have an icon, a photo and icon tiles.
   function md(src){
-    const blocks=[]; let para=[], list=null, quote=[];
+    const blocks=[]; let para=[], list=null, quote=[], table=null, costs=null;
     const fp=()=>{ if(para.length){ blocks.push({t:"p",h:"<p>"+inline(para.join(" "))+"</p>"}); para=[]; } };
     const fl=()=>{ if(list){ const tiles = list.length>1 && list.every(i=>iconOf(i));
       blocks.push(tiles ? {t:"tiles",h:`<ul class="tiles">${list.map(i=>`<li><span class="t-ico">${ico(iconOf(i))}</span>${inline(noIcon(i))}</li>`).join("")}</ul>`}
                         : {t:"ul",h:`<ul>${list.map(i=>`<li>${T}<span>${inline(noIcon(i))}</span></li>`).join("")}</ul>`}); list=null; } };
     const fq=()=>{ if(quote.length){ blocks.push({t:"q",h:`<p class="callout">${inline(quote.join(" "))}</p>`}); quote=[]; } };
+    // | table | rows |: first row is the header; the |---| row is skipped
+    const ft=()=>{ if(table){ const rows=table.filter(r=>!/^\|?\s*:?-{2,}/.test(r)).map(r=>r.replace(/^\||\|$/g,"").split("|").map(c=>c.trim()));
+      const [head,...body]=rows;
+      blocks.push({t:"table",h:`<div class="a-table" role="region" tabindex="0" aria-label="${escH(head.join(", "))}"><table><thead><tr>${head.map(c=>`<th scope="col">${inline(c)}</th>`).join("")}</tr></thead><tbody>${body.map(r=>`<tr>${r.map((c,i)=>i?`<td>${inline(c)}</td>`:`<th scope="row">${inline(c)}</th>`).join("")}</tr>`).join("")}</tbody></table></div>`}); table=null; } };
     for(const line of src.split("\n")){
       const t=line.trim();
+      // [costs] ... [/costs]: a two-card comparison written as text. Each line: Title | short note | item; item; item
+      if(/^\[costs(?::\s*(.*))?\]$/i.test(t)){ fp(); fl(); fq(); ft(); costs={title:(t.match(/^\[costs:\s*(.*)\]$/i)||[])[1]||"",cards:[]}; continue; }
+      if(costs){ if(/^\[\/costs\]$/i.test(t)){ blocks.push({t:"costs",h:`<figure class="cost-split">${costs.title?`<figcaption>${inline(costs.title)}</figcaption>`:""}<div class="cs-grid">${costs.cards.map((c,i)=>`<div class="cs-card cs-${i?"recur":"once"}"><h4>${inline(c[0]||"")}</h4>${c[1]?`<p>${inline(c[1])}</p>`:""}<ul>${(c[2]||"").split(/[;；]/).map(x=>x.trim()).filter(Boolean).map(x=>`<li>${inline(x)}</li>`).join("")}</ul></div>`).join("")}</div></figure>`}); costs=null; }
+        else if(t) costs.cards.push(t.split("|").map(x=>x.trim())); continue; }
+      if(/^\|.*\|$/.test(t)){ fp(); fl(); fq(); (table=table||[]).push(t); continue; }
+      ft();
       if(!t || /^(-{3,}|\*{3,})$/.test(t)){ fp(); fl(); fq(); continue; }
+      const h3=t.match(/^#{3,4}\s+(.*)$/);
+      if(h3 && blocks.some(b=>b.t==="h")){ fp(); fl(); fq(); blocks.push({t:"h3",h:`<h3 class="a-h3">${inline(noIcon(h3[1]).replace(/\*\*/g,""))}</h3>`}); continue; }
       const h=t.match(/^#{1,4}\s+(.*)$/);
       if(h){ fp(); fl(); fq(); blocks.push({t:"h",icon:iconOf(h[1]),h:inline(noIcon(h[1]).replace(/\*\*/g,""))}); continue; }
       const im=t.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
@@ -2185,7 +2342,7 @@ When someone compares two businesses side by side, the one that looks profession
       if(q){ fp(); fl(); quote.push(q[1]); continue; }
       fl(); fq(); para.push(t);
     }
-    fp(); fl(); fq();
+    fp(); fl(); fq(); ft();
     // group into sections
     let html="", sec=null;
     const close=()=>{ if(!sec) return; const fig=sec.fig.join(""), ico_=sec.icon?`<span class="h-ico">${ico(sec.icon)}</span>`:"";
@@ -2193,7 +2350,7 @@ When someone compares two businesses side by side, the one that looks profession
     for(const b of blocks){
       if(b.t==="h"){ close(); sec={h:b.h,icon:b.icon,text:[],fig:[],after:[]}; continue; }
       if(!sec){ html += b.t==="p" ? b.h.replace("<p>",'<p class="lead-p">') : b.h; continue; }
-      if(b.t==="img") sec.fig.push(b.h); else if(b.t==="tiles"||b.t==="q") sec.after.push(b.h); else sec.text.push(b.h);
+      if(b.t==="img") sec.fig.push(b.h); else if(b.t==="tiles"||b.t==="q"||b.t==="costs") sec.after.push(b.h); else sec.text.push(b.h);
     }
     close();
     return html;
@@ -2214,7 +2371,7 @@ When someone compares two businesses side by side, the one that looks profession
     const cover = imgSrc(get("COVER")), cardImg = imgSrc(get("CARD IMAGE")) || cover;
     const soon = /coming soon/i.test(get("STATUS"));
     return {id:"post-"+(el.dataset.id||slug(title)), title, cat, icon, body, date, order:i, cover, cardImg, soon, hl: get("HIGHLIGHT"), rich: /class="a-sec/.test(body),
-      excerpt: get("EXCERPT"), meta: get("META DESCRIPTION"), bg: GRADS[hashStr(cat)%GRADS.length]};
+      excerpt: get("EXCERPT"), meta: get("META DESCRIPTION"), seoTitle: get("SEO TITLE"), coverAlt: get("COVER ALT"), bg: GRADS[hashStr(cat)%GRADS.length]};
   }).sort((a,b)=> (b.date||0)-(a.date||0) || a.order-b.order);
   const fmtPostDate = d => d && !isNaN(d) ? new Intl.DateTimeFormat(LOCALE,{month:"short",day:"numeric",year:"numeric"}).format(d) : "";
   const mins = html => Math.max(2, Math.round(html.replace(/<[^>]+>/g," ").split(/\s+/).length/200));
@@ -2253,7 +2410,7 @@ When someone compares two businesses side by side, the one that looks profession
       <h1>${t}</h1>${p.excerpt?`<p class="lede">${escH(p.excerpt)}</p>`:""}
       <div class="meta">${AVATAR?`<img src="${AVATAR}" alt="">`:""}<span>${L("By <b>Adam</b>, Ace Digital Solutions")}</span>${p.date?`<span class="sep">|</span><span>${fmtPostDate(p.date)}</span>`:""}<span class="sep">|</span><span>${L("{n} min read",{n:mins(p.body)})}</span></div>`;
     hero.querySelectorAll(".cover").forEach(x=>x.remove());
-    if(p.cover){ const c = document.createElement("div"); c.className = "cover"; c.style.backgroundImage = `url("${p.cover}")`; hero.prepend(c); }
+    if(p.cover){ const c = document.createElement("div"); c.className = "cover"; c.style.backgroundImage = `url("${p.cover}")`; if(p.coverAlt){ c.setAttribute("role","img"); c.setAttribute("aria-label",p.coverAlt); } hero.prepend(c); }
     $("#postBody").classList.toggle("rich", p.rich);
     $("#postBody").innerHTML = p.body + `<div class="article-cta dark"><div><h3>${L("Ready for a website that works for your business?")}</h3><p>${L("Start with a short, no-obligation chat on WhatsApp. Websites from RM1,600.")}</p></div><a class="btn btn-wa" href="${waLink(L("Hi Adam, I'm interested in a website for my business."))}" target="_blank" rel="noopener">${ico("chat")}${L("WhatsApp me")}</a></div>`;
     const others = POSTS.filter(o=>o!==p && !o.soon).slice(0,3);
@@ -2277,7 +2434,7 @@ When someone compares two businesses side by side, the one that looks profession
     const view = viewFor(id), post = POSTS.find(p=>p.id===id && !p.soon);
     homeView.hidden = view!=="home"; aboutView.hidden = view!=="about"; postView.hidden = view!=="post"; articlesView.hidden = view!=="articles";
     if(post) showPost(post); else if(metaDesc) metaDesc.content = defaultDesc;
-    document.title = view==="about" ? L("About Adam, Freelance Web Designer in Johor Bahru | Ace Digital Solutions") : view==="articles" ? L("Blog: Website Tips for Malaysian Businesses | Ace Digital Solutions") : post ? post.title+" | Ace Digital Solutions" : HOME_TITLE;
+    document.title = view==="about" ? L("About Adam, Freelance Web Designer in Johor Bahru | Ace Digital Solutions") : view==="articles" ? L("Blog: Website Tips for Malaysian Businesses | Ace Digital Solutions") : post ? (post.seoTitle || post.title+" | Ace Digital Solutions") : HOME_TITLE;
     const behavior = smooth && !matchMedia("(prefers-reduced-motion: reduce)").matches ? "smooth" : "auto";
     const t = view==="home" && id && id!=="top" ? document.getElementById(id) : null;
     if(t){ const y = t.getBoundingClientRect().top + scrollY - head.offsetHeight - 12; scrollTo({top:Math.max(0,y), behavior}); }

@@ -1302,6 +1302,27 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 /* spacing tidy-up */
 .care-sec{padding-block:clamp(24px,3vw,40px)!important;background:#fff!important}
 .pricing-cta-sec{padding-block:clamp(32px,4vw,56px)!important}
+/* Blog articles: tables, sub-headings and the one-time vs recurring cost graphic */
+.article .a-h3{font-size:clamp(18px,1.8vw,21px);letter-spacing:-.01em;margin:22px 0 8px}
+.article .a-table{overflow-x:auto;margin:18px 0 6px;border-radius:16px;background:#F5F5F7;-webkit-overflow-scrolling:touch}
+.article .a-table:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.article .a-table table{width:100%;border-collapse:collapse;font-size:15.5px;line-height:1.45;min-width:420px}
+.article .a-table th,.article .a-table td{text-align:left;padding:12px 16px;border-top:1px solid rgba(0,0,0,.07);vertical-align:top}
+.article .a-table thead th{border-top:0;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.article .a-table tbody th{font-weight:600;color:var(--ink)}
+.article .a-table td{white-space:nowrap}
+@media (max-width:600px){.article .a-table table{min-width:0}.article .a-table td{white-space:normal}.article .a-table th,.article .a-table td{padding:11px 12px}}
+.article .cost-split{margin:22px 0 4px}
+.article .cost-split figcaption{font-weight:700;font-size:16px;margin-bottom:12px}
+.article .cs-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.article .cs-card{border-radius:20px;padding:20px 22px;background:#F5F5F7}
+.article .cs-card.cs-once{background:linear-gradient(160deg,#EEF4FF,#F5F5F7)}
+.article .cs-card.cs-recur{background:linear-gradient(160deg,#EEF9F1,#F5F5F7)}
+.article .cs-card h4{margin:0 0 4px;font-size:17px}
+.article .cs-card p{margin:0 0 10px;color:var(--muted);font-size:14.5px}
+.article .cs-card ul{margin:0;padding-left:20px;list-style:disc;display:block}
+.article .cs-card li{display:list-item;font-size:15.5px;line-height:1.65;grid-template-columns:none}
+@media (max-width:640px){.article .cs-grid{grid-template-columns:1fr}}
 /* PRICING PAGE + TEASER */
 .price-teaser{display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;background:var(--paper-alt,#F5F5F7);border-radius:28px;padding:40px 44px}
 .price-teaser h2{font-size:clamp(28px,4vw,44px);letter-spacing:-.02em;margin:8px 0 10px;line-height:1.08}
@@ -1805,7 +1826,7 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 
 <!-- BLOG IMAGES: images used by blog posts as img:name. When the site is hosted you can
      instead use normal image paths in posts, e.g. COVER: images/my-photo.jpg -->
-<script type="application/json" id="blog-images">{"ai-en-card": "/img/blog-ai-en-card.jpg", "ai-bm-card": "/img/blog-ai-bm-card.jpg", "ai-zh-card": "/img/blog-ai-zh-card.jpg", "why-cover": "/img/why-cover.jpg", "why-card": "/img/why-card.jpg", "why-social": "/img/why-social.jpg", "why-laptop": "/img/why-laptop.jpg", "why-fix": "/img/why-fix.jpg", "ai-en-benefits": "/img/blog-ai-en-benefits.jpg", "ai-bm-benefits": "/img/blog-ai-bm-benefits.jpg", "ai-zh-benefits": "/img/blog-ai-zh-benefits.jpg"}</script>
+<script type="application/json" id="blog-images">{"ai-en-card": "/img/blog-ai-en-card.jpg", "ai-bm-card": "/img/blog-ai-bm-card.jpg", "ai-zh-card": "/img/blog-ai-zh-card.jpg", "why-cover": "/img/why-cover.jpg", "why-card": "/img/why-card.jpg", "why-social": "/img/why-social.jpg", "why-laptop": "/img/why-laptop.jpg", "why-fix": "/img/why-fix.jpg", "ai-en-benefits": "/img/blog-ai-en-benefits.jpg", "ai-bm-benefits": "/img/blog-ai-bm-benefits.jpg", "ai-zh-benefits": "/img/blog-ai-zh-benefits.jpg", "cost-hero": "/img/website-cost-malaysia-2026-hero.webp"}</script>
 
 <!-- =====================================================================
      BLOG POSTS
@@ -1838,6 +1859,130 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 
 
 
+
+
+
+<script type="text/plain" class="blog-post" data-date="2026-10-20" data-lang="zh" data-id="website-cost-malaysia-2026">
+TITLE: 2026年在马来西亚做网站大概要多少钱？小型企业指南
+SEO TITLE: 马来西亚网站费用（2026）：小型企业指南
+CATEGORY: 价格
+EXCERPT: 2026年在马来西亚做一个网站大概要多少钱？了解网站的参考价格、每年的续费、SEO 包含哪些内容，以及比较网页设计报价的建议。
+META DESCRIPTION: 2026年在马来西亚做一个网站大概要多少钱？了解网站的参考价格、每年的续费、SEO 包含哪些内容，以及比较网页设计报价的建议。
+ICON: tag
+COVER: img:cost-hero
+CARD IMAGE: img:cost-hero
+COVER ALT: 笔记本电脑和智能手机显示着一个马来西亚小型企业的网站
+HIGHLIGHT: 马来西亚
+BODY:
+如果你在马来西亚经营一家小型企业，你可能会收到一份 RM1,000 的网站报价，另一份却是 RM5,000。为什么差别这么大？
+
+网站价格取决于页面数量、设计、功能以及所包含的服务。在做决定之前，以下是你应该了解的事。
+
+## 1. 在马来西亚做一个网站要多少钱？ [icon:tag]
+以下是**用于预算规划的参考范围**，并不是马来西亚市场的官方平均价格。
+
+| 网站类型 | 估计费用 |
+|---|---|
+| 简单的着陆页 | RM500–RM1,500 |
+| 小型企业网站 | RM1,500–RM5,000 |
+| 量身定制的企业网站 | RM5,000–RM10,000+ |
+| 电子商务或复杂网站 | RM4,000–RM20,000+ |
+
+**这些价格是怎么估算的？**
+
+这些大致范围参考了马来西亚服务商公开发布的价格，包括 [TwoPeas](https://twopeas.my/blog/website-design-price-malaysia/) 和 [Kong](https://bookwithkong.com/blog/website-cost-malaysia)。它们是用于规划的估计，并不是全国性价格调查的结果。实际报价可能会有很大差别。
+
+## 2. 为什么网站价格差别这么大？ [icon:monitor]
+影响费用的主要有四个因素：
+
+- **页面与内容：**页面越多、文字和摄影越多，通常需要的工作也越多。
+- **设计：**使用模板的网站可能比量身定制的设计便宜。
+- **功能：**网上付款、预约系统、客户账户和系统整合都会增加复杂度。
+- **技术设置与 SEO：**手机上的使用体验、速度、安全性和搜索优化都可能影响报价。
+
+### “包含 SEO”是什么意思？
+并不是每个服务商说的都是同一回事。
+
+有些只包括页面标题、小标题和元描述（meta description）。有些则提供关键词研究、本地 SEO、技术改进或持续优化。
+
+**请问清楚到底包含哪些 SEO 工作。**基本的 SEO 设置并不保证能排在 Google 第一页。
+
+## 3. 网站每年还有费用吗？ [icon:calendar]
+有的，视你的配套而定。
+
+| 费用项目 | 需要确认的事 |
+|---|---|
+| 域名 | 每年续费，以及域名归谁所有 |
+| 主机托管 | 托管费用和续费价格 |
+| 企业电邮 | 是否已包括，还是另外收费 |
+| 维护 | 更新、备份和支持 |
+| 高级功能 | 付费插件或订阅 |
+
+如果每年的续费很高，一开始较便宜的报价，几年下来可能反而更贵。
+
+在同意之前，一定要问清楚**总设置费用和每年的续费**。
+
+[costs: 一次性设置费用与持续费用]
+一次性设置费用 | 通常在建网站时支付 | 页面与内容；设计；功能；技术设置与 SEO
+持续费用 | 视配套而定，可能需要续费 | 域名；主机托管；企业电邮；维护；高级功能
+[/costs]
+
+## 4. 应该问网页设计师哪些问题？ [icon:msg]
+在比较报价之前，先确认：
+
+1. 包括多少个页面？
+2. 文字和照片由谁准备？
+3. 设计是用模板，还是量身定制？
+4. 在手机上能正常使用吗？
+5. 包括哪些 SEO 服务？
+6. 每年的费用是多少？
+7. 域名和网站归谁所有，你能否自行登录管理？
+
+最便宜的选择不一定不好，最贵的也不一定更好。比较你实际能得到什么。
+
+## 5. Google 和 AI 搜索呢？ [icon:search]
+现在，顾客可以通过 Google 搜索和由 AI 驱动的搜索体验找到商家。
+
+根据 [Google Search Central 的官方指南](https://developers.google.com/search/docs/appearance/ai-features)，现有的 SEO 基本原则对 Google 的 AI 功能依然适用。
+
+对小型企业来说，这意味着：
+
+- 清楚说明你的服务和地点。
+- 提供准确的联系方式。
+- 用有用的小标题整理内容。
+- 确保重要页面能被搜索引擎访问。
+- 及时更新商家资料。
+
+网站可以为搜索系统提供有用的资料，但**没有任何服务商能保证 Google 排名，或获得 ChatGPT 及其他 AI 工具的推荐。**
+
+## 6. 马来西亚的小型企业应该优先考虑什么？ [icon:pin]
+无论你的生意在新山、士姑来，还是马来西亚其他地方，都应该从顾客真正需要的东西开始。
+
+例如：
+
+- **补习中心：**科目、班级程度、时间表和询问方式。
+- **装修公司：**服务项目、工程照片和服务地区。
+- **零售店：**产品、商家资料和购买方式。
+
+一开始不一定需要昂贵的功能。先做一个能清楚介绍你的生意、并满足顾客需要的网站。
+
+## 常见问题
+### 我能用低于 RM1,500 做一个企业网站吗？
+有可能。有些服务商在这个预算内提供基本的着陆页。请确认包含哪些功能，以及每年的持续费用。
+
+### 我需要每年付费吗？
+通常，域名注册以及主机托管或平台订阅都需要续费。其他费用视你的配套而定。
+
+### 我的网站会自动出现在 Google 或 ChatGPT 上吗？
+不会。结构良好的网站有助于让资料更容易被访问，但搜索排名和 AI 推荐都不能保证。
+
+## 结语
+网站应该符合你的生意需要和预算。
+
+在选择服务商之前，比较功能、SEO 服务、所有权安排和持续费用，而不只是看最初的价格。
+
+**最好的网站投资，是你清楚知道自己到底在为什么付费。**
+</script>
 
 <script type="text/plain" class="blog-post" data-date="2026-10-13" data-lang="zh" data-id="tuition-website-generative-ai">
 TITLE: 为什么在生成式 AI 时代，您的补习中心需要一个网站？
@@ -2166,15 +2311,27 @@ BODY:
   const noIcon = t => t.replace(/\s*\[icon:[\w-]+\]\s*/g," ").trim();
   // Turns the post text into article HTML. Sections (## headings) can have an icon, a photo and icon tiles.
   function md(src){
-    const blocks=[]; let para=[], list=null, quote=[];
+    const blocks=[]; let para=[], list=null, quote=[], table=null, costs=null;
     const fp=()=>{ if(para.length){ blocks.push({t:"p",h:"<p>"+inline(para.join(" "))+"</p>"}); para=[]; } };
     const fl=()=>{ if(list){ const tiles = list.length>1 && list.every(i=>iconOf(i));
       blocks.push(tiles ? {t:"tiles",h:`<ul class="tiles">${list.map(i=>`<li><span class="t-ico">${ico(iconOf(i))}</span>${inline(noIcon(i))}</li>`).join("")}</ul>`}
                         : {t:"ul",h:`<ul>${list.map(i=>`<li>${T}<span>${inline(noIcon(i))}</span></li>`).join("")}</ul>`}); list=null; } };
     const fq=()=>{ if(quote.length){ blocks.push({t:"q",h:`<p class="callout">${inline(quote.join(" "))}</p>`}); quote=[]; } };
+    // | table | rows |: first row is the header; the |---| row is skipped
+    const ft=()=>{ if(table){ const rows=table.filter(r=>!/^\|?\s*:?-{2,}/.test(r)).map(r=>r.replace(/^\||\|$/g,"").split("|").map(c=>c.trim()));
+      const [head,...body]=rows;
+      blocks.push({t:"table",h:`<div class="a-table" role="region" tabindex="0" aria-label="${escH(head.join(", "))}"><table><thead><tr>${head.map(c=>`<th scope="col">${inline(c)}</th>`).join("")}</tr></thead><tbody>${body.map(r=>`<tr>${r.map((c,i)=>i?`<td>${inline(c)}</td>`:`<th scope="row">${inline(c)}</th>`).join("")}</tr>`).join("")}</tbody></table></div>`}); table=null; } };
     for(const line of src.split("\n")){
       const t=line.trim();
+      // [costs] ... [/costs]: a two-card comparison written as text. Each line: Title | short note | item; item; item
+      if(/^\[costs(?::\s*(.*))?\]$/i.test(t)){ fp(); fl(); fq(); ft(); costs={title:(t.match(/^\[costs:\s*(.*)\]$/i)||[])[1]||"",cards:[]}; continue; }
+      if(costs){ if(/^\[\/costs\]$/i.test(t)){ blocks.push({t:"costs",h:`<figure class="cost-split">${costs.title?`<figcaption>${inline(costs.title)}</figcaption>`:""}<div class="cs-grid">${costs.cards.map((c,i)=>`<div class="cs-card cs-${i?"recur":"once"}"><h4>${inline(c[0]||"")}</h4>${c[1]?`<p>${inline(c[1])}</p>`:""}<ul>${(c[2]||"").split(/[;；]/).map(x=>x.trim()).filter(Boolean).map(x=>`<li>${inline(x)}</li>`).join("")}</ul></div>`).join("")}</div></figure>`}); costs=null; }
+        else if(t) costs.cards.push(t.split("|").map(x=>x.trim())); continue; }
+      if(/^\|.*\|$/.test(t)){ fp(); fl(); fq(); (table=table||[]).push(t); continue; }
+      ft();
       if(!t || /^(-{3,}|\*{3,})$/.test(t)){ fp(); fl(); fq(); continue; }
+      const h3=t.match(/^#{3,4}\s+(.*)$/);
+      if(h3 && blocks.some(b=>b.t==="h")){ fp(); fl(); fq(); blocks.push({t:"h3",h:`<h3 class="a-h3">${inline(noIcon(h3[1]).replace(/\*\*/g,""))}</h3>`}); continue; }
       const h=t.match(/^#{1,4}\s+(.*)$/);
       if(h){ fp(); fl(); fq(); blocks.push({t:"h",icon:iconOf(h[1]),h:inline(noIcon(h[1]).replace(/\*\*/g,""))}); continue; }
       const im=t.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
@@ -2185,7 +2342,7 @@ BODY:
       if(q){ fp(); fl(); quote.push(q[1]); continue; }
       fl(); fq(); para.push(t);
     }
-    fp(); fl(); fq();
+    fp(); fl(); fq(); ft();
     // group into sections
     let html="", sec=null;
     const close=()=>{ if(!sec) return; const fig=sec.fig.join(""), ico_=sec.icon?`<span class="h-ico">${ico(sec.icon)}</span>`:"";
@@ -2193,7 +2350,7 @@ BODY:
     for(const b of blocks){
       if(b.t==="h"){ close(); sec={h:b.h,icon:b.icon,text:[],fig:[],after:[]}; continue; }
       if(!sec){ html += b.t==="p" ? b.h.replace("<p>",'<p class="lead-p">') : b.h; continue; }
-      if(b.t==="img") sec.fig.push(b.h); else if(b.t==="tiles"||b.t==="q") sec.after.push(b.h); else sec.text.push(b.h);
+      if(b.t==="img") sec.fig.push(b.h); else if(b.t==="tiles"||b.t==="q"||b.t==="costs") sec.after.push(b.h); else sec.text.push(b.h);
     }
     close();
     return html;
@@ -2214,7 +2371,7 @@ BODY:
     const cover = imgSrc(get("COVER")), cardImg = imgSrc(get("CARD IMAGE")) || cover;
     const soon = /coming soon/i.test(get("STATUS"));
     return {id:"post-"+(el.dataset.id||slug(title)), title, cat, icon, body, date, order:i, cover, cardImg, soon, hl: get("HIGHLIGHT"), rich: /class="a-sec/.test(body),
-      excerpt: get("EXCERPT"), meta: get("META DESCRIPTION"), bg: GRADS[hashStr(cat)%GRADS.length]};
+      excerpt: get("EXCERPT"), meta: get("META DESCRIPTION"), seoTitle: get("SEO TITLE"), coverAlt: get("COVER ALT"), bg: GRADS[hashStr(cat)%GRADS.length]};
   }).sort((a,b)=> (b.date||0)-(a.date||0) || a.order-b.order);
   const fmtPostDate = d => d && !isNaN(d) ? new Intl.DateTimeFormat(LOCALE,{month:"short",day:"numeric",year:"numeric"}).format(d) : "";
   const mins = html => Math.max(2, Math.round(html.replace(/<[^>]+>/g," ").split(/\s+/).length/200));
@@ -2253,7 +2410,7 @@ BODY:
       <h1>${t}</h1>${p.excerpt?`<p class="lede">${escH(p.excerpt)}</p>`:""}
       <div class="meta">${AVATAR?`<img src="${AVATAR}" alt="">`:""}<span>${L("By <b>Adam</b>, Ace Digital Solutions")}</span>${p.date?`<span class="sep">|</span><span>${fmtPostDate(p.date)}</span>`:""}<span class="sep">|</span><span>${L("{n} min read",{n:mins(p.body)})}</span></div>`;
     hero.querySelectorAll(".cover").forEach(x=>x.remove());
-    if(p.cover){ const c = document.createElement("div"); c.className = "cover"; c.style.backgroundImage = `url("${p.cover}")`; hero.prepend(c); }
+    if(p.cover){ const c = document.createElement("div"); c.className = "cover"; c.style.backgroundImage = `url("${p.cover}")`; if(p.coverAlt){ c.setAttribute("role","img"); c.setAttribute("aria-label",p.coverAlt); } hero.prepend(c); }
     $("#postBody").classList.toggle("rich", p.rich);
     $("#postBody").innerHTML = p.body + `<div class="article-cta dark"><div><h3>${L("Ready for a website that works for your business?")}</h3><p>${L("Start with a short, no-obligation chat on WhatsApp. Websites from RM1,600.")}</p></div><a class="btn btn-wa" href="${waLink(L("Hi Adam, I'm interested in a website for my business."))}" target="_blank" rel="noopener">${ico("chat")}${L("WhatsApp me")}</a></div>`;
     const others = POSTS.filter(o=>o!==p && !o.soon).slice(0,3);
@@ -2277,7 +2434,7 @@ BODY:
     const view = viewFor(id), post = POSTS.find(p=>p.id===id && !p.soon);
     homeView.hidden = view!=="home"; aboutView.hidden = view!=="about"; postView.hidden = view!=="post"; articlesView.hidden = view!=="articles";
     if(post) showPost(post); else if(metaDesc) metaDesc.content = defaultDesc;
-    document.title = view==="about" ? L("About Adam, Freelance Web Designer in Johor Bahru | Ace Digital Solutions") : view==="articles" ? L("Blog: Website Tips for Malaysian Businesses | Ace Digital Solutions") : post ? post.title+" | Ace Digital Solutions" : HOME_TITLE;
+    document.title = view==="about" ? L("About Adam, Freelance Web Designer in Johor Bahru | Ace Digital Solutions") : view==="articles" ? L("Blog: Website Tips for Malaysian Businesses | Ace Digital Solutions") : post ? (post.seoTitle || post.title+" | Ace Digital Solutions") : HOME_TITLE;
     const behavior = smooth && !matchMedia("(prefers-reduced-motion: reduce)").matches ? "smooth" : "auto";
     const t = view==="home" && id && id!=="top" ? document.getElementById(id) : null;
     if(t){ const y = t.getBoundingClientRect().top + scrollY - head.offsetHeight - 12; scrollTo({top:Math.max(0,y), behavior}); }
