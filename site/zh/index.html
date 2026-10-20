@@ -1304,24 +1304,37 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 .pricing-cta-sec{padding-block:clamp(32px,4vw,56px)!important}
 /* Blog articles: tables, sub-headings and the one-time vs recurring cost graphic */
 .article .a-h3{font-size:clamp(18px,1.8vw,21px);letter-spacing:-.01em;margin:22px 0 8px}
-.article .a-table{overflow-x:auto;margin:18px 0 6px;border-radius:16px;background:#F5F5F7;-webkit-overflow-scrolling:touch}
-.article .a-table:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
-.article .a-table table{width:100%;border-collapse:collapse;font-size:15.5px;line-height:1.45;min-width:420px}
-.article .a-table th,.article .a-table td{text-align:left;padding:12px 16px;border-top:1px solid rgba(0,0,0,.07);vertical-align:top}
-.article .a-table thead th{border-top:0;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.article.flat .a-sec.has-ico .a-text>p{padding-left:0}
+/* glossy panels: soft edge shadow + light falling from the top-left at about 30 degrees */
+.article .a-table,.article .cs-card{position:relative;border-radius:20px;background:
+    linear-gradient(150deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.55) 22%,rgba(255,255,255,0) 42%),
+    linear-gradient(180deg,#F4F8FF,#E9EFFA);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(11,18,32,.04),0 2px 6px rgba(11,18,32,.06),0 22px 44px -24px rgba(11,18,32,.38)}
+.article .a-table{overflow-x:auto;margin:20px 0 8px;-webkit-overflow-scrolling:touch}
+.article .a-table:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.article .a-table table{width:100%;border-collapse:separate;border-spacing:0;font-size:15.5px;line-height:1.45;min-width:420px}
+.article .a-table th,.article .a-table td{text-align:left;padding:13px 18px;border-top:1px solid rgba(37,99,235,.10);vertical-align:top}
+.article .a-table thead th{border-top:0;font-size:13px;letter-spacing:.05em;text-transform:uppercase;font-weight:700;color:#fff;
+  background:linear-gradient(150deg,rgba(255,255,255,.38) 0%,rgba(255,255,255,.08) 34%,rgba(255,255,255,0) 50%),linear-gradient(180deg,#3B82F6,#1D4ED8);
+  text-shadow:0 1px 1px rgba(0,0,0,.18)}
+.article .a-table thead th:first-child{border-top-left-radius:19px}
+.article .a-table thead th:last-child{border-top-right-radius:19px}
+.article .a-table tbody tr:nth-child(even){background:rgba(255,255,255,.45)}
 .article .a-table tbody th{font-weight:600;color:var(--ink)}
-.article .a-table td{white-space:nowrap}
+.article .a-table td{white-space:nowrap;color:#1E3A8A;font-weight:600}
 @media (max-width:600px){.article .a-table table{min-width:0}.article .a-table td{white-space:normal}.article .a-table th,.article .a-table td{padding:11px 12px}}
-.article .cost-split{margin:22px 0 4px}
+.article .cost-split{margin:24px 0 6px}
 .article .cost-split figcaption{font-weight:700;font-size:16px;margin-bottom:12px}
-.article .cs-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.article .cs-card{border-radius:20px;padding:20px 22px;background:#F5F5F7}
-.article .cs-card.cs-once{background:linear-gradient(160deg,#EEF4FF,#F5F5F7)}
-.article .cs-card.cs-recur{background:linear-gradient(160deg,#EEF9F1,#F5F5F7)}
-.article .cs-card h4{margin:0 0 4px;font-size:17px}
-.article .cs-card p{margin:0 0 10px;color:var(--muted);font-size:14.5px}
-.article .cs-card ul{margin:0;padding-left:20px;list-style:disc;display:block}
-.article .cs-card li{display:list-item;font-size:15.5px;line-height:1.65;grid-template-columns:none}
+.article .cs-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.article .cs-card{overflow:hidden;padding:0 0 18px}
+.article .cs-card.cs-recur{background:linear-gradient(150deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.55) 22%,rgba(255,255,255,0) 42%),linear-gradient(180deg,#F2FBF5,#E5F5EA)}
+.article .cs-card h4{margin:0 0 12px;padding:13px 20px;font-size:15px;letter-spacing:.02em;color:#fff;text-shadow:0 1px 1px rgba(0,0,0,.18);
+  background:linear-gradient(150deg,rgba(255,255,255,.38) 0%,rgba(255,255,255,.08) 34%,rgba(255,255,255,0) 50%),linear-gradient(180deg,#3B82F6,#1D4ED8)}
+.article .cs-card.cs-recur h4{background:linear-gradient(150deg,rgba(255,255,255,.38) 0%,rgba(255,255,255,.08) 34%,rgba(255,255,255,0) 50%),linear-gradient(180deg,#22C55E,#15803D)}
+.article .cs-card p{margin:0 20px 8px;color:var(--muted);font-size:14.5px}
+.article .cs-card ul{margin:0 20px;padding-left:20px;list-style:disc;display:block}
+.article .cs-card li{display:list-item;font-size:15.5px;line-height:1.7;grid-template-columns:none;color:var(--ink)}
 @media (max-width:640px){.article .cs-grid{grid-template-columns:1fr}}
 /* PRICING PAGE + TEASER */
 .price-teaser{display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;background:var(--paper-alt,#F5F5F7);border-radius:28px;padding:40px 44px}
@@ -1826,7 +1839,7 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 
 <!-- BLOG IMAGES: images used by blog posts as img:name. When the site is hosted you can
      instead use normal image paths in posts, e.g. COVER: images/my-photo.jpg -->
-<script type="application/json" id="blog-images">{"ai-en-card": "/img/blog-ai-en-card.jpg", "ai-bm-card": "/img/blog-ai-bm-card.jpg", "ai-zh-card": "/img/blog-ai-zh-card.jpg", "why-cover": "/img/why-cover.jpg", "why-card": "/img/why-card.jpg", "why-social": "/img/why-social.jpg", "why-laptop": "/img/why-laptop.jpg", "why-fix": "/img/why-fix.jpg", "ai-en-benefits": "/img/blog-ai-en-benefits.jpg", "ai-bm-benefits": "/img/blog-ai-bm-benefits.jpg", "ai-zh-benefits": "/img/blog-ai-zh-benefits.jpg", "cost-hero": "/img/website-cost-malaysia-2026-hero.webp"}</script>
+<script type="application/json" id="blog-images">{"ai-en-card": "/img/blog-ai-en-card.jpg", "ai-bm-card": "/img/blog-ai-bm-card.jpg", "ai-zh-card": "/img/blog-ai-zh-card.jpg", "why-cover": "/img/why-cover.jpg", "why-card": "/img/why-card.jpg", "why-social": "/img/why-social.jpg", "why-laptop": "/img/why-laptop.jpg", "why-fix": "/img/why-fix.jpg", "ai-en-benefits": "/img/blog-ai-en-benefits.jpg", "ai-bm-benefits": "/img/blog-ai-bm-benefits.jpg", "ai-zh-benefits": "/img/blog-ai-zh-benefits.jpg", "cost-hero": "/img/website-cost-malaysia-2026-hero.webp", "cost-design": "/img/website-cost-malaysia-2026-design.webp", "cost-budget": "/img/website-cost-malaysia-2026-budget.webp"}</script>
 
 <!-- =====================================================================
      BLOG POSTS
@@ -1872,7 +1885,8 @@ ICON: tag
 COVER: img:cost-hero
 CARD IMAGE: img:cost-hero
 COVER ALT: 笔记本电脑和智能手机显示着一个马来西亚小型企业的网站
-HIGHLIGHT: 马来西亚
+HIGHLIGHT: 多少钱
+LAYOUT: flat
 BODY:
 如果你在马来西亚经营一家小型企业，你可能会收到一份 RM1,000 的网站报价，另一份却是 RM5,000。为什么差别这么大？
 
@@ -1893,6 +1907,7 @@ BODY:
 这些大致范围参考了马来西亚服务商公开发布的价格，包括 [TwoPeas](https://twopeas.my/blog/website-design-price-malaysia/) 和 [Kong](https://bookwithkong.com/blog/website-cost-malaysia)。它们是用于规划的估计，并不是全国性价格调查的结果。实际报价可能会有很大差别。
 
 ## 2. 为什么网站价格差别这么大？ [icon:monitor]
+![网页设计师在为电脑和手机绘制网站版面草图](img:cost-design)
 影响费用的主要有四个因素：
 
 - **页面与内容：**页面越多、文字和摄影越多，通常需要的工作也越多。
@@ -1928,6 +1943,7 @@ BODY:
 [/costs]
 
 ## 4. 应该问网页设计师哪些问题？ [icon:msg]
+![商家用计算机比较网站报价](img:cost-budget)
 在比较报价之前，先确认：
 
 1. 包括多少个页面？
@@ -2371,7 +2387,7 @@ BODY:
     const cover = imgSrc(get("COVER")), cardImg = imgSrc(get("CARD IMAGE")) || cover;
     const soon = /coming soon/i.test(get("STATUS"));
     return {id:"post-"+(el.dataset.id||slug(title)), title, cat, icon, body, date, order:i, cover, cardImg, soon, hl: get("HIGHLIGHT"), rich: /class="a-sec/.test(body),
-      excerpt: get("EXCERPT"), meta: get("META DESCRIPTION"), seoTitle: get("SEO TITLE"), coverAlt: get("COVER ALT"), bg: GRADS[hashStr(cat)%GRADS.length]};
+      excerpt: get("EXCERPT"), meta: get("META DESCRIPTION"), seoTitle: get("SEO TITLE"), coverAlt: get("COVER ALT"), flat: /flat/i.test(get("LAYOUT")), bg: GRADS[hashStr(cat)%GRADS.length]};
   }).sort((a,b)=> (b.date||0)-(a.date||0) || a.order-b.order);
   const fmtPostDate = d => d && !isNaN(d) ? new Intl.DateTimeFormat(LOCALE,{month:"short",day:"numeric",year:"numeric"}).format(d) : "";
   const mins = html => Math.max(2, Math.round(html.replace(/<[^>]+>/g," ").split(/\s+/).length/200));
@@ -2412,6 +2428,7 @@ BODY:
     hero.querySelectorAll(".cover").forEach(x=>x.remove());
     if(p.cover){ const c = document.createElement("div"); c.className = "cover"; c.style.backgroundImage = `url("${p.cover}")`; if(p.coverAlt){ c.setAttribute("role","img"); c.setAttribute("aria-label",p.coverAlt); } hero.prepend(c); }
     $("#postBody").classList.toggle("rich", p.rich);
+    $("#postBody").classList.toggle("flat", !!p.flat);
     $("#postBody").innerHTML = p.body + `<div class="article-cta dark"><div><h3>${L("Ready for a website that works for your business?")}</h3><p>${L("Start with a short, no-obligation chat on WhatsApp. Websites from RM1,600.")}</p></div><a class="btn btn-wa" href="${waLink(L("Hi Adam, I'm interested in a website for my business."))}" target="_blank" rel="noopener">${ico("chat")}${L("WhatsApp me")}</a></div>`;
     const others = POSTS.filter(o=>o!==p && !o.soon).slice(0,3);
     const upcoming = POSTS.filter(o=>o.soon).length;
