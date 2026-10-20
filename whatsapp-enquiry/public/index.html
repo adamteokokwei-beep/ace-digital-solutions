@@ -92,7 +92,9 @@ button{font:inherit;cursor:pointer;border:0;border-radius:999px}
 (() => {
   // Where to send: same server when opened from the local test server, otherwise the local test server.
   // For the real website, set this to the deployed Worker, e.g. https://ace-wa-enquiry.<account>.workers.dev/enquiry
-  const ENDPOINT = location.protocol.startsWith("http") ? "/enquiry" : "http://localhost:8787/enquiry";
+  // Online server: paste your Worker address between the quotes, e.g. "https://ace-wa-enquiry.yourname.workers.dev/enquiry"
+  const ONLINE_ENDPOINT = "";
+  const ENDPOINT = new URLSearchParams(location.search).get("api") || ONLINE_ENDPOINT || (location.protocol.startsWith("http") ? "/enquiry" : "http://localhost:8787/enquiry");
   // ?mock=ok|dry|auth|rejected|timeout|busy|rate|invalid shows each result on screen without any server or WhatsApp
   const MOCK = new URLSearchParams(location.search).get("mock");
   const SHOW_DEV = true;   // test page only: shows the technical result under the form
