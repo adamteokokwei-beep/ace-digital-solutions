@@ -1336,6 +1336,15 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 .article .cs-card ul{margin:0 20px;padding-left:20px;list-style:disc;display:block}
 .article .cs-card li{display:list-item;font-size:15.5px;line-height:1.7;grid-template-columns:none;color:var(--ink)}
 @media (max-width:640px){.article .cs-grid{grid-template-columns:1fr}}
+/* PRINT / SAVE AS PDF: header only once at the top, no floating buttons, keep the article's photos and dark title area */
+@media print{
+  .site-head,#head{position:static!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+  .side-social,.chat-fab,.fab-tip,.chat,.back-float,.burger,.wa-float,.fb-fab,#okModal{display:none!important}
+  .article-hero,.article-hero .cover,.article .a-table,.article .a-table thead th,.article .cs-card,.article .cs-card h4,.a-sec h2 .h-ico,.article .tick,.article-cta,.btn{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .article .a-table,.article .cost-split,.article .cs-card,.a-fig,.article .a-table tr{break-inside:avoid;page-break-inside:avoid}
+  .a-sec h2,.article .a-h3{break-after:avoid;page-break-after:avoid}
+  .article .a-table,.article .cs-card,.a-fig{box-shadow:0 0 0 1px rgba(11,18,32,.12)!important}
+}
 /* PRICING PAGE + TEASER */
 .price-teaser{display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;background:var(--paper-alt,#F5F5F7);border-radius:28px;padding:40px 44px}
 .price-teaser h2{font-size:clamp(28px,4vw,44px);letter-spacing:-.02em;margin:8px 0 10px;line-height:1.08}
