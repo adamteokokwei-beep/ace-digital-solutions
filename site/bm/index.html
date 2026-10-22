@@ -1340,7 +1340,14 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 @media print{
   .site-head,#head{position:static!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
   .side-social,.chat-fab,.fab-tip,.chat,.back-float,.burger,.wa-float,.fb-fab,#okModal{display:none!important}
-  .article-hero,.article-hero .cover,.article .a-table,.article .a-table thead th,.article .cs-card,.article .cs-card h4,.a-sec h2 .h-ico,.article .tick,.article-cta{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  /* title area: photo on its own at the top, then dark text on white (no transparent overlays; Safari/Preview tint them) */
+  .article-hero,.article-hero.has-cover{background:#fff!important;color:var(--ink)!important;padding-top:0!important}
+  .article-hero::before,.article-hero.has-cover::before{display:none!important;content:none!important}
+  .article-hero .cover{position:static!important;display:block!important;width:100%!important;height:260px!important;margin:0 0 22px!important;border-radius:16px;background-size:cover!important;background-position:center 35%!important}
+  .article-hero h1,.article-hero .lede,.article-hero .meta,.article-hero .meta b,.article-hero .back{color:var(--ink)!important;text-shadow:none!important}
+  .article-hero .lede,.article-hero .meta{color:#3A3A3C!important}
+  .article-hero h1 .hl{background:none!important;-webkit-text-fill-color:#1D4ED8!important;color:#1D4ED8!important}
+  .article-hero .cover,.article .a-table,.article .a-table thead th,.article .cs-card,.article .cs-card h4,.a-sec h2 .h-ico,.article .tick,.article-cta{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .article .a-table,.article .cost-split,.article .cs-card,.a-fig,.article .a-table tr{break-inside:avoid;page-break-inside:avoid}
   .a-sec h2,.article .a-h3{break-after:avoid;page-break-after:avoid}
   .article .a-table,.article .cs-card,.a-fig{box-shadow:0 0 0 1px rgba(11,18,32,.12)!important}
