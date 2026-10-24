@@ -2193,8 +2193,6 @@ When someone compares two businesses side by side, the one that looks profession
   // Chatbot AI connection (Cloudflare Worker, see backend/chat-worker.js). Leave empty for scripted answers only.
   const CHAT_API = "https://ace-chat.adamteokokwei.workers.dev/chat";
   const SUMMARY_API = CHAT_API ? CHAT_API.replace(/\/chat$/,"/summary") : "";
-  // Form delivery (FormSubmit sends to EMAIL)
-  const FORM_ENDPOINT = "https://formsubmit.co/ajax/" + EMAIL;
   // Captcha (Cloudflare Turnstile). Paste the widget's SITE key here to switch it on; leave "" to keep it off.
   const TURNSTILE_SITEKEY = "0x4AAAAAAFjkFvWRmLvTXswG";
   // Checks the captcha and sends the enquiry to Adam's WhatsApp (Cloudflare Worker, see whatsapp-enquiry/worker.js)
@@ -2525,50 +2523,28 @@ When someone compares two businesses side by side, the one that looks profession
     const text = buildMessage(d);
     const btn = $("#f-submit"), btnLabel = btn.querySelector("span"), label0 = btnLabel.textContent;
     btn.disabled = true; btnLabel.textContent = L("Sending…");
-    let sent = false, waSent = false, failReason = "";
+    let sent = false;
     const hp = f.company_website.value;
-    const payload = {_subject:"Website enquiry: "+(d.business||d.name), _template:"box", _honey:hp,
-      name:d.name, whatsapp:d.phone, business:d.business||"—", help:d.help, email:d.email||"—", language:LANG.toUpperCase(), message:d.message||"—", summary:text};
-    if(email){
-      payload._replyto = email;
-      payload._autoresponse = [L("Hi {name},",{name:d.name.split(" ")[0]}),"",
-        L("Thanks for contacting Ace Digital Solutions. I've received your message and will reply on WhatsApp within 1 working day."),"",
-        L("No payment is needed now. The RM200 deposit is only paid after you receive a written quote and decide to go ahead."),"",
-        L("Thanks,"),"Adam","Ace Digital Solutions","WhatsApp: 010-264 1824"].join("\n");
-    }
-    // 1) Check the captcha and send the enquiry to Adam's WhatsApp. If this server can't be reached, the email below still goes out.
+    // One server handles everything: it checks the captcha and spam limits, then sends the enquiry
+    // to Adam's WhatsApp and email. Nothing is sent from the browser to any other service.
     if(WA_ENQUIRY_API){
       try{
-        const c2 = new AbortController(); const t2 = setTimeout(()=>c2.abort(),12000);
+        const c2 = new AbortController(); const t2 = setTimeout(()=>c2.abort(),15000);
         const r2 = await fetch(WA_ENQUIRY_API,{method:"POST",signal:c2.signal,headers:{"Content-Type":"application/json"},
           body:JSON.stringify({captcha:capToken(), company_website:hp, submissionId, name:d.name, phone:d.phone, business:d.business, help:d.help, email:d.email, language:LANG.toUpperCase(), message:d.message})});
         clearTimeout(t2);
         const b2 = await r2.json().catch(()=>({}));
         if(r2.status===403 && b2.stage==="captcha_failed"){ btn.disabled = false; btnLabel.textContent = label0; capReset();
           capErr.textContent = L("The check didn't work. Please try again."); capErr.hidden = false; return; }
-        waSent = r2.ok && b2.ok === true;
-      }catch(err){}
+        sent = r2.ok && b2.ok === true;
+      }catch(err){ sent = false; }
     }
-    // 2) Email the enquiry
-    try{
-      const ctrl = new AbortController(); const t = setTimeout(()=>ctrl.abort(),12000);
-      const res = await fetch(FORM_ENDPOINT,{method:"POST",signal:ctrl.signal,headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(payload)});
-      const data = await res.json().catch(()=>({}));
-      sent = res.ok && String(data.success)==="true";
-      if(!sent) failReason = String(data.message||"");
-      clearTimeout(t);
-    }catch(err){ sent = false; }
     btn.disabled = false; btnLabel.textContent = label0; capReset();
-    // Delivered if either WhatsApp or the email got through
-    if(sent || waSent){ status.hidden = true; showSuccess(d); form.reset(); submissionId = newSubmissionId(); return; }
+    if(sent){ status.hidden = true; showSuccess(d); form.reset(); submissionId = newSubmissionId(); return; }
     status.hidden = false; status.className = "status fallback";
-    if(/activat/i.test(failReason)){
-      status.innerHTML = `<b>One-time setup needed.</b> This form has to be activated before it can deliver enquiries. If you're the site owner, check <b>${EMAIL}</b> for an email from FormSubmit and click <b>Activate Form</b>, then send this again.`;
-    }else{
-      status.innerHTML = `<b>${L("Sorry, the form couldn't be sent from here.")}</b> ${L("Please send your message on WhatsApp instead. Your details are ready to go.")}
-        <div class="acts"><a class="btn btn-wa" href="${waLink(text)}" target="_blank" rel="noopener">${ico("chat")}${L("Send on WhatsApp")}</a><button type="button" class="btn btn-dark" id="copyEnq">${ico("copy")}${L("Copy my message")}</button></div>`;
-      $("#copyEnq").addEventListener("click",ev=>copyText(text,ev.currentTarget));
-    }
+    status.innerHTML = `<b>${L("Sorry, the form couldn't be sent from here.")}</b> ${L("Please send your message on WhatsApp instead. Your details are ready to go.")}
+      <div class="acts"><a class="btn btn-wa" href="${waLink(text)}" target="_blank" rel="noopener">${ico("chat")}${L("Send on WhatsApp")}</a><button type="button" class="btn btn-dark" id="copyEnq">${ico("copy")}${L("Copy my message")}</button></div>`;
+    $("#copyEnq").addEventListener("click",ev=>copyText(text,ev.currentTarget));
     status.scrollIntoView({block:"nearest",behavior:"smooth"});
   });
   /* ---------- Success pop-up ---------- */
