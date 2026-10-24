@@ -16,7 +16,9 @@
 
 const MAX_BODY_BYTES = 8 * 1024;          // whole request
 const LIMITS = { name: 80, phone: 25, type: 60, description: 1500, location: 100, budget: 60, timeline: 60 };
-const ENQUIRY_TYPES = ["New website", "Redo my website", "Add-ons for my website", "Website chatbot", "Other"];
+const ENQUIRY_TYPES = ["New website", "Redo my website", "Add-ons for my website", "Website chatbot", "Other",
+  // options on the acedigitalsolutionsbiz.org contact form
+  "A new website", "Redo my current website", "Add-ons for my existing website", "Customer enquiry assistant", "Not sure yet"];
 const RATE = { max: 3, windowMs: 10 * 60 * 1000 };   // per IP, fallback limiter
 const CAPS = { ipPerHour: 6, phonePerDay: 3, dailyTotal: 50 }; // used when the ENQ_KV store is connected
 const DUPLICATE_MS = 10 * 60 * 1000;                // same submission id ignored for 10 min
@@ -60,8 +62,23 @@ export function normalisePhone(raw) {
   return d;
 }
 
+// The main website's contact form uses its own field names (help, business, email, language, message; message optional).
+// Turn them into this server's fields. Business, email and language go into the description line of the WhatsApp message.
+export function fromSiteForm(input) {
+  const email = clean(input.email, 120);
+  const emailOk = !email || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const lang = /^(EN|BM|ZH)$/i.test(String(input.language || "")) ? String(input.language).toUpperCase() : "";
+  const parts = [clean(input.message, 1200) || "(no message)"];
+  if (clean(input.business, 100)) parts.push("Business: " + clean(input.business, 100));
+  if (email && emailOk) parts.push("Email: " + email);
+  if (lang) parts.push("Form language: " + lang);
+  return { name: input.name, phone: input.phone, type: input.help, description: parts.join(" | "), location: "", budget: "", timeline: "", _site: true, _badEmail: !emailOk };
+}
+
 export function validate(input) {
+  if (input && typeof input === "object" && "help" in input && !("type" in input)) input = fromSiteForm(input);
   const errors = {};
+  if (input?._badEmail) errors.email = "invalid";
   const v = {};
   for (const k of Object.keys(LIMITS)) v[k] = clean(input?.[k], LIMITS[k]);
   if (!v.name) errors.name = "required";
@@ -71,7 +88,7 @@ export function validate(input) {
   for (const k of Object.keys(LIMITS)) if (v[k].length > LIMITS[k]) errors[k] = "too_long";
   if (v.phone && !errors.phone) { v.phoneDigits = normalisePhone(v.phone); if (!v.phoneDigits) errors.phone = "invalid"; }
   if (v.type && !ENQUIRY_TYPES.includes(v.type)) errors.type = "invalid";
-  if (v.description && !errors.description && v.description.length < 10) errors.description = "too_short";
+  if (v.description && !errors.description && !input?._site && v.description.length < 10) errors.description = "too_short";
   return { ok: !Object.keys(errors).length, errors, value: v };
 }
 

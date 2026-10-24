@@ -188,3 +188,12 @@ test("14. with an anti-spam key: a missing pass is refused unless CAPTCHA_OPTION
   assert.equal((await mk(strict)).status, 403);
   assert.equal((await mk({ ...ENV, TURNSTILE_SECRET: "s", CAPTCHA_OPTIONAL: "true" })).status, 200);
 });
+
+test("15. the main website's form fields are accepted (message optional) and mapped", async () => {
+  const site = { name: "Ah Kow", phone: "012-345 6789", business: "Kow Aircond", help: "Not sure yet", email: "kow@mail.com", language: "BM", message: "", company_website: "", submissionId: "site1" };
+  const r = await post(site); assert.equal(r.status, 200);
+  const body = JSON.stringify(JSON.parse(calls[0].opts.body));
+  assert.match(body, /Not sure yet/); assert.match(body, /Kow Aircond/); assert.match(body, /kow@mail\[\.\]com|kow@mail\.com/); assert.match(body, /Form language: BM/);
+  const bad = await post({ ...site, email: "not-an-email", submissionId: "site2" }); assert.equal(bad.status, 422);
+  const badType = await post({ ...site, help: "Hack", submissionId: "site3" }); assert.equal(badType.status, 422);
+});

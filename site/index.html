@@ -2241,9 +2241,11 @@ When someone compares two businesses side by side, the one that looks profession
   // Form delivery (FormSubmit sends to EMAIL)
   const FORM_ENDPOINT = "https://formsubmit.co/ajax/" + EMAIL;
   // Captcha (Cloudflare Turnstile). Paste the widget's SITE key here to switch it on; leave "" to keep it off.
-  const TURNSTILE_SITEKEY = "";
-  // Checks the captcha and sends Adam a WhatsApp alert (see handleNotify in backend/chat-worker.js)
-  const NOTIFY_API = CHAT_API ? CHAT_API.replace(/\/chat$/,"/notify") : "";
+  const TURNSTILE_SITEKEY = "0x4AAAAAAFjkFvWRmLvTXswG";
+  // Checks the captcha and sends the enquiry to Adam's WhatsApp (Cloudflare Worker, see whatsapp-enquiry/worker.js)
+  const WA_ENQUIRY_API = "https://ace-wa-enquiry.adamteokokwei.workers.dev/enquiry";
+  const newSubmissionId = () => (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2));
+  let submissionId = newSubmissionId();
 
   /* ---------- Prices (RM) ----------
      Add-ons: RM500 on their own, RM400 when bundled with the website or another add-on.
@@ -2568,7 +2570,7 @@ When someone compares two businesses side by side, the one that looks profession
     const text = buildMessage(d);
     const btn = $("#f-submit"), btnLabel = btn.querySelector("span"), label0 = btnLabel.textContent;
     btn.disabled = true; btnLabel.textContent = L("Sending…");
-    let sent = false, failReason = "";
+    let sent = false, waSent = false, failReason = "";
     const hp = f.company_website.value;
     const payload = {_subject:"Website enquiry: "+(d.business||d.name), _template:"box", _honey:hp,
       name:d.name, whatsapp:d.phone, business:d.business||"—", help:d.help, email:d.email||"—", language:LANG.toUpperCase(), message:d.message||"—", summary:text};
@@ -2579,15 +2581,17 @@ When someone compares two businesses side by side, the one that looks profession
         L("No payment is needed now. The RM200 deposit is only paid after you receive a written quote and decide to go ahead."),"",
         L("Thanks,"),"Adam","Ace Digital Solutions","WhatsApp: 010-264 1824"].join("\n");
     }
-    // 1) Check the captcha and WhatsApp Adam. If this server can't be reached, the email below still goes out.
-    if(NOTIFY_API){
+    // 1) Check the captcha and send the enquiry to Adam's WhatsApp. If this server can't be reached, the email below still goes out.
+    if(WA_ENQUIRY_API){
       try{
-        const c2 = new AbortController(); const t2 = setTimeout(()=>c2.abort(),9000);
-        const r2 = await fetch(NOTIFY_API,{method:"POST",signal:c2.signal,headers:{"Content-Type":"application/json"},
-          body:JSON.stringify({captcha:capToken(), company_website:hp, name:d.name, phone:d.phone, business:d.business, help:d.help, email:d.email, language:LANG.toUpperCase(), message:d.message})});
+        const c2 = new AbortController(); const t2 = setTimeout(()=>c2.abort(),12000);
+        const r2 = await fetch(WA_ENQUIRY_API,{method:"POST",signal:c2.signal,headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({captcha:capToken(), company_website:hp, submissionId, name:d.name, phone:d.phone, business:d.business, help:d.help, email:d.email, language:LANG.toUpperCase(), message:d.message})});
         clearTimeout(t2);
-        if(r2.status===403){ btn.disabled = false; btnLabel.textContent = label0; capReset();
+        const b2 = await r2.json().catch(()=>({}));
+        if(r2.status===403 && b2.stage==="captcha_failed"){ btn.disabled = false; btnLabel.textContent = label0; capReset();
           capErr.textContent = L("The check didn't work. Please try again."); capErr.hidden = false; return; }
+        waSent = r2.ok && b2.ok === true;
       }catch(err){}
     }
     // 2) Email the enquiry
@@ -2600,7 +2604,8 @@ When someone compares two businesses side by side, the one that looks profession
       clearTimeout(t);
     }catch(err){ sent = false; }
     btn.disabled = false; btnLabel.textContent = label0; capReset();
-    if(sent){ status.hidden = true; showSuccess(d); form.reset(); return; }
+    // Delivered if either WhatsApp or the email got through
+    if(sent || waSent){ status.hidden = true; showSuccess(d); form.reset(); submissionId = newSubmissionId(); return; }
     status.hidden = false; status.className = "status fallback";
     if(/activat/i.test(failReason)){
       status.innerHTML = `<b>One-time setup needed.</b> This form has to be activated before it can deliver enquiries. If you're the site owner, check <b>${EMAIL}</b> for an email from FormSubmit and click <b>Activate Form</b>, then send this again.`;
