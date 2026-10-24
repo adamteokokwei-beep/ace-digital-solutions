@@ -104,6 +104,18 @@ button{font:inherit;cursor:pointer;border:0;border-radius:999px}
   // technical result under the form: only on the local test file or with ?debug=1, never for real visitors
   const SHOW_DEV = location.protocol === "file:" || new URLSearchParams(location.search).get("debug") === "1";
 
+  // Cloudflare Turnstile anti-spam check. The site key is public; the secret key stays on the server only.
+  // It only works on the real website address, so it is skipped when this page is opened as a local file.
+  const TURNSTILE_SITEKEY = "0x4AAAAAAFjkFvWRmLvTXswG";
+  let tsWidget = null;
+  if (location.protocol.startsWith("http") && !MOCK) {
+    window.onTurnstileLoad = () => { tsWidget = window.turnstile.render("#captcha", { sitekey: TURNSTILE_SITEKEY, size: "flexible", appearance: "interaction-only" }); };
+    const sc = document.createElement("script");
+    sc.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onTurnstileLoad"; sc.async = true; sc.defer = true;
+    document.head.appendChild(sc);
+  }
+  const resetCaptcha = () => { try { if (tsWidget !== null) window.turnstile.reset(tsWidget); } catch(e){} };
+
   const $ = s => document.querySelector(s);
   const form = $("#enq"), btn = $("#send"), label = $("#sendLabel"), status = $("#status"), dev = $("#dev");
   $("#modeNote").textContent = MOCK ? `Mock mode "${MOCK}": nothing is sent.` : `Sending to ${ENDPOINT}.`;
@@ -178,11 +190,12 @@ button{font:inherit;cursor:pointer;border:0;border-radius:999px}
       else{
         const ctrl = new AbortController(); const t = setTimeout(() => ctrl.abort(), 20000);
         const res = await fetch(ENDPOINT, { method:"POST", signal:ctrl.signal, headers:{"Content-Type":"application/json"},
-          body: JSON.stringify({ ...d, company_website:f.company_website.value, submissionId, captcha: window.turnstile?.getResponse?.() || "" }) });
+          body: JSON.stringify({ ...d, company_website:f.company_website.value, submissionId, captcha: (tsWidget !== null && window.turnstile?.getResponse?.(tsWidget)) || "" }) });
         clearTimeout(t); httpStatus = res.status; body = await res.json().catch(() => ({}));
       }
     }catch(e){ httpStatus = 0; body = { ok:false, stage:"network_error" }; }
     sending = false; btn.disabled = false; btn.classList.remove("busy"); label.textContent = "Send enquiry";
+    resetCaptcha();   // each anti-spam pass can only be used once
     if(SHOW_DEV){ dev.hidden = false; dev.textContent = `Test info: HTTP ${httpStatus || "no response"} · stage: ${body.stage || "?"}` + (body.code ? ` · WhatsApp error code ${body.code}` : "") + (body.messageId ? ` · message id ${body.messageId}` : "") + (body.duplicate ? " · duplicate (not sent again)" : ""); }
 
     const stage = body.stage;
