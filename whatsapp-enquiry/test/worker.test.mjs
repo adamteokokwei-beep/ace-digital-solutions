@@ -2,7 +2,7 @@
 // All WhatsApp API calls are mocked. Nothing is ever sent.
 import { test, beforeEach } from "node:test";
 import assert from "node:assert/strict";
-import worker, { _resetState, normalisePhone, buildMetaPayload, defang, handleEnquiry } from "../worker.js";
+import worker, { _resetState, _setEmailMessage, normalisePhone, buildMetaPayload, buildEmail, defang, safeText, sanitize, counterId, validate, handleEnquiry } from "../worker.js";
 
 const ENV = {
   WHATSAPP_ACCESS_TOKEN: "test-token", WHATSAPP_PHONE_NUMBER_ID: "123456789", WHATSAPP_RECIPIENT_NUMBER: "60100000000",
@@ -10,6 +10,10 @@ const ENV = {
 };
 const VALID = { name: "Mei Ling", phone: "012-345 6789", type: "New website", description: "I run a bakery in Skudai and need a simple website.", location: "Skudai", budget: "RM1,500 – RM2,500", timeline: "Within 1 month", company_website: "" };
 
+
+// production-like settings: anti-spam key, limiter, counter store and HMAC key all present
+const memKV = () => { const m = new Map(); return { m, get: async k => m.get(k) ?? null, put: async (k, v) => { m.set(k, v); } }; };
+const PROD = () => { const e = { ...ENV, TURNSTILE_SECRET: "s", LIMIT_HMAC_KEY: "k".repeat(32), RATE_LIMITER: { limit: async () => ({ success: true }) }, ENQ_KV: memKV() }; delete e.CAPTCHA_OPTIONAL; return e; };
 let calls, metaReply, logs;
 const realFetch = globalThis.fetch, realLog = console.log;
 beforeEach(() => {
@@ -157,7 +161,7 @@ test("other websites (origins) are refused; secrets never reach the browser", as
 });
 
 test("11. without an anti-spam key the server refuses (unless CAPTCHA_OPTIONAL=true)", async () => {
-  const env = { ...ENV }; delete env.CAPTCHA_OPTIONAL;
+  const env = PROD(); delete env.TURNSTILE_SECRET;
   const r = await handleEnquiry(new Request("https://w.example/enquiry", { method: "POST", headers: { "Content-Type": "application/json", Origin: "https://example.com", "CF-Connecting-IP": "9.9.9.1" }, body: JSON.stringify({ ...VALID, submissionId: "nocap" }) }), env);
   assert.equal(r.status, 403); assert.equal((await r.json()).stage, "captcha_failed"); assert.equal(calls.length, 0);
 });
@@ -184,7 +188,7 @@ test("13. with the KV store: same customer number max 3 a day, and a total daily
 
 test("14. with an anti-spam key: a missing pass is refused unless CAPTCHA_OPTIONAL=true", async () => {
   const mk = env => handleEnquiry(new Request("https://w.example/enquiry", { method: "POST", headers: { "Content-Type": "application/json", Origin: "https://example.com", "CF-Connecting-IP": "7.7.7.7" }, body: JSON.stringify({ ...VALID, submissionId: "ts" + Math.random() }) }), env);
-  const strict = { ...ENV, TURNSTILE_SECRET: "s" }; delete strict.CAPTCHA_OPTIONAL;
+  const strict = PROD();
   assert.equal((await mk(strict)).status, 403);
   assert.equal((await mk({ ...ENV, TURNSTILE_SECRET: "s", CAPTCHA_OPTIONAL: "true" })).status, 200);
 });
@@ -193,7 +197,118 @@ test("15. the main website's form fields are accepted (message optional) and map
   const site = { name: "Ah Kow", phone: "012-345 6789", business: "Kow Aircond", help: "Not sure yet", email: "kow@mail.com", language: "BM", message: "", company_website: "", submissionId: "site1" };
   const r = await post(site); assert.equal(r.status, 200);
   const body = JSON.stringify(JSON.parse(calls[0].opts.body));
-  assert.match(body, /Not sure yet/); assert.match(body, /Kow Aircond/); assert.match(body, /kow@mail\[\.\]com|kow@mail\.com/); assert.match(body, /Form language: BM/);
+  assert.match(body, /Not sure yet/); assert.match(body, /Kow Aircond/); assert.match(body, /kow@mail\[\.\]com/); assert.match(body, /Form language: BM/);
   const bad = await post({ ...site, email: "not-an-email", submissionId: "site2" }); assert.equal(bad.status, 422);
   const badType = await post({ ...site, help: "Hack", submissionId: "site3" }); assert.equal(badType.status, 422);
+});
+
+// ===================== security fixes A–D (October 2026) =====================
+const WA_OK = () => new Response(JSON.stringify({ messages: [{ id: "wamid.OK" }] }), { status: 200 });
+const routeFetch = ({ turnstile = true, wa = WA_OK } = {}) => { metaReply = async (url) => String(url).includes("turnstile") ? new Response(JSON.stringify({ success: turnstile })) : wa(); };
+class FakeEmailMessage { constructor(from, to, raw) { this.from = from; this.to = to; this.raw = raw; } }
+const mailbox = (fail = false) => { const sent = []; return { sent, send: async m => { if (fail) throw new Error("send failed for owner@example.com"); sent.push(m); } }; };
+const EMAILENV = mb => ({ EMAIL: mb, EMAIL_FROM: "Ace Website <enquiry@acedigitalsolutionsbiz.org>", EMAIL_TO: "owner@example.com" });
+const SITE = { name: "Ah Kow", phone: "012-345 6789", business: "Kow Aircond", help: "Not sure yet", email: "kow@mail.com", language: "BM", message: "Need a site", company_website: "" };
+const decodeBody = raw => Buffer.from(raw.split("\r\n\r\n")[1].replace(/\r\n/g, ""), "base64").toString("utf8");
+const send = (env, body, ip = "8.8.8." + (++ipN % 250)) => handleEnquiry(new Request("https://w/enquiry", { method: "POST", headers: { "Content-Type": "application/json", Origin: "https://example.com", "CF-Connecting-IP": ip }, body: JSON.stringify({ captcha: "tok", submissionId: "x" + Math.random(), ...body }) }), env);
+
+test("A1. email: delivered by BOTH WhatsApp and email after all checks", async () => {
+  _setEmailMessage(FakeEmailMessage); routeFetch(); const mb = mailbox();
+  const r = await send({ ...PROD(), ...EMAILENV(mb) }, SITE); const b = await r.json();
+  assert.equal(r.status, 200); assert.equal(b.stage, "accepted_by_whatsapp"); assert.deepEqual(b.channels, { whatsapp: "sent", email: "sent" });
+  assert.equal(mb.sent.length, 1); assert.equal(mb.sent[0].to, "owner@example.com"); assert.equal(mb.sent[0].from, "enquiry@acedigitalsolutionsbiz.org");
+  const body = decodeBody(mb.sent[0].raw);
+  assert.match(body, /Name: Ah Kow/); assert.match(body, /Business: Kow Aircond/); assert.match(body, /Email: kow@mail\[\.\]com/); assert.match(body, /Message:\r?\nNeed a site/);
+  assert.match(mb.sent[0].raw, /^Reply-To: kow@mail\.com$/m); assert.match(mb.sent[0].raw, /^Subject: =\?UTF-8\?B\?/m); assert.match(mb.sent[0].raw, /^Message-ID: <[0-9a-f-]+@acedigitalsolutionsbiz\.org>$/m);
+});
+
+test("A2. email: WhatsApp fails but email works -> success (delivered_by_email); both fail -> failure", async () => {
+  _setEmailMessage(FakeEmailMessage);
+  routeFetch({ wa: () => new Response(JSON.stringify({ error: { code: 131030 } }), { status: 400 }) });
+  let r = await send({ ...PROD(), ...EMAILENV(mailbox()) }, SITE); let b = await r.json();
+  assert.equal(r.status, 200); assert.equal(b.stage, "delivered_by_email"); assert.deepEqual(b.channels, { whatsapp: "failed", email: "sent" });
+  r = await send({ ...PROD(), ...EMAILENV(mailbox(true)) }, SITE); b = await r.json();
+  assert.equal(r.status, 502); assert.equal(b.ok, false); assert.deepEqual(b.channels, { whatsapp: "failed", email: "failed" });
+  assert.ok(!logs.join("\n").includes("owner@example.com"), "email address not logged");
+});
+
+test("A3. email: no email is sent when Turnstile fails, the honeypot is filled, limits are hit, or in dry run", async () => {
+  _setEmailMessage(FakeEmailMessage); const mb = mailbox();
+  routeFetch({ turnstile: false }); assert.equal((await send({ ...PROD(), ...EMAILENV(mb) }, SITE)).status, 403);
+  routeFetch(); assert.equal((await send({ ...PROD(), ...EMAILENV(mb) }, { ...SITE, company_website: "x" })).status, 200);
+  const capped = { ...PROD(), ...EMAILENV(mb), DAILY_CAP: "0" }; assert.equal((await send(capped, SITE)).status, 429);
+  assert.equal((await send({ ...PROD(), ...EMAILENV(mb), WHATSAPP_DRY_RUN: "true" }, SITE)).status, 200);
+  assert.equal(mb.sent.length, 0);
+});
+
+test("A4. email: header injection through name/email is impossible", async () => {
+  _setEmailMessage(FakeEmailMessage); routeFetch(); const mb = mailbox();
+  const bad = await send({ ...PROD(), ...EMAILENV(mb) }, { ...SITE, email: "a@b.com\r\nBcc: victim@x.com" }); assert.equal(bad.status, 422);
+  const r = await send({ ...PROD(), ...EMAILENV(mb) }, { ...SITE, name: "Ali\r\nBcc: victim@x.com", email: "" }); assert.equal(r.status, 200);
+  const head = mb.sent[0].raw.split("\r\n\r\n")[0];
+  assert.ok(!/^Bcc:/mi.test(head), "no injected header"); assert.ok(!/^Reply-To:/m.test(head), "no Reply-To without a valid email");
+  assert.equal(head.split("\r\n").filter(l => /^To:/.test(l)).length, 1);
+});
+
+test("A5. email only (WhatsApp not configured) still delivers", async () => {
+  _setEmailMessage(FakeEmailMessage); routeFetch(); const mb = mailbox();
+  const env = { ...PROD(), ...EMAILENV(mb) }; delete env.WHATSAPP_ACCESS_TOKEN;
+  const r = await send(env, SITE); const b = await r.json();
+  assert.equal(r.status, 200); assert.equal(b.stage, "delivered_by_email"); assert.equal(b.channels.whatsapp, "off");
+});
+
+test("B1. sanitiser: invisible, bidi and odd-dot tricks are removed before defanging", () => {
+  assert.equal(safeText(sanitize("evil​.com", 50)), "evil[.]com");
+  assert.equal(safeText(sanitize("evil。com", 50)), "evil[.]com");
+  assert.equal(safeText(sanitize("evil．com", 50)), "evil[.]com");
+  assert.equal(safeText(sanitize("ｅｖｉｌ.com", 50)), "evil[.]com");      // full-width letters
+  assert.equal(sanitize("abc‮moc.live", 50), "abcmoc.live");                         // bidi override removed
+  assert.equal(safeText("go to 1.2.3.4/login"), "go to 1[.]2[.]3[.]4/login");
+  assert.equal(safeText("http://x.yz"), "http[:]//x[.]yz");
+  assert.equal(safeText("*bold* _it_ ~st~ `code`"), "∗bold∗ ˍitˍ ∼st∼ ʹcodeʹ");
+  assert.equal(safeText("RM1.50, e.g. Skudai"), "RM1.50, e.g. Skudai");                  // normal text untouched
+});
+
+test("B2. every customer field reaching WhatsApp is safe; budget/timeline must be fixed choices", async () => {
+  routeFetch();
+  let r = await send(PROD(), { ...VALID, budget: "visit evil.com" }); assert.equal(r.status, 422); assert.equal((await r.json()).errors.budget, "invalid");
+  r = await send(PROD(), { ...VALID, timeline: "https://evil.com" }); assert.equal(r.status, 422);
+  calls = [];
+  r = await send(PROD(), { ...VALID, name: "Ali evil​.com", location: "x．com", description: "see *1.2.3.4/x* and bit。ly/abc please" }); assert.equal(r.status, 200);
+  const sentBody = JSON.parse(calls.find(c => c.url.includes("/messages")).opts.body);
+  const text = JSON.stringify(sentBody);
+  for (const bad of ["evil.com", "x.com", "1.2.3.4", "bit.ly", "*1"]) assert.ok(!text.includes(bad), "unsafe text reached WhatsApp: " + bad);
+});
+
+test("C1. fail closed: limiter, counter store or HMAC key missing/failing -> 503, nothing sent", async () => {
+  routeFetch();
+  const cases = {
+    "limiter throws": e => { e.RATE_LIMITER = { limit: async () => { throw new Error("down"); } }; },
+    "limiter missing": e => { delete e.RATE_LIMITER; },
+    "store throws": e => { e.ENQ_KV = { get: async () => { throw new Error("down"); }, put: async () => {} }; },
+    "store missing": e => { delete e.ENQ_KV; },
+    "hmac key missing": e => { delete e.LIMIT_HMAC_KEY; },
+  };
+  for (const [name, change] of Object.entries(cases)) {
+    calls = []; const env = PROD(); change(env);
+    const r = await send(env, VALID); const b = await r.json();
+    assert.equal(r.status, 503, name); assert.equal(b.stage, "service_unavailable", name);
+    assert.equal(calls.filter(c => c.url.includes("/messages")).length, 0, name + ": nothing sent");
+  }
+});
+
+test("C2. local testing (CAPTCHA_OPTIONAL=true) still works without bindings", async () => {
+  routeFetch(); const r = await send({ ...ENV }, VALID); assert.equal(r.status, 200);
+});
+
+test("D1. counter names use a secret-keyed HMAC (not reversible without the key)", async () => {
+  const env1 = { LIMIT_HMAC_KEY: "a".repeat(32) }, env2 = { LIMIT_HMAC_KEY: "b".repeat(32) };
+  const a = await counterId(env1, "60123456789"), b = await counterId(env2, "60123456789");
+  assert.match(a, /^[0-9a-f]{32}$/); assert.notEqual(a, b);
+  const plain = Buffer.from(await crypto.subtle.digest("SHA-256", new TextEncoder().encode("enq:60123456789"))).toString("hex").slice(0, 32);
+  assert.notEqual(a, plain);
+  routeFetch(); const env = PROD(); await send(env, VALID, "203.0.113.9");
+  const keys = [...env.ENQ_KV.m.keys()].join(" ");
+  assert.ok(!keys.includes("203.0.113.9") && !keys.includes("60123456789"), "no raw IP or phone in counter names");
+  await assert.rejects(() => counterId({}, "x"), /no hmac key/);
 });

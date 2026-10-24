@@ -24,3 +24,13 @@ enabled = true
 [[kv_namespaces]]
 binding = "ENQ_KV"
 id = "31c49a6d55554940b83671b5d140f187"
+
+# Email backup: the Worker emails each enquiry to the owner's VERIFIED address only
+# (Cloudflare Email Routing must be enabled on acedigitalsolutionsbiz.org and the address verified first).
+[[send_email]]
+name = "EMAIL"
+destination_address = "adamteokokwei@gmail.com"
+
+[vars]
+EMAIL_FROM = "Ace Digital Solutions website <enquiry@acedigitalsolutionsbiz.org>"
+EMAIL_TO = "adamteokokwei@gmail.com"

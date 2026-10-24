@@ -199,7 +199,7 @@ button{font:inherit;cursor:pointer;border:0;border-radius:999px}
     if(SHOW_DEV){ dev.hidden = false; dev.textContent = `Test info: HTTP ${httpStatus || "no response"} · stage: ${body.stage || "?"}` + (body.code ? ` · WhatsApp error code ${body.code}` : "") + (body.messageId ? ` · message id ${body.messageId}` : "") + (body.duplicate ? " · duplicate (not sent again)" : ""); }
 
     const stage = body.stage;
-    if(body.ok && stage === "accepted_by_whatsapp"){
+    if(body.ok && (stage === "accepted_by_whatsapp" || stage === "delivered_by_email")){
       const rows = summaryRows(d);
       const waText = "My enquiry to Ace Digital Solutions\n\n" + rows.map(([k,v]) => k + ": " + v).join("\n");
       show("ok", `<b>Thank you, ${esc(d.name.split(" ")[0])}! Your enquiry has been sent.</b>We'll reply to you on WhatsApp at ${esc(d.phone)}. Here's a summary of what you sent:
@@ -220,6 +220,7 @@ button{font:inherit;cursor:pointer;border:0;border-radius:999px}
     const why = {
       rate_limited: "Too many enquiries were sent from this connection. Please wait a few minutes and try again.",
       daily_cap: "We've received a lot of enquiries today. Please try again tomorrow, or contact us another way.",
+      service_unavailable: "The enquiry service is busy right now. Please try again in a few minutes.",
       captcha_failed: "The anti-spam check didn't pass. Please try again.",
       whatsapp_busy: "WhatsApp is busy right now. Please try again in a minute.",
       whatsapp_unavailable: "We couldn't reach WhatsApp just now. Please try again in a minute.",
