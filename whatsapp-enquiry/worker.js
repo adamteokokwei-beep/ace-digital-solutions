@@ -218,6 +218,15 @@ export async function handleEnquiry(request, env) {
   if (!result.ok) console.log("enquiry: whatsapp error", res.status, result.code ?? "", result.subcode ?? ""); // codes only, never content
   // Meta's own explanation (error text only; long digit runs such as phone numbers are masked)
   if (!result.ok) { const er = body?.error || {}; const mask = s => String(s || "").replace(/\d{6,}/g, "###").slice(0, 300); console.log("enquiry: meta says:", mask(er.type), "|", mask(er.message), "|", mask(er.error_data?.details), "| sent template:", mask(env.WHATSAPP_TEMPLATE_NAME), "lang:", mask(env.WHATSAPP_TEMPLATE_LANGUAGE || "en"), "api:", mask(env.WHATSAPP_API_VERSION || "v23.0")); }
+  // self-check on a rejection: ask Meta what the configured Phone number ID points to (logged only, masked)
+  if (!result.ok && result.stage === "whatsapp_rejected") {
+    try {
+      const chk = await fetch(`${base}/${env.WHATSAPP_API_VERSION || "v23.0"}/${env.WHATSAPP_PHONE_NUMBER_ID}?fields=display_phone_number,verified_name`, { headers: { "Authorization": `Bearer ${env.WHATSAPP_ACCESS_TOKEN}` } });
+      const cj = await chk.json().catch(() => ({}));
+      const idLen = String(env.WHATSAPP_PHONE_NUMBER_ID).replace(/\D/g, "").length;
+      console.log("enquiry: phone id check:", chk.status, "| id digits:", idLen, "| number:", String(cj.display_phone_number || "-").slice(0, 30), "| name:", String(cj.verified_name || "-").slice(0, 60), "| error:", String(cj.error?.message || "-").replace(/\d{6,}/g, "###").slice(0, 200), "| to digits:", String(env.WHATSAPP_RECIPIENT_NUMBER).replace(/\D/g, "").length);
+    } catch (e) { console.log("enquiry: phone id check failed"); }
+  }
   const status = result.ok ? 200 : result.stage === "whatsapp_auth_failed" ? 502 : result.stage === "whatsapp_busy" ? 503 : result.stage === "whatsapp_unavailable" ? 504 : 502;
   return finish(result, status);
 }
