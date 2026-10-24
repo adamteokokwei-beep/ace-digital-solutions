@@ -29,7 +29,7 @@ const srv = http.createServer((req, res) => { let p = decodeURIComponent(req.url
     const formsubmit = other.some(u => /formsubmit/i.test(u));
     const pass = got === expect && sentTo === 1 && !formsubmit && errs.length === 0; if (!pass) fails++;
     console.log(`${pass ? 'PASS' : 'FAIL'} ${name}: shows=${got} serverCalls=${sentTo} formsubmitCalls=${formsubmit?1:0} jsErrors=${errs.length}`);
-    if (name === 'both fail') await p.locator('#enqForm').screenshot({path:'site_fail2.png'});
+    if (name === 'both fail') await p.locator('#enqForm').screenshot({path:require('os').tmpdir()+'/site_fail2.png'});
     await p.close();
   }
   await b.close(); srv.close(); process.exitCode = fails ? 1 : 0;
