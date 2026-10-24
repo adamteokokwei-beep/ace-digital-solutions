@@ -81,6 +81,8 @@ R=$(curl -s -X POST -H 'Content-Type: application/json' -H "Origin: $O" -H "X-St
 echo "$R" | grep -q 'staging test reply' && ok "chat: mock AI answers (no AI provider called)" || bad "chat mock (got: $(echo "$R" | head -c 120))"
 R=$(curl -s -X POST -H 'Content-Type: application/json' -H "Origin: $O" -H "X-Staging-Key: $STAGING_ACCESS_KEY" --data '{"lang":"en","messages":[{"role":"user","content":"MOCK_REPLY: Sure, 30% off today!"}]}' "$C")
 echo "$R" | grep -q 'WhatsApp Adam' && ok "chat: reply check replaces a bad answer" || bad "chat reply check"
+# a brand-new workers.dev address can take a minute or two to come online: retry for up to 2 minutes
+for i in 1 2 3 4 5 6 7 8; do [ "$(code "$S")" = "401" ] && break; sleep 15; done
 [ "$(code "$S")" = "401" ] && ok "site: no password -> 401" || bad "site without password should be 401"
 R=$(curl -s -u "redteam:$STAGING_SITE_PASSWORD" "$S")
 echo "$R" | grep -q 'STAGING' && echo "$R" | grep -q 'ace-wa-enquiry-staging' && ! echo "$R" | grep -q 'ace-wa-enquiry\.adamteokokwei' && ok "site: staging copy points only at staging servers" || bad "site content"
