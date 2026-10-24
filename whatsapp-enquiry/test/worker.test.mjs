@@ -2,11 +2,11 @@
 // All WhatsApp API calls are mocked. Nothing is ever sent.
 import { test, beforeEach } from "node:test";
 import assert from "node:assert/strict";
-import worker, { _resetState, normalisePhone, buildMetaPayload } from "../worker.js";
+import worker, { _resetState, normalisePhone, buildMetaPayload, defang, handleEnquiry } from "../worker.js";
 
 const ENV = {
   WHATSAPP_ACCESS_TOKEN: "test-token", WHATSAPP_PHONE_NUMBER_ID: "123456789", WHATSAPP_RECIPIENT_NUMBER: "60100000000",
-  WHATSAPP_API_VERSION: "v23.0", ALLOWED_ORIGIN: "https://example.com", META_TIMEOUT_MS: "300",
+  WHATSAPP_API_VERSION: "v23.0", ALLOWED_ORIGIN: "https://example.com", META_TIMEOUT_MS: "300", CAPTCHA_OPTIONAL: "true",
 };
 const VALID = { name: "Mei Ling", phone: "012-345 6789", type: "New website", description: "I run a bakery in Skudai and need a simple website.", location: "Skudai", budget: "RM1,500 – RM2,500", timeline: "Within 1 month", company_website: "" };
 
@@ -82,12 +82,12 @@ test("5. honeypot: bots get a normal-looking answer but nothing is sent", async 
   assert.equal(r.status, 200); assert.equal(b.ok, true); assert.equal(calls.length, 0);
 });
 
-test("6. rate limiting: the 6th submission from one IP within 10 minutes is refused", async () => {
+test("6. rate limiting: the 4th submission from one IP within 10 minutes is refused", async () => {
   const statuses = [];
-  for (let i = 0; i < 7; i++) statuses.push((await post({ ...VALID, submissionId: "rl" + i }, { ip: "1.2.3.4" })).status);
-  assert.deepEqual(statuses.slice(0, 5), [200, 200, 200, 200, 200]);
-  assert.equal(statuses[5], 429); assert.equal(statuses[6], 429);
-  assert.equal(calls.length, 5);
+  for (let i = 0; i < 5; i++) statuses.push((await post({ ...VALID, submissionId: "rl" + i }, { ip: "1.2.3.4" })).status);
+  assert.deepEqual(statuses.slice(0, 3), [200, 200, 200]);
+  assert.equal(statuses[3], 429); assert.equal(statuses[4], 429);
+  assert.equal(calls.length, 3);
 });
 
 test("6b. Cloudflare rate limiter binding is used when present", async () => {
@@ -145,7 +145,7 @@ test("dry run validates and previews but never calls WhatsApp", async () => {
 });
 
 test("missing configuration reports not_configured, never success", async () => {
-  const r = await post(VALID, { env: { ALLOWED_ORIGIN: "*" } }); const b = await r.json();
+  const r = await post(VALID, { env: { ALLOWED_ORIGIN: "*", CAPTCHA_OPTIONAL: "true" } }); const b = await r.json();
   assert.equal(r.status, 503); assert.equal(b.ok, false); assert.equal(b.stage, "not_configured");
 });
 
@@ -154,4 +154,30 @@ test("other websites (origins) are refused; secrets never reach the browser", as
   assert.equal(r.status, 403); assert.equal(calls.length, 0);
   const ok = await post({ ...VALID, submissionId: "sec" }); const text = await ok.text();
   assert.ok(!text.includes("test-token") && !text.includes("123456789"));
+});
+
+test("11. without an anti-spam key the server refuses (unless CAPTCHA_OPTIONAL=true)", async () => {
+  const env = { ...ENV }; delete env.CAPTCHA_OPTIONAL;
+  const r = await handleEnquiry(new Request("https://w.example/enquiry", { method: "POST", headers: { "Content-Type": "application/json", Origin: "https://example.com", "CF-Connecting-IP": "9.9.9.1" }, body: JSON.stringify({ ...VALID, submissionId: "nocap" }) }), env);
+  assert.equal(r.status, 403); assert.equal((await r.json()).stage, "captcha_failed"); assert.equal(calls.length, 0);
+});
+
+test("12. links typed by a customer are made unclickable in the WhatsApp message", async () => {
+  assert.equal(defang("see evil.com or https://bit.ly/x"), "see evil[.]com or https[:]//bit[.]ly/x");
+  assert.equal(defang("RM1.50, e.g. Skudai"), "RM1.50, e.g. Skudai");
+  const p = buildMetaPayload({ ...ENV, WHATSAPP_TEMPLATE_NAME: "website_enquiry" }, { name: "x", phoneDigits: "60123456789", type: "Other", location: "", budget: "", timeline: "", description: "go to evil.com" });
+  assert.equal(p.template.components[0].parameters[6].text, "go to evil[.]com");
+  assert.equal(p.template.components[0].parameters[1].text, "+60123456789");
+});
+
+test("13. with the KV store: same customer number max 3 a day, and a total daily cap", async () => {
+  const store = new Map(); const kv = { get: async k => store.get(k) ?? null, put: async (k, v) => { store.set(k, v); } };
+  const env = { ...ENV, ENQ_KV: kv, DAILY_CAP: "5", RATE_LIMITER: { limit: async () => ({ success: true }) } };
+  const send = (i, phone, ip) => handleEnquiry(new Request("https://w.example/enquiry", { method: "POST", headers: { "Content-Type": "application/json", Origin: "https://example.com", "CF-Connecting-IP": ip }, body: JSON.stringify({ ...VALID, phone, submissionId: "kv" + i }) }), env);
+  const a = []; for (let i = 0; i < 4; i++) a.push((await send(i, "012-345 6789", "5.5.5." + i)).status);
+  assert.deepEqual(a, [200, 200, 200, 429]);
+  assert.equal((await send(10, "012-000 0001", "6.6.6.1")).status, 200);
+  assert.equal((await send(11, "012-000 0002", "6.6.6.2")).status, 200);
+  const r = await send(12, "012-000 0003", "6.6.6.3"); assert.equal(r.status, 429); assert.equal((await r.json()).stage, "daily_cap");
+  assert.ok(![...store.keys()].some(k => /0123456789|5\.5\.5/.test(k)), "no raw phone or IP in store keys");
 });

@@ -101,7 +101,8 @@ button{font:inherit;cursor:pointer;border:0;border-radius:999px}
   const ENDPOINT = new URLSearchParams(location.search).get("api") || ONLINE_ENDPOINT || (location.protocol.startsWith("http") ? "/enquiry" : "http://localhost:8787/enquiry");
   // ?mock=ok|dry|auth|rejected|timeout|busy|rate|invalid shows each result on screen without any server or WhatsApp
   const MOCK = new URLSearchParams(location.search).get("mock");
-  const SHOW_DEV = true;   // test page only: shows the technical result under the form
+  // technical result under the form: only on the local test file or with ?debug=1, never for real visitors
+  const SHOW_DEV = location.protocol === "file:" || new URLSearchParams(location.search).get("debug") === "1";
 
   const $ = s => document.querySelector(s);
   const form = $("#enq"), btn = $("#send"), label = $("#sendLabel"), status = $("#status"), dev = $("#dev");
@@ -205,6 +206,7 @@ button{font:inherit;cursor:pointer;border:0;border-radius:999px}
     // Failure: the enquiry was NOT delivered. Keep everything in the form so the customer can try again.
     const why = {
       rate_limited: "Too many enquiries were sent from this connection. Please wait a few minutes and try again.",
+      daily_cap: "We've received a lot of enquiries today. Please try again tomorrow, or contact us another way.",
       captcha_failed: "The anti-spam check didn't pass. Please try again.",
       whatsapp_busy: "WhatsApp is busy right now. Please try again in a minute.",
       whatsapp_unavailable: "We couldn't reach WhatsApp just now. Please try again in a minute.",

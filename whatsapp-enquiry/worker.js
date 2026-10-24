@@ -5,8 +5,9 @@
 // enquiry to the owner's WhatsApp through the official Meta WhatsApp Cloud API.
 //
 // Privacy by design:
-//  - no database, no queue, no KV: enquiry contents only live in memory for
-//    the length of one request
+//  - no database, no queue: enquiry contents only live in memory for the length
+//    of one request (the optional KV store only holds spam counters keyed by a
+//    one-way hash, never names, numbers or messages)
 //  - enquiry contents are never written to logs (only status codes / error codes)
 //  - secrets are read from server-side environment variables only
 //
@@ -16,7 +17,8 @@
 const MAX_BODY_BYTES = 8 * 1024;          // whole request
 const LIMITS = { name: 80, phone: 25, type: 60, description: 1500, location: 100, budget: 60, timeline: 60 };
 const ENQUIRY_TYPES = ["New website", "Redo my website", "Add-ons for my website", "Website chatbot", "Other"];
-const RATE = { max: 5, windowMs: 10 * 60 * 1000 };   // per IP, fallback limiter
+const RATE = { max: 3, windowMs: 10 * 60 * 1000 };   // per IP, fallback limiter
+const CAPS = { ipPerHour: 6, phonePerDay: 3, dailyTotal: 50 }; // used when the ENQ_KV store is connected
 const DUPLICATE_MS = 10 * 60 * 1000;                // same submission id ignored for 10 min
 const META_TIMEOUT_MS = 10000;
 
@@ -76,18 +78,20 @@ export function validate(input) {
 export function formatText(v) {
   return [
     "NEW WEBSITE ENQUIRY", "",
-    "Name: " + v.name,
+    "Name: " + defang(v.name),
     "WhatsApp: +" + v.phoneDigits,
     "Enquiry type: " + v.type,
-    "Location: " + (v.location || "-"),
+    "Location: " + (defang(v.location) || "-"),
     "Budget: " + (v.budget || "-"),
     "Timeline: " + (v.timeline || "-"), "",
-    "Description:", v.description, "",
+    "Description:", defang(v.description), "",
     "Source: Website enquiry form",
   ].join("\n");
 }
 
 // Template parameters may not contain new lines, tabs or more than 4 spaces in a row.
+// Customer text must not turn into clickable links in the owner's WhatsApp (phishing): "evil.com" -> "evil[.]com"
+export const defang = s => String(s || "").replace(/:\/\//g, "[:]//").replace(/([a-z0-9-])\.(?=[a-z][a-z0-9-]+)/gi, "$1[.]");
 const tparam = s => String(s || "-").replace(/[\r\n\t]+/g, " / ").replace(/ {4,}/g, "   ").slice(0, 1000);
 
 export function buildMetaPayload(env, v) {
@@ -98,7 +102,7 @@ export function buildMetaPayload(env, v) {
       template: {
         name: env.WHATSAPP_TEMPLATE_NAME,
         language: { code: env.WHATSAPP_TEMPLATE_LANGUAGE || "en" },
-        components: [{ type: "body", parameters: [v.name, "+" + v.phoneDigits, v.type, v.location, v.budget, v.timeline, v.description].map(t => ({ type: "text", text: tparam(t) })) },
+        components: [{ type: "body", parameters: [defang(v.name), "+" + v.phoneDigits, v.type, defang(v.location), v.budget, v.timeline, defang(v.description)].map(t => ({ type: "text", text: tparam(t) })) },
           // optional "Reply on WhatsApp" button (template button URL https://wa.me/{{1}}); only when the template has that button
           ...(String(env.WHATSAPP_REPLY_BUTTON) === "true" ? [{ type: "button", sub_type: "url", index: "0", parameters: [{ type: "text", text: v.phoneDigits }] }] : [])],
       },
@@ -120,7 +124,8 @@ export function classifyMeta(status, body) {
 }
 
 async function verifyTurnstile(env, token, ip) {
-  if (!env.TURNSTILE_SECRET) return true;
+  // no anti-spam key set: refuse, unless testing is explicitly allowed with CAPTCHA_OPTIONAL=true
+  if (!env.TURNSTILE_SECRET) { if (String(env.CAPTCHA_OPTIONAL) === "true") return true; console.log("enquiry: captcha not configured, refused"); return false; }
   if (!token) return false;
   const form = new URLSearchParams({ secret: env.TURNSTILE_SECRET, response: String(token).slice(0, 2048) });
   if (ip) form.set("remoteip", ip);
@@ -140,6 +145,29 @@ async function rateLimited(env, ip) {
   hits.push(now); memHits.set(ip, hits);
   if (memHits.size > 5000) memHits.clear();
   return hits.length > max;
+}
+
+// One-way hash so the counters never store a real IP address or phone number
+async function hashKey(s) {
+  const d = await crypto.subtle.digest("SHA-256", new TextEncoder().encode("ace-enq:" + s));
+  return [...new Uint8Array(d)].slice(0, 12).map(b => b.toString(16).padStart(2, "0")).join("");
+}
+// Longer-term limits (per visitor per hour, per customer number per day, total per day). Needs the ENQ_KV store; skipped without it.
+async function overCaps(env, ip, phoneDigits) {
+  const kv = env.ENQ_KV; if (!kv || typeof kv.get !== "function") return null;
+  const day = new Date().toISOString().slice(0, 10), hour = new Date().toISOString().slice(0, 13);
+  const dailyTotal = Number(env.DAILY_CAP || CAPS.dailyTotal);
+  const keys = [
+    ["total:" + day, dailyTotal, 90000, "daily_cap"],
+    ["ip:" + hour + ":" + await hashKey(ip), CAPS.ipPerHour, 4000, "rate_limited"],
+    ["ph:" + day + ":" + await hashKey(phoneDigits), CAPS.phonePerDay, 90000, "rate_limited"],
+  ];
+  try {
+    const counts = await Promise.all(keys.map(([k]) => kv.get(k)));
+    for (let i = 0; i < keys.length; i++) if (Number(counts[i] || 0) >= keys[i][1]) return keys[i][3];
+    await Promise.all(keys.map(([k, , ttl], i) => kv.put(k, String(Number(counts[i] || 0) + 1), { expirationTtl: ttl })));
+  } catch { console.log("enquiry: caps store unavailable"); }
+  return null;
 }
 
 function seenBefore(id) {
@@ -181,6 +209,9 @@ export async function handleEnquiry(request, env) {
   if (!check.ok) return json({ ok: false, stage: "invalid", errors: check.errors }, 422, h);
 
   if (!(await verifyTurnstile(env, input.captcha, ip))) return json({ ok: false, stage: "captcha_failed" }, 403, h);
+
+  const cap = await overCaps(env, ip, check.value.phoneDigits);
+  if (cap) { console.log("enquiry: limit reached:", cap); return json({ ok: false, stage: cap }, 429, { ...h, "Retry-After": "3600" }); }
 
   // repeated submission (double tap, refresh-resend): answer with the first result, send nothing new
   const sid = clean(input.submissionId, 64);
