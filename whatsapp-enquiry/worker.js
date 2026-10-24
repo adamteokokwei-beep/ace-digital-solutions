@@ -152,6 +152,8 @@ export function _resetState() { memHits.clear(); memSeen.clear(); }
 
 // ---------- request handler ----------
 export async function handleEnquiry(request, env) {
+  // ignore stray spaces/newlines picked up when pasting settings into "wrangler secret put"
+  env = Object.fromEntries(Object.entries(env).map(([k, v]) => [k, typeof v === "string" ? v.trim() : v]));
   const origin = request.headers.get("Origin") || "";
   const c = cors(origin, env.ALLOWED_ORIGIN);
   const h = c.headers;
@@ -215,7 +217,7 @@ export async function handleEnquiry(request, env) {
   const result = classifyMeta(res.status, body);
   if (!result.ok) console.log("enquiry: whatsapp error", res.status, result.code ?? "", result.subcode ?? ""); // codes only, never content
   // Meta's own explanation (error text only; long digit runs such as phone numbers are masked)
-  if (!result.ok) { const er = body?.error || {}; const mask = s => String(s || "").replace(/\d{6,}/g, "###").slice(0, 300); console.log("enquiry: meta says:", mask(er.type), "|", mask(er.message), "|", mask(er.error_data?.details)); }
+  if (!result.ok) { const er = body?.error || {}; const mask = s => String(s || "").replace(/\d{6,}/g, "###").slice(0, 300); console.log("enquiry: meta says:", mask(er.type), "|", mask(er.message), "|", mask(er.error_data?.details), "| sent template:", mask(env.WHATSAPP_TEMPLATE_NAME), "lang:", mask(env.WHATSAPP_TEMPLATE_LANGUAGE || "en"), "api:", mask(env.WHATSAPP_API_VERSION || "v23.0")); }
   const status = result.ok ? 200 : result.stage === "whatsapp_auth_failed" ? 502 : result.stage === "whatsapp_busy" ? 503 : result.stage === "whatsapp_unavailable" ? 504 : 502;
   return finish(result, status);
 }
