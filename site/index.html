@@ -709,6 +709,7 @@ footer{background:var(--navy);color:#A9B6CF;padding-block:36px;font-size:14px}
 .msg.typing i:nth-child(2){animation-delay:.15s}.msg.typing i:nth-child(3){animation-delay:.3s}
 @keyframes blink{0%,100%{opacity:.3}50%{opacity:1}}
 .chat-in{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line);background:#fff}
+.chat-note{margin:0;padding:0 12px 10px;background:#fff;font-size:11.5px;line-height:1.4;color:var(--muted,#6E6E73)}.chat-note a{color:inherit;text-decoration:underline}
 .chat-in input{flex:1;min-width:0;font:inherit;font-size:14px;border:1.5px solid #CBD5E1;border-radius:20px;padding:9px 14px;background:#fff;color:var(--ink);color-scheme:light}
 .chat-in input::placeholder{color:#64748B}
 .chat-in input:disabled{background:#F8FAFC}
@@ -1850,6 +1851,7 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
   <div class="chat-log" id="chatLog" aria-live="polite"></div>
   <button type="button" class="handoff" id="handoff" hidden><svg class="ico"><use href="#i-chat"/></svg><span>Continue on WhatsApp with Adam</span><svg class="ico"><use href="#i-arrow"/></svg></button>
   <form class="chat-in" id="chatForm"><input id="chatInput" placeholder="Ask a question…" autocomplete="off" aria-label="Your question"><button type="submit" aria-label="Send"><svg class="ico"><use href="#i-send"/></svg></button></form>
+  <p class="chat-note">Automated answers, so they may contain mistakes. Prices are confirmed by Adam in writing. Please don't share sensitive details. <a href="/privacy/">Privacy</a></p>
 </div>
 
 

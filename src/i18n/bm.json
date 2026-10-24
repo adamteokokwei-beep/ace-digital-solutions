@@ -492,5 +492,7 @@
  "{n} min read": "{n} minit bacaan",
  "{p}/month": "{p}/bulan",
  "{total} for {items} ({days})": "{total} untuk {items} ({days})",
- "· no separate bills": "· tiada bil berasingan"
+ "· no separate bills": "· tiada bil berasingan",
+ "Automated answers, so they may contain mistakes. Prices are confirmed by Adam in writing. Please don't share sensitive details.": "Jawapan automatik, jadi mungkin ada kesilapan. Harga disahkan oleh Adam secara bertulis. Jangan kongsi maklumat sensitif.",
+ "Privacy": "Privasi"
 }

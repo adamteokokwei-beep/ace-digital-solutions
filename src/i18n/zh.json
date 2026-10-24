@@ -492,5 +492,7 @@
  "{n} min read": "阅读约 {n} 分钟",
  "{p}/month": "每月 {p}",
  "{total} for {items} ({days})": "{items}：{total}（{days}）",
- "· no separate bills": "· 无需另付账单"
+ "· no separate bills": "· 无需另付账单",
+ "Automated answers, so they may contain mistakes. Prices are confirmed by Adam in writing. Please don't share sensitive details.": "自动回复，可能会有错误。价格以 Adam 的书面报价为准。请不要分享敏感个人信息。",
+ "Privacy": "隐私"
 }

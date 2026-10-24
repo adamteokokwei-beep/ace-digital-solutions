@@ -3,8 +3,8 @@
 // Two jobs, one small server:
 //   POST /summary   → a short WhatsApp hand-over message summarising a website chat
 //   POST /chat      → the website chatbot (Google Gemini — free tier, ChatGPT, or Claude). Keeps your API key out of the website code.
-//   POST /enquiry   → the consultation form. Emails the enquiry to you and sends the customer
-//                     a confirmation email (via Resend, resend.com, free tier).
+//   GET  /          → health check (plain "OK"; add ?key=HEALTH_KEY to also test the AI connection)
+//   (The old /enquiry and /notify form routes were removed: the website form now uses the ace-wa-enquiry Worker.)
 //
 // Settings (Cloudflare dashboard → your Worker → Settings → Variables):
 //   Chatbot — set ONE of these keys (if more than one is set, the first in this list is used):
@@ -13,14 +13,13 @@
 //   OPENAI_API_KEY     (Secret)  key from platform.openai.com/api-keys     (ChatGPT, paid)
 //   OPENAI_MODEL       (Text, optional) defaults to gpt-4o-mini
 //   ANTHROPIC_API_KEY  (Secret)  key from console.anthropic.com             (Claude, paid)
-//   RESEND_API_KEY     (Secret)  key from resend.com                        (for /enquiry)
-//   OWNER_EMAIL        (Text)    where enquiries go, e.g. adamteokokwei@gmail.com
-//   FROM_EMAIL         (Text)    sender on your verified domain, e.g. Ace Digital Solutions <hello@yourdomain.com>
-//   ALLOWED_ORIGIN     (Text)    your website address(es), comma-separated, e.g. https://acesite.netlify.app, https://yourdomain.com, https://www.yourdomain.com
+//   ALLOWED_ORIGIN     (Text)    your website address(es), comma-separated. If not set, only acedigitalsolutionsbiz.org (+ www) is allowed.
+//   HEALTH_KEY         (Secret, optional) lets you test the AI connection: open https://<worker>/?key=<HEALTH_KEY>
+//   CHAT_DAILY_CAP     (Text, optional) total AI requests per day, default 400
+//   Bindings (wrangler.toml): CHAT_LIMITER (per-visitor rate limit), CHAT_KV (daily counters; hashed keys, no chat content)
 //
 // In the website file, set:
 //   CHAT_API = "https://YOUR-WORKER.workers.dev/chat"
-//   FORM_API = "https://YOUR-WORKER.workers.dev/enquiry"
 
 const GEMINI_MODEL = "gemini-flash-lite-latest";  // Google's current fast "Lite" model: quick and less often busy
 // If that model is busy or unavailable, these are tried next, in order:
@@ -30,6 +29,38 @@ const CLAUDE_MODEL = "claude-haiku-4-5-20251001"; // used only if you choose Cla
 const MAX_TOKENS = 400;                    // keeps answers short and costs low
 const MAX_TURNS = 12;                      // how much of the conversation is sent each time
 const MAX_CHARS = 800;                     // longest message a visitor can send
+const MAX_BODY_BYTES = 32 * 1024;          // largest request accepted
+const DEFAULT_ORIGINS = "https://acedigitalsolutionsbiz.org,https://www.acedigitalsolutionsbiz.org"; // used if ALLOWED_ORIGIN is not set
+const CHAT_DAILY_CAP = 400;                // total AI requests per day (override with CHAT_DAILY_CAP); protects the free Gemini allowance
+const CHAT_IP_PER_HOUR = 60;               // AI requests per visitor per hour (needs the CHAT_KV store)
+
+// ---------- abuse protection ----------
+const memHits = new Map(); // ip -> [timestamps] (fallback limiter, this Worker instance only)
+async function hashKey(s) {
+  const d = await crypto.subtle.digest("SHA-256", new TextEncoder().encode("ace-chat:" + s));
+  return [...new Uint8Array(d)].slice(0, 12).map(b => b.toString(16).padStart(2, "0")).join("");
+}
+// Returns "" when allowed, otherwise "rate_limited" or "daily_cap". Counters hold no chat content and no raw IP address.
+async function limitCheck(env, ip) {
+  if (env.CHAT_LIMITER && typeof env.CHAT_LIMITER.limit === "function") {
+    try { const { success } = await env.CHAT_LIMITER.limit({ key: "chat:" + ip }); if (!success) return "rate_limited"; } catch { /* fall back below */ }
+  } else {
+    const now = Date.now(), hits = (memHits.get(ip) || []).filter(t => now - t < 60000);
+    hits.push(now); memHits.set(ip, hits); if (memHits.size > 5000) memHits.clear();
+    if (hits.length > 10) return "rate_limited";
+  }
+  const kv = env.CHAT_KV;
+  if (kv && typeof kv.get === "function") {
+    const iso = new Date().toISOString(), cap = Number(env.CHAT_DAILY_CAP || CHAT_DAILY_CAP);
+    const keys = [["chat:total:" + iso.slice(0, 10), cap, 90000, "daily_cap"], ["chat:ip:" + iso.slice(0, 13) + ":" + await hashKey(ip), CHAT_IP_PER_HOUR, 4000, "rate_limited"]];
+    try {
+      const counts = await Promise.all(keys.map(([k]) => kv.get(k)));
+      for (let i = 0; i < keys.length; i++) if (Number(counts[i] || 0) >= keys[i][1]) return keys[i][3];
+      await Promise.all(keys.map(([k, , ttl], i) => kv.put(k, String(Number(counts[i] || 0) + 1), { expirationTtl: ttl })));
+    } catch { console.log("chat: limits store unavailable"); }
+  }
+  return "";
+}
 
 const SYSTEM_PROMPT = `You are the website assistant for Ace Digital Solutions, a web design service in Johor Bahru, Malaysia, run by Adam as a freelance web designer. You answer visitors' questions on the Ace Digital Solutions website.
 
@@ -195,13 +226,15 @@ async function callAI(env, messages, system = SYSTEM_PROMPT) {
 export default {
   async fetch(request, env) {
     const origin = request.headers.get("Origin") || "";
-    const allowed = env.ALLOWED_ORIGIN || "*";
+    const allowed = (env.ALLOWED_ORIGIN || DEFAULT_ORIGINS).trim();
     const headers = cors(origin, allowed);
 
     if (request.method === "OPTIONS") return new Response(null, { status: 204, headers });
 
-    // Health check: open the Worker address in a browser to test the AI connection.
+    // Health check. Plain "OK" for everyone; the AI connection is only tested with ?key=<HEALTH_KEY> (so bots can't use up the AI allowance).
     if (request.method === "GET") {
+      const key = new URL(request.url).searchParams.get("key") || "";
+      if (!env.HEALTH_KEY || key !== String(env.HEALTH_KEY).trim()) return new Response("OK", { status: 200, headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store" } });
       const test = await callAI(env, [{ role: "user", content: "Say hello in one short sentence." }]);
       let runningIn = "unknown";
       try { runningIn = ((await (await fetch("https://cloudflare.com/cdn-cgi/trace")).text()).match(/colo=(\w+)/) || [])[1] || "unknown"; } catch {}
@@ -216,13 +249,23 @@ export default {
     }
 
     if (request.method !== "POST") return json({ error: "Use POST" }, 405, headers);
-    if (!originOk(origin, allowed)) return json({ error: "Not allowed", origin }, 403, headers);
-    if (new URL(request.url).pathname.replace(/\/+$/, "").endsWith("/notify")) return handleNotify(request, env, headers);
-    if (new URL(request.url).pathname.replace(/\/+$/, "").endsWith("/enquiry")) return handleEnquiry(request, env, headers);
-    const isSummary = new URL(request.url).pathname.replace(/\/+$/, "").endsWith("/summary");
+    if (!originOk(origin, allowed)) return json({ error: "Not allowed" }, 403, headers);
+    const path = new URL(request.url).pathname.replace(/\/+$/, "");
+    const isSummary = path.endsWith("/summary");
+    if (!isSummary && !path.endsWith("/chat")) return json({ error: "Not found" }, 404, headers);
 
+    // size limit before reading the body
+    if (Number(request.headers.get("Content-Length") || 0) > MAX_BODY_BYTES) return json({ error: "Too large" }, 413, headers);
+    const rawBody = await request.text();
+    if (new TextEncoder().encode(rawBody).length > MAX_BODY_BYTES) return json({ error: "Too large" }, 413, headers);
     let data;
-    try { data = await request.json(); } catch { return json({ error: "Invalid JSON" }, 400, headers); }
+    try { data = JSON.parse(rawBody); } catch { return json({ error: "Invalid JSON" }, 400, headers); }
+    if (!data || typeof data !== "object") return json({ error: "Invalid JSON" }, 400, headers);
+
+    // abuse protection: per-visitor limit and a daily total, so nobody can use up the AI allowance
+    const ip = request.headers.get("CF-Connecting-IP") || "local";
+    const limited = await limitCheck(env, ip);
+    if (limited) { console.log("chat: limit reached:", limited); return json({ error: "busy" }, 429, { ...headers, "Retry-After": "60" }); }
 
     // Clean the conversation: only user/assistant text, trimmed, alternating, starting with the user.
     const raw = Array.isArray(data.messages) ? data.messages.slice(isSummary ? -30 : -MAX_TURNS) : [];
@@ -248,135 +291,13 @@ export default {
         summaryPrompt(lang, demo ? "the business owner" : "Adam"));
       if (result.reply) return json({ summary: result.reply.replace(/\*\*/g, "").trim().slice(0, 700), model: result.model, ms: Date.now() - started }, 200, headers);
       console.log("Summary error:", JSON.stringify(result));
-      return json(result, 502, headers);
+      return json({ error: "unavailable" }, 502, headers); // details stay in the server logs
     }
     const langNote = lang ? `\n\nThe visitor has chosen ${({ en: "English", bm: "Bahasa Melayu", zh: "Simplified Chinese" })[lang]} for this chat; reply in that language unless they clearly write in another one.` : "";
     const system = (demo ? DEMO_PLUMBING_PROMPT : SYSTEM_PROMPT) + langNote;
     const result = await callAI(env, messages, system);
     if (result.reply) return json({ reply: result.reply, model: result.model, ms: Date.now() - started }, 200, headers);
     console.log("AI error:", JSON.stringify(result)); // visible in the Worker's Logs tab
-    return json(result, 502, headers);
+    return json({ error: "unavailable" }, 502, headers); // details stay in the server logs
   },
 };
-
-// ------------------------------------------------------------------
-// Consultation form
-// ------------------------------------------------------------------
-const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-const clip = (s, n = 500) => String(s ?? "").trim().slice(0, n);
-
-async function sendEmail(env, msg) {
-  const res = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: { "Authorization": `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
-    body: JSON.stringify(msg),
-  });
-  if (!res.ok) throw new Error("Email failed: " + res.status + " " + (await res.text()).slice(0, 200));
-}
-
-async function handleEnquiry(request, env, headers) {
-  if (!env.RESEND_API_KEY || !env.OWNER_EMAIL || !env.FROM_EMAIL) return json({ error: "Server is missing email settings" }, 500, headers);
-  let d;
-  try { d = await request.json(); } catch { return json({ error: "Invalid JSON" }, 400, headers); }
-
-  // Spam trap: real visitors never fill this hidden field
-  if (d.company_website) return json({ ok: true }, 200, headers);
-
-  const v = {
-    name: clip(d.name, 100), business: clip(d.business, 120), email: clip(d.email, 160), phone: clip(d.phone, 40),
-    type: clip(d.type, 60), website: clip(d.website, 200), how: clip(d.how, 60), othertime: clip(d.othertime, 200),
-    message: clip(d.message, 2000), total: clip(d.total, 20), base: !!d.base, rush: !!d.rush, care: !!d.care,
-    addons: (Array.isArray(d.addons) ? d.addons : []).map(a => clip(a, 80)).slice(0, 12),
-    slots: (Array.isArray(d.slots) ? d.slots : []).map(s => clip(s, 160)).slice(0, 3),
-  };
-  if (!v.name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email)) return json({ error: "Please fill in your name and a valid email." }, 400, headers);
-
-  const rows = [
-    ["Name", v.name], ["Business", v.business || "—"], ["Email", v.email], ["Phone", v.phone || "—"],
-    ["Type of business", v.type], ["Current website", v.website || "—"],
-    ["Preferred times", v.slots.length ? v.slots.join("<br>") : "—"], ["Other time suggested", v.othertime || "—"], ["Talk by", v.how],
-    ["Base plan website ($250)", v.base ? "Yes" : "No"], ["Add-ons", v.addons.length ? v.addons.join(", ") : "None"],
-    ["Rush delivery (+20%)", v.rush ? "Yes" : "No"], ["Website Care ($49/month)", v.care ? "Yes" : "No"],
-    ["Estimated total", v.total || "—"], ["Message", (v.message || "—").replace(/\n/g, "<br>")],
-  ];
-  const table = rows.map(([k, val]) => `<tr><td style="padding:6px 12px 6px 0;color:#64748B;vertical-align:top;white-space:nowrap">${esc(k)}</td><td style="padding:6px 0;color:#0F172A">${k === "Preferred times" || k === "Message" ? val.split("<br>").map(esc).join("<br>") : esc(val)}</td></tr>`).join("");
-
-  const ownerHtml = `<div style="font-family:Arial,sans-serif;font-size:14px"><h2 style="margin:0 0 12px;color:#0B1220">New consultation request</h2><table style="border-collapse:collapse">${table}</table><p style="color:#64748B">Reply to this email to answer ${esc(v.name)} directly.</p></div>`;
-
-  const first = esc(v.name.split(" ")[0]);
-  const custHtml = `<div style="font-family:Arial,sans-serif;font-size:15px;line-height:1.6;color:#0F172A;max-width:560px">
-    <div style="background:#0B1220;color:#fff;padding:18px 22px;border-radius:10px 10px 0 0"><b style="font-size:18px">ACE</b> <span style="font-size:11px;letter-spacing:2px">DIGITAL SOLUTIONS</span></div>
-    <div style="border:1px solid #E3E8F1;border-top:0;padding:22px;border-radius:0 0 10px 10px">
-      <p>Hi ${first},</p>
-      <p>Thanks for booking a <b>free consultation</b> with Ace Digital Solutions. We've received your request${v.business ? ` for <b>${esc(v.business)}</b>` : ""}.</p>
-      <p><b>What happens next</b><br>We'll email you shortly to confirm one of the times you picked${v.slots.length ? ":" : "."}</p>
-      ${v.slots.length ? `<ul style="margin:0 0 12px;padding-left:20px">${v.slots.map(s => `<li>${esc(s.split("  =  ")[0].split("   (typed")[0])}</li>`).join("")}</ul>` : ""}
-      <p>The consultation is a 15–20 minute call by ${esc(v.how || "video call")}, where we plan your website the way you'd like it.</p>
-      ${v.total ? `<p>Your estimate: <b>${esc(v.total)}</b> (final pricing is confirmed at the consultation).</p>` : ""}
-      <p style="background:#ECFDF3;border:1px solid #A7F3C4;border-radius:8px;padding:12px 14px"><b>No payment is needed now.</b> The 50% deposit is only paid after your consultation, if you decide to go ahead. All payments are made securely through PayPal.</p>
-      <p>If you have any questions, just reply to this email.</p>
-      <p>Thanks,<br>Adam<br>Ace Digital Solutions</p>
-    </div></div>`;
-
-  try {
-    await sendEmail(env, { from: env.FROM_EMAIL, to: [env.OWNER_EMAIL], reply_to: v.email, subject: `Consultation request: ${v.business || v.name}`, html: ownerHtml });
-    await sendEmail(env, { from: env.FROM_EMAIL, to: [v.email], reply_to: env.OWNER_EMAIL, subject: "Your free consultation request – Ace Digital Solutions", html: custHtml });
-    return json({ ok: true }, 200, headers);
-  } catch (e) {
-    return json({ error: "Could not send email right now" }, 502, headers);
-  }
-}
-
-// ------------------------------------------------------------------
-// Malaysian website form: check the captcha, then WhatsApp Adam
-// Settings (Cloudflare dashboard → ace-chat → Settings → Variables and secrets):
-//   TURNSTILE_SECRET   secret key of the Turnstile widget (captcha). If not set, the captcha check is skipped.
-//   CALLMEBOT_APIKEY   key from CallMeBot for WhatsApp alerts. If not set, no WhatsApp alert is sent.
-//   OWNER_WHATSAPP     optional, defaults to +60102641824
-// ------------------------------------------------------------------
-async function checkTurnstile(env, token, ip) {
-  if (!env.TURNSTILE_SECRET) return { ok: true, skipped: true };
-  if (!token) return { ok: false, reason: "missing" };
-  const body = new URLSearchParams({ secret: env.TURNSTILE_SECRET.trim(), response: String(token).slice(0, 2048) });
-  if (ip) body.set("remoteip", ip);
-  try {
-    const r = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", body });
-    const data = await r.json();
-    return { ok: !!data.success, reason: (data["error-codes"] || []).join(",") };
-  } catch (e) {
-    return { ok: false, reason: "verify-failed" };
-  }
-}
-
-async function handleNotify(request, env, headers) {
-  let d;
-  try { d = await request.json(); } catch { return json({ error: "Invalid JSON" }, 400, headers); }
-  if (d.company_website) return json({ ok: true }, 200, headers); // spam trap
-
-  const cap = await checkTurnstile(env, d.captcha, request.headers.get("CF-Connecting-IP"));
-  if (!cap.ok) return json({ error: "captcha", reason: cap.reason }, 403, headers);
-
-  const v = { name: clip(d.name, 100), phone: clip(d.phone, 40), business: clip(d.business, 120), help: clip(d.help, 80),
-              email: clip(d.email, 160), language: clip(d.language, 8), message: clip(d.message, 600) };
-  if (!v.name || !v.phone) return json({ error: "Missing name or phone" }, 400, headers);
-
-  let whatsapp = "not set up";
-  if (env.CALLMEBOT_APIKEY) {
-    const digits = v.phone.replace(/\D/g, "");
-    const waLink = digits ? "https://wa.me/" + (digits.startsWith("0") ? "6" + digits : digits) : "";
-    const text = ["New website enquiry (Ace Digital Solutions)",
-      "Name: " + v.name, "WhatsApp: " + v.phone + (waLink ? " " + waLink : ""), "Business: " + (v.business || "-"),
-      "Help with: " + (v.help || "-"), "Email: " + (v.email || "-"), "Language: " + (v.language || "-"),
-      "Message: " + (v.message || "-")].join("\n");
-    const phone = (env.OWNER_WHATSAPP || "+60102641824").trim();
-    const url = "https://api.callmebot.com/whatsapp.php?phone=" + encodeURIComponent(phone) +
-                "&text=" + encodeURIComponent(text) + "&apikey=" + encodeURIComponent(env.CALLMEBOT_APIKEY.trim());
-    try {
-      const r = await fetch(url);
-      const body = (await r.text()).slice(0, 300);
-      whatsapp = r.ok && !/error|invalid/i.test(body) ? "sent" : "failed: " + body.replace(/<[^>]+>/g, " ").trim().slice(0, 120);
-      if (whatsapp !== "sent") console.log("CallMeBot:", r.status, body);
-    } catch (e) { whatsapp = "failed: " + String(e).slice(0, 100); }
-  }
-  return json({ ok: true, captcha: cap.skipped ? "not set up" : "passed", whatsapp }, 200, headers);
-}

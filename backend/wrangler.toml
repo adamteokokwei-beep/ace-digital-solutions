@@ -14,3 +14,17 @@ region = "gcp:us-east4"
 
 [observability]
 enabled = true
+
+# Abuse protection for the chatbot: 10 AI requests per visitor per 60 seconds (counters only, no chat content).
+[[ratelimits]]
+name = "CHAT_LIMITER"
+namespace_id = "1002"
+
+  [ratelimits.simple]
+  limit = 10
+  period = 60
+
+# Daily counters (total per day, per visitor per hour). Same store as the enquiry server; keys start with "chat:" and are hashed.
+[[kv_namespaces]]
+binding = "CHAT_KV"
+id = "31c49a6d55554940b83671b5d140f187"
