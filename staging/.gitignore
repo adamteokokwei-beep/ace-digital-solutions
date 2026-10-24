@@ -1,3 +1,7 @@
 STAGING-CREDENTIALS.env
 *.gen.toml
 site-dist/
+blueteam-results.txt
+.tail-*.json
+setup-log.txt
+site-check.txt
