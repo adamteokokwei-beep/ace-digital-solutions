@@ -98,7 +98,9 @@ export function buildMetaPayload(env, v) {
       template: {
         name: env.WHATSAPP_TEMPLATE_NAME,
         language: { code: env.WHATSAPP_TEMPLATE_LANGUAGE || "en" },
-        components: [{ type: "body", parameters: [v.name, "+" + v.phoneDigits, v.type, v.location, v.budget, v.timeline, v.description].map(t => ({ type: "text", text: tparam(t) })) }],
+        components: [{ type: "body", parameters: [v.name, "+" + v.phoneDigits, v.type, v.location, v.budget, v.timeline, v.description].map(t => ({ type: "text", text: tparam(t) })) },
+          // optional "Reply on WhatsApp" button (template button URL https://wa.me/{{1}}); only when the template has that button
+          ...(String(env.WHATSAPP_REPLY_BUTTON) === "true" ? [{ type: "button", sub_type: "url", index: "0", parameters: [{ type: "text", text: v.phoneDigits }] }] : [])],
       },
     };
   }

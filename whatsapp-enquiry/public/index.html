@@ -46,6 +46,10 @@ button{font:inherit;cursor:pointer;border:0;border-radius:999px}
 .status .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
 .status .acts button{background:#fff;color:var(--ink);padding:9px 16px;font-weight:600;font-size:14px;box-shadow:inset 0 0 0 1px var(--line)}
 .status pre{white-space:pre-wrap;background:#fff;border-radius:10px;padding:12px;font-size:13px;margin:10px 0 0;color:var(--ink)}
+.sum{background:#fff;border-radius:12px;padding:12px 14px;margin:12px 0 0;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:14.5px;color:var(--ink)}
+.sum dt{color:var(--muted)}.sum dd{margin:0;white-space:pre-wrap;word-break:break-word}
+.status .acts a.wa{background:#25D366;color:#fff;text-decoration:none;padding:9px 16px;font-weight:600;font-size:14px;border-radius:999px;display:inline-flex;align-items:center;gap:8px}
+.status .acts a.wa:hover{background:#1EBE5A}
 .dev{margin-top:14px;font:12.5px/1.5 ui-monospace,Menlo,monospace;color:var(--muted)}
 .privacy{font-size:13px;color:var(--muted);margin-top:16px}
 </style>
@@ -141,6 +145,11 @@ button{font:inherit;cursor:pointer;border:0;border-radius:999px}
   function show(kind, html){ status.className = "status " + kind; status.innerHTML = html; status.hidden = false; status.scrollIntoView({block:"nearest", behavior:"smooth"}); }
   const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
+  // What the customer filled in, as label/value pairs (used for the on-screen summary and the WhatsApp copy)
+  function summaryRows(d){
+    return [["Name", d.name], ["WhatsApp", d.phone], ["Enquiry type", d.type], ["Location", d.location || "-"],
+            ["Budget", d.budget || "Not sure yet"], ["Timeline", d.timeline || "No rush"], ["What you need", d.description]];
+  }
   async function mockResponse(){
     await new Promise(r => setTimeout(r, 900));
     const m = { ok:[200,{ok:true,stage:"accepted_by_whatsapp",messageId:"wamid.TEST",messageStatus:"accepted"}],
@@ -177,7 +186,13 @@ button{font:inherit;cursor:pointer;border:0;border-radius:999px}
 
     const stage = body.stage;
     if(body.ok && stage === "accepted_by_whatsapp"){
-      show("ok", `<b>Thank you, ${esc(d.name.split(" ")[0])}! Your enquiry has been sent.</b>It has been passed to WhatsApp for delivery to the business, who will reply to you at ${esc(d.phone)}.`);
+      const rows = summaryRows(d);
+      const waText = "My enquiry to Ace Digital Solutions\n\n" + rows.map(([k,v]) => k + ": " + v).join("\n");
+      show("ok", `<b>Thank you, ${esc(d.name.split(" ")[0])}! Your enquiry has been sent.</b>We'll reply to you on WhatsApp at ${esc(d.phone)}. Here's a summary of what you sent:
+        <dl class="sum">${rows.map(([k,v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
+        <div class="acts"><a class="wa" id="waCopy" href="https://wa.me/?text=${encodeURIComponent(waText)}" target="_blank" rel="noopener">Save a copy to my WhatsApp</a><button type="button" id="copyOk">Copy summary</button></div>
+        <span class="hint">"Save a copy" opens WhatsApp with the summary typed in. Choose your own chat ("Message yourself") and tap send.</span>`);
+      $("#copyOk").onclick = async ev2 => { try{ await navigator.clipboard.writeText(waText); ev2.target.textContent = "Copied"; }catch(e){ ev2.target.textContent = "Couldn't copy"; } };
       form.reset(); $("#descCount").textContent = "0 / 1500"; submissionId = newId(); return;
     }
     if(body.ok && stage === "dry_run"){
