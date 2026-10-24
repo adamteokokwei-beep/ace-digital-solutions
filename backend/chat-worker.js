@@ -15,7 +15,8 @@
 //   ANTHROPIC_API_KEY  (Secret)  key from console.anthropic.com             (Claude, paid)
 //   ALLOWED_ORIGIN     (Text)    your website address(es), comma-separated. If not set, only acedigitalsolutionsbiz.org (+ www) is allowed.
 //   HEALTH_KEY         (Secret, optional) lets you test the AI connection: open https://<worker>/?key=<HEALTH_KEY>
-//   CHAT_DAILY_CAP     (Text, optional) total AI requests per day, default 400
+//   CHAT_DAILY_CAP     (Text, optional) total AI attempts per day, default 400
+//   LIMIT_HMAC_KEY     (Secret, REQUIRED) random key for the counter names (openssl rand -hex 32). Without it the AI is switched off.
 //   Bindings (wrangler.toml): CHAT_LIMITER (per-visitor rate limit), CHAT_KV (daily counters; hashed keys, no chat content)
 //
 // In the website file, set:
@@ -33,33 +34,44 @@ const MAX_BODY_BYTES = 32 * 1024;          // largest request accepted
 const DEFAULT_ORIGINS = "https://acedigitalsolutionsbiz.org,https://www.acedigitalsolutionsbiz.org"; // used if ALLOWED_ORIGIN is not set
 const CHAT_DAILY_CAP = 400;                // total AI requests per day (override with CHAT_DAILY_CAP); protects the free Gemini allowance
 const CHAT_IP_PER_HOUR = 60;               // AI requests per visitor per hour (needs the CHAT_KV store)
+const MAX_AI_ATTEMPTS = 2;                 // main model + one backup, never more
+const AI_TIMEOUT_MS = 6000;                // per attempt (so at most about 12 s per question)
 
-// ---------- abuse protection ----------
-const memHits = new Map(); // ip -> [timestamps] (fallback limiter, this Worker instance only)
-async function hashKey(s) {
-  const d = await crypto.subtle.digest("SHA-256", new TextEncoder().encode("ace-chat:" + s));
-  return [...new Uint8Array(d)].slice(0, 12).map(b => b.toString(16).padStart(2, "0")).join("");
+// ---------- abuse protection (fails CLOSED) ----------
+// If the rate limiter, the counter store or the HMAC key is missing or failing, the AI is not called:
+// the server answers 503 and the website shows its built-in (scripted) answers instead.
+const hmacKeys = new Map();
+// Secret-keyed HMAC-SHA-256, so stored counter names can't be turned back into IP addresses
+export async function counterId(env, s) {
+  const secret = env.LIMIT_HMAC_KEY ? String(env.LIMIT_HMAC_KEY).trim() : "";
+  if (!secret) throw new Error("no hmac key");
+  let key = hmacKeys.get(secret);
+  if (!key) { key = await crypto.subtle.importKey("raw", new TextEncoder().encode(secret), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]); hmacKeys.set(secret, key); }
+  const sig = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode("chat:" + s));
+  return [...new Uint8Array(sig)].slice(0, 16).map(b => b.toString(16).padStart(2, "0")).join("");
 }
-// Returns "" when allowed, otherwise "rate_limited" or "daily_cap". Counters hold no chat content and no raw IP address.
+const totalKey = () => "chat:total:" + new Date().toISOString().slice(0, 10);
+// Returns "" when allowed, otherwise "rate_limited", "daily_cap" or "unavailable". Counters hold no chat content and no raw IP address.
+// KV is eventually consistent, so the hourly/daily caps are approximate (a burst can slightly exceed them).
 async function limitCheck(env, ip) {
-  if (env.CHAT_LIMITER && typeof env.CHAT_LIMITER.limit === "function") {
-    try { const { success } = await env.CHAT_LIMITER.limit({ key: "chat:" + ip }); if (!success) return "rate_limited"; } catch { /* fall back below */ }
-  } else {
-    const now = Date.now(), hits = (memHits.get(ip) || []).filter(t => now - t < 60000);
-    hits.push(now); memHits.set(ip, hits); if (memHits.size > 5000) memHits.clear();
-    if (hits.length > 10) return "rate_limited";
-  }
+  if (!env.CHAT_LIMITER || typeof env.CHAT_LIMITER.limit !== "function") { console.log("chat: rate limiter not configured, AI off"); return "unavailable"; }
+  try { const { success } = await env.CHAT_LIMITER.limit({ key: "chat:" + ip }); if (!success) return "rate_limited"; }
+  catch { console.log("chat: rate limiter unavailable, AI off"); return "unavailable"; }
   const kv = env.CHAT_KV;
-  if (kv && typeof kv.get === "function") {
-    const iso = new Date().toISOString(), cap = Number(env.CHAT_DAILY_CAP || CHAT_DAILY_CAP);
-    const keys = [["chat:total:" + iso.slice(0, 10), cap, 90000, "daily_cap"], ["chat:ip:" + iso.slice(0, 13) + ":" + await hashKey(ip), CHAT_IP_PER_HOUR, 4000, "rate_limited"]];
-    try {
-      const counts = await Promise.all(keys.map(([k]) => kv.get(k)));
-      for (let i = 0; i < keys.length; i++) if (Number(counts[i] || 0) >= keys[i][1]) return keys[i][3];
-      await Promise.all(keys.map(([k, , ttl], i) => kv.put(k, String(Number(counts[i] || 0) + 1), { expirationTtl: ttl })));
-    } catch { console.log("chat: limits store unavailable"); }
-  }
-  return "";
+  if (!kv || typeof kv.get !== "function") { console.log("chat: counter store not configured, AI off"); return "unavailable"; }
+  try {
+    const cap = Number(env.CHAT_DAILY_CAP || CHAT_DAILY_CAP);
+    const keys = [[totalKey(), cap, 90000, "daily_cap"], ["chat:ip:" + new Date().toISOString().slice(0, 13) + ":" + await counterId(env, ip), CHAT_IP_PER_HOUR, 4000, "rate_limited"]];
+    const counts = await Promise.all(keys.map(([k]) => kv.get(k)));
+    for (let i = 0; i < keys.length; i++) if (Number(counts[i] || 0) >= keys[i][1]) return keys[i][3];
+    await Promise.all(keys.map(([k, , ttl], i) => kv.put(k, String(Number(counts[i] || 0) + 1), { expirationTtl: ttl })));
+    return "";
+  } catch { console.log("chat: counter store or key unavailable, AI off"); return "unavailable"; }
+}
+// Each extra model attempt also counts against the daily total (best effort, after the call)
+async function countExtraAttempts(env, n) {
+  if (!(n > 0) || !env.CHAT_KV) return;
+  try { const k = totalKey(); const c = Number((await env.CHAT_KV.get(k)) || 0); await env.CHAT_KV.put(k, String(c + n), { expirationTtl: 90000 }); } catch { /* the next request will fail closed if the store is down */ }
 }
 
 const SYSTEM_PROMPT = `You are the website assistant for Ace Digital Solutions, a web design service in Johor Bahru, Malaysia, run by Adam as a freelance web designer. You answer visitors' questions on the Ace Digital Solutions website.
@@ -149,6 +161,60 @@ function json(body, status, headers) {
   return new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json", ...headers } });
 }
 
+// ---------- reply check (runs on every AI answer before it reaches the visitor) ----------
+// Blocks: prices that aren't in the business facts (or a correct estimate built from them), discount offers,
+// guarantees/promises, and replies that repeat the assistant's internal instructions.
+// Valid prices and legitimate estimates pass. Amounts the visitor typed themselves (e.g. their budget) also pass.
+const RM = n => Math.round(n);
+function allowedAmounts() {
+  const a = new Set([1600, 1500, 1400, 200, 500, 400, 199, 100]);
+  const add = n => { a.add(RM(n)); a.add(RM(n * 1.2)); a.add(RM(n * 0.2)); a.add(RM(n - 200)); a.add(RM(n * 1.2 - 200)); };
+  for (const base of [1500, 1600]) for (let k = 0; k <= 10; k++) add(base + 400 * k);   // website + bundled add-ons (+ rush, deposit/balance)
+  for (let k = 1; k <= 10; k++) add(500 + 400 * (k - 1));                               // add-ons on an existing website
+  for (let k = 1; k <= 12; k++) a.add(199 * k);                                          // Website Care months
+  for (let h = 1; h <= 10; h++) a.add(100 * h);                                          // urgent fixes per hour
+  return a;
+}
+const ALLOWED_RM = allowedAmounts();
+const amountsIn = t => {
+  const out = [];
+  for (const m of String(t).matchAll(/(?:RM|MYR)\s?(\d[\d,]*(?:\.\d{1,2})?)\s?(k)?\b/gi)) { let n = Number(m[1].replace(/,/g, "")); if (m[2]) n *= 1000; out.push(n); }
+  for (const m of String(t).matchAll(/(\d[\d,]*(?:\.\d{1,2})?)\s?(?:ringgit|令吉|马币|零吉)/gi)) out.push(Number(m[1].replace(/,/g, "")));
+  return out.filter(n => Number.isFinite(n));
+};
+const NEG = /(no|not|never|don't|doesn't|does not|do not|can't|cannot|can not|unable|won't|isn't|aren't|without|tiada|tidak|tak|bukan|belum|tanpa|不|没有|无|沒有|无法|不能|不会)\s*\S*\s*\S*\s*$/i;
+const hasUnnegated = (t, re) => { for (const m of t.matchAll(re)) { const before = t.slice(Math.max(0, m.index - 40), m.index); if (!NEG.test(before)) return true; } return false; };
+const DISCOUNT = /\b\d{1,2}\s?%\s?(?:off|discount)|\bdiscount(?:s|ed)?\b|\bpromo(?:tion)?(?:al)? (?:price|code|rate)|\bspecial (?:price|offer|deal|rate)|\bdiskaun\b|\bpotongan harga\b|\bharga (?:istimewa|promosi)\b|折扣|打[一二三四五六七八九]折|[一二三四五六七八九]折|优惠价|减价|特价/gi;
+const GUARANTEE = /\bguarantee[ds]?\b|\bwe promise\b|\bi promise\b|\b100% (?:sure|certain)\b|\bdijamin\b|\bjamin(?:an)?\b|保证|担保|承诺|包你/gi;
+const LEAK_MARKERS = /ABOUT THE BUSINESS|HOW TO ANSWER|FACTS \(all demo|system ?prompt|systemInstruction|my (?:instructions|rules) (?:are|say)|I was (?:told|instructed) to|Only use the facts above|Never invent prices/i;
+const shingles = (t, n = 7) => { const w = String(t).toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, " ").split(/\s+/).filter(Boolean); const out = new Set(); for (let i = 0; i + n <= w.length; i++) out.add(w.slice(i, i + n).join(" ")); return out; };
+const ruleText = p => p.slice(p.indexOf("HOW TO ANSWER"));
+let RULE_SHINGLES = null;
+export function checkReply(reply, { userText = "", demo = false } = {}) {
+  const t = String(reply || "");
+  if (!RULE_SHINGLES) RULE_SHINGLES = new Set([...shingles(ruleText(SYSTEM_PROMPT)), ...shingles(ruleText(DEMO_PLUMBING_PROMPT))]);
+  if (LEAK_MARKERS.test(t)) return "leak";
+  for (const sh of shingles(t)) if (RULE_SHINGLES.has(sh)) return "leak";
+  if (hasUnnegated(t, DISCOUNT)) return "discount";
+  if (hasUnnegated(t, GUARANTEE)) return "guarantee";
+  if (/(?:US\$|USD|S\$|SGD|\$\s?\d)/.test(t)) return "price";
+  if (!demo) {
+    const typed = new Set(amountsIn(userText).map(RM));
+    for (const n of amountsIn(t)) if (!ALLOWED_RM.has(RM(n)) && !typed.has(RM(n))) return "price";
+  }
+  return "";
+}
+const SAFE_REPLY = {
+  en: "I'm not able to confirm that here. For exact prices and details, please WhatsApp Adam at 010-264 1824. He confirms everything in a written quote.",
+  bm: "Saya tidak dapat mengesahkan perkara itu di sini. Untuk harga dan butiran tepat, sila WhatsApp Adam di 010-264 1824. Semuanya disahkan dalam sebut harga bertulis.",
+  zh: "这个我无法在这里确认。具体价格和细节，请WhatsApp联系Adam：010-264 1824。所有内容都以书面报价为准。",
+};
+const DEMO_SAFE_REPLY = {
+  en: "I can't confirm that here. Please WhatsApp or call us and our team will confirm on site. (Demo website by Ace Digital Solutions.)",
+  bm: "Saya tidak dapat mengesahkannya di sini. Sila WhatsApp atau hubungi kami dan pasukan kami akan sahkan di lokasi. (Laman demo oleh Ace Digital Solutions.)",
+  zh: "这个我无法在这里确认。请WhatsApp或致电我们，师傅会在现场确认。（Ace Digital Solutions 的示范网站）",
+};
+
 // Ask whichever AI is configured. Returns { reply } or { error, status, detail }.
 async function callAI(env, messages, system = SYSTEM_PROMPT) {
   let res, provider;
@@ -158,15 +224,14 @@ async function callAI(env, messages, system = SYSTEM_PROMPT) {
       provider = "gemini";
       const first = (env.GEMINI_MODEL || GEMINI_MODEL).trim();
       const list = [first, ...GEMINI_BACKUPS.filter(m => m !== first)];
-      // If every model is busy, wait a moment and try the first two again.
-      const models = [...list, "__wait", ...list.slice(0, 2)];
+      // At most 2 attempts per question (main model, then one backup), each counted against the daily cap.
+      const models = list.slice(0, MAX_AI_ATTEMPTS);
       const tried = [];
       for (const model of models) {
-        if (model === "__wait") { await new Promise(r => setTimeout(r, 1200)); continue; }
         try {
         res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
           method: "POST",
-          signal: AbortSignal.timeout(8000), // give up on a slow model after 8 seconds and try the next
+          signal: AbortSignal.timeout(AI_TIMEOUT_MS), // give up on a slow model and try the backup
           headers: { "x-goog-api-key": env.GEMINI_API_KEY.trim(), "Content-Type": "application/json" },
           body: JSON.stringify({
             systemInstruction: { parts: [{ text: system }] },
@@ -178,7 +243,7 @@ async function callAI(env, messages, system = SYSTEM_PROMPT) {
         if (res.ok) {
           const out = await res.json();
           const reply = (out.candidates?.[0]?.content?.parts || []).filter(p => !p.thought).map(p => p.text || "").join("").trim();
-          if (reply) return { reply, model };
+          if (reply) return { reply, model, attempts: tried.length + 1 };
           tried.push(model + ": empty reply");
           continue;
         }
@@ -186,12 +251,12 @@ async function callAI(env, messages, system = SYSTEM_PROMPT) {
         // Busy (503), over the free limit (429), or model not found (404): try the next model.
         if (![503, 429, 404, 500].includes(res.status)) break;
       }
-      return { error: "AI service error (gemini)", status: res ? res.status : 504, tried, detail: res ? (await res.text().catch(() => "")).slice(0, 300) : "" };
+      return { error: "AI service error (gemini)", status: res ? res.status : 504, tried, attempts: tried.length, detail: res ? (await res.text().catch(() => "")).slice(0, 300) : "" };
     } else if (env.OPENAI_API_KEY) {
       // ChatGPT (OpenAI Chat Completions API)
       provider = "openai";
       res = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
+        method: "POST", signal: AbortSignal.timeout(AI_TIMEOUT_MS * 2),
         headers: { "Authorization": `Bearer ${env.OPENAI_API_KEY.trim()}`, "Content-Type": "application/json" },
         body: JSON.stringify({ model: env.OPENAI_MODEL || OPENAI_MODEL, max_tokens: MAX_TOKENS, temperature: 0.4,
           messages: [{ role: "system", content: system }, ...messages] }),
@@ -205,7 +270,7 @@ async function callAI(env, messages, system = SYSTEM_PROMPT) {
       // Claude (Anthropic Messages API)
       provider = "claude";
       res = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
+        method: "POST", signal: AbortSignal.timeout(AI_TIMEOUT_MS * 2),
         headers: { "x-api-key": env.ANTHROPIC_API_KEY.trim(), "anthropic-version": "2023-06-01", "content-type": "application/json" },
         body: JSON.stringify({ model: CLAUDE_MODEL, max_tokens: MAX_TOKENS, system, messages }),
       });
@@ -265,6 +330,7 @@ export default {
     // abuse protection: per-visitor limit and a daily total, so nobody can use up the AI allowance
     const ip = request.headers.get("CF-Connecting-IP") || "local";
     const limited = await limitCheck(env, ip);
+    if (limited === "unavailable") return json({ error: "unavailable" }, 503, { ...headers, "Retry-After": "60" });
     if (limited) { console.log("chat: limit reached:", limited); return json({ error: "busy" }, 429, { ...headers, "Retry-After": "60" }); }
 
     // Clean the conversation: only user/assistant text, trimmed, alternating, starting with the user.
@@ -289,14 +355,28 @@ export default {
       const convo = messages.map(m => (m.role === "user" ? "Customer: " : "Assistant: ") + m.content).join("\n").slice(-6000);
       const result = await callAI(env, [{ role: "user", content: "Chat:\n" + convo + (est ? "\n\nEstimate the customer saw: " + est : "") }],
         summaryPrompt(lang, demo ? "the business owner" : "Adam"));
-      if (result.reply) return json({ summary: result.reply.replace(/\*\*/g, "").trim().slice(0, 700), model: result.model, ms: Date.now() - started }, 200, headers);
+      await countExtraAttempts(env, (result.attempts || 1) - 1);
+      if (result.reply) {
+        const why = checkReply(result.reply, { userText: convo + " " + est, demo });
+        if (why) { console.log("chat: summary withheld:", why); return json({ error: "unavailable" }, 502, headers); }
+        return json({ summary: result.reply.replace(/\*\*/g, "").trim().slice(0, 700), model: result.model, ms: Date.now() - started }, 200, headers);
+      }
       console.log("Summary error:", JSON.stringify(result));
       return json({ error: "unavailable" }, 502, headers); // details stay in the server logs
     }
     const langNote = lang ? `\n\nThe visitor has chosen ${({ en: "English", bm: "Bahasa Melayu", zh: "Simplified Chinese" })[lang]} for this chat; reply in that language unless they clearly write in another one.` : "";
     const system = (demo ? DEMO_PLUMBING_PROMPT : SYSTEM_PROMPT) + langNote;
     const result = await callAI(env, messages, system);
-    if (result.reply) return json({ reply: result.reply, model: result.model, ms: Date.now() - started }, 200, headers);
+    await countExtraAttempts(env, (result.attempts || 1) - 1);
+    if (result.reply) {
+      const userText = messages.filter(m => m.role === "user").map(m => m.content).join(" ");
+      const why = checkReply(result.reply, { userText, demo });
+      if (why) {
+        console.log("chat: reply replaced:", why); // reason only, never the chat text
+        return json({ reply: (demo ? DEMO_SAFE_REPLY : SAFE_REPLY)[lang || "en"], model: result.model, ms: Date.now() - started }, 200, headers);
+      }
+      return json({ reply: result.reply, model: result.model, ms: Date.now() - started }, 200, headers);
+    }
     console.log("AI error:", JSON.stringify(result)); // visible in the Worker's Logs tab
     return json({ error: "unavailable" }, 502, headers); // details stay in the server logs
   },
