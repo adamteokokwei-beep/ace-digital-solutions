@@ -19,3 +19,8 @@ namespace_id = "1001"
 
 [observability]
 enabled = true
+
+# Spam counters only (one-way hashed keys, no enquiry content). Used for the hourly/daily limits.
+[[kv_namespaces]]
+binding = "ENQ_KV"
+id = "31c49a6d55554940b83671b5d140f187"
