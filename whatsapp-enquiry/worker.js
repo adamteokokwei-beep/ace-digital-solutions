@@ -126,7 +126,8 @@ export function classifyMeta(status, body) {
 async function verifyTurnstile(env, token, ip) {
   // no anti-spam key set: refuse, unless testing is explicitly allowed with CAPTCHA_OPTIONAL=true
   if (!env.TURNSTILE_SECRET) { if (String(env.CAPTCHA_OPTIONAL) === "true") return true; console.log("enquiry: captcha not configured, refused"); return false; }
-  if (!token) return false;
+  // no pass from the browser (e.g. the local test file): only allowed while CAPTCHA_OPTIONAL=true; remove it before going live
+  if (!token) return String(env.CAPTCHA_OPTIONAL) === "true";
   const form = new URLSearchParams({ secret: env.TURNSTILE_SECRET, response: String(token).slice(0, 2048) });
   if (ip) form.set("remoteip", ip);
   try {

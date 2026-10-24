@@ -181,3 +181,10 @@ test("13. with the KV store: same customer number max 3 a day, and a total daily
   const r = await send(12, "012-000 0003", "6.6.6.3"); assert.equal(r.status, 429); assert.equal((await r.json()).stage, "daily_cap");
   assert.ok(![...store.keys()].some(k => /0123456789|5\.5\.5/.test(k)), "no raw phone or IP in store keys");
 });
+
+test("14. with an anti-spam key: a missing pass is refused unless CAPTCHA_OPTIONAL=true", async () => {
+  const mk = env => handleEnquiry(new Request("https://w.example/enquiry", { method: "POST", headers: { "Content-Type": "application/json", Origin: "https://example.com", "CF-Connecting-IP": "7.7.7.7" }, body: JSON.stringify({ ...VALID, submissionId: "ts" + Math.random() }) }), env);
+  const strict = { ...ENV, TURNSTILE_SECRET: "s" }; delete strict.CAPTCHA_OPTIONAL;
+  assert.equal((await mk(strict)).status, 403);
+  assert.equal((await mk({ ...ENV, TURNSTILE_SECRET: "s", CAPTCHA_OPTIONAL: "true" })).status, 200);
+});
