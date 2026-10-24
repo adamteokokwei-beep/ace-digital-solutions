@@ -74,8 +74,11 @@ code() { curl -s -o /dev/null -w '%{http_code}' "$@"; }
 BODY='{"name":"Test Visitor","phone":"012-345 6789","business":"Synthetic Test Co","help":"Not sure yet","email":"test@example.invalid","language":"EN","message":"Synthetic staging test","company_website":"","captcha":"XXXX.DUMMY.TOKEN.XXXX","submissionId":"setup-'$RANDOM'"}'
 [ "$(code -X POST -H 'Content-Type: application/json' -H "Origin: $O" --data "$BODY" "$E")" = "401" ] && ok "form: no access key -> 401" || bad "form without key should be 401"
 R=$(curl -s -X POST -H 'Content-Type: application/json' -H "Origin: $O" -H "X-Staging-Key: $STAGING_ACCESS_KEY" --data "$BODY" "$E")
+if grep -q '"stage":"rate_limited"\|"stage":"daily_cap"' <<< "$R"; then printf '  \033[33mNOTE\033[0m form: this computer has used its staging enquiry allowance for now (limits working); dry-run check skipped - rerun after an hour\n'
+else
 grep -q '"stage":"dry_run"' <<< "$R" && ok "form: synthetic enquiry -> dry run (nothing sent)" || bad "form dry run (got: $(echo "$R" | head -c 120))"
 grep -q 'nobody@example.invalid' <<< "$R" && ok "form: email preview goes to the .invalid test address only" || bad "form email preview"
+fi
 [ "$(code -X POST -H 'Content-Type: application/json' -H "Origin: $O" --data '{"messages":[{"role":"user","content":"hi"}]}' "$C")" = "401" ] && ok "chat: no access key -> 401" || bad "chat without key should be 401"
 R=$(curl -s -X POST -H 'Content-Type: application/json' -H "Origin: $O" -H "X-Staging-Key: $STAGING_ACCESS_KEY" --data '{"lang":"en","messages":[{"role":"user","content":"How much is a website?"}]}' "$C")
 grep -q 'staging test reply' <<< "$R" && ok "chat: mock AI answers (no AI provider called)" || bad "chat mock (got: $(echo "$R" | head -c 120))"
