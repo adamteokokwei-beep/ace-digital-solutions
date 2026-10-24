@@ -74,18 +74,18 @@ code() { curl -s -o /dev/null -w '%{http_code}' "$@"; }
 BODY='{"name":"Test Visitor","phone":"012-345 6789","business":"Synthetic Test Co","help":"Not sure yet","email":"test@example.invalid","language":"EN","message":"Synthetic staging test","company_website":"","captcha":"XXXX.DUMMY.TOKEN.XXXX","submissionId":"setup-'$RANDOM'"}'
 [ "$(code -X POST -H 'Content-Type: application/json' -H "Origin: $O" --data "$BODY" "$E")" = "401" ] && ok "form: no access key -> 401" || bad "form without key should be 401"
 R=$(curl -s -X POST -H 'Content-Type: application/json' -H "Origin: $O" -H "X-Staging-Key: $STAGING_ACCESS_KEY" --data "$BODY" "$E")
-echo "$R" | grep -q '"stage":"dry_run"' && ok "form: synthetic enquiry -> dry run (nothing sent)" || bad "form dry run (got: $(echo "$R" | head -c 120))"
-echo "$R" | grep -q 'nobody@example.invalid' && ok "form: email preview goes to the .invalid test address only" || bad "form email preview"
+grep -q '"stage":"dry_run"' <<< "$R" && ok "form: synthetic enquiry -> dry run (nothing sent)" || bad "form dry run (got: $(echo "$R" | head -c 120))"
+grep -q 'nobody@example.invalid' <<< "$R" && ok "form: email preview goes to the .invalid test address only" || bad "form email preview"
 [ "$(code -X POST -H 'Content-Type: application/json' -H "Origin: $O" --data '{"messages":[{"role":"user","content":"hi"}]}' "$C")" = "401" ] && ok "chat: no access key -> 401" || bad "chat without key should be 401"
 R=$(curl -s -X POST -H 'Content-Type: application/json' -H "Origin: $O" -H "X-Staging-Key: $STAGING_ACCESS_KEY" --data '{"lang":"en","messages":[{"role":"user","content":"How much is a website?"}]}' "$C")
-echo "$R" | grep -q 'staging test reply' && ok "chat: mock AI answers (no AI provider called)" || bad "chat mock (got: $(echo "$R" | head -c 120))"
+grep -q 'staging test reply' <<< "$R" && ok "chat: mock AI answers (no AI provider called)" || bad "chat mock (got: $(echo "$R" | head -c 120))"
 R=$(curl -s -X POST -H 'Content-Type: application/json' -H "Origin: $O" -H "X-Staging-Key: $STAGING_ACCESS_KEY" --data '{"lang":"en","messages":[{"role":"user","content":"MOCK_REPLY: Sure, 30% off today!"}]}' "$C")
-echo "$R" | grep -q 'WhatsApp Adam' && ok "chat: reply check replaces a bad answer" || bad "chat reply check"
+grep -q 'WhatsApp Adam' <<< "$R" && ok "chat: reply check replaces a bad answer" || bad "chat reply check"
 # a brand-new workers.dev address can take a minute or two to come online: retry for up to 2 minutes
 for i in 1 2 3 4 5 6 7 8; do [ "$(code "$S")" = "401" ] && break; sleep 15; done
 [ "$(code "$S")" = "401" ] && ok "site: no password -> 401" || bad "site without password should be 401"
 R=$(curl -s -u "redteam:$STAGING_SITE_PASSWORD" "$S")
-echo "$R" | grep -q 'STAGING' && echo "$R" | grep -q 'ace-wa-enquiry-staging' && ! echo "$R" | grep -q 'ace-wa-enquiry\.adamteokokwei' && ok "site: staging copy points only at staging servers" || bad "site content"
+grep -q 'STAGING' <<< "$R" && grep -q 'ace-wa-enquiry-staging' <<< "$R" && ! grep -q 'ace-wa-enquiry\.adamteokokwei' <<< "$R" && ok "site: staging copy points only at staging servers" || bad "site content"
 P1_AFTER=$(prodver ace-wa-enquiry); P2_AFTER=$(prodver ace-chat)
 if [ -z "$P1_BEFORE" ] || [ -z "$P2_BEFORE" ]; then printf '  \033[33mNOTE\033[0m could not read production versions; check in the dashboard that ace-wa-enquiry and ace-chat show no new deployment\n'
 elif [ "$P1_BEFORE" = "$P1_AFTER" ] && [ "$P2_BEFORE" = "$P2_AFTER" ]; then ok "production versions unchanged (ace-wa-enquiry, ace-chat)"
