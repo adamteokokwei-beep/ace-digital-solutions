@@ -1,0 +1,26 @@
+# STAGING ONLY - chatbot server. This file can only ever deploy "ace-chat-staging".
+# Isolation: own KV + rate-limit namespace + secrets; AI_MOCK (no AI provider, no cost, no visitor data to Google).
+name = "ace-chat-staging"
+main = "../backend/chat-worker.js"
+compatibility_date = "2026-01-01"
+workers_dev = true
+
+[vars]
+STAGING = "true"
+AI_MOCK = "true"
+ALLOWED_ORIGIN = "https://ace-site-staging.adamteokokwei.workers.dev"
+CHAT_DAILY_CAP = "100"
+
+[[ratelimits]]
+name = "CHAT_LIMITER"
+namespace_id = "1102"
+  [ratelimits.simple]
+  limit = 10
+  period = 60
+
+[[kv_namespaces]]
+binding = "CHAT_KV"
+id = "__STAGING_CHAT_KV_ID__"
+
+[observability]
+enabled = true

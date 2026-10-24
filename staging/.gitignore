@@ -1,0 +1,3 @@
+STAGING-CREDENTIALS.env
+*.gen.toml
+site-dist/

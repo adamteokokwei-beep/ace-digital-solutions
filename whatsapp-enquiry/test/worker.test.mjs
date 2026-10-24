@@ -312,3 +312,32 @@ test("D1. counter names use a secret-keyed HMAC (not reversible without the key)
   assert.ok(!keys.includes("203.0.113.9") && !keys.includes("60123456789"), "no raw IP or phone in counter names");
   await assert.rejects(() => counterId({}, "x"), /no hmac key/);
 });
+
+// ===================== staging environment =====================
+const STG = (x = {}) => ({ ALLOWED_ORIGIN: "https://example.com", STAGING: "true", STAGING_ACCESS_KEY: "s".repeat(32), WHATSAPP_DRY_RUN: "true", WHATSAPP_TEMPLATE_NAME: "website_enquiry",
+  TURNSTILE_SECRET: "1x0000000000000000000000000000000AA", LIMIT_HMAC_KEY: "t".repeat(32), RATE_LIMITER: { limit: async () => ({ success: true }) }, ENQ_KV: memKV(),
+  EMAIL_FROM: "Staging <staging@example.invalid>", EMAIL_TO: "nobody@example.invalid", ...x });
+const stgReq = (key, body = { ...VALID, captcha: "tok", submissionId: "st" + Math.random() }) => new Request("https://w/enquiry", { method: "POST", headers: { "Content-Type": "application/json", Origin: "https://example.com", "CF-Connecting-IP": "9.9.9." + (++ipN % 250), ...(key ? { "X-Staging-Key": key } : {}) }, body: JSON.stringify(body) });
+
+test("S1. staging: requests without the right access key are refused", async () => {
+  routeFetch();
+  assert.equal((await worker.fetch(stgReq(""), STG())).status, 401);
+  assert.equal((await worker.fetch(stgReq("x".repeat(32)), STG())).status, 401);
+  assert.equal((await worker.fetch(stgReq("s".repeat(32)), STG({ STAGING_ACCESS_KEY: "" }))).status, 401, "no key configured -> refuse all");
+  const r = await worker.fetch(stgReq("s".repeat(32)), STG()); const b = await r.json();
+  assert.equal(r.status, 200); assert.equal(b.stage, "dry_run");
+  assert.match(b.emailPreview.headers, /^To: nobody@example\.invalid$/m); assert.match(b.emailPreview.body, /Name: Mei Ling/);
+  assert.equal(calls.filter(c => c.url.includes("/messages")).length, 0, "nothing sent to WhatsApp");
+});
+
+test("S2. staging refuses to run if any real delivery credential is present", async () => {
+  routeFetch();
+  for (const [name, x] of [["WhatsApp token", { WHATSAPP_ACCESS_TOKEN: "real" }], ["email binding", { EMAIL: mailbox() }], ["dry run off", { WHATSAPP_DRY_RUN: "false" }]]) {
+    const r = await worker.fetch(stgReq("s".repeat(32)), STG(x)); assert.equal(r.status, 503, name); assert.equal((await r.json()).stage, "staging_not_isolated", name);
+  }
+});
+
+test("S3. production ignores staging headers and never adds an email preview", async () => {
+  routeFetch(); const r = await worker.fetch(stgReq("anything"), { ...PROD(), WHATSAPP_DRY_RUN: "true", EMAIL_FROM: "a <a@b.co>", EMAIL_TO: "c@d.co" }); const b = await r.json();
+  assert.equal(r.status, 200); assert.equal(b.stage, "dry_run"); assert.equal(b.emailPreview, undefined);
+});

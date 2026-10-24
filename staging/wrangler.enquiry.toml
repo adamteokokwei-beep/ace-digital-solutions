@@ -1,0 +1,33 @@
+# STAGING ONLY - enquiry form server. This file can only ever deploy "ace-wa-enquiry-staging".
+# Isolation: own KV namespace + rate-limit namespace + secrets; WhatsApp dry run with no token; no email binding.
+name = "ace-wa-enquiry-staging"
+main = "../whatsapp-enquiry/worker.js"
+compatibility_date = "2026-01-01"
+workers_dev = true
+
+[vars]
+STAGING = "true"
+WHATSAPP_DRY_RUN = "true"
+WHATSAPP_TEMPLATE_NAME = "website_enquiry"
+WHATSAPP_TEMPLATE_LANGUAGE = "en"
+ALLOWED_ORIGIN = "https://ace-site-staging.adamteokokwei.workers.dev"
+# Cloudflare's public Turnstile TEST secret (always passes with the matching test site key). Not a real secret.
+TURNSTILE_SECRET = "1x0000000000000000000000000000000AA"
+# Email is never sent in staging (no EMAIL binding); these only fill the email preview.
+EMAIL_FROM = "Staging <staging@example.invalid>"
+EMAIL_TO = "nobody@example.invalid"
+DAILY_CAP = "30"
+
+[[ratelimits]]
+name = "RATE_LIMITER"
+namespace_id = "1101"
+  [ratelimits.simple]
+  limit = 3
+  period = 60
+
+[[kv_namespaces]]
+binding = "ENQ_KV"
+id = "__STAGING_ENQ_KV_ID__"
+
+[observability]
+enabled = true

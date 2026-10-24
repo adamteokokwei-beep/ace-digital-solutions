@@ -53,7 +53,7 @@ function cors(origin, allowed) {
     headers: {
       "Access-Control-Allow-Origin": ok ? (origin || "*") : "null",
       "Access-Control-Allow-Methods": "POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Allow-Headers": "Content-Type, X-Staging-Key",
       "Access-Control-Max-Age": "600",
       "Vary": "Origin",
     },
@@ -385,7 +385,9 @@ export async function handleEnquiry(request, env) {
 
   if (String(env.WHATSAPP_DRY_RUN) === "true") {
     const preview = buildMetaPayload({ ...env, WHATSAPP_RECIPIENT_NUMBER: env.WHATSAPP_RECIPIENT_NUMBER || "60000000000" }, check.value);
-    return finish({ ok: true, stage: "dry_run", preview }, 200);
+    // staging only: also show the email that would be sent (headers + decoded body), to test it without sending
+    const emailPreview = String(env.STAGING) === "true" && env.EMAIL_FROM && env.EMAIL_TO ? (m => ({ headers: m.raw.split("\r\n\r\n")[0], body: new TextDecoder().decode(Uint8Array.from(atob(m.raw.split("\r\n\r\n")[1].replace(/\r\n/g, "")), c => c.charCodeAt(0))) }))(buildEmail(env, check.value)) : undefined;
+    return finish({ ok: true, stage: "dry_run", preview, ...(emailPreview ? { emailPreview } : {}) }, 200);
   }
   if (!waReady && !emailReady) { console.log("enquiry: server not configured"); return finish({ ok: false, stage: "not_configured" }, 503); }
 
@@ -401,8 +403,25 @@ export async function handleEnquiry(request, env) {
   return finish({ ...wa, channels }, waReady ? status : 502);
 }
 
+// ---------- staging only ----------
+// STAGING=true (set only in the staging environment) requires the X-Staging-Key header on every request.
+// Staging also refuses to run if any real delivery credential is present, so it can never message the owner.
+export function stagingKeyOk(request, env) {
+  const want = String(env.STAGING_ACCESS_KEY || ""), got = String(request.headers.get("X-Staging-Key") || "");
+  if (want.length < 16 || got.length !== want.length) return false;
+  let diff = 0; for (let i = 0; i < want.length; i++) diff |= want.charCodeAt(i) ^ got.charCodeAt(i);
+  return diff === 0;
+}
+export function stagingIsolated(env) {
+  return !env.WHATSAPP_ACCESS_TOKEN && !env.EMAIL && String(env.WHATSAPP_DRY_RUN) === "true";
+}
+
 export default {
   async fetch(request, env) {
+    if (String(env.STAGING) === "true") {
+      if (request.method !== "OPTIONS" && !stagingKeyOk(request, env)) return new Response(JSON.stringify({ ok: false, stage: "staging_key_required" }), { status: 401, headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "Content-Type, X-Staging-Key" } });
+      if (!stagingIsolated(env)) { console.log("staging: refused, a real delivery credential is configured"); return new Response(JSON.stringify({ ok: false, stage: "staging_not_isolated" }), { status: 503, headers: { "Content-Type": "application/json" } }); }
+    }
     const path = new URL(request.url).pathname.replace(/\/+$/, "");
     if (path === "" || path === "/") return new Response("Enquiry endpoint. POST /enquiry", { status: 200 });
     if (path.endsWith("/enquiry")) return handleEnquiry(request, env);

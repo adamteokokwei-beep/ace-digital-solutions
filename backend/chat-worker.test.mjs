@@ -86,6 +86,21 @@ ok(r.status === 200 && /WhatsApp Adam/.test(j.reply) && /Saya tidak dapat/.test(
 ok(logs.some(l => l === "chat: reply replaced: discount") && !logs.some(l => l.includes("40% off")), "only the reason is logged, not the text");
 aiReply = "The standard website is RM1,600."; r = await worker.fetch(req("/chat", chat()), ENV()); ok((await r.json()).reply === aiReply, "valid reply passes unchanged end to end");
 
+
+// ---- staging ----
+{ const SK = "s".repeat(32); const STG = x => ENV({ STAGING: "true", STAGING_ACCESS_KEY: SK, AI_MOCK: "true", ...x });
+  const sreq = (key, body) => { const r = req("/chat", body); const h = new Headers(r.headers); if (key) h.set("X-Staging-Key", key); return new Request(r.url, { method: "POST", headers: h, body: JSON.stringify(body) }); };
+  ok((await worker.fetch(sreq("", chat()), STG())).status === 401, "staging: no key -> 401");
+  ok((await worker.fetch(sreq("x".repeat(32), chat()), STG())).status === 401, "staging: wrong key -> 401");
+  ok((await worker.fetch(sreq(SK, chat()), STG({ STAGING_ACCESS_KEY: "" }))).status === 401, "staging: no key configured -> refuse all");
+  aiCalls = 0; let res = await worker.fetch(sreq(SK, chat()), STG()); let jj = await res.json();
+  ok(res.status === 200 && /staging test reply/.test(jj.reply) && aiCalls === 0, "staging mock AI answers without any provider call");
+  res = await worker.fetch(sreq(SK, chat("MOCK_REPLY: Sure, 30% off for you!")), STG()); jj = await res.json();
+  ok(/WhatsApp Adam/.test(jj.reply), "staging: forced bad reply is caught by the reply check");
+  const e = STG(); res = await worker.fetch(sreq(SK, chat("MOCK_FAIL:503")), e);
+  ok(res.status === 502 && Number([...e.CHAT_KV.m.entries()].find(([k]) => k.startsWith("chat:total:"))[1]) === 2, "staging: mock failure counts 2 attempts");
+  aiCalls = 0; res = await worker.fetch(req("/chat", chat()), ENV({ AI_MOCK: "true" })); ok(aiCalls === 1, "production ignores AI_MOCK (real provider path used)");
+}
 console.log = realLog;
 console.log(`chatbot tests: ${pass} passed, ${fail} failed`);
 process.exitCode = fail ? 1 : 0;

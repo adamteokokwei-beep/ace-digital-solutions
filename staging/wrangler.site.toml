@@ -1,0 +1,13 @@
+# STAGING ONLY - copy of the website pointing at the staging servers. Password-protected, not indexed.
+name = "ace-site-staging"
+main = "site-worker.js"
+compatibility_date = "2026-01-01"
+workers_dev = true
+
+[assets]
+directory = "./site-dist"
+binding = "ASSETS"
+run_worker_first = true
+
+[observability]
+enabled = true

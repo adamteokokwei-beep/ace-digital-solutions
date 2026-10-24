@@ -152,7 +152,7 @@ function cors(origin, allowed) {
   return {
     "Access-Control-Allow-Origin": ok ? (allowed === "*" ? "*" : origin) : "null",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Headers": "Content-Type, X-Staging-Key",
     "Vary": "Origin",
   };
 }
@@ -217,6 +217,7 @@ const DEMO_SAFE_REPLY = {
 
 // Ask whichever AI is configured. Returns { reply } or { error, status, detail }.
 async function callAI(env, messages, system = SYSTEM_PROMPT) {
+  if (isStaging(env) && String(env.AI_MOCK) === "true") return mockAI(messages);
   let res, provider;
   try {
     if (env.GEMINI_API_KEY) {
@@ -288,6 +289,23 @@ async function callAI(env, messages, system = SYSTEM_PROMPT) {
   }
 }
 
+// ---------- staging only ----------
+// STAGING=true (set only in the staging environment) requires the X-Staging-Key header on every request,
+// and allows AI_MOCK=true: canned replies instead of calling any AI provider (no cost, no provider data).
+const isStaging = env => String(env.STAGING) === "true";
+export function stagingKeyOk(request, env) {
+  const want = String(env.STAGING_ACCESS_KEY || ""), got = String(request.headers.get("X-Staging-Key") || "");
+  if (want.length < 16 || got.length !== want.length) return false;
+  let diff = 0; for (let i = 0; i < want.length; i++) diff |= want.charCodeAt(i) ^ got.charCodeAt(i);
+  return diff === 0;
+}
+function mockAI(messages) {
+  const last = String(messages[messages.length - 1]?.content || "");
+  const fail = last.match(/^MOCK_FAIL:(\d{3})/); if (fail) return { error: "mock provider error", status: Number(fail[1]), attempts: MAX_AI_ATTEMPTS };
+  const forced = last.match(/^MOCK_REPLY:([\s\S]*)$/); if (forced) return { reply: forced[1].trim(), model: "mock", attempts: 1 };
+  return { reply: "This is a staging test reply. The standard website is RM1,600.", model: "mock", attempts: 1 };
+}
+
 export default {
   async fetch(request, env) {
     const origin = request.headers.get("Origin") || "";
@@ -295,6 +313,7 @@ export default {
     const headers = cors(origin, allowed);
 
     if (request.method === "OPTIONS") return new Response(null, { status: 204, headers });
+    if (isStaging(env) && !stagingKeyOk(request, env)) return json({ error: "staging: access key required" }, 401, headers);
 
     // Health check. Plain "OK" for everyone; the AI connection is only tested with ?key=<HEALTH_KEY> (so bots can't use up the AI allowance).
     if (request.method === "GET") {
