@@ -9,7 +9,9 @@
 // Settings (Cloudflare dashboard → your Worker → Settings → Variables):
 //   Chatbot — set ONE of these keys (if more than one is set, the first in this list is used):
 //   GEMINI_API_KEY     (Secret)  free key from aistudio.google.com/apikey    (Google Gemini, free tier)
-//   GEMINI_MODEL       (Text, optional) defaults to gemini-flash-latest
+//   GEMINI_MODEL       (Text, optional) main model; defaults to gemini-flash-lite-latest
+//   GEMINI_BACKUP_MODEL (Text, optional) the one backup model tried if the main one fails
+//   GEMINI_MAX_OUTPUT_TOKENS (Text, optional) output cap per attempt (100-2000, default 1500)
 //   OPENAI_API_KEY     (Secret)  key from platform.openai.com/api-keys     (ChatGPT, paid)
 //   OPENAI_MODEL       (Text, optional) defaults to gpt-4o-mini
 //   ANTHROPIC_API_KEY  (Secret)  key from console.anthropic.com             (Claude, paid)
@@ -224,7 +226,9 @@ async function callAI(env, messages, system = SYSTEM_PROMPT) {
       // Google Gemini (free tier available)
       provider = "gemini";
       const first = (env.GEMINI_MODEL || GEMINI_MODEL).trim();
-      const list = [first, ...GEMINI_BACKUPS.filter(m => m !== first)];
+      // optional GEMINI_BACKUP_MODEL setting pins the backup model (otherwise the built-in list is used)
+      const backups = env.GEMINI_BACKUP_MODEL ? [String(env.GEMINI_BACKUP_MODEL).trim()] : GEMINI_BACKUPS;
+      const list = [first, ...backups.filter(m => m !== first)];
       // At most 2 attempts per question (main model, then one backup), each counted against the daily cap.
       const models = list.slice(0, MAX_AI_ATTEMPTS);
       const tried = [];
@@ -237,7 +241,8 @@ async function callAI(env, messages, system = SYSTEM_PROMPT) {
           body: JSON.stringify({
             systemInstruction: { parts: [{ text: system }] },
             contents: messages.map(m => ({ role: m.role === "assistant" ? "model" : "user", parts: [{ text: m.content }] })),
-            generationConfig: { maxOutputTokens: 1500, temperature: 0.4 }, // extra room because Gemini may "think" before answering
+            // GEMINI_MAX_OUTPUT_TOKENS caps the billed output per attempt (default 1500: extra room because Gemini may "think" first)
+            generationConfig: { maxOutputTokens: Math.min(Math.max(Number(env.GEMINI_MAX_OUTPUT_TOKENS) || 1500, 100), 2000), temperature: 0.4 },
           }),
         });
         } catch (e) { tried.push(model + ": timed out"); res = null; continue; }

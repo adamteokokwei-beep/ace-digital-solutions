@@ -101,6 +101,15 @@ aiReply = "The standard website is RM1,600."; r = await worker.fetch(req("/chat"
   ok(res.status === 502 && Number([...e.CHAT_KV.m.entries()].find(([k]) => k.startsWith("chat:total:"))[1]) === 2, "staging: mock failure counts 2 attempts");
   aiCalls = 0; res = await worker.fetch(req("/chat", chat()), ENV({ AI_MOCK: "true" })); ok(aiCalls === 1, "production ignores AI_MOCK (real provider path used)");
 }
+
+// ---- configurable Gemini settings ----
+{ const seen = []; const saved = globalThis.fetch;
+  globalThis.fetch = async (u, o) => { seen.push({ u: String(u), b: JSON.parse(o.body) }); return new Response("busy", { status: 503 }); };
+  await worker.fetch(req("/chat", chat()), ENV({ GEMINI_MODEL: "gemini-2.5-flash-lite", GEMINI_BACKUP_MODEL: "gemini-3.5-flash-lite", GEMINI_MAX_OUTPUT_TOKENS: "500" }));
+  ok(seen.length === 2 && seen[0].u.includes("gemini-2.5-flash-lite") && seen[1].u.includes("gemini-3.5-flash-lite"), "pinned main + backup model used, in order");
+  ok(seen.every(x => x.b.generationConfig.maxOutputTokens === 500), "output token cap applied to every attempt");
+  seen.length = 0; await worker.fetch(req("/chat", chat()), ENV({ GEMINI_MAX_OUTPUT_TOKENS: "999999" })); ok(seen[0].b.generationConfig.maxOutputTokens === 2000, "output cap can't be set above 2000");
+  globalThis.fetch = saved; }
 console.log = realLog;
 console.log(`chatbot tests: ${pass} passed, ${fail} failed`);
 process.exitCode = fail ? 1 : 0;
