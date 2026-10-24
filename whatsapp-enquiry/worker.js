@@ -212,6 +212,8 @@ export async function handleEnquiry(request, env) {
   clearTimeout(timer);
   const result = classifyMeta(res.status, body);
   if (!result.ok) console.log("enquiry: whatsapp error", res.status, result.code ?? "", result.subcode ?? ""); // codes only, never content
+  // Meta's own explanation (error text only; long digit runs such as phone numbers are masked)
+  if (!result.ok) { const er = body?.error || {}; const mask = s => String(s || "").replace(/\d{6,}/g, "###").slice(0, 300); console.log("enquiry: meta says:", mask(er.type), "|", mask(er.message), "|", mask(er.error_data?.details)); }
   const status = result.ok ? 200 : result.stage === "whatsapp_auth_failed" ? 502 : result.stage === "whatsapp_busy" ? 503 : result.stage === "whatsapp_unavailable" ? 504 : 502;
   return finish(result, status);
 }
