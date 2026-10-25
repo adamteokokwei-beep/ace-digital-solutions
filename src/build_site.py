@@ -9,6 +9,7 @@ Writes site/index.html (EN), site/bm/index.html (BM), site/zh/index.html (中文
 Run:  python3 src/build_site.py          (add --missing to list text that has no translation yet)
 """
 import json, os, re, sys, html as H
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))  # for csp.py
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "src", "index.src.html")
@@ -195,6 +196,10 @@ def build(show_missing=False, preview_dir=None):
     alts += f'    <xhtml:link rel="alternate" hreflang="x-default" href="{DOMAIN}/"/>\n'
     urls = "".join(f'  <url>\n    <loc>{DOMAIN}{c["path"]}</loc>\n{alts}  </url>\n' for c in LANGS.values())
     urls += f'  <url>\n    <loc>{DOMAIN}/privacy/</loc>\n  </url>\n'
+    # Content Security Policy (hashes of every inline script) -> site/_headers
+    import csp as _csp
+    _name, _ = _csp.write_headers(SITE, ["https://ace-wa-enquiry.adamteokokwei.workers.dev", "https://ace-chat.adamteokokwei.workers.dev"])
+    print("security headers:", _name, "written to site/_headers")
     open(os.path.join(SITE, "sitemap.xml"), "w").write('<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + urls + "</urlset>\n")
     for code, miss in report.items():

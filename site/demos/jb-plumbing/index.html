@@ -727,7 +727,7 @@ body:not(.show-float) .mbar{opacity:0;transform:translateY(110%);pointer-events:
       <div class="bpane" data-pane="3" hidden>
         <div class="emerg-note" id="emergNote" hidden><svg class="ico"><use href="#i-alert"/></svg><span id="emergNoteText">Emergency: no time slot needed. We'll call you within 5 minutes and send the nearest plumber right away.</span></div>
         <h3>Where should we send your plumber?</h3>
-        <form id="bForm" autocomplete="on" onsubmit="return false">
+        <form id="bForm" autocomplete="on">
         <div class="fields">
           <label class="f">Your name<input id="bName" name="name" autocomplete="name" placeholder="Your full name"></label>
           <label class="f">Mobile number<input id="bPhone" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="012-345 6789"></label>
@@ -757,7 +757,7 @@ body:not(.show-float) .mbar{opacity:0;transform:translateY(110%);pointer-events:
         <label class="f">Mobile number<input type="tel" placeholder="012-345 6789"></label>
         <label class="f">What's the problem?<input placeholder="e.g. kitchen sink is choked"></label>
       </div>
-      <div class="bnav"><span class="bsum">We call or WhatsApp you back to set a time.</span><button class="btn btn-blue" type="button" onclick="this.textContent=this.dataset.sent||'Sent! (demo)'">Send request</button></div>
+      <div class="bnav"><span class="bsum">We call or WhatsApp you back to set a time.</span><button class="btn btn-blue" type="button" id="bSendDemo">Send request</button></div>
     </div>
   </div>
 </section>
@@ -1193,6 +1193,9 @@ body:not(.show-float) .mbar{opacity:0;transform:translateY(110%);pointer-events:
   /* ---------- Site language buttons ---------- */
   $$("[data-lang]").forEach(b=>b.addEventListener("click",()=>setLang(b.dataset.lang)));
 })();
+// (moved from inline handlers so a strict Content Security Policy can block inline event handlers)
+document.getElementById("bForm")?.addEventListener("submit", e => e.preventDefault());
+document.getElementById("bSendDemo")?.addEventListener("click", e => { const b = e.currentTarget; b.textContent = b.dataset.sent || "Sent! (demo)"; });
 </script>
 </body>
 </html>

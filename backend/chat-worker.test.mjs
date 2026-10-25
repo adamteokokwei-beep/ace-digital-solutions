@@ -110,6 +110,24 @@ aiReply = "The standard website is RM1,600."; r = await worker.fetch(req("/chat"
   ok(seen.every(x => x.b.generationConfig.maxOutputTokens === 500), "output token cap applied to every attempt");
   seen.length = 0; await worker.fetch(req("/chat", chat()), ENV({ GEMINI_MAX_OUTPUT_TOKENS: "999999" })); ok(seen[0].b.generationConfig.maxOutputTokens === 2000, "output cap can't be set above 2000");
   globalThis.fetch = saved; }
+
+// ---- limits verification (Red Team L-3 / task 3) ----
+{ // every limit is checked BEFORE any AI call
+  for (const [name, x] of [["daily cap reached", { CHAT_DAILY_CAP: "0" }], ["per-visitor limiter says no", { CHAT_LIMITER: { limit: async () => ({ success: false }) } }]]) {
+    aiCalls = 0; const res = await worker.fetch(req("/chat", chat()), ENV(x)); ok(res.status === 429 && aiCalls === 0, "no AI call when " + name);
+  }
+  // concurrent burst against a slow, eventually-consistent store: shows the caps are approximate (documented risk)
+  const slowKV = () => { const m = new Map(); const d = () => new Promise(r => setTimeout(r, 15)); return { m, get: async k => { await d(); return m.get(k) ?? null; }, put: async (k, v) => { await d(); m.set(k, v); } }; };
+  aiCalls = 0; const e = ENV({ CHAT_DAILY_CAP: "5", CHAT_KV: slowKV() });
+  const res = await Promise.all(Array.from({ length: 20 }, (_, i) => worker.fetch(req("/chat", chat(), { ip: "77.0.0." + i }), e)));
+  const passed = res.filter(r => r.status === 200).length;
+  process.stdout.write(`INFO concurrent burst of 20 vs daily cap 5 on a slow store: ${passed} answered by AI, ${20 - passed} refused (approximate cap)\n`);
+  ok(passed >= 5 && aiCalls === passed, "concurrent burst: AI calls equal answered requests (no hidden extra calls)");
+  // KNOWN RISK (reported to owner): read-then-write counters lose concurrent increments
+  const stored = Number([...e.CHAT_KV.m.entries()].find(([k]) => k.startsWith("chat:total:"))[1]);
+  process.stdout.write(`INFO after 20 concurrent requests the daily counter reads ${stored} (lost increments; exact counting needs an atomic counter)\n`);
+  ok(stored >= 1, "counter still increments under concurrency");
+}
 console.log = realLog;
 console.log(`chatbot tests: ${pass} passed, ${fail} failed`);
 process.exitCode = fail ? 1 : 0;

@@ -10,7 +10,7 @@
 # =====================================================================
 set -euo pipefail
 cd "$(dirname "$0")"
-WR="npx --yes wrangler@4"
+WR="npx --yes wrangler@4.152.0"
 CRED="./STAGING-CREDENTIALS.env"
 SUB="adamteokokwei.workers.dev"
 ok()   { printf '  \033[32mPASS\033[0m %s\n' "$1"; }

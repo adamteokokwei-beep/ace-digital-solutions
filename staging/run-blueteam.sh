@@ -2,7 +2,7 @@
 # STAGING ONLY - runs the Blue Team checks while recording the staging Workers' logs, then checks those logs
 # for synthetic enquiry/chat content and for the access key. Prints counts only; deletes the raw logs afterwards.
 cd "$(dirname "$0")"
-WR="npx --yes wrangler@4"
+WR="npx --yes wrangler@4.152.0"
 . ./STAGING-CREDENTIALS.env
 umask 077
 $WR tail ace-wa-enquiry-staging --format json > .tail-enq.json 2>/dev/null & T1=$!
