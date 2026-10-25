@@ -19,7 +19,9 @@
 //   HEALTH_KEY         (Secret, optional) lets you test the AI connection: open https://<worker>/?key=<HEALTH_KEY>
 //   CHAT_DAILY_CAP     (Text, optional) total AI attempts per day, default 400
 //   LIMIT_HMAC_KEY     (Secret, REQUIRED) random key for the counter names (openssl rand -hex 32). Without it the AI is switched off.
-//   Bindings (wrangler.toml): CHAT_LIMITER (per-visitor rate limit), CHAT_KV (daily counters; hashed keys, no chat content)
+//   CHAT_IP_PER_HOUR   (Text, optional) AI attempts per visitor per hour, default 60
+//   Bindings (wrangler.toml): CHAT_LIMITER (per-minute throttle), USAGE (Durable Object "ChatUsage": atomic daily and
+//   per-visitor hourly AI-attempt counts; HMAC-keyed visitor ids, no chat content)
 //
 // In the website file, set:
 //   CHAT_API = "https://YOUR-WORKER.workers.dev/chat"
@@ -35,7 +37,7 @@ const MAX_CHARS = 800;                     // longest message a visitor can send
 const MAX_BODY_BYTES = 32 * 1024;          // largest request accepted
 const DEFAULT_ORIGINS = "https://acedigitalsolutionsbiz.org,https://www.acedigitalsolutionsbiz.org"; // used if ALLOWED_ORIGIN is not set
 const CHAT_DAILY_CAP = 400;                // total AI requests per day (override with CHAT_DAILY_CAP); protects the free Gemini allowance
-const CHAT_IP_PER_HOUR = 60;               // AI requests per visitor per hour (needs the CHAT_KV store)
+const CHAT_IP_PER_HOUR = 60;               // AI attempts per visitor per hour (ChatUsage Durable Object)
 const MAX_AI_ATTEMPTS = 2;                 // main model + one backup, never more
 const AI_TIMEOUT_MS = 6000;                // per attempt (so at most about 12 s per question)
 
@@ -52,28 +54,70 @@ export async function counterId(env, s) {
   const sig = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode("chat:" + s));
   return [...new Uint8Array(sig)].slice(0, 16).map(b => b.toString(16).padStart(2, "0")).join("");
 }
-const totalKey = () => "chat:total:" + new Date().toISOString().slice(0, 10);
-// Returns "" when allowed, otherwise "rate_limited", "daily_cap" or "unavailable". Counters hold no chat content and no raw IP address.
-// KV is eventually consistent, so the hourly/daily caps are approximate (a burst can slightly exceed them).
-async function limitCheck(env, ip) {
-  if (!env.CHAT_LIMITER || typeof env.CHAT_LIMITER.limit !== "function") { console.log("chat: rate limiter not configured, AI off"); return "unavailable"; }
-  try { const { success } = await env.CHAT_LIMITER.limit({ key: "chat:" + ip }); if (!success) return "rate_limited"; }
-  catch { console.log("chat: rate limiter unavailable, AI off"); return "unavailable"; }
-  const kv = env.CHAT_KV;
-  if (!kv || typeof kv.get !== "function") { console.log("chat: counter store not configured, AI off"); return "unavailable"; }
-  try {
-    const cap = Number(env.CHAT_DAILY_CAP || CHAT_DAILY_CAP);
-    const keys = [[totalKey(), cap, 90000, "daily_cap"], ["chat:ip:" + new Date().toISOString().slice(0, 13) + ":" + await counterId(env, ip), CHAT_IP_PER_HOUR, 4000, "rate_limited"]];
-    const counts = await Promise.all(keys.map(([k]) => kv.get(k)));
-    for (let i = 0; i < keys.length; i++) if (Number(counts[i] || 0) >= keys[i][1]) return keys[i][3];
-    await Promise.all(keys.map(([k, , ttl], i) => kv.put(k, String(Number(counts[i] || 0) + 1), { expirationTtl: ttl })));
+// ---------- AI usage limits (Red Team L-3): atomic, reserved BEFORE every AI attempt ----------
+// One Durable Object instance ("ChatUsage") holds the daily total and the per-visitor hourly counts.
+// A Durable Object runs one request at a time and decides synchronously on in-memory counts, so concurrent
+// requests can't both take the last unit (unlike the old read-then-write KV counters, which lost increments).
+// Every AI attempt (main model AND backup) reserves one unit first; failed or timed-out attempts keep their unit.
+// If the counter can't be reached, the reservation fails and the AI is not called (fail closed).
+const USAGE_OBJECT_NAME = "chat-usage-v1";
+const USAGE_TIMEOUT_MS = 3000;
+const IP_MAP_MAX = 5000;                     // distinct visitors tracked per hour; beyond this new visitors are refused (fail closed)
+
+export class ChatUsage {
+  constructor(ctx, env) {
+    this.ctx = ctx; this.day = ""; this.total = 0; this.hour = ""; this.ip = new Map();
+    ctx.blockConcurrencyWhile(async () => {
+      const st = await ctx.storage.get(["day", "total", "hour", "ip"]);
+      this.day = st.get("day") || ""; this.total = Number(st.get("total") || 0);
+      this.hour = st.get("hour") || ""; this.ip = new Map(Object.entries(st.get("ip") || {}));
+    });
+  }
+  // Synchronous check-and-increment: no await between reading and updating the counts.
+  reserve({ day, hour, id, dailyCap, ipCap }) {
+    if (this.day !== day) { this.day = day; this.total = 0; }
+    if (this.hour !== hour) { this.hour = hour; this.ip = new Map(); }
+    if (this.total >= dailyCap) return "daily_cap";
+    const n = this.ip.get(id) || 0;
+    if (n >= ipCap) return "rate_limited";
+    if (!n && this.ip.size >= IP_MAP_MAX) return "rate_limited";
+    this.total += 1; this.ip.set(id, n + 1);
     return "";
-  } catch { console.log("chat: counter store or key unavailable, AI off"); return "unavailable"; }
+  }
+  async fetch(request) {
+    let q; try { q = await request.json(); } catch { return new Response(JSON.stringify({ result: "bad_request" }), { status: 400 }); }
+    const ok = typeof q?.day === "string" && typeof q?.hour === "string" && /^[0-9a-f]{32}$/.test(String(q?.id)) && Number.isFinite(q?.dailyCap) && Number.isFinite(q?.ipCap);
+    if (!ok) return new Response(JSON.stringify({ result: "bad_request" }), { status: 400 });
+    const result = this.reserve(q);
+    if (!result) await this.ctx.storage.put({ day: this.day, total: this.total, hour: this.hour, ip: Object.fromEntries(this.ip) });
+    return new Response(JSON.stringify({ result, total: this.total }), { headers: { "Content-Type": "application/json" } });
+  }
 }
-// Each extra model attempt also counts against the daily total (best effort, after the call)
-async function countExtraAttempts(env, n) {
-  if (!(n > 0) || !env.CHAT_KV) return;
-  try { const k = totalKey(); const c = Number((await env.CHAT_KV.get(k)) || 0); await env.CHAT_KV.put(k, String(c + n), { expirationTtl: 90000 }); } catch { /* the next request will fail closed if the store is down */ }
+
+// Per-minute limiter: a soft throttle only (Cloudflare's binding is approximate). Fails closed.
+async function throttle(env, ip) {
+  if (!env.CHAT_LIMITER || typeof env.CHAT_LIMITER.limit !== "function") { console.log("chat: rate limiter not configured, AI off"); return "unavailable"; }
+  try { const { success } = await env.CHAT_LIMITER.limit({ key: "chat:" + ip }); return success ? "" : "rate_limited"; }
+  catch { console.log("chat: rate limiter unavailable, AI off"); return "unavailable"; }
+}
+
+// Reserve ONE AI attempt. Returns "" (reserved), "daily_cap", "rate_limited" or "unavailable".
+export async function reserveAttempt(env, ip) {
+  if (!env.USAGE || typeof env.USAGE.idFromName !== "function") { console.log("chat: usage counter not configured, AI off"); return "unavailable"; }
+  try {
+    const now = new Date().toISOString();
+    const body = JSON.stringify({ day: now.slice(0, 10), hour: now.slice(0, 13), id: await counterId(env, ip),
+      dailyCap: Number(env.CHAT_DAILY_CAP || CHAT_DAILY_CAP), ipCap: Number(env.CHAT_IP_PER_HOUR || CHAT_IP_PER_HOUR) });
+    const stub = env.USAGE.get(env.USAGE.idFromName(USAGE_OBJECT_NAME));
+    let timer;
+    const res = await Promise.race([
+      stub.fetch("https://usage/reserve", { method: "POST", headers: { "Content-Type": "application/json" }, body }),
+      new Promise((_, rej) => { timer = setTimeout(() => rej(new Error("timeout")), USAGE_TIMEOUT_MS); }),
+    ]).finally(() => clearTimeout(timer));
+    if (!res.ok) { console.log("chat: usage counter error", res.status); return "unavailable"; }
+    const { result } = await res.json();
+    return ["", "daily_cap", "rate_limited"].includes(result) ? result : "unavailable";
+  } catch { console.log("chat: usage counter or key unavailable, AI off"); return "unavailable"; }
 }
 
 const SYSTEM_PROMPT = `You are the website assistant for Ace Digital Solutions, a web design service in Johor Bahru, Malaysia, run by Adam as a freelance web designer. You answer visitors' questions on the Ace Digital Solutions website.
@@ -249,8 +293,9 @@ const DEMO_SAFE_REPLY = {
 };
 
 // Ask whichever AI is configured. Returns { reply } or { error, status, detail }.
-async function callAI(env, messages, system = SYSTEM_PROMPT) {
-  if (isStaging(env) && String(env.AI_MOCK) === "true") return mockAI(messages);
+// `reserve` is called before EVERY attempt; if it refuses, no (further) AI call is made.
+async function callAI(env, messages, system = SYSTEM_PROMPT, reserve = async () => "unavailable") {
+  if (isStaging(env) && String(env.AI_MOCK) === "true") return mockAI(messages, reserve);
   let res, provider;
   try {
     if (env.GEMINI_API_KEY) {
@@ -264,6 +309,8 @@ async function callAI(env, messages, system = SYSTEM_PROMPT) {
       const models = list.slice(0, MAX_AI_ATTEMPTS);
       const tried = [];
       for (const model of models) {
+        const r = await reserve();
+        if (r) return tried.length ? { error: "AI service error (gemini)", status: res ? res.status : 504, tried, attempts: tried.length, limit: r } : { limit: r, attempts: 0 };
         try {
         res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
           method: "POST",
@@ -292,6 +339,7 @@ async function callAI(env, messages, system = SYSTEM_PROMPT) {
     } else if (env.OPENAI_API_KEY) {
       // ChatGPT (OpenAI Chat Completions API)
       provider = "openai";
+      { const r = await reserve(); if (r) return { limit: r, attempts: 0 }; }
       res = await fetch("https://api.openai.com/v1/chat/completions", {
         method: "POST", signal: AbortSignal.timeout(AI_TIMEOUT_MS * 2),
         headers: { "Authorization": `Bearer ${env.OPENAI_API_KEY.trim()}`, "Content-Type": "application/json" },
@@ -306,6 +354,7 @@ async function callAI(env, messages, system = SYSTEM_PROMPT) {
     } else if (env.ANTHROPIC_API_KEY) {
       // Claude (Anthropic Messages API)
       provider = "claude";
+      { const r = await reserve(); if (r) return { limit: r, attempts: 0 }; }
       res = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST", signal: AbortSignal.timeout(AI_TIMEOUT_MS * 2),
         headers: { "x-api-key": env.ANTHROPIC_API_KEY.trim(), "anthropic-version": "2023-06-01", "content-type": "application/json" },
@@ -335,9 +384,16 @@ export function stagingKeyOk(request, env) {
   let diff = 0; for (let i = 0; i < want.length; i++) diff |= want.charCodeAt(i) ^ got.charCodeAt(i);
   return diff === 0;
 }
-function mockAI(messages) {
+// Staging mock: follows the same reservation rules as the real providers (one unit per attempt).
+async function mockAI(messages, reserve) {
   const last = String(messages[messages.length - 1]?.content || "");
-  const fail = last.match(/^MOCK_FAIL:(\d{3})/); if (fail) return { error: "mock provider error", status: Number(fail[1]), attempts: MAX_AI_ATTEMPTS };
+  const fail = last.match(/^MOCK_FAIL:(\d{3})/);
+  if (fail) {
+    let attempts = 0;
+    for (let i = 0; i < MAX_AI_ATTEMPTS; i++) { const r = await reserve(); if (r) return attempts ? { error: "mock provider error", status: Number(fail[1]), attempts, limit: r } : { limit: r, attempts: 0 }; attempts++; }
+    return { error: "mock provider error", status: Number(fail[1]), attempts };
+  }
+  const r = await reserve(); if (r) return { limit: r, attempts: 0 };
   const forced = last.match(/^MOCK_REPLY:([\s\S]*)$/); if (forced) return { reply: forced[1].trim(), model: "mock", attempts: 1 };
   return { reply: "This is a staging test reply. The standard website is RM1,600.", model: "mock", attempts: 1 };
 }
@@ -355,7 +411,7 @@ export default {
     if (request.method === "GET") {
       const key = new URL(request.url).searchParams.get("key") || "";
       if (!env.HEALTH_KEY || key !== String(env.HEALTH_KEY).trim()) return new Response("OK", { status: 200, headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store" } });
-      const test = await callAI(env, [{ role: "user", content: "Say hello in one short sentence." }]);
+      const test = await callAI(env, [{ role: "user", content: "Say hello in one short sentence." }], SYSTEM_PROMPT, () => reserveAttempt(env, "health-check"));
       let runningIn = "unknown";
       try { runningIn = ((await (await fetch("https://cloudflare.com/cdn-cgi/trace")).text()).match(/colo=(\w+)/) || [])[1] || "unknown"; } catch {}
       const report = {
@@ -382,12 +438,6 @@ export default {
     try { data = JSON.parse(rawBody); } catch { return json({ error: "Invalid JSON" }, 400, headers); }
     if (!data || typeof data !== "object") return json({ error: "Invalid JSON" }, 400, headers);
 
-    // abuse protection: per-visitor limit and a daily total, so nobody can use up the AI allowance
-    const ip = request.headers.get("CF-Connecting-IP") || "local";
-    const limited = await limitCheck(env, ip);
-    if (limited === "unavailable") return json({ error: "unavailable" }, 503, { ...headers, "Retry-After": "60" });
-    if (limited) { console.log("chat: limit reached:", limited); return json({ error: "busy" }, 429, { ...headers, "Retry-After": "60" }); }
-
     // Clean the conversation: only user/assistant text, trimmed, alternating, starting with the user.
     const raw = Array.isArray(data.messages) ? data.messages.slice(isSummary ? -30 : -MAX_TURNS) : [];
     const messages = [];
@@ -401,6 +451,13 @@ export default {
     while (messages.length && messages[0].role !== "user") messages.shift();
     if (!messages.length || (!isSummary && messages[messages.length - 1].role !== "user")) return json({ error: "No question received" }, 400, headers);
 
+    // Only valid requests reach the limits. Per-minute throttle first, then one reserved unit per AI attempt.
+    const ip = request.headers.get("CF-Connecting-IP") || "local";
+    const limitResponse = why => { if (why === "unavailable") return json({ error: "unavailable" }, 503, { ...headers, "Retry-After": "60" }); console.log("chat: limit reached:", why); return json({ error: "busy" }, 429, { ...headers, "Retry-After": "60" }); };
+    const throttled = await throttle(env, ip);
+    if (throttled) return limitResponse(throttled);
+    const reserve = () => reserveAttempt(env, ip);
+
     const started = Date.now();
     const demo = data.bot === "jb-demo" || data.bot === "capitol-demo";
     const lang = ["en", "bm", "zh"].includes(data.lang) ? data.lang : "";
@@ -409,8 +466,8 @@ export default {
       const est = typeof data.estimate === "string" ? data.estimate.trim().slice(0, 300) : "";
       const convo = messages.map(m => (m.role === "user" ? "Customer: " : "Assistant: ") + m.content).join("\n").slice(-6000);
       const result = await callAI(env, [{ role: "user", content: "Chat:\n" + convo + (est ? "\n\nEstimate the customer saw: " + est : "") }],
-        summaryPrompt(lang, demo ? "the business owner" : "Adam"));
-      await countExtraAttempts(env, (result.attempts || 1) - 1);
+        summaryPrompt(lang, demo ? "the business owner" : "Adam"), reserve);
+      if (result.limit && !result.attempts) return limitResponse(result.limit);
       if (result.reply) {
         const why = checkReply(result.reply, { userText: convo + " " + est, demo });
         if (why) { console.log("chat: summary withheld:", why); return json({ error: "unavailable" }, 502, headers); }
@@ -421,8 +478,8 @@ export default {
     }
     const langNote = lang ? `\n\nThe visitor has chosen ${({ en: "English", bm: "Bahasa Melayu", zh: "Simplified Chinese" })[lang]} for this chat; reply in that language unless they clearly write in another one.` : "";
     const system = (demo ? DEMO_PLUMBING_PROMPT : SYSTEM_PROMPT) + langNote;
-    const result = await callAI(env, messages, system);
-    await countExtraAttempts(env, (result.attempts || 1) - 1);
+    const result = await callAI(env, messages, system, reserve);
+    if (result.limit && !result.attempts) return limitResponse(result.limit);
     if (result.reply) {
       const userText = messages.filter(m => m.role === "user").map(m => m.content).join(" ");
       const why = checkReply(result.reply, { userText, demo });

@@ -18,9 +18,16 @@ namespace_id = "1102"
   limit = 10
   period = 60
 
-[[kv_namespaces]]
-binding = "CHAT_KV"
-id = "__STAGING_CHAT_KV_ID__"
 
 [observability]
 enabled = true
+
+# Atomic AI-usage counter (Red Team L-3): daily total + per-visitor hourly AI attempts, reserved before every attempt.
+# SQLite-backed Durable Object (available on the Workers Free plan). Belongs to this Worker only.
+[[durable_objects.bindings]]
+name = "USAGE"
+class_name = "ChatUsage"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["ChatUsage"]

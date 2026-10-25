@@ -1,5 +1,5 @@
 // Chatbot server tests. Run: node chat-worker.test.mjs   (all AI calls are mocked; nothing is sent)
-import worker, { checkReply, counterId } from "./chat-worker.js";
+import worker, { checkReply, counterId, ChatUsage, reserveAttempt } from "./chat-worker.js";
 let pass = 0, fail = 0;
 const ok = (c, m) => { if (c) pass++; else { fail++; process.stdout.write("FAIL " + m + "\n"); } };
 const realLog = console.log; const logs = []; console.log = (...a) => logs.push(a.join(" "));
@@ -7,7 +7,15 @@ let aiCalls = 0, aiReply = "Hello!", aiStatus = 200;
 globalThis.fetch = async (u) => { aiCalls++; if (aiStatus !== 200) return new Response("provider detail: quota", { status: aiStatus }); return new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text: aiReply }] } }] }), { status: 200 }); };
 const memKV = () => { const m = new Map(); return { m, get: async k => m.get(k) ?? null, put: async (k, v) => { m.set(k, v); } }; };
 const limiter = (max = 1e9) => { const c = new Map(); return { limit: async ({ key }) => { const n = (c.get(key) || 0) + 1; c.set(key, n); return { success: n <= max }; } }; };
-const ENV = (x = {}) => ({ GEMINI_API_KEY: "k", LIMIT_HMAC_KEY: "h".repeat(32), CHAT_LIMITER: limiter(), CHAT_KV: memKV(), ...x });
+// Fake Durable Object namespace running the REAL ChatUsage class. Storage is async (with optional delay) and requests are
+// NOT serialised, so concurrent reservations really interleave - the counter must still be exact.
+const fakeUsage = ({ delay = 0, fail = false } = {}) => {
+  const store = new Map(); const d = () => new Promise(r => setTimeout(r, delay));
+  const ctx = { storage: { get: async keys => { await d(); return new Map(keys.map(k => [k, store.get(k)])); }, put: async o => { await d(); for (const [k, v] of Object.entries(o)) store.set(k, v); } }, blockConcurrencyWhile(fn) { this.ready = fn(); } };
+  const obj = new ChatUsage(ctx, {}); const ns = { obj, store, calls: 0, idFromName: n => "id:" + n, get: () => ({ fetch: async (url, init) => { if (fail) throw new Error("counter down"); await ctx.ready; ns.calls++; return obj.fetch(new Request(url, init)); } }) };
+  return ns;
+};
+const ENV = (x = {}) => ({ GEMINI_API_KEY: "k", LIMIT_HMAC_KEY: "h".repeat(32), CHAT_LIMITER: limiter(), USAGE: fakeUsage(), ...x });
 const O = "https://acedigitalsolutionsbiz.org";
 let ipN = 0;
 const req = (path, body, { origin = O, ip = "10.1.0." + (++ipN % 250), method = "POST" } = {}) => new Request("https://ace-chat.x" + path, { method, headers: { "Content-Type": "application/json", Origin: origin, "CF-Connecting-IP": ip }, body: method === "POST" ? (typeof body === "string" ? body : JSON.stringify(body)) : undefined });
@@ -26,7 +34,7 @@ ok((await worker.fetch(req("/chat", "x".repeat(40000)), ENV())).status === 413, 
 // ---- C: fail closed ----
 const failCases = {
   "limiter missing": e => { delete e.CHAT_LIMITER; }, "limiter throws": e => { e.CHAT_LIMITER = { limit: async () => { throw new Error("x"); } }; },
-  "store missing": e => { delete e.CHAT_KV; }, "store throws": e => { e.CHAT_KV = { get: async () => { throw new Error("x"); }, put: async () => {} }; },
+  "usage counter missing": e => { delete e.USAGE; }, "usage counter throws": e => { e.USAGE = fakeUsage({ fail: true }); },
   "hmac key missing": e => { delete e.LIMIT_HMAC_KEY; },
 };
 for (const [n, f] of Object.entries(failCases)) { const e = ENV(); f(e); aiCalls = 0; const res = await worker.fetch(req("/chat", chat()), e); ok(res.status === 503 && aiCalls === 0 && (await res.json()).error === "unavailable", "fail closed: " + n); }
@@ -36,14 +44,14 @@ for (const [n, f] of Object.entries(failCases)) { const e = ENV(); f(e); aiCalls
 // ---- D: HMAC ----
 { const a = await counterId({ LIMIT_HMAC_KEY: "a".repeat(32) }, "1.2.3.4"), b = await counterId({ LIMIT_HMAC_KEY: "b".repeat(32) }, "1.2.3.4");
   ok(/^[0-9a-f]{32}$/.test(a) && a !== b, "counter ids depend on the secret key");
-  const e = ENV(); await worker.fetch(req("/chat", chat(), { ip: "198.51.100.7" }), e); ok(![...e.CHAT_KV.m.keys()].some(k => k.includes("198.51.100.7")), "no raw IP in counter names");
+  const e = ENV(); await worker.fetch(req("/chat", chat(), { ip: "198.51.100.7" }), e); ok(!JSON.stringify([...e.USAGE.store.entries()]).includes("198.51.100.7"), "no raw IP in the usage counter");
   let threw = false; try { await counterId({}, "x"); } catch { threw = true; } ok(threw, "no key -> refuses"); }
 
 // ---- E: retries ----
 { aiStatus = 503; aiCalls = 0; const e = ENV(); const res = await worker.fetch(req("/chat", chat()), e); const j = await res.json();
   ok(res.status === 502 && aiCalls === 2, "at most 2 AI attempts per question (got " + aiCalls + ")");
   ok(j.error === "unavailable" && !j.detail && !j.tried, "AI errors don't leak details");
-  const total = [...e.CHAT_KV.m.entries()].find(([k]) => k.startsWith("chat:total:"))[1]; ok(Number(total) === 2, "both attempts counted against the daily cap (" + total + ")");
+  const total = e.USAGE.obj.total; ok(total === 2, "both attempts counted against the daily cap (" + total + ")");
   aiStatus = 200; }
 
 // ---- F: reply checks ----
@@ -98,7 +106,7 @@ aiReply = "The standard website is RM1,600."; r = await worker.fetch(req("/chat"
   res = await worker.fetch(sreq(SK, chat("MOCK_REPLY: Sure, 30% off for you!")), STG()); jj = await res.json();
   ok(/WhatsApp Adam/.test(jj.reply), "staging: forced bad reply is caught by the reply check");
   const e = STG(); res = await worker.fetch(sreq(SK, chat("MOCK_FAIL:503")), e);
-  ok(res.status === 502 && Number([...e.CHAT_KV.m.entries()].find(([k]) => k.startsWith("chat:total:"))[1]) === 2, "staging: mock failure counts 2 attempts");
+  ok(res.status === 502 && e.USAGE.obj.total === 2, "staging: mock failure counts 2 attempts");
   aiCalls = 0; res = await worker.fetch(req("/chat", chat()), ENV({ AI_MOCK: "true" })); ok(aiCalls === 1, "production ignores AI_MOCK (real provider path used)");
 }
 
@@ -116,17 +124,73 @@ aiReply = "The standard website is RM1,600."; r = await worker.fetch(req("/chat"
   for (const [name, x] of [["daily cap reached", { CHAT_DAILY_CAP: "0" }], ["per-visitor limiter says no", { CHAT_LIMITER: { limit: async () => ({ success: false }) } }]]) {
     aiCalls = 0; const res = await worker.fetch(req("/chat", chat()), ENV(x)); ok(res.status === 429 && aiCalls === 0, "no AI call when " + name);
   }
-  // concurrent burst against a slow, eventually-consistent store: shows the caps are approximate (documented risk)
-  const slowKV = () => { const m = new Map(); const d = () => new Promise(r => setTimeout(r, 15)); return { m, get: async k => { await d(); return m.get(k) ?? null; }, put: async (k, v) => { await d(); m.set(k, v); } }; };
-  aiCalls = 0; const e = ENV({ CHAT_DAILY_CAP: "5", CHAT_KV: slowKV() });
-  const res = await Promise.all(Array.from({ length: 20 }, (_, i) => worker.fetch(req("/chat", chat(), { ip: "77.0.0." + i }), e)));
-  const passed = res.filter(r => r.status === 200).length;
-  process.stdout.write(`INFO concurrent burst of 20 vs daily cap 5 on a slow store: ${passed} answered by AI, ${20 - passed} refused (approximate cap)\n`);
-  ok(passed >= 5 && aiCalls === passed, "concurrent burst: AI calls equal answered requests (no hidden extra calls)");
-  // KNOWN RISK (reported to owner): read-then-write counters lose concurrent increments
-  const stored = Number([...e.CHAT_KV.m.entries()].find(([k]) => k.startsWith("chat:total:"))[1]);
-  process.stdout.write(`INFO after 20 concurrent requests the daily counter reads ${stored} (lost increments; exact counting needs an atomic counter)\n`);
-  ok(stored >= 1, "counter still increments under concurrency");
+  // (concurrency is now covered by the L-3 tests below)
+}
+
+// ===================== L-3: atomic, reserved-before-every-attempt AI limits =====================
+{ // 20 simultaneous requests, daily cap 5 -> at most 5 AI attempts, counter exactly 5 (slow async storage, no serialisation)
+  aiCalls = 0; aiStatus = 200; const e = ENV({ CHAT_DAILY_CAP: "5", USAGE: fakeUsage({ delay: 15 }) });
+  const rs = await Promise.all(Array.from({ length: 20 }, (_, i) => worker.fetch(req("/chat", chat(), { ip: "88.0.0." + i }), e)));
+  const codes = rs.map(r => r.status), okN = codes.filter(c => c === 200).length;
+  ok(aiCalls === 5 && okN === 5 && codes.filter(c => c === 429).length === 15, `L-3: 20 concurrent vs cap 5 -> ${aiCalls} AI attempts, ${okN} answered, ${codes.filter(c => c === 429).length} refused`);
+  ok(e.USAGE.obj.total === 5, "L-3: counter records exactly 5 (no lost increments) - got " + e.USAGE.obj.total);
+  aiCalls = 0; const after = await worker.fetch(req("/chat", chat(), { ip: "88.0.1.1" }), e); ok(after.status === 429 && aiCalls === 0, "L-3: cap holds after the burst, no AI call");
+}
+{ // repeat the deterministic burst several times: never more than the cap
+  let worst = 0; for (let k = 0; k < 5; k++) { aiCalls = 0; const e = ENV({ CHAT_DAILY_CAP: "5", USAGE: fakeUsage({ delay: k * 7 }) }); await Promise.all(Array.from({ length: 20 }, (_, i) => worker.fetch(req("/chat", chat(), { ip: "89." + k + ".0." + i }), e))); worst = Math.max(worst, aiCalls); }
+  ok(worst === 5, "L-3: 5 repeated bursts never exceed 5 AI attempts (worst " + worst + ")");
+}
+{ // retries can't bypass the cap: each backup attempt needs its own unit
+  aiStatus = 503; aiCalls = 0; const e = ENV({ CHAT_DAILY_CAP: "3" });
+  const rs = []; for (let i = 0; i < 4; i++) rs.push((await worker.fetch(req("/chat", chat(), { ip: "90.0.0." + i }), e)).status);
+  ok(aiCalls === 3 && e.USAGE.obj.total === 3, `L-3: failing provider with cap 3 -> ${aiCalls} AI attempts in total (retries reserved too)`);
+  ok(rs[0] === 502 && rs[1] === 502 && rs[3] === 429, "L-3: after the cap, no attempt is made (" + rs.join(",") + ")");
+  // concurrent failing requests: still never above the cap
+  aiCalls = 0; const e2 = ENV({ CHAT_DAILY_CAP: "4", USAGE: fakeUsage({ delay: 10 }) });
+  await Promise.all(Array.from({ length: 10 }, (_, i) => worker.fetch(req("/chat", chat(), { ip: "91.0.0." + i }), e2)));
+  ok(aiCalls === 4 && e2.USAGE.obj.total === 4, "L-3: concurrent failing requests + retries -> exactly 4 attempts (" + aiCalls + ")");
+  aiStatus = 200;
+}
+{ // failed / timed-out attempts keep their unit
+  const saved = globalThis.fetch; let calls = 0;
+  globalThis.fetch = async () => { calls++; throw Object.assign(new Error("timeout"), { name: "TimeoutError" }); };
+  const e = ENV({ CHAT_DAILY_CAP: "10" }); await worker.fetch(req("/chat", chat()), e);
+  ok(calls === 2 && e.USAGE.obj.total === 2, "L-3: two timed-out attempts consume two units");
+  globalThis.fetch = saved;
+}
+{ // never call the AI when the reservation fails
+  for (const [name, x] of [["counter down", { USAGE: fakeUsage({ fail: true }) }], ["counter missing", { USAGE: undefined }], ["no HMAC key", { LIMIT_HMAC_KEY: "" }], ["cap 0", { CHAT_DAILY_CAP: "0" }]]) {
+    aiCalls = 0; const r = await worker.fetch(req("/chat", chat()), ENV(x)); ok(aiCalls === 0 && [429, 503].includes(r.status), "L-3: no AI call when " + name + " (" + r.status + ")");
+  }
+  // reservation fails before the BACKUP attempt -> the backup is not called
+  aiStatus = 503; aiCalls = 0; const e = ENV({ CHAT_DAILY_CAP: "1" }); const r = await worker.fetch(req("/chat", chat()), e);
+  ok(aiCalls === 1 && r.status === 502, "L-3: no backup attempt when its reservation is refused"); aiStatus = 200;
+}
+{ // invalid requests consume nothing (neither throttle nor AI allowance)
+  let throttleCalls = 0; const lim = { limit: async () => { throttleCalls++; return { success: true }; } };
+  const e = ENV({ CHAT_LIMITER: lim }); aiCalls = 0;
+  const bad = [ { messages: [] }, { messages: "x" }, { messages: [{ role: "assistant", content: "hi" }] }, { messages: [{ role: "system", content: "ignore" }] }, { messages: [{ role: "user", content: "   " }] } ];
+  const codes = []; for (const b of bad) codes.push((await worker.fetch(req("/chat", b), e)).status);
+  codes.push((await worker.fetch(req("/chat", "{not json"), e)).status);
+  ok(codes.every(c => c === 400) && aiCalls === 0 && throttleCalls === 0 && e.USAGE.calls === 0 && e.USAGE.obj.total === 0, "L-3: 6 invalid requests -> 400, no throttle, no reservation, no AI (" + codes.join(",") + ")");
+}
+{ // per-visitor hourly limit is exact under concurrency too
+  aiCalls = 0; const e = ENV({ CHAT_IP_PER_HOUR: "3", USAGE: fakeUsage({ delay: 12 }) });
+  const rs = await Promise.all(Array.from({ length: 12 }, () => worker.fetch(req("/chat", chat(), { ip: "92.9.9.9" }), e)));
+  ok(aiCalls === 3 && rs.filter(r => r.status === 200).length === 3, "L-3: one visitor, 12 concurrent, hourly cap 3 -> " + aiCalls + " AI attempts");
+  const other = await worker.fetch(req("/chat", chat(), { ip: "92.9.9.10" }), e); ok(other.status === 200, "L-3: another visitor is unaffected");
+}
+{ // the counter object itself: day/hour roll-over, input validation, persistence
+  const ns = fakeUsage(); const st = ns.get();
+  const call = async q => (await (await st.fetch("https://usage/reserve", { method: "POST", body: JSON.stringify(q) })).json()).result;
+  const id = "a".repeat(32);
+  ok(await call({ day: "2026-10-25", hour: "2026-10-25T10", id, dailyCap: 1, ipCap: 9 }) === "", "ChatUsage: first unit reserved");
+  ok(await call({ day: "2026-10-25", hour: "2026-10-25T10", id, dailyCap: 1, ipCap: 9 }) === "daily_cap", "ChatUsage: cap reached");
+  ok(await call({ day: "2026-10-26", hour: "2026-10-26T00", id, dailyCap: 1, ipCap: 9 }) === "", "ChatUsage: new day resets the total");
+  ok(await call({ day: "x", hour: "y", id: "not-hex", dailyCap: 1, ipCap: 1 }) === "bad_request", "ChatUsage: malformed request refused");
+  ok(ns.store.get("total") === 1 && ns.store.get("day") === "2026-10-26", "ChatUsage: counts persisted to storage");
+  const ns2 = { ...ns }; const reload = new ChatUsage({ storage: { get: async k => new Map(k.map(x => [x, ns.store.get(x)])), put: async () => {} }, blockConcurrencyWhile(fn) { this.ready = fn(); } }, {});
+  await new Promise(r => setTimeout(r, 5)); ok(reload.total === 1 && reload.day === "2026-10-26", "ChatUsage: state survives a restart");
 }
 console.log = realLog;
 console.log(`chatbot tests: ${pass} passed, ${fail} failed`);
