@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Enquiry form (WhatsApp test)</title>
+<style>
+:root{--ink:#1D1D1F;--muted:#6E6E73;--line:#D2D2D7;--bg:#F5F5F7;--blue:#0071E3;--blue-d:#0062C4;--green:#15803D;--red:#C62828;--r:18px;
+  --f:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--f);-webkit-font-smoothing:antialiased}
+.testbar{background:#FFF8EC;color:#7A4A00;font-size:13.5px;padding:10px 16px;text-align:center}
+.testbar b{color:#B45309}
+.wrap{max-width:640px;margin:0 auto;padding:clamp(28px,6vw,64px) 16px 64px}
+h1{font-size:clamp(30px,6vw,44px);letter-spacing:-.03em;line-height:1.08;margin:0 0 10px}
+.lede{color:var(--muted);margin:0 0 28px;font-size:17px}
+form{background:#fff;border-radius:28px;padding:clamp(20px,4vw,32px);box-shadow:0 30px 60px -40px rgba(0,0,0,.25)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.full{grid-column:1/-1}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+label{display:block;font-weight:600;font-size:14.5px;margin-bottom:6px}
+.opt{font-weight:400;color:var(--muted)}
+input,select,textarea{width:100%;font:inherit;font-size:16px;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;outline:none;transition:border-color .15s,box-shadow .15s}
+textarea{min-height:120px;resize:vertical}
+input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(0,113,227,.15)}
+[aria-invalid="true"]{border-color:var(--red)!important}
+.err{display:block;color:var(--red);font-size:13.5px;margin-top:5px}
+.hint{display:block;color:var(--muted);font-size:13px;margin-top:5px}
+.count{float:right;color:var(--muted);font-weight:400;font-size:12.5px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.foot{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:22px}
+button{font:inherit;cursor:pointer;border:0;border-radius:999px}
+.send{background:var(--blue);color:#fff;font-weight:600;font-size:17px;padding:14px 26px;display:inline-flex;align-items:center;gap:10px;min-height:50px}
+.send:hover{background:var(--blue-d)}
+.send[disabled]{opacity:.65;cursor:progress}
+.spin{width:18px;height:18px;border-radius:50%;border:2.5px solid rgba(255,255,255,.45);border-top-color:#fff;animation:sp .8s linear infinite;display:none}
+.send.busy .spin{display:inline-block}
+@keyframes sp{to{transform:rotate(360deg)}}
+.small{font-size:13px;color:var(--muted)}
+.status{margin-top:20px;border-radius:16px;padding:16px 18px;font-size:15px}
+.status.ok{background:#EEF9F1;color:#14532D}
+.status.bad{background:#FDECEC;color:#7F1D1D}
+.status.test{background:#EEF4FF;color:#1E3A8A}
+.status b{display:block;font-size:16px;margin-bottom:4px}
+.status .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.status .acts button{background:#fff;color:var(--ink);padding:9px 16px;font-weight:600;font-size:14px;box-shadow:inset 0 0 0 1px var(--line)}
+.status pre{white-space:pre-wrap;background:#fff;border-radius:10px;padding:12px;font-size:13px;margin:10px 0 0;color:var(--ink)}
+.sum{background:#fff;border-radius:12px;padding:12px 14px;margin:12px 0 0;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:14.5px;color:var(--ink)}
+.sum dt{color:var(--muted)}.sum dd{margin:0;white-space:pre-wrap;word-break:break-word}
+.status .acts a.wa{background:#25D366;color:#fff;text-decoration:none;padding:9px 16px;font-weight:600;font-size:14px;border-radius:999px;display:inline-flex;align-items:center;gap:8px}
+.status .acts a.wa:hover{background:#1EBE5A}
+.dev{margin-top:14px;font:12.5px/1.5 ui-monospace,Menlo,monospace;color:var(--muted)}
+.privacy{font-size:13px;color:var(--muted);margin-top:16px}
+</style>
+</head>
+<body>
+<div class="testbar"><b>Test page</b> for the WhatsApp enquiry feature. Not part of the live website. <span id="modeNote"></span></div>
+<main class="wrap">
+  <h1>Tell us what you need.</h1>
+  <p class="lede">Send your enquiry here and the business receives it on WhatsApp. They'll reply to you on WhatsApp.</p>
+
+  <form id="enq" novalidate>
+    <div class="grid">
+      <div class="full"><label for="name">Your name</label>
+        <input id="name" name="name" autocomplete="name" maxlength="80" placeholder="e.g. Mei Ling" required><span class="err" hidden></span></div>
+      <div><label for="phone">Your WhatsApp number</label>
+        <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="25" placeholder="e.g. 012-345 6789" required>
+        <span class="hint">So the business can reply to you.</span><span class="err" hidden></span></div>
+      <div><label for="type">Type of enquiry</label>
+        <select id="type" name="type" required>
+          <option value="">Choose one…</option>
+          <option>New website</option><option>Redo my website</option><option>Add-ons for my website</option><option>Website chatbot</option><option>Other</option>
+        </select><span class="err" hidden></span></div>
+      <div class="full"><label for="description">What do you need? <span class="count" id="descCount">0 / 1500</span></label>
+        <textarea id="description" name="description" maxlength="1500" placeholder="Tell us a little about your business and what you'd like done." required></textarea><span class="err" hidden></span></div>
+      <div><label for="location">Location <span class="opt">(optional)</span></label>
+        <input id="location" name="location" maxlength="100" placeholder="e.g. Skudai, Johor Bahru"><span class="err" hidden></span></div>
+      <div><label for="budget">Budget <span class="opt">(optional)</span></label>
+        <select id="budget" name="budget"><option value="">Not sure yet</option><option>Below RM1,500</option><option>RM1,500 – RM2,500</option><option>RM2,500 – RM4,000</option><option>Above RM4,000</option></select></div>
+      <div class="full"><label for="timeline">Preferred timeline <span class="opt">(optional)</span></label>
+        <select id="timeline" name="timeline"><option value="">No rush</option><option>As soon as possible</option><option>Within 2 weeks</option><option>Within 1 month</option><option>In 1–3 months</option></select></div>
+    </div>
+    <div class="hp" aria-hidden="true"><label for="company_website">Company website</label><input id="company_website" name="company_website" tabindex="-1" autocomplete="off"></div>
+    <div id="captcha"></div>
+    <div class="foot">
+      <button class="send" id="send" type="submit"><span class="spin" aria-hidden="true"></span><span id="sendLabel">Send enquiry</span></button>
+      <span class="small">No sign-up needed.</span>
+    </div>
+    <p class="privacy">Your details are sent straight to the business on WhatsApp and are not kept in a database by this website.</p>
+    <div class="status" id="status" role="status" aria-live="polite" hidden></div>
+    <div class="dev" id="dev" hidden></div>
+  </form>
+</main>
+<script>
+(() => {
+  // Where to send: same server when opened from the local test server, otherwise the local test server.
+  // For the real website, set this to the deployed Worker, e.g. https://ace-wa-enquiry.<account>.workers.dev/enquiry
+  // Online server: paste your Worker address between the quotes, e.g. "https://ace-wa-enquiry.yourname.workers.dev/enquiry"
+  const ONLINE_ENDPOINT = "";
+  const ENDPOINT = new URLSearchParams(location.search).get("api") || ONLINE_ENDPOINT || (location.protocol.startsWith("http") ? "/enquiry" : "http://localhost:8787/enquiry");
+  // ?mock=ok|dry|auth|rejected|timeout|busy|rate|invalid shows each result on screen without any server or WhatsApp
+  const MOCK = new URLSearchParams(location.search).get("mock");
+  // technical result under the form: only on the local test file or with ?debug=1, never for real visitors
+  const SHOW_DEV = location.protocol === "file:" || new URLSearchParams(location.search).get("debug") === "1";
+
+  // Cloudflare Turnstile anti-spam check. The site key is public; the secret key stays on the server only.
+  // It only works on the real website address, so it is skipped when this page is opened as a local file.
+  const TURNSTILE_SITEKEY = "0x4AAAAAAFjkFvWRmLvTXswG";
+  let tsWidget = null;
+  if (location.protocol.startsWith("http") && !MOCK) {
+    window.onTurnstileLoad = () => { tsWidget = window.turnstile.render("#captcha", { sitekey: TURNSTILE_SITEKEY, size: "flexible", appearance: "interaction-only" }); };
+    const sc = document.createElement("script");
+    sc.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onTurnstileLoad"; sc.async = true; sc.defer = true;
+    document.head.appendChild(sc);
+  }
+  const resetCaptcha = () => { try { if (tsWidget !== null) window.turnstile.reset(tsWidget); } catch(e){} };
+
+  const $ = s => document.querySelector(s);
+  const form = $("#enq"), btn = $("#send"), label = $("#sendLabel"), status = $("#status"), dev = $("#dev");
+  $("#modeNote").textContent = MOCK ? `Mock mode "${MOCK}": nothing is sent.` : `Sending to ${ENDPOINT}.`;
+
+  let submissionId = newId();
+  let sending = false;
+  function newId(){ return (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2)); }
+
+  const desc = $("#description");
+  desc.addEventListener("input", () => { $("#descCount").textContent = desc.value.length + " / 1500"; });
+
+  const MSG = {
+    required: "Please fill this in.",
+    invalid_phone: "Please enter a valid WhatsApp number, e.g. 012-345 6789 or +65 9123 4567.",
+    invalid: "Please choose an option.",
+    too_long: "This is too long. Please shorten it.",
+    too_short: "Please add a few more words so the business understands what you need."
+  };
+  function phoneOk(v){
+    const s = v.trim(); if(!/^[+\d][\d\s\-().]*$/.test(s)) return false;
+    let d = s.replace(/\D/g,""); if(!s.startsWith("+")){ if(d.startsWith("00")) d=d.slice(2); else if(d.startsWith("0")) d="6"+d; }
+    if(d.length<9||d.length>15) return false;
+    if(d.startsWith("60") && !/^60(1\d{8,9}|[3-9]\d{7,8})$/.test(d)) return false;
+    return true;
+  }
+  function setErr(id, code){
+    const el = form.elements[id]; if(!el) return;
+    const box = el.parentElement.querySelector(".err");
+    el.setAttribute("aria-invalid", code ? "true" : "false");
+    if(box){ box.hidden = !code; box.textContent = code ? (id==="phone" && code==="invalid" ? MSG.invalid_phone : MSG[code] || MSG.required) : ""; }
+  }
+  function clientCheck(d){
+    const e = {};
+    if(!d.name) e.name="required";
+    if(!d.phone) e.phone="required"; else if(!phoneOk(d.phone)) e.phone="invalid";
+    if(!d.type) e.type="required";
+    if(!d.description) e.description="required"; else if(d.description.length<10) e.description="too_short";
+    return e;
+  }
+  function show(kind, html){ status.className = "status " + kind; status.innerHTML = html; status.hidden = false; status.scrollIntoView({block:"nearest", behavior:"smooth"}); }
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+  // What the customer filled in, as label/value pairs (used for the on-screen summary and the WhatsApp copy)
+  function summaryRows(d){
+    return [["Name", d.name], ["WhatsApp", d.phone], ["Enquiry type", d.type], ["Location", d.location || "-"],
+            ["Budget", d.budget || "Not sure yet"], ["Timeline", d.timeline || "No rush"], ["What you need", d.description]];
+  }
+  async function mockResponse(){
+    await new Promise(r => setTimeout(r, 900));
+    const m = { ok:[200,{ok:true,stage:"accepted_by_whatsapp",messageId:"wamid.TEST",messageStatus:"accepted"}],
+      dry:[200,{ok:true,stage:"dry_run",preview:{type:"text",text:{body:"NEW WEBSITE ENQUIRY\n\n(preview of the message)"}}}],
+      auth:[502,{ok:false,stage:"whatsapp_auth_failed",code:190}], rejected:[502,{ok:false,stage:"whatsapp_rejected",code:131030}],
+      timeout:[504,{ok:false,stage:"whatsapp_unavailable",reason:"timeout"}], busy:[503,{ok:false,stage:"whatsapp_busy",code:130429}],
+      rate:[429,{ok:false,stage:"rate_limited"}], invalid:[422,{ok:false,stage:"invalid",errors:{phone:"invalid"}}] }[MOCK] || [200,{ok:true,stage:"accepted_by_whatsapp",messageId:"wamid.TEST"}];
+    return { status:m[0], body:m[1] };
+  }
+
+  form.addEventListener("submit", async ev => {
+    ev.preventDefault();
+    if(sending) return;                      // protection against double taps
+    const f = form.elements;
+    const d = { name:f.name.value.trim(), phone:f.phone.value.trim(), type:f.type.value, description:f.description.value.trim(),
+                location:f.location.value.trim(), budget:f.budget.value, timeline:f.timeline.value };
+    const errs = clientCheck(d);
+    ["name","phone","type","description"].forEach(k => setErr(k, errs[k]));
+    if(Object.keys(errs).length){ form.querySelector('[aria-invalid="true"]').focus(); return; }
+
+    sending = true; btn.disabled = true; btn.classList.add("busy"); label.textContent = "Sending…"; status.hidden = true;
+    let httpStatus = 0, body = {};
+    try{
+      if(MOCK){ const r = await mockResponse(); httpStatus = r.status; body = r.body; }
+      else{
+        const ctrl = new AbortController(); const t = setTimeout(() => ctrl.abort(), 20000);
+        const res = await fetch(ENDPOINT, { method:"POST", signal:ctrl.signal, headers:{"Content-Type":"application/json"},
+          body: JSON.stringify({ ...d, company_website:f.company_website.value, submissionId, captcha: (tsWidget !== null && window.turnstile?.getResponse?.(tsWidget)) || "" }) });
+        clearTimeout(t); httpStatus = res.status; body = await res.json().catch(() => ({}));
+      }
+    }catch(e){ httpStatus = 0; body = { ok:false, stage:"network_error" }; }
+    sending = false; btn.disabled = false; btn.classList.remove("busy"); label.textContent = "Send enquiry";
+    resetCaptcha();   // each anti-spam pass can only be used once
+    if(SHOW_DEV){ dev.hidden = false; dev.textContent = `Test info: HTTP ${httpStatus || "no response"} · stage: ${body.stage || "?"}` + (body.code ? ` · WhatsApp error code ${body.code}` : "") + (body.messageId ? ` · message id ${body.messageId}` : "") + (body.duplicate ? " · duplicate (not sent again)" : ""); }
+
+    const stage = body.stage;
+    if(body.ok && (stage === "accepted_by_whatsapp" || stage === "delivered_by_email")){
+      const rows = summaryRows(d);
+      const waText = "My enquiry to Ace Digital Solutions\n\n" + rows.map(([k,v]) => k + ": " + v).join("\n");
+      show("ok", `<b>Thank you, ${esc(d.name.split(" ")[0])}! Your enquiry has been sent.</b>We'll reply to you on WhatsApp at ${esc(d.phone)}. Here's a summary of what you sent:
+        <dl class="sum">${rows.map(([k,v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
+        <div class="acts"><a class="wa" id="waCopy" href="https://wa.me/?text=${encodeURIComponent(waText)}" target="_blank" rel="noopener">Save a copy to my WhatsApp</a><button type="button" id="copyOk">Copy summary</button></div>
+        <span class="hint">"Save a copy" opens WhatsApp with the summary typed in. Choose your own chat ("Message yourself") and tap send.</span>`);
+      $("#copyOk").onclick = async ev2 => { try{ await navigator.clipboard.writeText(waText); ev2.target.textContent = "Copied"; }catch(e){ ev2.target.textContent = "Couldn't copy"; } };
+      form.reset(); $("#descCount").textContent = "0 / 1500"; submissionId = newId(); return;
+    }
+    if(body.ok && stage === "dry_run"){
+      const text = body.preview?.text?.body || (body.preview?.template ? "Template: " + body.preview.template.name + "\n" + body.preview.template.components[0].parameters.map(p => "• " + p.text).join("\n") : "");
+      show("test", `<b>Test mode: nothing was sent to WhatsApp.</b>This is the message the business would receive:<pre>${esc(text)}</pre>`);
+      submissionId = newId(); return;
+    }
+    if(stage === "invalid" && body.errors){ Object.entries(body.errors).forEach(([k,v]) => setErr(k, v)); form.querySelector('[aria-invalid="true"]')?.focus(); return; }
+
+    // Failure: the enquiry was NOT delivered. Keep everything in the form so the customer can try again.
+    const why = {
+      rate_limited: "Too many enquiries were sent from this connection. Please wait a few minutes and try again.",
+      daily_cap: "We've received a lot of enquiries today. Please try again tomorrow, or contact us another way.",
+      service_unavailable: "The enquiry service is busy right now. Please try again in a few minutes.",
+      captcha_failed: "The anti-spam check didn't pass. Please try again.",
+      whatsapp_busy: "WhatsApp is busy right now. Please try again in a minute.",
+      whatsapp_unavailable: "We couldn't reach WhatsApp just now. Please try again in a minute.",
+      network_error: "Your connection dropped before the enquiry could be sent. Please check your internet and try again.",
+      in_progress: "Your enquiry is still being sent. Please wait a moment."
+    }[stage] || "The enquiry couldn't be delivered right now. Please try again later.";
+    show("bad", `<b>Your enquiry was not sent.</b>${why} Your details are still in the form.
+      <div class="acts"><button type="button" id="retry">Try again</button><button type="button" id="copy">Copy my enquiry</button></div>`);
+    $("#retry").onclick = () => form.requestSubmit();
+    $("#copy").onclick = async ev2 => {
+      const txt = `Name: ${d.name}\nWhatsApp: ${d.phone}\nEnquiry type: ${d.type}\nLocation: ${d.location||"-"}\nBudget: ${d.budget||"-"}\nTimeline: ${d.timeline||"-"}\n\n${d.description}`;
+      try{ await navigator.clipboard.writeText(txt); ev2.target.textContent = "Copied"; }catch(e){ ev2.target.textContent = "Couldn't copy"; }
+    };
+  });
+})();
+</script>
+</body>
+</html>

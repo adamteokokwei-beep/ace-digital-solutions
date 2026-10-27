@@ -24,7 +24,7 @@
 html{scroll-padding-top:80px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--f-body);-webkit-font-smoothing:antialiased}
-h1,h2,h3,h4{font-family:var(--f-head);line-height:1.15;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1,h2,h3,h4{font-family:var(--f-head);line-height:1.15;margin:0;text-wrap:balance;letter-spacing:-.01em;font-optical-sizing:auto}
 p{margin:0}
 a{color:inherit}
 button{font:inherit;cursor:pointer}
@@ -42,14 +42,14 @@ button{font:inherit;cursor:pointer}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;padding:.95em 1.6em;border-radius:8px;font:600 15px/1 var(--f-body);text-decoration:none;border:1.5px solid transparent;transition:transform .15s,background .15s,box-shadow .15s}
 .btn .ico{width:16px;height:16px}
 .btn-primary{background:var(--blue);color:#fff;box-shadow:0 10px 24px -10px rgba(37,99,235,.8)}
-.btn-primary:hover{background:var(--blue-d);transform:translateY(-1px)}
+@media (hover:hover) and (pointer:fine){.btn-primary:hover{background:var(--blue-d);transform:translateY(-1px)}}
 .btn-ghost{border-color:rgba(255,255,255,.55);color:#fff;background:transparent}
-.btn-ghost:hover{background:rgba(255,255,255,.08)}
+@media (hover:hover) and (pointer:fine){.btn-ghost:hover{background:rgba(255,255,255,.08)}}
 .btn-dark{background:var(--navy);color:#fff}
 .btn-sm{padding:.7em 1.1em;font-size:14px}
 
 /* Header */
-.site-head{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(11,18,32,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-d);color:#fff}
+.site-head{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(11,18,32,.74);-webkit-backdrop-filter:blur(20px) saturate(170%);backdrop-filter:blur(20px) saturate(170%);box-shadow:0 1px 0 rgba(255,255,255,.06),0 10px 24px -18px rgba(0,0,0,.7);color:#fff}
 .head-in{display:flex;align-items:center;gap:24px;min-height:68px}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
 .logo svg{width:40px;height:36px}
@@ -57,7 +57,7 @@ button{font:inherit;cursor:pointer}
 .logo small{display:block;font:700 10px/1.2 var(--f-body);letter-spacing:.14em;margin-top:2px}
 .nav{display:flex;gap:4px;margin-left:auto}
 .nav a{padding:8px 12px;text-decoration:none;font-size:14px;font-weight:500;color:#D7E0F2;border-radius:6px;position:relative}
-.nav a:hover{color:#fff}
+@media (hover:hover) and (pointer:fine){.nav a:hover{color:#fff}}
 .nav a.on{color:#fff}
 .nav a.on::after{content:"";position:absolute;left:12px;right:12px;bottom:0;height:2px;background:var(--blue-l);border-radius:2px}
 .head-cta{margin-left:12px}
@@ -70,7 +70,7 @@ button{font:inherit;cursor:pointer}
 @media (max-width:1024px){.hero h1,.hero .lede,.hero .fact,.consult-note{text-shadow:0 2px 12px rgba(11,18,32,.85)}.hero.dark{background:linear-gradient(90deg,rgba(11,18,32,.7) 0%,rgba(11,18,32,.35) 55%,rgba(11,18,32,.05) 100%),linear-gradient(180deg,rgba(11,18,32,.45) 0%,rgba(11,18,32,.15) 50%,rgba(11,18,32,.35) 100%),url("/img/hero-bg.jpg") 100% 0/cover no-repeat,var(--navy)}}
 
 .hero-grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.15fr);gap:32px;align-items:center}
-.hero h1{font-size:clamp(34px,4.6vw,56px);font-weight:700}
+.hero h1{font-size:clamp(34px,4.6vw,56px);font-weight:700;letter-spacing:-.025em;line-height:1.08}
 .hero h1 span{color:var(--blue-l)}
 .hero .lede{font-size:clamp(17px,1.6vw,19px);color:#DCE4F4;margin-top:20px;max-width:30em}
 .hero-facts{display:flex;flex-wrap:wrap;gap:22px 32px;margin-top:30px}
@@ -177,7 +177,7 @@ button{font:inherit;cursor:pointer}
 /* Sections */
 section{position:relative}
 .band{padding-block:clamp(48px,6vw,80px)}
-.sec-title{font-size:clamp(28px,3.2vw,40px);font-weight:700}
+.sec-title{font-size:clamp(28px,3.2vw,40px);font-weight:700;letter-spacing:-.02em;line-height:1.12}
 .sec-lede{font-size:17px;margin-top:12px;max-width:38em}
 
 /* Problem */
@@ -315,7 +315,7 @@ section{position:relative}
 .wcard.client .mock{background:linear-gradient(160deg,#F7EEE7,#EADBCF)}
 .wdesc{font-size:13px;color:#475569;margin-top:8px;line-height:1.45}
 .wlink{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-weight:600;font-size:14px;color:var(--blue);text-decoration:none}
-.wlink:hover{text-decoration:underline}
+@media (hover:hover) and (pointer:fine){.wlink:hover{text-decoration:underline}}
 .wlink .ico{width:15px;height:15px}
 
 /* Process */
@@ -422,7 +422,7 @@ fieldset.field{border:0;padding:0;margin:0}
 .days button .n{display:inline-block;margin-top:3px;background:#22C55E;color:#fff;border-radius:8px;font-size:10px;font-weight:700;padding:1px 6px}
 .slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;margin-top:8px}
 .slots button{border:1.5px solid #C9D7F6;background:#fff;color:var(--blue-d);border-radius:8px;padding:9px 6px;font-weight:600;font-size:14px;font-variant-numeric:tabular-nums}
-.slots button:hover:not(:disabled){background:var(--tint)}
+@media (hover:hover) and (pointer:fine){.slots button:hover:not(:disabled){background:var(--tint)}}
 .slots button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
 .slots button:disabled{opacity:.45;cursor:not-allowed}
 .picked{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;align-items:center;min-height:34px}
@@ -525,7 +525,7 @@ form.enq .estimate{padding:9px 12px;font-size:13.5px}
 /* Blog: rich article + cards */
 .post-card .post-img{aspect-ratio:16/10;overflow:hidden;background:var(--tint)}
 .post-card .post-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
-.post-card:hover .post-img img{transform:scale(1.03)}
+@media (hover:hover) and (pointer:fine){.post-card:hover .post-img img{transform:scale(1.03)}}
 .post-card .post-cat.pill-cat{align-self:flex-start;background:var(--blue);color:#fff;padding:6px 10px;border-radius:6px;font-size:10.5px}
 .post-card .post-body h3{font-size:clamp(18px,1.6vw,21px);line-height:1.2}
 .post-foot{margin-top:auto;padding-top:12px;display:flex;align-items:center;gap:10px;border-top:1px solid var(--line)}
@@ -534,7 +534,7 @@ form.enq .estimate{padding:9px 12px;font-size:13.5px}
 .post-foot .who b{color:var(--ink);font-weight:600}
 .post-foot .go{width:38px;height:38px;border-radius:50%;background:var(--tint);color:var(--blue);display:grid;place-items:center;flex:none;transition:background .15s,color .15s}
 .post-foot .go .ico{width:16px;height:16px}
-.post-card:hover .post-foot .go{background:var(--blue);color:#fff}
+@media (hover:hover) and (pointer:fine){.post-card:hover .post-foot .go{background:var(--blue);color:#fff}}
 .article-hero.has-cover{position:relative;overflow:hidden;background:var(--navy)}
 .article-hero.has-cover .cover{position:absolute;inset:0 0 0 auto;width:min(62%,900px);background-size:cover;background-position:center}
 .article-hero.has-cover::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--navy) 0%,var(--navy) 38%,rgba(11,18,32,.75) 52%,rgba(11,18,32,.1) 80%);z-index:1}
@@ -576,7 +576,7 @@ form.enq .estimate{padding:9px 12px;font-size:13.5px}
 .soon-txt{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:13px;font-weight:600;color:#B45309}
 .soon-txt .ico{width:14px;height:14px}
 .post-card.soon{position:relative;cursor:default}
-.post-card.soon:hover{transform:none;box-shadow:none}
+@media (hover:hover) and (pointer:fine){.post-card.soon:hover{transform:none;box-shadow:none}}
 .post-card.soon .post-art,.post-card.soon .post-img{filter:saturate(.6) brightness(.85)}
 .post-card.soon .post-foot .who{display:flex;gap:6px;align-items:center;color:#B45309;font-weight:600}
 .post-card.soon .post-foot .ico{width:14px;height:14px}
@@ -621,11 +621,11 @@ footer{background:var(--navy);color:#A9B6CF;padding-block:36px;font-size:14px}
 .foot{display:flex;flex-wrap:wrap;gap:20px 40px;align-items:center;justify-content:space-between}
 .foot nav{display:flex;flex-wrap:wrap;gap:6px 18px}
 .foot a{text-decoration:none}
-.foot a:hover{color:#fff}
+@media (hover:hover) and (pointer:fine){.foot a:hover{color:#fff}}
 
 /* Chatbot */
 .fb-fab{position:fixed;left:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:60;height:52px;padding:0 18px 0 14px;border-radius:999px;background:#1877F2;color:#fff;display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:15px;text-decoration:none;box-shadow:0 14px 30px -10px rgba(24,119,242,.9);transition:transform .15s}
-.fb-fab:hover{transform:translateY(-2px);color:#fff}
+@media (hover:hover) and (pointer:fine){.fb-fab:hover{transform:translateY(-2px);color:#fff}}
 .fb-fab .fb-f{width:26px;height:26px;border-radius:50%;background:#fff;color:#1877F2;display:grid;place-items:center;font:800 18px/1 Arial,sans-serif;padding-top:3px}
 @media (max-width:600px){.fb-fab{left:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));width:52px;padding:0;justify-content:center}.fb-fab .fb-t{display:none}}
 .chat-fab{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:60;width:60px;height:60px;border-radius:50%;border:0;background:var(--blue);color:#fff;box-shadow:0 14px 30px -10px rgba(37,99,235,.9);display:grid;place-items:center}
@@ -638,7 +638,7 @@ footer{background:var(--navy);color:#A9B6CF;padding-block:36px;font-size:14px}
 .chat-top small{color:var(--muted-d);font-size:12px}
 .chat-top button{background:none;border:0;color:#fff;padding:6px}
 .chat-top .reset-btn{margin-left:auto;display:inline-flex;align-items:center;gap:5px;border:1px solid rgba(255,255,255,.35);border-radius:16px;padding:5px 10px;font-size:12.5px;font-weight:600}
-.chat-top .reset-btn:hover{background:rgba(255,255,255,.12)}
+@media (hover:hover) and (pointer:fine){.chat-top .reset-btn:hover{background:rgba(255,255,255,.12)}}
 .chat-top .reset-btn .ico{width:14px;height:14px}
 .chat-log{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--tint-2)}
 .msg{max-width:88%;padding:10px 13px;border-radius:14px;font-size:14px;line-height:1.5}
@@ -646,9 +646,9 @@ footer{background:var(--navy);color:#A9B6CF;padding-block:36px;font-size:14px}
 .msg.me{background:var(--blue);color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
 .quick{display:flex;flex-wrap:wrap;gap:6px;align-self:flex-start}
 .quick button{background:#fff;border:1.5px solid #C9D7F6;color:var(--blue-d);border-radius:16px;padding:6px 11px;font-size:13px;font-weight:500}
-.quick button:hover{background:var(--tint)}
+@media (hover:hover) and (pointer:fine){.quick button:hover{background:var(--tint)}}
 .quick button.q-cta{background:var(--blue);border-color:var(--blue);color:#fff}
-.quick button.q-cta:hover{background:var(--blue-d)}
+@media (hover:hover) and (pointer:fine){.quick button.q-cta:hover{background:var(--blue-d)}}
 .quick button.q-reset{border-color:#E2E8F0;color:#475569}
 .calc .calc-sub{font:700 11px/1 var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:6px}
 .calc label[hidden]{display:none}
@@ -661,7 +661,7 @@ footer{background:var(--navy);color:#A9B6CF;padding-block:36px;font-size:14px}
 .est-lines div{display:flex;justify-content:space-between;gap:12px;font-size:13.5px}
 .est-lines .t{border-top:1px solid var(--line);padding-top:5px;margin-top:3px;font-weight:700}
 .chat-link{display:inline-flex;align-items:center;gap:6px;margin-top:10px;background:var(--blue);color:#fff;text-decoration:none;font-weight:600;font-size:13.5px;padding:8px 13px;border-radius:8px}
-.chat-link:hover{background:var(--blue-d)}
+@media (hover:hover) and (pointer:fine){.chat-link:hover{background:var(--blue-d)}}
 .chat-link .ico{width:14px;height:14px}
 .msg.warn{background:#FFF7ED;border-color:#FED7AA;color:#7C2D12}
 .calc{display:grid;gap:6px;margin-top:8px}
@@ -676,6 +676,7 @@ footer{background:var(--navy);color:#A9B6CF;padding-block:36px;font-size:14px}
 .msg.typing i:nth-child(2){animation-delay:.15s}.msg.typing i:nth-child(3){animation-delay:.3s}
 @keyframes blink{0%,100%{opacity:.3}50%{opacity:1}}
 .chat-in{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line);background:#fff}
+.chat-note{margin:0;padding:0 12px 10px;background:#fff;font-size:11.5px;line-height:1.4;color:var(--muted,#6E6E73)}.chat-note a{color:inherit;text-decoration:underline}
 .chat-in input{flex:1;min-width:0;font:inherit;font-size:14px;border:1.5px solid #CBD5E1;border-radius:20px;padding:9px 14px;background:#fff;color:var(--ink);color-scheme:light}
 .chat-in input::placeholder{color:#64748B}
 .chat-in input:disabled{background:#F8FAFC}
@@ -733,7 +734,7 @@ footer{background:var(--navy);color:#A9B6CF;padding-block:36px;font-size:14px}
 .blog-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px 24px}
 .blog-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;margin-top:28px}
 .post-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;text-decoration:none;color:inherit;transition:transform .15s,box-shadow .15s}
-.post-card:hover{transform:translateY(-3px);box-shadow:0 22px 44px -24px rgba(11,18,32,.45)}
+@media (hover:hover) and (pointer:fine){.post-card:hover{transform:translateY(-3px);box-shadow:0 22px 44px -24px rgba(11,18,32,.45)}}
 .post-art{position:relative;aspect-ratio:16/10;display:grid;place-items:center;color:#fff;overflow:hidden}
 .post-art::before{content:"";position:absolute;width:70%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.1);right:-18%;top:-30%}
 .post-art .ico{width:46px;height:46px;stroke-width:1.5;position:relative}
@@ -750,7 +751,7 @@ footer{background:var(--navy);color:#A9B6CF;padding-block:36px;font-size:14px}
 /* Floating "All articles" button: always visible while reading */
 .back-float{position:fixed;left:max(16px,calc((100vw - var(--wrap))/2 + var(--gut)));top:calc(var(--head-h,70px) + 10px);z-index:49;display:inline-flex;align-items:center;gap:8px;background:var(--navy,#0B1220);color:#fff;text-decoration:none;font-weight:600;font-size:13.5px;padding:8px 14px;border-radius:999px;box-shadow:0 10px 24px -10px rgba(11,18,32,.6);border:1px solid rgba(255,255,255,.14);transition:opacity .25s ease,transform .25s ease}
 .back-float .ico{transform:rotate(180deg);width:15px;height:15px}
-.back-float:hover{background:#1E293B;color:#fff}
+@media (hover:hover) and (pointer:fine){.back-float:hover{background:#1E293B;color:#fff}}
 .back-float.away{opacity:0;pointer-events:none;transform:translateY(-8px)}
 body.chat-open .back-float{display:none}
 .article-hero h1{font-size:clamp(30px,4vw,48px);margin-top:16px;max-width:20em}
@@ -771,7 +772,7 @@ body.chat-open .back-float{display:none}
 .more-posts{max-width:720px;margin:40px auto 0;border-top:1px solid var(--line);padding-top:24px}
 .more-posts h3{font-size:18px;margin-bottom:12px}
 .more-posts a{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);text-decoration:none;font-weight:600}
-.more-posts a:hover{color:var(--blue)}
+@media (hover:hover) and (pointer:fine){.more-posts a:hover{color:var(--blue)}}
 .more-posts a .dotico{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;color:#fff;flex:none}
 .more-posts a .dotico .ico{width:18px;height:18px}
 .blog-more{display:flex;justify-content:center;margin-top:28px}
@@ -791,11 +792,12 @@ body.chat-open .back-float{display:none}
   .chat-card{max-width:520px}
 }
 @media (max-width:1024px){
-  .nav,.head-cta{display:none}
+  .head-cta{display:none}
   .burger{display:block}
-  .site-head.open .nav{display:flex;flex-direction:column;position:absolute;left:0;right:0;top:100%;background:var(--navy);padding:8px var(--gut) 16px;border-bottom:1px solid var(--line-d)}
-  .site-head.open .nav a{padding:12px 4px;font-size:16px}
-  .site-head.open .nav a.on::after{display:none}
+  .nav{display:flex;flex-direction:column;align-items:stretch;gap:0;position:absolute;left:0;right:0;top:100%;background:#0E1626;padding:8px var(--gut) 16px;box-shadow:0 24px 40px -24px rgba(0,0,0,.6);transform-origin:top center;transform:translateY(-10px);opacity:0;visibility:hidden;pointer-events:none;transition:transform .32s cubic-bezier(.2,.9,.25,1),opacity .2s ease,visibility 0s linear .32s}
+  .site-head.open .nav{transform:none;opacity:1;visibility:visible;pointer-events:auto;transition:transform .32s cubic-bezier(.2,.9,.25,1),opacity .2s ease,visibility 0s}
+  .nav a{padding:12px 4px;font-size:16px}
+  .nav a.on::after{display:none}
   .hero-grid{grid-template-columns:1fr}
   .stage{justify-self:center}
   .problem-grid{grid-template-columns:1fr 1fr}
@@ -837,14 +839,14 @@ body.chat-open .back-float{display:none}
 }
 /* ===== Malaysia update ===== */
 .btn-wa{background:#15803D;color:#fff;box-shadow:0 10px 24px -10px rgba(21,128,61,.85)}
-.btn-wa:hover{background:#166534;transform:translateY(-1px);color:#fff}
+@media (hover:hover) and (pointer:fine){.btn-wa:hover{background:#166534;transform:translateY(-1px);color:#fff}}
 .btn-wa .ico{width:18px;height:18px}
 .btn-outline{background:#fff;border-color:#C9D7F6;color:var(--blue-d)}
-.btn-outline:hover{background:var(--tint)}
+@media (hover:hover) and (pointer:fine){.btn-outline:hover{background:var(--tint)}}
 .text-link{background:none;border:0;padding:6px 2px;color:#fff;font:600 15px/1.4 var(--f-body);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1.5px;cursor:pointer}
-.text-link:hover{color:var(--blue-l)}
+@media (hover:hover) and (pointer:fine){.text-link:hover{color:var(--blue-l)}}
 .text-link.dark-ink{color:var(--blue-d);text-align:left}
-.text-link.dark-ink:hover{color:var(--blue)}
+@media (hover:hover) and (pointer:fine){.text-link.dark-ink:hover{color:var(--blue)}}
 .contact .text-link{margin-top:16px;display:inline-block;color:#BFD4FF}
 .hero-cta{align-items:center;gap:18px 22px}
 .hero .eyebrow{display:inline-block;margin-bottom:16px}
@@ -852,7 +854,7 @@ body.chat-open .back-float{display:none}
 /* Language selector */
 .lang{display:flex;align-items:center;gap:2px;font-size:13px;font-weight:600;color:#5B6A8A;margin-left:10px;white-space:nowrap}
 .lang a{color:#C7D2E6;text-decoration:none;padding:6px 5px;border-radius:4px}
-.lang a:hover{color:#fff}
+@media (hover:hover) and (pointer:fine){.lang a:hover{color:#fff}}
 .lang a.on{color:#fff;text-decoration:underline;text-decoration-color:var(--blue-l);text-underline-offset:6px;text-decoration-thickness:2px}
 .nav a{padding:8px 10px}
 @media (max-width:1180px){.nav a{padding:8px 7px;font-size:13.5px}.head-in{gap:14px}}
@@ -861,12 +863,12 @@ body.chat-open .back-float{display:none}
 /* Floating WhatsApp button */
 .fb-fab{display:none!important}
 .wa-fab{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:60;height:54px;padding:0 20px 0 16px;border-radius:999px;background:#15803D;color:#fff;display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:15px;text-decoration:none;box-shadow:0 14px 30px -10px rgba(21,128,61,.9);transition:transform .15s}
-.wa-fab:hover{background:#166534;transform:translateY(-2px);color:#fff}
+@media (hover:hover) and (pointer:fine){.wa-fab:hover{background:#166534;transform:translateY(-2px);color:#fff}}
 .wa-fab .ico{width:24px;height:24px}
 @media (max-width:600px){.wa-fab{right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));height:50px;padding:0 16px 0 13px;font-size:14px}}
 .side-social{position:fixed;left:14px;top:50%;transform:translateY(-50%);z-index:55;display:flex;flex-direction:column;gap:12px}
 .side-social a{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;box-shadow:0 8px 20px -8px rgba(0,0,0,.45),0 0 0 3px rgba(255,255,255,.9);transition:transform .18s ease,box-shadow .18s ease}
-.side-social a:hover,.side-social a:focus-visible{transform:translateX(3px) scale(1.08);box-shadow:0 12px 24px -8px rgba(0,0,0,.5),0 0 0 3px #fff}
+@media (hover:hover) and (pointer:fine){.side-social a:hover,.side-social a:focus-visible{transform:translateX(3px) scale(1.08);box-shadow:0 12px 24px -8px rgba(0,0,0,.5),0 0 0 3px #fff}}
 .side-social svg{display:block}
 .side-social .ss-wa{background:#25D366}
 .side-social .ss-wa svg{width:26px;height:26px;fill:#fff}
@@ -878,17 +880,17 @@ body.chat-open .back-float{display:none}
 .side-social .ss-yt svg{width:30px;height:30px}
 @media (max-width:600px){.side-social{left:8px;gap:10px}.side-social a{width:42px;height:42px}.side-social .ss-wa svg{width:23px;height:23px}.side-social .ss-fb svg{width:42px;height:42px}.side-social .ss-ig svg{width:23px;height:23px}.side-social .ss-yt svg{width:26px;height:26px}}
 .chat{bottom:calc(92px + env(safe-area-inset-bottom,0px));max-height:min(640px,calc(100vh - 120px))}
-@media (max-width:600px){.chat{left:8px;right:8px;width:auto;bottom:calc(84px + env(safe-area-inset-bottom,0px));max-height:calc(100dvh - 100px)}}
+@media (max-width:600px){.chat{left:0;right:0;width:auto;bottom:0;max-height:88dvh;border-radius:20px 20px 0 0;border-bottom:0;padding-bottom:env(safe-area-inset-bottom,0px)}.chat .chat-top{padding-top:22px;touch-action:none;cursor:grab}.chat .chat-top::before{content:"";position:absolute;left:50%;top:8px;width:40px;height:5px;margin-left:-20px;border-radius:3px;background:rgba(255,255,255,.45)}body.chat-open .chat-fab{opacity:0;pointer-events:none}}
 .handoff{display:flex;align-items:center;justify-content:center;gap:8px;border:0;border-top:1px solid #BBF7D0;background:#F0FDF4;color:#166534;font-weight:700;font-size:13.5px;padding:10px 12px}
 .handoff .ico{width:16px;height:16px}
-.handoff:hover{background:#DCFCE7}
+@media (hover:hover) and (pointer:fine){.handoff:hover{background:#DCFCE7}}
 .handoff:disabled{opacity:.6;cursor:default}
 .quick button.q-red{background:#DC2626;border-color:#DC2626;color:#fff}
 .quick button.q-wa{background:#15803D;border-color:#15803D;color:#fff}
-.quick button.q-wa:hover{background:#166534}
+@media (hover:hover) and (pointer:fine){.quick button.q-wa:hover{background:#166534}}
 .wa-preview{margin-top:8px;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:10px;padding:8px 10px;font-size:13px;line-height:1.45;color:#14532D;overflow-wrap:anywhere}
 .chat-link.wa{background:#15803D}
-.chat-link.wa:hover{background:#166534}
+@media (hover:hover) and (pointer:fine){.chat-link.wa:hover{background:#166534}}
 .calc .btn-wa{margin-top:6px;padding:.65em 1em;font-size:13.5px}
 /* Hero WhatsApp enquiry card */
 .wa-enq .av{background:#DCFCE7;color:#15803D}
@@ -926,7 +928,8 @@ body.chat-open .back-float{display:none}
 .assist-price .btn{width:100%}
 @media (max-width:900px){.assist{grid-template-columns:1fr}}
 /* Work: two cards */
-#workGrid{grid-template-columns:repeat(2,minmax(0,1fr));max-width:920px}
+#workGrid{grid-template-columns:repeat(3,minmax(0,1fr));max-width:none}
+@media (max-width:900px){#workGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){#workGrid{grid-template-columns:1fr}}
 /* Three steps */
 .steps3{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -935,7 +938,7 @@ body.chat-open .back-float{display:none}
 .direct a.row{text-decoration:none;color:#fff}
 .direct a.row span,.direct .row.info span{user-select:auto;word-break:normal;font-weight:600}
 .direct .row.info span{font-weight:500;color:#D3DCEE}
-.direct a.row:hover{background:rgba(255,255,255,.1)}
+@media (hover:hover) and (pointer:fine){.direct a.row:hover{background:rgba(255,255,255,.1)}}
 .direct .wa-row{background:rgba(21,128,61,.28);border-color:rgba(74,222,128,.45)}
 .direct .wa-row .ico{color:#4ADE80}
 .direct .wa-row .go{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#BBF7D0}
@@ -971,7 +974,7 @@ html[lang^="zh"] .hero h1 span{white-space:nowrap}
 @media (max-width:480px){.addon-list li{grid-template-columns:24px minmax(0,1fr) 40px 64px;gap:6px;padding-inline:8px}.addon-list .ai{width:24px;height:24px}}
 /* Header: red "Urgent? Call me" (different from the green WhatsApp buttons) */
 .btn-red{background:#DC2626;color:#fff;box-shadow:0 10px 24px -10px rgba(220,38,38,.85)}
-.btn-red:hover{background:#B91C1C;color:#fff;transform:translateY(-1px)}
+@media (hover:hover) and (pointer:fine){.btn-red:hover{background:#B91C1C;color:#fff;transform:translateY(-1px)}}
 .hc-short{display:none}
 .lang-m{display:none}
 .lang{transition:opacity .3s ease}
@@ -1028,6 +1031,310 @@ html[lang^="zh"] .hero h1 span{white-space:nowrap}
 .foot-legal{font-size:13px}
 .blog-lang-note{margin-top:10px;color:#A9B6CF;font-size:14px}
 .blog-lang-note:empty{display:none}
+
+/* ---------- Feel: instant press feedback, fluid chat, smooth FAQ (Apple-style) ---------- */
+html{-webkit-tap-highlight-color:transparent}
+a,button,summary,label,input[type=checkbox]{touch-action:manipulation}
+.btn,.quick button,.chat-fab,.side-social a,.head-cta,.burger,.lang a,.slots button,.chat-in button,.handoff,.back-float,.chat-link,.text-link,.linkbtn,.filters button,.cat-chips button{transition:transform .16s cubic-bezier(.2,.9,.25,1),background-color .15s,color .15s,box-shadow .2s}
+.btn:active,.quick button:active,.chat-fab:active,.head-cta:active,.burger:active,.slots button:active,.chat-in button:active,.handoff:active,.back-float:active,.chat-link:active,.linkbtn:active{transform:scale(.96);transition-duration:.06s}
+.side-social a:active{transform:scale(.92);transition-duration:.06s}
+.post-card:active{transform:scale(.985);transition-duration:.08s}
+.lang a:active{opacity:.7}
+.chat{transform-origin:calc(100% - 30px) calc(100% + 42px);will-change:transform,opacity}
+body.menu-open .side-social{opacity:0;pointer-events:none}
+.side-social{transition:opacity .2s}
+.chat-scrim{position:fixed;inset:0;z-index:60;background:rgba(11,18,32,.45);opacity:0;pointer-events:none}
+details > p, details > div{overflow:hidden}
+summary{transition:color .15s}
+details.closing summary::after{transform:none!important}
+details summary::after{transition:transform .25s cubic-bezier(.2,.9,.25,1)}
+@media (prefers-reduced-transparency:reduce){.site-head,.nav{background:var(--navy)!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}}
+@media (prefers-contrast:more){.site-head{background:var(--navy);border-bottom:1px solid rgba(255,255,255,.5)}}
+@media (prefers-reduced-motion:reduce){.btn:active,.quick button:active,.chat-fab:active,.side-social a:active,.post-card:active{transform:none}.nav{transform:none!important}}
+
+/* Chat bubble hover: lifts, icon tilts, a label slides out (mouse only) */
+.chat-fab .ico{transition:transform .35s cubic-bezier(.2,.9,.25,1)}
+.fab-tip{position:fixed;right:80px;bottom:calc(31px + env(safe-area-inset-bottom,0px));z-index:59;background:#fff;color:var(--ink,#0F172A);border:1px solid rgba(11,18,32,.08);font:600 13.5px/1 var(--f-body);padding:10px 14px;border-radius:999px;white-space:nowrap;box-shadow:0 12px 28px -12px rgba(11,18,32,.6);opacity:0;transform:translateX(10px) scale(.96);transform-origin:right center;pointer-events:none;transition:opacity .18s ease,transform .3s cubic-bezier(.2,.9,.25,1)}
+@media (hover:hover) and (pointer:fine){
+  body:not(.chat-open) .chat-fab:hover{transform:translateY(-3px) scale(1.06);box-shadow:0 20px 38px -12px rgba(37,99,235,.95)}
+  body:not(.chat-open) .chat-fab:hover .ico{transform:rotate(-10deg) scale(1.05)}
+  body:not(.chat-open) .chat-fab:hover + .fab-tip{opacity:1;transform:none}
+  body:not(.chat-open) .chat-fab:active{transform:scale(.96)}
+}
+
+@media (prefers-reduced-motion:reduce){.chat-fab:hover,.chat-fab:hover .ico{transform:none!important}.fab-tip{transform:none!important}}
+
+/* =====================================================================
+   APPLE-STYLE THEME — light, airy, big type, pill buttons, soft panels
+   ===================================================================== */
+:root{
+  --ink:#1D1D1F; --muted:#6E6E73; --muted-d:#6E6E73; --bg:#FFFFFF; --tint:#F5F5F7; --tint-2:#F5F5F7;
+  --blue:#0071E3; --blue-d:#0062C4; --blue-l:#0071E3; --line:#E8E8ED; --line-d:#E8E8ED;
+  --f-head:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter","Segoe UI",system-ui,sans-serif;
+  --f-body:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",system-ui,sans-serif;
+  --r:14px; --r-lg:22px; --shadow:0 4px 24px rgba(0,0,0,.06);
+}
+body{background:#fff;color:var(--ink);font-size:17px;letter-spacing:-.011em}
+h1,h2,h3,h4{font-family:var(--f-head);font-weight:700;letter-spacing:-.022em}
+.muted,.dark .muted{color:var(--muted)}
+.eyebrow,.dark .eyebrow{color:#BF4800;font:600 14px/1.2 var(--f-body);letter-spacing:0;text-transform:none}
+/* every former navy band becomes Apple's light grey */
+.dark{background:#F5F5F7!important;color:var(--ink)!important}
+.band{padding-block:clamp(72px,9vw,128px)}
+
+/* Header: light frosted glass, small type */
+.site-head{background:rgba(255,255,255,.72)!important;color:var(--ink)!important;box-shadow:0 1px 0 rgba(0,0,0,.08)!important}
+.logo{color:var(--ink)}
+.logo b{font-weight:700;letter-spacing:0}
+.nav a{color:rgba(0,0,0,.8);font-size:13px;font-weight:400}
+.nav a.on{color:#000}
+.nav a.on::after{background:#000;height:1.5px}
+@media (hover:hover) and (pointer:fine){.nav a:hover{color:#000}.lang a:hover{color:#000}}
+.lang a{color:rgba(0,0,0,.6)}
+.lang a.on{color:#000;text-decoration-color:#000}
+.burger{color:var(--ink)}
+@media (max-width:1024px){
+  .nav{background:rgba(255,255,255,.98)!important;box-shadow:0 20px 40px -20px rgba(0,0,0,.25)}
+  .nav a{color:var(--ink);font-size:20px;font-weight:600;padding:12px 4px}
+  .head-in>.lang{border-color:rgba(0,0,0,.15)}
+  .head-in>.lang a.on{background:var(--ink);color:#fff}
+}
+
+/* Buttons: pills */
+.btn{border-radius:980px;font-weight:500;font-size:16px;padding:.85em 1.5em;letter-spacing:-.01em}
+.btn-primary{background:var(--blue);box-shadow:none}
+.btn-wa{background:#1F9D55;box-shadow:none}
+.btn-red,.head-cta{border-radius:980px;box-shadow:none!important}
+@media (hover:hover) and (pointer:fine){.btn-primary:hover{background:var(--blue-d);transform:none}.btn-wa:hover{background:#178A49;transform:none}.btn-red:hover{transform:none}}
+.text-link,.text-link.dark-ink{color:var(--blue);text-decoration:none;font-weight:500}
+@media (hover:hover) and (pointer:fine){.text-link:hover,.text-link.dark-ink:hover{text-decoration:underline;color:var(--blue)}}
+
+/* Hero: centred, huge headline, product shot underneath */
+.hero.dark{background:#fff!important}
+.hero{padding-block:clamp(56px,8vw,104px) 0}
+.hero-grid{grid-template-columns:1fr;justify-items:center;text-align:center;gap:clamp(36px,5vw,64px)}
+.hero h1{font-size:clamp(44px,7.2vw,96px);line-height:1.03;letter-spacing:-.038em;max-width:12em}
+.hero h1 span{background:linear-gradient(90deg,#0071E3 0%,#7A5CFF 55%,#E34B8F 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .lede{color:var(--muted)!important;font-size:clamp(19px,2vw,24px);line-height:1.4;max-width:34em;margin-inline:auto;text-shadow:none!important}
+.hero h1,.hero .fact,.consult-note{text-shadow:none!important}
+.hero-facts{justify-content:center}
+.fact{color:var(--ink);text-shadow:none!important}
+.fact .ico{color:var(--blue)}
+.hero-cta{justify-content:center}
+.hero .eyebrow{display:block}
+.stage{justify-self:center;max-width:980px;margin-bottom:-2px}
+.consult-note{justify-content:center;color:var(--muted)}
+
+/* Section headings: big and centred where they stand alone */
+.sec-title{font-size:clamp(34px,4.6vw,56px);letter-spacing:-.03em;line-height:1.06}
+.why h2{font-size:clamp(36px,5vw,64px);letter-spacing:-.035em;line-height:1.05}
+.why h2 span{color:var(--blue)}
+.why p.copy,.contact .copy{color:var(--muted)!important;font-size:19px}
+
+/* Panels: soft, borderless, generously rounded */
+.why .card,.why .compare > *,.fit-card,.price-card,.care-card,.bot-card,.post-card,.work-card,.founder,.faq-sec details,.contact-form,form.contact-form{border:0!important;border-radius:var(--r-lg)!important}
+
+/* --- second pass: fix dark-designed pieces --- */
+.stage .note{display:none}
+.why-pill,.faq-pill{background:none;color:#BF4800;padding:0;font:600 15px/1.2 var(--f-body);letter-spacing:0;text-transform:none;border-radius:0}
+.why-pill .ico,.faq-pill .ico{display:none}
+.vs-social{background:#fff;border:0;color:var(--muted)}
+.vs-social h3,.vs-social li b{color:var(--ink)}
+.vs-social .x{background:#F5F5F7;color:var(--muted)}
+.vs-site{box-shadow:0 30px 60px -30px rgba(0,0,0,.25);border-radius:var(--r-lg)}
+.fit,.fit.yes{background:#F5F5F7;border:0}
+.fit ul{color:#424245}
+.inc-list li{color:var(--ink)}
+.pricing .right{background:#fff}
+.contact-alt{color:var(--muted)}
+.contact-alt a{color:var(--blue)}
+footer{background:#F5F5F7;color:var(--muted);font-size:12.5px;border-top:1px solid #E8E8ED}
+footer .logo{color:var(--ink)}
+.foot a{color:#424245}
+@media (hover:hover) and (pointer:fine){.foot a:hover{color:#000;text-decoration:underline}}
+.inc-list li.hl-li b{color:var(--ink)}
+.bonus-fine{color:var(--muted)}
+
+/* --- third pass --- */
+.about-hero .lede,.article-hero .lede,.cta-panel p,.about-cta p,.article-cta p{color:var(--muted)!important}
+.article-hero .meta{color:var(--muted)}
+.article-hero .meta b{color:var(--ink)}
+.article-hero .back{color:var(--blue)}
+.article-hero .eyebrow::before{display:none}
+.article-hero h1{font-size:clamp(36px,5vw,64px);letter-spacing:-.035em;line-height:1.05}
+.cat-filter button{border:0;background:#fff;color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.cat-filter button[aria-pressed="true"]{background:var(--ink);color:#fff}
+/* article pages keep their photo header: dark, white text */
+.article-hero.has-cover{background:#000!important;color:#fff!important}
+.article-hero.has-cover::before{background:linear-gradient(90deg,#000 0%,#000 36%,rgba(0,0,0,.72) 52%,rgba(0,0,0,.08) 82%)}
+.article-hero.has-cover .lede{color:rgba(255,255,255,.82)!important}
+.article-hero.has-cover .meta{color:rgba(255,255,255,.7)}
+.article-hero.has-cover .meta b{color:#fff}
+.article-hero.has-cover .eyebrow{color:#FF9F45}
+.article-hero.has-cover .back{color:#4DA3FF}
+.article-hero.has-cover h1 .hl{background:linear-gradient(90deg,#4DA3FF,#A98BFF);-webkit-background-clip:text;background-clip:text;color:transparent}
+@media (max-width:900px){.article-hero.has-cover::before{background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.82) 45%,rgba(0,0,0,.94) 75%)}}
+
+/* header call button keeps compact sizes */
+.site-head .head-cta{font-size:14px;padding:.55em 1.05em}
+@media (max-width:440px){.site-head .head-cta{font-size:13px;padding:.55em .75em}}
+@media (max-width:380px){.site-head .head-cta{padding:0}}
+@media (max-width:400px){html:lang(ms) .site-head .head-cta{padding:0}}
+.chat-scrim{width:100%;right:auto}
+
+/* light (Apple-style) mini mock-up, used for the tuition demo */
+.ms.light .ms-hero{background:#fff;color:#1D1D1F;grid-template-columns:1fr;text-align:center}
+.ms.light .ms-copy{padding:5cqw 6cqw 4cqw;align-items:center}
+.ms.light .ms-copy b{font-size:5cqw;letter-spacing:-.04em;background:linear-gradient(90deg,#1D1D1F 40%,#0071E3 60%,#7A5CFF 80%,#E34B8F);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ms.light .ms-copy small{color:#6E6E73;opacity:1;max-width:44cqw}
+.ms.light .ms-cta,.ms.light .ms-btn{border-radius:99cqw}
+.ms.light .ms-art{display:none}
+.ms.light .ms-row{background:#F5F5F7}
+.ms.light.m .ms-copy b{font-size:9cqw}
+/* hover animations: slower and smoother (about 1.5 s), presses stay instant */
+.side-social a,.chat-fab,.chat-fab .ico,.fab-tip,.post-card,.post-card .post-img img,.wcard,.wcard .mock{transition-duration:1.5s!important;transition-timing-function:cubic-bezier(.16,1,.3,1)!important}
+.side-social a:active,.chat-fab:active,.post-card:active{transition-duration:.08s!important}
+@media (hover:hover) and (pointer:fine){.wcard:hover .mock{transform:translateY(-6px) scale(1.015)}}
+
+/* Called to Go thumbnail: matches her new Apple-style site */
+.ms.ctg{--mbg:#FFFFFF;--mink:#1D1D1F}
+.ms.ctg .ms-hero{background:linear-gradient(100deg,#fff 0 55%,#F5F5F7 100%);color:#1D1D1F}
+.ms.ctg .ms-copy b,.ms.ctg .ms-row span b{font-family:-apple-system,BlinkMacSystemFont,"Inter",system-ui,sans-serif;letter-spacing:-.04em}
+.ms.ctg .ms-copy b i{color:#1D1D1F}
+.ms.ctg .ms-copy em{letter-spacing:0;text-transform:none;font-weight:600}
+.ms.ctg .ms-cta,.ms.ctg .ms-ghost{border-radius:99cqw}
+.ms.ctg .ms-row{background:#F5F5F7;color:#1D1D1F}
+.ms.ctg .ms-row span{opacity:1;color:#6E6E73}
+.ms.ctg .ms-row span b{color:#1D1D1F}
+.wcard.client .mock{background:linear-gradient(160deg,#F5F5F7,#E8E8ED)}
+/* HERO (option 4): dark photo of someone at work, white words on the left */
+html .hero.dark{background:linear-gradient(90deg,rgba(6,10,20,.92) 0%,rgba(6,10,20,.78) 45%,rgba(6,10,20,.25) 100%),url("/img/why-cover.jpg") center 60%/cover no-repeat,#060A14!important}
+html .hero{padding-block:clamp(80px,10vw,140px)!important}
+.hero .stage{display:none!important}
+.hero-grid{text-align:left;justify-items:start}
+.hero h1{color:#fff;font-size:clamp(40px,5.4vw,72px);max-width:11em}
+.hero h1 span{background:linear-gradient(90deg,#64B5FF,#B49BFF 60%,#FF8FC0);-webkit-background-clip:text;background-clip:text;color:transparent}
+html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width:30em}
+.hero .fact,.hero .consult-note{color:rgba(255,255,255,.86)}
+.hero .fact .ico{color:#64B5FF}
+.hero .consult-note .ico{color:#4ADE80}
+.hero-facts,.hero-cta,.hero .consult-note{justify-content:flex-start}
+.hero .text-link{color:#9CCBFF}
+.hero .eyebrow{color:#FFB15C}
+@media (max-width:700px){html .hero.dark{background:linear-gradient(180deg,rgba(6,10,20,.88),rgba(6,10,20,.82)),url("/img/why-cover.jpg") 70% 50%/cover no-repeat,#060A14!important}}
+/* NEAT PRICING: "What's included" and "Optional add-ons" side by side, as one block */
+.pricing{display:grid!important;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:24px;align-items:stretch;
+  max-width:calc(var(--wrap) + 2*var(--gut));margin:0 auto;padding:clamp(48px,6vw,88px) var(--gut) clamp(24px,3vw,40px)!important;background:#fff!important}
+.pricing .left,.pricing .right{padding:clamp(24px,3vw,40px)!important;margin:0;max-width:none;background:#F5F5F7!important;border-radius:32px;min-width:0}
+.pricing .left > .sec-title{font-size:clamp(30px,3.4vw,44px);letter-spacing:-.025em}
+.pricing .left > .sec-lede{max-width:34em;color:var(--muted)}
+.pricing .inc-grid{grid-template-columns:minmax(0,1fr) minmax(0,260px)!important;gap:16px 24px;align-items:start!important;margin-top:24px}
+.pricing .inc-grid .inc-list{grid-column:1;grid-row:1;margin:0;gap:11px}
+.pricing .inc-grid .price-card{grid-column:2;grid-row:1;box-shadow:0 24px 50px -32px rgba(0,0,0,.28)!important;padding:24px 20px}
+.pricing .inc-list li{font-size:15px;line-height:1.4}
+.pricing .inc-list .tick{flex:none}
+.pricing .inc-grid .bonus{grid-column:1 / -1;margin:0!important;background:#fff;color:var(--ink);box-shadow:none;border-radius:18px;padding:12px 16px}
+.pricing .bonus .bonus-ico{background:#E9F8EE}.pricing .bonus .bonus-ico .ico{color:#15803D}
+.pricing .bonus .bonus-txt em{color:#15803D}.pricing .bonus .bonus-txt small{color:var(--muted)}
+.pricing .bonus .bonus-free{background:#E9F8EE;color:#15803D;transform:none;box-shadow:none;font-size:13px;padding:7px 12px;border-radius:999px}
+.pricing .inc-grid .bonus-fine{grid-column:1 / -1;margin:0!important;color:var(--muted)}
+.pricing .addons h2{font-size:clamp(26px,2.6vw,34px);letter-spacing:-.02em}
+.pricing .addons p.lede{color:var(--muted)}
+.pricing .save-banner{background:#EEF9F1;border:0;border-radius:16px;color:#14532D}
+.pricing .addon-list{border:0;box-shadow:none;background:#fff;border-radius:20px;padding:4px 8px}
+.pricing .addon-list li{border-top:1px solid rgba(0,0,0,.06);background:none!important;padding:11px 8px}
+.pricing .addon-list li.hd{background:none;color:var(--muted);border-top:0}
+.pricing .addon-list .ai{background:#F5F5F7;color:var(--ink)}
+.pricing .addon-list .deal{background:#EEF9F1;border:0;color:#15803D}
+.pricing .rush-note{background:#FFF8EC;border:0;border-radius:16px}
+@media (max-width:1100px){.pricing{grid-template-columns:1fr}}
+@media (max-width:700px){
+  .pricing{padding-inline:16px!important}
+  .pricing .left,.pricing .right{padding:18px!important;border-radius:24px}
+  .pricing .inc-grid{grid-template-columns:1fr!important}
+  .pricing .inc-grid > *{grid-column:1!important;grid-row:auto!important}
+  .pricing .inc-grid .price-card{order:-1}
+  .pricing .inc-grid .bonus{grid-template-columns:38px minmax(0,1fr) auto;gap:10px;padding:12px}
+  .pricing .bonus .bonus-ico{width:38px;height:38px}
+}
+@media (max-width:480px){
+  .pricing .addon-list{padding:4px 6px}
+  .pricing .addon-list li{grid-template-columns:24px minmax(0,1fr) 50px 64px;gap:8px;padding:12px 4px}
+  .pricing .addon-list .was{font-size:13.5px}
+  .pricing .addon-list .deal{font-size:14px;padding:5px 2px}
+  .pricing .addon-list .deal-word{font-size:11.5px}
+  .pricing .save-banner{flex-direction:row;align-items:center;text-align:left}
+}
+/* Website Care price: smaller */
+.care-price span{font-size:clamp(28px,2.6vw,34px)!important}
+/* spacing tidy-up */
+.care-sec{padding-block:clamp(24px,3vw,40px)!important;background:#fff!important}
+.pricing-cta-sec{padding-block:clamp(32px,4vw,56px)!important}
+/* Blog articles: tables, sub-headings and the one-time vs recurring cost graphic */
+.article .a-h3{font-size:clamp(18px,1.8vw,21px);letter-spacing:-.01em;margin:22px 0 8px}
+.article.flat .a-sec.has-ico .a-text>p{padding-left:0}
+/* glossy panels: soft edge shadow + light falling from the top-left at about 30 degrees */
+.article .a-table,.article .cs-card{position:relative;border-radius:20px;background:
+    linear-gradient(150deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.55) 22%,rgba(255,255,255,0) 42%),
+    linear-gradient(180deg,#F4F8FF,#E9EFFA);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(11,18,32,.04),0 2px 6px rgba(11,18,32,.06),0 22px 44px -24px rgba(11,18,32,.38)}
+.article .a-table{overflow-x:auto;margin:20px 0 8px;-webkit-overflow-scrolling:touch}
+.article .a-table:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.article .a-table table{width:100%;border-collapse:separate;border-spacing:0;font-size:15.5px;line-height:1.45;min-width:420px}
+.article .a-table th,.article .a-table td{text-align:left;padding:13px 18px;border-top:1px solid rgba(37,99,235,.10);vertical-align:top}
+.article .a-table thead th{border-top:0;font-size:13px;letter-spacing:.05em;text-transform:uppercase;font-weight:700;color:#fff;
+  background:linear-gradient(150deg,rgba(255,255,255,.38) 0%,rgba(255,255,255,.08) 34%,rgba(255,255,255,0) 50%),linear-gradient(180deg,#3B82F6,#1D4ED8);
+  text-shadow:0 1px 1px rgba(0,0,0,.18)}
+.article .a-table thead th:first-child{border-top-left-radius:19px}
+.article .a-table thead th:last-child{border-top-right-radius:19px}
+.article .a-table tbody tr:nth-child(even){background:rgba(255,255,255,.45)}
+.article .a-table tbody th{font-weight:600;color:var(--ink)}
+.article .a-table td{white-space:nowrap;color:#1E3A8A;font-weight:600}
+@media (max-width:600px){.article .a-table table{min-width:0}.article .a-table td{white-space:normal}.article .a-table th,.article .a-table td{padding:11px 12px}}
+.article .cost-split{margin:24px 0 6px}
+.article .cost-split figcaption{font-weight:700;font-size:16px;margin-bottom:12px}
+.article .cs-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.article .cs-card{overflow:hidden;padding:0 0 18px}
+.article .cs-card.cs-recur{background:linear-gradient(150deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.55) 22%,rgba(255,255,255,0) 42%),linear-gradient(180deg,#F2FBF5,#E5F5EA)}
+.article .cs-card h4{margin:0 0 12px;padding:13px 20px;font-size:15px;letter-spacing:.02em;color:#fff;text-shadow:0 1px 1px rgba(0,0,0,.18);
+  background:linear-gradient(150deg,rgba(255,255,255,.38) 0%,rgba(255,255,255,.08) 34%,rgba(255,255,255,0) 50%),linear-gradient(180deg,#3B82F6,#1D4ED8)}
+.article .cs-card.cs-recur h4{background:linear-gradient(150deg,rgba(255,255,255,.38) 0%,rgba(255,255,255,.08) 34%,rgba(255,255,255,0) 50%),linear-gradient(180deg,#22C55E,#15803D)}
+.article .cs-card p{margin:0 20px 8px;color:var(--muted);font-size:14.5px}
+.article .cs-card ul{margin:0 20px;padding-left:20px;list-style:disc;display:block}
+.article .cs-card li{display:list-item;font-size:15.5px;line-height:1.7;grid-template-columns:none;color:var(--ink)}
+@media (max-width:640px){.article .cs-grid{grid-template-columns:1fr}}
+/* PRINT / SAVE AS PDF: header only once at the top, no floating buttons, keep the article's photos and dark title area */
+@media print{
+  .site-head,#head{position:static!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+  .side-social,.chat-fab,.fab-tip,.chat,.back-float,.burger,.wa-float,.fb-fab,#okModal{display:none!important}
+  /* title area: photo on its own at the top, then dark text on white (no transparent overlays; Safari/Preview tint them) */
+  .article-hero,.article-hero.has-cover{background:#fff!important;color:var(--ink)!important;padding-top:0!important}
+  .article-hero::before,.article-hero.has-cover::before{display:none!important;content:none!important}
+  .article-hero .cover{position:static!important;display:block!important;width:100%!important;height:260px!important;margin:0 0 22px!important;border-radius:16px;background-size:cover!important;background-position:center 35%!important}
+  .article-hero h1,.article-hero .lede,.article-hero .meta,.article-hero .meta b,.article-hero .back{color:var(--ink)!important;text-shadow:none!important}
+  .article-hero .lede,.article-hero .meta{color:#3A3A3C!important}
+  .article-hero h1 .hl{background:none!important;-webkit-text-fill-color:#1D4ED8!important;color:#1D4ED8!important}
+  .article-hero .cover,.article .a-table,.article .a-table thead th,.article .cs-card,.article .cs-card h4,.a-sec h2 .h-ico,.article .tick,.article-cta{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .article .a-table,.article .cost-split,.article .cs-card,.a-fig,.article .a-table tr{break-inside:avoid;page-break-inside:avoid}
+  .a-sec h2,.article .a-h3{break-after:avoid;page-break-after:avoid}
+  .article .a-table,.article .cs-card,.a-fig{box-shadow:0 0 0 1px rgba(11,18,32,.12)!important}
+}
+/* PRICING PAGE + TEASER */
+.price-teaser{display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;background:var(--paper-alt,#F5F5F7);border-radius:28px;padding:40px 44px}
+.price-teaser h2{font-size:clamp(28px,4vw,44px);letter-spacing:-.02em;margin:8px 0 10px;line-height:1.08}
+.price-teaser h2 span{background:linear-gradient(90deg,#2563EB,#7C3AED);-webkit-background-clip:text;background-clip:text;color:transparent}
+.price-teaser p{max-width:34em;margin:0}
+.pt-cta{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.pricing-hero{text-align:center}.pricing-hero .lede{margin-left:auto;margin-right:auto}
+.pricing-hero h1 span{background:linear-gradient(90deg,#60A5FA,#A78BFA);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pricing-hero .hero-cta{justify-content:center;margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
+.pc-cta{width:100%;justify-content:center;margin:18px 0 4px}
+.pricing-cta{text-align:center;max-width:720px;margin:0 auto;padding:56px 28px;border-radius:32px;background:#1D1D1F;color:#fff}
+.pricing-cta h2{font-size:clamp(28px,4vw,42px);letter-spacing:-.02em;margin:0 0 12px;color:#fff}
+.pricing-cta p{color:rgba(255,255,255,.72);margin:0 auto 26px;max-width:32em}
+.pricing-cta .hero-cta{justify-content:center;display:flex;gap:12px;flex-wrap:wrap}
+@media (max-width:600px){.price-teaser{padding:28px 22px;border-radius:22px}.pricing-cta{padding:40px 20px;border-radius:24px}.pricing-hero .hero-cta .btn,.pricing-cta .btn{width:100%;justify-content:center}}
 </style>
 
 <!-- Icon sprite -->
@@ -1133,6 +1440,90 @@ html[lang^="zh"] .hero h1 span{white-space:nowrap}
   </div>
 </section>
 
+<!-- PRICING + ADD-ONS -->
+<section class="pricing" id="pricing">
+  <div class="left dark">
+    <h2 class="sec-title">What's included for RM1,600</h2>
+    <p class="sec-lede muted">A professional, mobile-friendly website with everything you need to get online and start getting enquiries.</p>
+    <div class="inc-grid">
+      <ul class="inc-list">
+        <li class="hl-li"><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span><b>Up to 8 pages or sections</b></span></li>
+        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Custom-designed homepage, an eye-catching landing page and a Services section</span></li>
+        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Mobile-friendly on phone, tablet and desktop</span></li>
+        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>WhatsApp and click-to-call buttons, a contact / enquiry form and social media links</span></li>
+        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>One language of your choice (English, BM or Chinese)</span></li>
+        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Basic SEO setup and a Google-friendly structure</span></li>
+        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Domain and launch setup</span></li>
+        <li class="hl-li"><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span><b>Website chatbot</b> (RM1,500 without it)</span></li>
+      </ul>
+      <div class="price-card">
+        <span class="pill">One-time project price</span>
+        <div class="amount"><sup>RM</sup>1,600</div>
+        <h3>Professional Website</h3>
+        <p class="pc-sub">Up to 8 pages or sections, with a website chatbot</p>
+        <p class="pc-bot">or <b>RM1,500</b> without the chatbot</p>
+        <div class="terms">
+          <div><svg class="ico"><use href="#i-tag"/></svg><span><b>RM200 deposit to start</b>The rest when it's ready, before launch</span></div>
+          <div><svg class="ico"><use href="#i-clock"/></svg><span><b>3–5 working days</b>+1 working day per add-on</span></div>
+        </div>
+        <a class="btn btn-primary pc-cta" href="#contact" data-goform>Get started: fill in the form <svg class="ico"><use href="#i-arrow"/></svg></a>
+        <div class="pay-row"><span class="pay-badge"><svg class="ico"><use href="#i-bank"/></svg><span>DuitNow, TNG eWallet or cash</span></span></div>
+      </div>
+      <div class="bonus"><span class="bonus-ico"><svg class="ico"><use href="#i-pin"/></svg></span><span class="bonus-txt"><em>Free with your website</em><b>Google Business Profile setup</b><small>Show up on Google Maps and Search</small></span><span class="bonus-free">FREE</span></div>
+      <div class="bonus"><span class="bonus-ico"><svg class="ico"><use href="#i-link"/></svg></span><span class="bonus-txt"><em>Free with your website</em><b>Domain name for the first year</b><small>Standard .com, .com.my or .my</small></span><span class="bonus-free">FREE</span></div>
+      <p class="bonus-fine">Premium domains are quoted separately. From the second year, you pay the domain renewal yourself, unless you subscribe to Website Care.</p>
+    </div>
+  </div>
+  <div class="right addons" id="addons">
+    <h2>Optional add-ons</h2>
+    <p class="lede">Add only what your business needs. Each add-on is RM500 on its own, or RM400 when bundled with the website or another add-on.</p>
+    <div class="save-banner"><span class="big">RM400</span><span>per add-on when bundled with your website or another add-on.</span></div>
+    <ul class="addon-list">
+      <li class="hd"><span></span><span>Add-on</span><span>On its own</span><span>Bundled</span></li>
+      <li><span class="ai"><svg class="ico"><use href="#i-plusfile"/></svg></span><span class="nm"><b>2 extra pages or sections</b><small>e.g. a gallery and a service page</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
+      <li><span class="ai"><svg class="ico"><use href="#i-bot"/></svg></span><span class="nm"><b>Website chatbot</b><small>Included in the RM1,600 website · RM500 for an existing website</small></span><span class="was">RM500</span><span class="deal deal-word">Included</span></li>
+      <li><span class="ai"><svg class="ico"><use href="#i-globe"/></svg></span><span class="nm"><b>Additional language</b><small>e.g. add BM or Chinese to an English website</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
+      <li><span class="ai"><svg class="ico"><use href="#i-calcheck"/></svg></span><span class="nm"><b>Enquiry &amp; booking request form</b><small>Customers choose a service and a preferred date and time</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
+      <li><span class="ai"><svg class="ico"><use href="#i-pin"/></svg></span><span class="nm"><b>Listings setup</b><small>Your business on Apple Maps and Foursquare</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
+    </ul>
+    <p class="addon-note"><svg class="ico"><use href="#i-clock"/></svg><span>Each add-on adds 1 working day to delivery.</span></p>
+    <p class="addon-note rush-note"><svg class="ico"><use href="#i-zap"/></svg><span><b>Need it sooner?</b> Rush delivery cuts 2 working days off your delivery time for +20% of your project total.</span></p>
+  </div>
+</section>
+
+<!-- WEBSITE CARE -->
+<section class="care-sec" id="care">
+  <div class="wrap">
+    <div class="care-card">
+      <div class="care-head">
+        <span class="care-tag">Optional monthly plan</span>
+        <h2>Website Care</h2>
+        <div class="care-price"><span>RM199</span>/month</div>
+        <div class="care-host"><svg class="ico"><use href="#i-home"/></svg><span><b>Hosting and domain renewal included</b> · no separate bills</span></div>
+        <p>Keep your website running, updated and looked after, without worrying about the technical side.</p>
+      </div>
+      <ul class="care-list">
+        <li><span class="ci"><svg class="ico"><use href="#i-monitor"/></svg></span><span><b>Website health monitoring</b>I check regularly for errors, broken features and basic technical issues.</span></li>
+        <li><span class="ci"><svg class="ico"><use href="#i-pen"/></svg></span><span><b>Minor website updates</b>Small text, image and content changes.</span></li>
+        <li><span class="ci"><svg class="ico"><use href="#i-shield"/></svg></span><span><b>Security &amp; maintenance checks</b>Keep the website maintained and working properly.</span></li>
+        <li><span class="ci"><svg class="ico"><use href="#i-send"/></svg></span><span><b>Social media update monitoring</b>Where supported, I help keep your website in line with your social media updates.</span></li>
+        <li><span class="ci"><svg class="ico"><use href="#i-msg"/></svg></span><span><b>Ongoing support</b>Help on WhatsApp when you need small changes or fixes.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="band pricing-cta-sec">
+  <div class="wrap">
+    <div class="pricing-cta">
+      <h2>Ready to get your website?</h2>
+      <p>Tell me about your business in the form. I'll reply within 1 working day with a clear written quote. No obligation.</p>
+      <div class="hero-cta"><a class="btn btn-primary" href="#contact" data-goform>Fill in the enquiry form <svg class="ico"><use href="#i-arrow"/></svg></a><a class="btn btn-wa" href="{{WA}}" target="_blank" rel="noopener"><svg class="ico"><use href="#i-chat"/></svg>WhatsApp me</a></div>
+    </div>
+  </div>
+</section>
+
+
 <!-- WHY A WEBSITE -->
 <section class="why dark band" id="why">
   <div class="wrap">
@@ -1193,111 +1584,16 @@ html[lang^="zh"] .hero h1 span{white-space:nowrap}
   </div>
 </section>
 
-<!-- PRICING + ADD-ONS -->
-<section class="pricing" id="pricing">
-  <div class="left dark">
-    <h2 class="sec-title">What's included for RM1,600</h2>
-    <p class="sec-lede muted">A professional, mobile-friendly website with everything you need to get online and start getting enquiries.</p>
-    <div class="inc-grid">
-      <ul class="inc-list">
-        <li class="hl-li"><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span><b>Up to 8 pages or sections</b></span></li>
-        <li class="hl-li"><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span><b>Website chatbot</b> (RM1,500 without it)</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Custom-designed homepage</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Mobile-friendly (phone, tablet, desktop)</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Services section</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>WhatsApp and click-to-call buttons</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Contact / enquiry form</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>One language of your choice (English, BM or Chinese)</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Basic SEO setup and Google-friendly structure</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Social media links</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Domain and launch setup</span></li>
-      </ul>
-      <div class="price-card">
-        <span class="pill">One-time project price</span>
-        <div class="amount"><sup>RM</sup>1,600</div>
-        <h3>Professional Website</h3>
-        <p class="pc-sub">Up to 8 pages or sections, with a website chatbot</p>
-        <p class="pc-bot">or <b>RM1,500</b> without the chatbot</p>
-        <div class="terms">
-          <div><svg class="ico"><use href="#i-tag"/></svg><span><b>50% deposit to start</b>50% when it's ready, before launch</span></div>
-          <div><svg class="ico"><use href="#i-clock"/></svg><span><b>3–5 working days</b>+1 working day per add-on</span></div>
-        </div>
-        <div class="pay-row"><span class="pay-badge"><svg class="ico"><use href="#i-bank"/></svg><span>DuitNow, TNG eWallet or cash</span></span></div>
-      </div>
-      <div class="bonus"><span class="bonus-ico"><svg class="ico"><use href="#i-pin"/></svg></span><span class="bonus-txt"><em>Free with your website</em><b>Google Business Profile setup</b><small>Show up on Google Maps and Search</small></span><span class="bonus-free">FREE</span></div>
-      <div class="bonus"><span class="bonus-ico"><svg class="ico"><use href="#i-link"/></svg></span><span class="bonus-txt"><em>Free with your website</em><b>Domain name for the first year</b><small>Standard .com, .com.my or .my</small></span><span class="bonus-free">FREE</span></div>
-      <p class="bonus-fine">Premium domains are quoted separately. From the second year, you pay the domain renewal yourself, unless you subscribe to Website Care.</p>
-    </div>
-  </div>
-  <div class="right addons" id="addons">
-    <h2>Optional add-ons</h2>
-    <p class="lede">Add only what your business needs. Each add-on is RM500 on its own, or RM400 when bundled with the website or another add-on.</p>
-    <div class="save-banner"><span class="big">RM400</span><span>per add-on when bundled with your website or another add-on.</span></div>
-    <ul class="addon-list">
-      <li class="hd"><span></span><span>Add-on</span><span>On its own</span><span>Bundled</span></li>
-      <li><span class="ai"><svg class="ico"><use href="#i-plusfile"/></svg></span><span class="nm"><b>2 extra pages or sections</b><small>e.g. a gallery and a service page</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-      <li><span class="ai"><svg class="ico"><use href="#i-bot"/></svg></span><span class="nm"><b>Website chatbot</b><small>Included in the RM1,600 website · RM500 for an existing website</small></span><span class="was">RM500</span><span class="deal deal-word">Included</span></li>
-      <li><span class="ai"><svg class="ico"><use href="#i-globe"/></svg></span><span class="nm"><b>Additional language</b><small>e.g. add BM or Chinese to an English website</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-      <li><span class="ai"><svg class="ico"><use href="#i-calcheck"/></svg></span><span class="nm"><b>Enquiry &amp; booking request form</b><small>Customers choose a service and a preferred date and time</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-      <li><span class="ai"><svg class="ico"><use href="#i-pin"/></svg></span><span class="nm"><b>Listings setup</b><small>Your business on Apple Maps and Foursquare</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-    </ul>
-    <p class="addon-note"><svg class="ico"><use href="#i-clock"/></svg><span>Each add-on adds 1 working day to delivery.</span></p>
-    <p class="addon-note rush-note"><svg class="ico"><use href="#i-zap"/></svg><span><b>Need it sooner?</b> Rush delivery cuts 2 working days off your delivery time for +20% of your project total.</span></p>
-  </div>
-</section>
 
-<!-- WEBSITE CARE -->
-<section class="care-sec" id="care">
-  <div class="wrap">
-    <div class="care-card">
-      <div class="care-head">
-        <span class="care-tag">Optional monthly plan</span>
-        <h2>Website Care</h2>
-        <div class="care-price"><span>RM199</span>/month</div>
-        <div class="care-host"><svg class="ico"><use href="#i-home"/></svg><span><b>Hosting and domain renewal included</b> · no separate bills</span></div>
-        <p>Keep your website running, updated and looked after, without worrying about the technical side.</p>
-      </div>
-      <ul class="care-list">
-        <li><span class="ci"><svg class="ico"><use href="#i-monitor"/></svg></span><span><b>Website health monitoring</b>I check regularly for errors, broken features and basic technical issues.</span></li>
-        <li><span class="ci"><svg class="ico"><use href="#i-pen"/></svg></span><span><b>Minor website updates</b>Small text, image and content changes.</span></li>
-        <li><span class="ci"><svg class="ico"><use href="#i-shield"/></svg></span><span><b>Security &amp; maintenance checks</b>Keep the website maintained and working properly.</span></li>
-        <li><span class="ci"><svg class="ico"><use href="#i-send"/></svg></span><span><b>Social media update monitoring</b>Where supported, I help keep your website in line with your social media updates.</span></li>
-        <li><span class="ci"><svg class="ico"><use href="#i-msg"/></svg></span><span><b>Ongoing support</b>Help on WhatsApp when you need small changes or fixes.</span></li>
-      </ul>
-    </div>
-  </div>
-</section>
 
-<!-- CHATBOTS -->
-<section class="band assist-sec" id="assistant">
-  <div class="wrap">
-    <div class="bots-head">
-      <span class="eyebrow">Website chatbot</span>
-      <h2 class="sec-title">Answer common questions automatically</h2>
-      <p class="sec-lede muted">For businesses that answer the same customer questions every day. Not every business needs one: a clear website and a WhatsApp button is often enough.</p>
-    </div>
-    <div class="bots">
-      <div class="bot-card">
-        <h3>Pricing</h3>
-        <div class="amount amount-word">Included</div>
-        <p class="ap-sub">in the RM1,600 website (RM1,500 without it)</p>
-        <p class="ap-note">RM500 to add it to an existing website.</p>
-        <ul class="assist-list">
-          <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Answers the questions you approve, on your website, in the language you choose.</span></li>
-          <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Passes the customer to your WhatsApp with a short summary of the chat, so nobody has to start again.</span></li>
-        </ul>
-        <button class="text-link dark-ink" type="button" data-open-chat>Try the one on this website →</button>
-      </div>
-    </div>
-  </div>
-</section>
+
 
 <!-- MY WORK -->
 <section class="band" id="work">
   <div class="wrap">
     <div class="work-head">
       <h2 class="sec-title">My Work</h2>
-      <p class="muted">A client website and an interactive demo you can try.</p>
+      <p class="muted">A client website and interactive demos you can try.</p>
     </div>
     <div class="work-grid" id="workGrid"></div>
   </div>
@@ -1324,7 +1620,7 @@ html[lang^="zh"] .hero h1 span{white-space:nowrap}
     <ol class="steps4 steps3">
       <li><svg class="ico"><use href="#i-chat"/></svg><div><b>WhatsApp me</b><span>Tell me a little about your business. I reply within 1 working day.</span></div></li>
       <li><svg class="ico"><use href="#i-users"/></svg><div><b>A short chat</b><span>By WhatsApp, Zoom or Google Meet, or in person if you're in Johor Bahru. We talk about what you need and whether a website is the right step.</span></div></li>
-      <li><svg class="ico"><use href="#i-file"/></svg><div><b>Written quote</b><span>You get a clear written quote. A 50% deposit starts the work; the other 50% is paid when your website is ready, before launch.</span></div></li>
+      <li><svg class="ico"><use href="#i-file"/></svg><div><b>Written quote</b><span>You get a clear written quote. A RM200 deposit starts the work; the rest is paid when your website is ready, before launch.</span></div></li>
     </ol>
   </div>
 </section>
@@ -1345,7 +1641,7 @@ html[lang^="zh"] .hero h1 span{white-space:nowrap}
         <details><summary>How long does it take?</summary><p>Usually 3–5 working days, depending on what your project needs and how quickly you can send your content (text, photos and logo). Each add-on adds 1 working day.</p></details>
         <details><summary>Can you rush my website?</summary><p>Yes. Rush delivery cuts 2 working days off your delivery time, for example from 3–5 working days to 1–3. It costs an extra 20% of the project total (website plus any add-ons).</p></details>
         <details><summary>Do I need to provide the content?</summary><p>Yes. You send me your services, contact details, the areas you cover and any photos or logo you have, and I turn it into a clear, professional website. I can help you tidy up the wording.</p></details>
-        <details><summary>How do I pay?</summary><p>By DuitNow, Touch 'n Go eWallet or cash. As I work as a freelancer, payments go to me personally. You pay a 50% deposit to start and the other 50% when your website is ready, before launch.</p></details>
+        <details><summary>How do I pay?</summary><p>By DuitNow, Touch 'n Go eWallet or cash. As I work as a freelancer, payments go to me personally. You pay a RM200 deposit to start and the rest when your website is ready, before launch.</p></details>
         <details><summary>Which languages can my website be in?</summary><p>Your website includes one language: English, Bahasa Melayu or Chinese. Each extra language is an add-on at RM500, or RM400 when bundled.</p></details>
       </div>
       <div class="faq-col">
@@ -1380,6 +1676,7 @@ html[lang^="zh"] .hero h1 span{white-space:nowrap}
       <div class="field full"><label for="f-msg">Message <span class="opt">(optional)</span></label><textarea id="f-msg" name="message" placeholder="What your business does, the areas you cover, and what you'd like your website to do."></textarea></div>
       <div class="field full"><label for="f-email">Email <span class="opt">(optional)</span></label><input id="f-email" name="email" type="email" autocomplete="email"><span class="err" hidden>Please check your email address.</span></div>
       <div class="hp" aria-hidden="true"><label for="f-hp">Company website</label><input id="f-hp" name="company_website" tabindex="-1" autocomplete="off"></div>
+      <div class="field full cap-field" id="capBox" hidden><div id="turnstile"></div><span class="err" id="capErr" hidden>Please complete the check above.</span></div>
       <div class="form-foot"><button class="btn btn-primary" type="submit" id="f-submit"><span>Send message</span> <svg class="ico"><use href="#i-arrow"/></svg></button><small>I reply within 1 working day. No obligation.</small></div>
       <p class="privacy-note">By sending this form, you agree that I use your details to reply to your enquiry, as explained in the <a href="/privacy/">privacy notice</a>.</p>
       <div class="status" id="f-status" hidden role="status"></div>
@@ -1388,6 +1685,8 @@ html[lang^="zh"] .hero h1 span{white-space:nowrap}
 </section>
 
 </div><!-- /homeView -->
+
+
 
 <!-- PROFILE PAGE -->
 <div id="aboutView" hidden>
@@ -1495,7 +1794,7 @@ html[lang^="zh"] .hero h1 span{white-space:nowrap}
     <div class="ok-icon"><svg class="ico"><use href="#i-check"/></svg></div>
     <h2 id="okTitle"><span id="okHi">Thanks!</span></h2>
     <p class="ok-lede">Your message has been sent. I'll reply on WhatsApp within 1 working day.</p>
-    <div class="ok-pay"><svg class="ico"><use href="#i-lock"/></svg><span>No payment is needed now. A 50% deposit is only paid after you receive a written quote and decide to go ahead.</span></div>
+    <div class="ok-pay"><svg class="ico"><use href="#i-lock"/></svg><span>No payment is needed now. The RM200 deposit is only paid after you receive a written quote and decide to go ahead.</span></div>
     <p class="ok-note">In a hurry? You can also WhatsApp me directly.</p>
     <div class="ok-acts"><a class="btn btn-wa" href="{{WA}}" target="_blank" rel="noopener"><svg class="ico"><use href="#i-chat"/></svg>WhatsApp me</a><button type="button" class="btn btn-outline" id="okClose" data-ok-close>Done</button></div>
   </div>
@@ -1509,18 +1808,20 @@ html[lang^="zh"] .hero h1 span{white-space:nowrap}
   <a class="ss-yt" href="https://www.youtube.com/@AceDigitalSolutionsBiz/shorts" target="_blank" rel="noopener" aria-label="Ace Digital Solutions on YouTube" title="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#FF0000" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8z"/><path fill="#fff" d="M9.6 15.6V8.4l6.2 3.6z"/></svg></a>
 </div>
 <button class="chat-fab" id="chatFab" type="button" aria-label="Open chat" aria-expanded="false" aria-controls="chat"><svg class="ico"><use href="#i-msg"/></svg></button>
+<span class="fab-tip" aria-hidden="true">Questions? Ask here</span>
 <div class="chat" id="chat" hidden role="dialog" aria-label="Website assistant">
   <div class="chat-top"><span class="av"><svg class="ico"><use href="#i-bot"/></svg></span><div><b>Ace Assistant</b><small>Automated assistant · quick answers</small></div><button type="button" id="chatReset" class="reset-btn" aria-label="Reset chat" title="Reset chat"><svg class="ico"><use href="#i-reset"/></svg><span>Reset</span></button><button type="button" id="chatClose" aria-label="Close chat"><svg class="ico" style="width:20px;height:20px"><use href="#i-x"/></svg></button></div>
   <div class="chat-langbar" role="group" aria-label="Chat language"><button type="button" data-chat-lang="en">EN</button><button type="button" data-chat-lang="bm">BM</button><button type="button" data-chat-lang="zh">中文</button></div>
   <div class="chat-log" id="chatLog" aria-live="polite"></div>
   <button type="button" class="handoff" id="handoff" hidden><svg class="ico"><use href="#i-chat"/></svg><span>Continue on WhatsApp with Adam</span><svg class="ico"><use href="#i-arrow"/></svg></button>
   <form class="chat-in" id="chatForm"><input id="chatInput" placeholder="Ask a question…" autocomplete="off" aria-label="Your question"><button type="submit" aria-label="Send"><svg class="ico"><use href="#i-send"/></svg></button></form>
+  <p class="chat-note">AI replies use Google Gemini and may be wrong. Google may use chat messages to improve its products. Don't share sensitive details; Adam confirms prices in writing. <a href="/privacy/">Privacy</a></p>
 </div>
 
 
 <!-- BLOG IMAGES: images used by blog posts as img:name. When the site is hosted you can
      instead use normal image paths in posts, e.g. COVER: images/my-photo.jpg -->
-<script type="application/json" id="blog-images">{"ai-en-card": "/img/blog-ai-en-card.jpg", "ai-bm-card": "/img/blog-ai-bm-card.jpg", "ai-zh-card": "/img/blog-ai-zh-card.jpg", "why-cover": "/img/why-cover.jpg", "why-card": "/img/why-card.jpg", "why-social": "/img/why-social.jpg", "why-laptop": "/img/why-laptop.jpg", "why-fix": "/img/why-fix.jpg", "ai-en-benefits": "/img/blog-ai-en-benefits.jpg", "ai-bm-benefits": "/img/blog-ai-bm-benefits.jpg", "ai-zh-benefits": "/img/blog-ai-zh-benefits.jpg"}</script>
+<script type="application/json" id="blog-images">{"ai-en-card": "/img/blog-ai-en-card.jpg", "ai-bm-card": "/img/blog-ai-bm-card.jpg", "ai-zh-card": "/img/blog-ai-zh-card.jpg", "why-cover": "/img/why-cover.jpg", "why-card": "/img/why-card.jpg", "why-social": "/img/why-social.jpg", "why-laptop": "/img/why-laptop.jpg", "why-fix": "/img/why-fix.jpg", "ai-en-benefits": "/img/blog-ai-en-benefits.jpg", "ai-bm-benefits": "/img/blog-ai-bm-benefits.jpg", "ai-zh-benefits": "/img/blog-ai-zh-benefits.jpg", "cost-hero": "/img/website-cost-malaysia-2026-hero.webp", "cost-design": "/img/website-cost-malaysia-2026-design.webp", "cost-budget": "/img/website-cost-malaysia-2026-budget.webp"}</script>
 
 <!-- =====================================================================
      BLOG POSTS
@@ -1545,6 +1846,131 @@ html[lang^="zh"] .hero h1 span{white-space:nowrap}
             and start every bullet with [icon:pin] (etc.) to show them as icon tiles.
      All posts appear on the Blog page (the "Blog" tab in the menu).
      ===================================================================== -->
+<script type="text/plain" class="blog-post" data-date="2026-10-20" data-lang="en" data-id="website-cost-malaysia-2026">
+TITLE: How Much Might a Website Cost in Malaysia in 2026? A Small Business Guide
+SEO TITLE: Website Costs in Malaysia (2026): A Small Business Guide
+CATEGORY: Pricing
+EXCERPT: How much might a website cost in Malaysia in 2026? Explore indicative website prices, recurring fees, SEO inclusions and tips for comparing web design quotes.
+META DESCRIPTION: How much might a website cost in Malaysia in 2026? Explore indicative website prices, recurring fees, SEO inclusions and tips for comparing web design quotes.
+ICON: tag
+COVER: img:cost-hero
+CARD IMAGE: img:cost-hero
+COVER ALT: Laptop and smartphone displaying a small business website in Malaysia
+HIGHLIGHT: Cost
+LAYOUT: flat
+BODY:
+If you're running a small business in Malaysia, you might receive a website quotation for RM1,000 and another for RM5,000. Why such a big difference?
+
+Website prices depend on the number of pages, design, features and services included. Here's what you should know before deciding.
+
+## 1. How much does a website cost in Malaysia? [icon:tag]
+These are **indicative budgeting ranges**, not official Malaysian market averages.
+
+| Website type | Estimated cost |
+|---|---|
+| Simple landing page | RM500–RM1,500 |
+| Small business website | RM1,500–RM5,000 |
+| Customised business website | RM5,000–RM10,000+ |
+| E-commerce or complex website | RM4,000–RM20,000+ |
+
+**How were these prices estimated?**
+
+These broad ranges are informed by publicly published Malaysian provider prices, including [TwoPeas](https://twopeas.my/blog/website-design-price-malaysia/) and [Kong](https://bookwithkong.com/blog/website-cost-malaysia). They are planning estimates, not the results of a nationwide pricing survey. Actual quotations may differ considerably.
+
+## 2. Why do website prices vary? [icon:monitor]
+![Web designer sketching website layouts for desktop and mobile](img:cost-design)
+Four main factors affect the cost:
+
+- **Pages and content:** More pages, writing and photography generally require more work.
+- **Design:** A template-based website may cost less than a customised design.
+- **Features:** Online payments, booking systems, customer accounts and integrations add complexity.
+- **Technical setup and SEO:** Mobile usability, performance, security and search optimisation can affect the quotation.
+
+### What does “SEO included” mean?
+Not every provider means the same thing.
+
+Some include only page titles, headings and meta descriptions. Others offer keyword research, local SEO, technical improvements or ongoing optimisation.
+
+**Ask exactly what SEO work is included.** Basic SEO setup does not guarantee first-page Google rankings.
+
+## 3. Are there yearly website costs? [icon:calendar]
+Yes, depending on your package.
+
+| Expense | What to check |
+|---|---|
+| Domain | Annual renewal and ownership |
+| Hosting | Hosting fees and renewal rates |
+| Business email | Included or separately charged |
+| Maintenance | Updates, backups and support |
+| Premium features | Paid plugins or subscriptions |
+
+A cheaper initial quotation may cost more over several years if recurring fees are high.
+
+Always ask for the **total setup cost and annual renewal cost** before agreeing.
+
+[costs: One-time setup costs and recurring costs]
+One-time setup costs | Usually paid when the website is built | Pages and content; Design; Features; Technical setup and SEO
+Recurring costs | May need renewing, depending on your package | Domain; Hosting; Business email; Maintenance; Premium features
+[/costs]
+
+## 4. What should you ask a web designer? [icon:msg]
+![Business owner comparing website quotations with a calculator](img:cost-budget)
+Before comparing quotations, check:
+
+1. How many pages are included?
+2. Who prepares the text and photographs?
+3. Is the design based on a template or customised?
+4. Does it work properly on mobile phones?
+5. What SEO services are included?
+6. What are the yearly costs?
+7. Who owns the domain and website, and can you access them?
+
+The cheapest option is not necessarily bad, and the most expensive is not necessarily better. Compare what you actually receive.
+
+## 5. What about Google and AI search? [icon:search]
+Customers can now discover businesses through Google Search and AI-powered search experiences.
+
+According to [Google Search Central's official guidance](https://developers.google.com/search/docs/appearance/ai-features), existing SEO fundamentals remain relevant to Google's AI features.
+
+For small businesses, this means:
+
+- Clearly describe your services and locations.
+- Provide accurate contact information.
+- Organise content with useful headings.
+- Ensure important pages are accessible to search engines.
+- Keep business information updated.
+
+A website can provide useful information for search systems, but **no provider can guarantee Google rankings or recommendations from ChatGPT and other AI tools.**
+
+## 6. What should Malaysian small businesses prioritise? [icon:pin]
+Whether your business is in Johor Bahru, Skudai or elsewhere in Malaysia, start with what your customers actually need.
+
+For example:
+
+- **Tuition centre:** Subjects, class levels, timetable and enquiry details.
+- **Renovation company:** Services, project photos and areas covered.
+- **Retail shop:** Products, business information and purchasing options.
+
+You don't necessarily need expensive features from the beginning. Start with a website that clearly explains your business and supports your customers' needs.
+
+## Frequently asked questions
+### Can I get a business website for under RM1,500?
+Possibly. Some providers offer basic landing pages within that budget. Check the included features and recurring costs.
+
+### Do I need to pay every year?
+Usually, domain registration and hosting or platform subscriptions require renewal. Other charges depend on your package.
+
+### Will my website automatically appear on Google or ChatGPT?
+No. A properly structured website can help make information accessible, but search rankings and AI recommendations are not guaranteed.
+
+## Final thoughts
+A website should fit your business needs and budget.
+
+Before choosing a provider, compare the features, SEO services, ownership arrangements and recurring costs—not just the initial price.
+
+**The best website investment is one where you understand exactly what you're paying for.**
+</script>
+
 <script type="text/plain" class="blog-post" data-date="2026-10-13" data-lang="en" data-id="tuition-website-generative-ai">
 TITLE: Why Your Tuition Centre Needs a Website in the Age of Generative AI
 CATEGORY: Getting found
@@ -1767,8 +2193,12 @@ When someone compares two businesses side by side, the one that looks profession
   // Chatbot AI connection (Cloudflare Worker, see backend/chat-worker.js). Leave empty for scripted answers only.
   const CHAT_API = "https://ace-chat.adamteokokwei.workers.dev/chat";
   const SUMMARY_API = CHAT_API ? CHAT_API.replace(/\/chat$/,"/summary") : "";
-  // Form delivery (FormSubmit sends to EMAIL)
-  const FORM_ENDPOINT = "https://formsubmit.co/ajax/" + EMAIL;
+  // Captcha (Cloudflare Turnstile). Paste the widget's SITE key here to switch it on; leave "" to keep it off.
+  const TURNSTILE_SITEKEY = "0x4AAAAAAFjkFvWRmLvTXswG";
+  // Checks the captcha and sends the enquiry to Adam's WhatsApp (Cloudflare Worker, see whatsapp-enquiry/worker.js)
+  const WA_ENQUIRY_API = "https://ace-wa-enquiry.adamteokokwei.workers.dev/enquiry";
+  const newSubmissionId = () => (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2));
+  let submissionId = newSubmissionId();
 
   /* ---------- Prices (RM) ----------
      Add-ons: RM500 on their own, RM400 when bundled with the website or another add-on.
@@ -1789,8 +2219,11 @@ When someone compares two businesses side by side, the one that looks profession
   /* ---------- Mini website mockups ---------- */
   const SITES = {
     demo:{name:"Arus Biru<br>Plumbing",icon:"wrench",m1:"#0B2545",m2:"#1D5FD1",acc:"#D7262E",accInk:"#FFFFFF",links:["Services","Prices","Reviews","Book"],btn:"WhatsApp",
-      head:"Johor Bahru Plumbers",sub:"Clear prices, easy online booking and a chat assistant.",cta:"Book a Time",art:"wrench",
+      head:"Johor Bahru Plumbers",sub:"Clear prices, easy online booking and a chat assistant.",cta:"Book a Time",art:"wrench",light:true,
       feats:[["clock","24/7 Service"],["tag","Price Ranges"],["chat","WhatsApp"],["thumb","On-Time"]]},
+    tuition:{name:"Cahaya<br>Learning",icon:"star",m1:"#FFFFFF",m2:"#F5F5F7",acc:"#0071E3",accInk:"#FFFFFF",links:["Programmes","Timetable","Fees","FAQ"],btn:"Free trial",
+      head:"Small classes. Big confidence.",sub:"Primary and secondary tuition in Skudai, in groups of no more than 8.",cta:"Book a free trial",art:"users",light:true,
+      feats:[["users","Max 8"],["calendar","Timetable"],["tag","Clear Fees"],["chat","WhatsApp"]]},
     yours:{name:"Your<br>Business",icon:"home",m1:"#13265A",m2:"#2563EB",acc:"#22C55E",accInk:"#0B1220",links:["Home","Services","Projects","Contact"],btn:"WhatsApp",
       head:"Renovation & Repairs in Johor Bahru",sub:"Kitchens, bathrooms and home repairs, with clear written quotes.",cta:"WhatsApp Us",art:"home",
       feats:[["chat","Fast Reply"],["tag","Clear Quotes"],["pin","JB Area"],["star","Real Photos"]]}
@@ -1801,7 +2234,7 @@ When someone compares two businesses side by side, the one that looks profession
     const style = `--m1:${s.m1};--m2:${s.m2};--macc:${s.acc};--macc-ink:${s.accInk||"#fff"}`;
     const nav = mobile ? `<span class="ms-burger"></span>` :
       `<span class="ms-links">${s.links.map(l=>`<span>${l}</span>`).join("")}</span><span class="ms-btn">${s.btn}</span>`;
-    return `<div class="ms${mobile?" m":""}" style="${style}">
+    return `<div class="ms${mobile?" m":""}${s.light?" light":""}" style="${style}">
       <div class="ms-nav"><span class="ms-logo"><i>${ico(s.icon)}</i><span>${mobile?s.name.replace("<br>"," "):s.name}</span></span>${nav}</div>
       <div class="ms-hero"><div class="ms-copy"><b>${s.head}</b><small>${s.sub}</small><span class="ms-cta">${s.cta}</span></div>${mobile?"":`<div class="ms-art"><svg class="ico big"><use href="#i-${s.art}"/></svg></div>`}</div>
       <div class="ms-row">${s.feats.map(f=>`<span><i>${ico(f[0])}</i>${f[1]}</span>`).join("")}</div></div>`;
@@ -1826,6 +2259,8 @@ When someone compares two businesses side by side, the one that looks profession
   const WORK = [
     {key:"ctg",title:"Called to Go",kind:L("Client Website"),client:true,url:"https://calledtogoministry.org",
       desc:L("Ministry website for Christine, a preacher, worship leader and missionary in Johor Bahru: her story, past and future missions, her book, prayer requests, giving and WhatsApp invitations.")},
+    {key:"tuition",title:"Cahaya Learning Centre",kind:L("Interactive Demo"),url:"/demos/skudai-tuition/",
+      desc:L("A fictional tuition centre in Skudai in English, Bahasa Melayu and Chinese: programmes by level, a timetable showing seats left, simple monthly fees and a free trial class request that goes to WhatsApp.")},
     {key:"demo",title:"Arus Biru Plumbing",kind:L("Interactive Demo"),url:"/demos/jb-plumbing/",
       desc:L("A fictional Johor Bahru plumbing business in English and Bahasa Melayu: upfront price ranges, a 3-step booking request, a chat assistant that hands over to WhatsApp, and a switch that shows what the RM1,600 website includes.")}
   ];
@@ -1863,15 +2298,27 @@ When someone compares two businesses side by side, the one that looks profession
   const noIcon = t => t.replace(/\s*\[icon:[\w-]+\]\s*/g," ").trim();
   // Turns the post text into article HTML. Sections (## headings) can have an icon, a photo and icon tiles.
   function md(src){
-    const blocks=[]; let para=[], list=null, quote=[];
+    const blocks=[]; let para=[], list=null, quote=[], table=null, costs=null;
     const fp=()=>{ if(para.length){ blocks.push({t:"p",h:"<p>"+inline(para.join(" "))+"</p>"}); para=[]; } };
     const fl=()=>{ if(list){ const tiles = list.length>1 && list.every(i=>iconOf(i));
       blocks.push(tiles ? {t:"tiles",h:`<ul class="tiles">${list.map(i=>`<li><span class="t-ico">${ico(iconOf(i))}</span>${inline(noIcon(i))}</li>`).join("")}</ul>`}
                         : {t:"ul",h:`<ul>${list.map(i=>`<li>${T}<span>${inline(noIcon(i))}</span></li>`).join("")}</ul>`}); list=null; } };
     const fq=()=>{ if(quote.length){ blocks.push({t:"q",h:`<p class="callout">${inline(quote.join(" "))}</p>`}); quote=[]; } };
+    // | table | rows |: first row is the header; the |---| row is skipped
+    const ft=()=>{ if(table){ const rows=table.filter(r=>!/^\|?\s*:?-{2,}/.test(r)).map(r=>r.replace(/^\||\|$/g,"").split("|").map(c=>c.trim()));
+      const [head,...body]=rows;
+      blocks.push({t:"table",h:`<div class="a-table" role="region" tabindex="0" aria-label="${escH(head.join(", "))}"><table><thead><tr>${head.map(c=>`<th scope="col">${inline(c)}</th>`).join("")}</tr></thead><tbody>${body.map(r=>`<tr>${r.map((c,i)=>i?`<td>${inline(c)}</td>`:`<th scope="row">${inline(c)}</th>`).join("")}</tr>`).join("")}</tbody></table></div>`}); table=null; } };
     for(const line of src.split("\n")){
       const t=line.trim();
+      // [costs] ... [/costs]: a two-card comparison written as text. Each line: Title | short note | item; item; item
+      if(/^\[costs(?::\s*(.*))?\]$/i.test(t)){ fp(); fl(); fq(); ft(); costs={title:(t.match(/^\[costs:\s*(.*)\]$/i)||[])[1]||"",cards:[]}; continue; }
+      if(costs){ if(/^\[\/costs\]$/i.test(t)){ blocks.push({t:"costs",h:`<figure class="cost-split">${costs.title?`<figcaption>${inline(costs.title)}</figcaption>`:""}<div class="cs-grid">${costs.cards.map((c,i)=>`<div class="cs-card cs-${i?"recur":"once"}"><h4>${inline(c[0]||"")}</h4>${c[1]?`<p>${inline(c[1])}</p>`:""}<ul>${(c[2]||"").split(/[;；]/).map(x=>x.trim()).filter(Boolean).map(x=>`<li>${inline(x)}</li>`).join("")}</ul></div>`).join("")}</div></figure>`}); costs=null; }
+        else if(t) costs.cards.push(t.split("|").map(x=>x.trim())); continue; }
+      if(/^\|.*\|$/.test(t)){ fp(); fl(); fq(); (table=table||[]).push(t); continue; }
+      ft();
       if(!t || /^(-{3,}|\*{3,})$/.test(t)){ fp(); fl(); fq(); continue; }
+      const h3=t.match(/^#{3,4}\s+(.*)$/);
+      if(h3 && blocks.some(b=>b.t==="h")){ fp(); fl(); fq(); blocks.push({t:"h3",h:`<h3 class="a-h3">${inline(noIcon(h3[1]).replace(/\*\*/g,""))}</h3>`}); continue; }
       const h=t.match(/^#{1,4}\s+(.*)$/);
       if(h){ fp(); fl(); fq(); blocks.push({t:"h",icon:iconOf(h[1]),h:inline(noIcon(h[1]).replace(/\*\*/g,""))}); continue; }
       const im=t.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
@@ -1882,7 +2329,7 @@ When someone compares two businesses side by side, the one that looks profession
       if(q){ fp(); fl(); quote.push(q[1]); continue; }
       fl(); fq(); para.push(t);
     }
-    fp(); fl(); fq();
+    fp(); fl(); fq(); ft();
     // group into sections
     let html="", sec=null;
     const close=()=>{ if(!sec) return; const fig=sec.fig.join(""), ico_=sec.icon?`<span class="h-ico">${ico(sec.icon)}</span>`:"";
@@ -1890,7 +2337,7 @@ When someone compares two businesses side by side, the one that looks profession
     for(const b of blocks){
       if(b.t==="h"){ close(); sec={h:b.h,icon:b.icon,text:[],fig:[],after:[]}; continue; }
       if(!sec){ html += b.t==="p" ? b.h.replace("<p>",'<p class="lead-p">') : b.h; continue; }
-      if(b.t==="img") sec.fig.push(b.h); else if(b.t==="tiles"||b.t==="q") sec.after.push(b.h); else sec.text.push(b.h);
+      if(b.t==="img") sec.fig.push(b.h); else if(b.t==="tiles"||b.t==="q"||b.t==="costs") sec.after.push(b.h); else sec.text.push(b.h);
     }
     close();
     return html;
@@ -1911,7 +2358,7 @@ When someone compares two businesses side by side, the one that looks profession
     const cover = imgSrc(get("COVER")), cardImg = imgSrc(get("CARD IMAGE")) || cover;
     const soon = /coming soon/i.test(get("STATUS"));
     return {id:"post-"+(el.dataset.id||slug(title)), title, cat, icon, body, date, order:i, cover, cardImg, soon, hl: get("HIGHLIGHT"), rich: /class="a-sec/.test(body),
-      excerpt: get("EXCERPT"), meta: get("META DESCRIPTION"), bg: GRADS[hashStr(cat)%GRADS.length]};
+      excerpt: get("EXCERPT"), meta: get("META DESCRIPTION"), seoTitle: get("SEO TITLE"), coverAlt: get("COVER ALT"), flat: /flat/i.test(get("LAYOUT")), bg: GRADS[hashStr(cat)%GRADS.length]};
   }).sort((a,b)=> (b.date||0)-(a.date||0) || a.order-b.order);
   const fmtPostDate = d => d && !isNaN(d) ? new Intl.DateTimeFormat(LOCALE,{month:"short",day:"numeric",year:"numeric"}).format(d) : "";
   const mins = html => Math.max(2, Math.round(html.replace(/<[^>]+>/g," ").split(/\s+/).length/200));
@@ -1950,8 +2397,9 @@ When someone compares two businesses side by side, the one that looks profession
       <h1>${t}</h1>${p.excerpt?`<p class="lede">${escH(p.excerpt)}</p>`:""}
       <div class="meta">${AVATAR?`<img src="${AVATAR}" alt="">`:""}<span>${L("By <b>Adam</b>, Ace Digital Solutions")}</span>${p.date?`<span class="sep">|</span><span>${fmtPostDate(p.date)}</span>`:""}<span class="sep">|</span><span>${L("{n} min read",{n:mins(p.body)})}</span></div>`;
     hero.querySelectorAll(".cover").forEach(x=>x.remove());
-    if(p.cover){ const c = document.createElement("div"); c.className = "cover"; c.style.backgroundImage = `url("${p.cover}")`; hero.prepend(c); }
+    if(p.cover){ const c = document.createElement("div"); c.className = "cover"; c.style.backgroundImage = `url("${p.cover}")`; if(p.coverAlt){ c.setAttribute("role","img"); c.setAttribute("aria-label",p.coverAlt); } hero.prepend(c); }
     $("#postBody").classList.toggle("rich", p.rich);
+    $("#postBody").classList.toggle("flat", !!p.flat);
     $("#postBody").innerHTML = p.body + `<div class="article-cta dark"><div><h3>${L("Ready for a website that works for your business?")}</h3><p>${L("Start with a short, no-obligation chat on WhatsApp. Websites from RM1,600.")}</p></div><a class="btn btn-wa" href="${waLink(L("Hi Adam, I'm interested in a website for my business."))}" target="_blank" rel="noopener">${ico("chat")}${L("WhatsApp me")}</a></div>`;
     const others = POSTS.filter(o=>o!==p && !o.soon).slice(0,3);
     const upcoming = POSTS.filter(o=>o.soon).length;
@@ -1962,6 +2410,7 @@ When someone compares two businesses side by side, the one that looks profession
   /* ---------- Header: mobile menu + active link ---------- */
   const head = $("#head"), burger = $("#burger");
   burger.addEventListener("click",()=>{ const o = head.classList.toggle("open"); burger.setAttribute("aria-expanded",o); });
+  new MutationObserver(()=>document.body.classList.toggle("menu-open", head.classList.contains("open"))).observe(head,{attributes:true,attributeFilter:["class"]});
   document.querySelectorAll("#nav a").forEach(a=>a.addEventListener("click",()=>{ head.classList.remove("open"); burger.setAttribute("aria-expanded","false"); }));
   const links = [...document.querySelectorAll("#nav a")];
   const spy = ["top","pricing","work","faq","contact"].map(id=>document.getElementById(id));
@@ -1973,7 +2422,7 @@ When someone compares two businesses side by side, the one that looks profession
     const view = viewFor(id), post = POSTS.find(p=>p.id===id && !p.soon);
     homeView.hidden = view!=="home"; aboutView.hidden = view!=="about"; postView.hidden = view!=="post"; articlesView.hidden = view!=="articles";
     if(post) showPost(post); else if(metaDesc) metaDesc.content = defaultDesc;
-    document.title = view==="about" ? L("About Adam, Freelance Web Designer in Johor Bahru | Ace Digital Solutions") : view==="articles" ? L("Blog: Website Tips for Malaysian Businesses | Ace Digital Solutions") : post ? post.title+" | Ace Digital Solutions" : HOME_TITLE;
+    document.title = view==="about" ? L("About Adam, Freelance Web Designer in Johor Bahru | Ace Digital Solutions") : view==="articles" ? L("Blog: Website Tips for Malaysian Businesses | Ace Digital Solutions") : post ? (post.seoTitle || post.title+" | Ace Digital Solutions") : HOME_TITLE;
     const behavior = smooth && !matchMedia("(prefers-reduced-motion: reduce)").matches ? "smooth" : "auto";
     const t = view==="home" && id && id!=="top" ? document.getElementById(id) : null;
     if(t){ const y = t.getBoundingClientRect().top + scrollY - head.offsetHeight - 12; scrollTo({top:Math.max(0,y), behavior}); }
@@ -1994,6 +2443,7 @@ When someone compares two businesses side by side, the one that looks profession
     const id = a.getAttribute("href").slice(1); if(!id) return;
     e.preventDefault(); head.classList.remove("open"); burger.setAttribute("aria-expanded","false");
     go(id);
+    if(a.hasAttribute("data-goform")) setTimeout(()=>{ const f=$("#f-name"); if(f) f.focus({preventScroll:true}); },60);
   });
   function route(){ const id = location.hash.slice(1); if(id===current) return; current = id; show(id,false); onScroll(); }
   function onScroll(){
@@ -2043,6 +2493,23 @@ When someone compares two businesses side by side, the one that looks profession
       "Message:", d.message||"—"
     ].join("\n");
   }
+  /* ---------- Captcha: loads only when the form comes near the screen ---------- */
+  let capId = null;
+  const capBox = $("#capBox"), capErr = $("#capErr");
+  const capToken = () => (capId!==null && window.turnstile) ? window.turnstile.getResponse(capId) : "";
+  const capReset = () => { try{ if(capId!==null) window.turnstile.reset(capId); }catch(e){} };
+  if(TURNSTILE_SITEKEY){
+    window.onAceCaptcha = () => {
+      capBox.hidden = false;
+      capId = window.turnstile.render("#turnstile",{sitekey:TURNSTILE_SITEKEY, theme:"light", size:"flexible",
+        language: LANG==="bm" ? "ms" : LANG==="zh" ? "zh-cn" : "en", callback:()=>{ capErr.hidden = true; }});
+    };
+    const loadCap = () => { if(window.__capLoading) return; window.__capLoading = true;
+      const sc = document.createElement("script"); sc.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onAceCaptcha"; sc.async = true; sc.defer = true; document.head.appendChild(sc); };
+    if("IntersectionObserver" in window){ const io = new IntersectionObserver(es=>{ if(es.some(x=>x.isIntersecting)){ loadCap(); io.disconnect(); } },{rootMargin:"600px"}); io.observe(form); }
+    else loadCap();
+    form.addEventListener("focusin", loadCap, {once:true});
+  }
   form.addEventListener("submit", async e=>{
     e.preventDefault();
     const f = form.elements;
@@ -2051,45 +2518,41 @@ When someone compares two businesses side by side, the one that looks profession
                 check(f.phone, phoneOk(f.phone.value)),
                 check(f.email, !email || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))].every(Boolean);
     if(!ok){ form.querySelector("[aria-invalid=true]").focus(); return; }
+    if(TURNSTILE_SITEKEY && !capToken()){ capErr.textContent = L("Please complete the check above."); capErr.hidden = false; capBox.scrollIntoView({block:"center",behavior:"smooth"}); return; }
     const d = {name:f.name.value.trim(), phone:f.phone.value.trim(), business:f.business.value.trim(), help:f.help.value, email, message:f.message.value.trim()};
     const text = buildMessage(d);
     const btn = $("#f-submit"), btnLabel = btn.querySelector("span"), label0 = btnLabel.textContent;
     btn.disabled = true; btnLabel.textContent = L("Sending…");
-    let sent = false, failReason = "";
+    let sent = false, dryRun = false;
     const hp = f.company_website.value;
-    const payload = {_subject:"Website enquiry: "+(d.business||d.name), _template:"box", _honey:hp,
-      name:d.name, whatsapp:d.phone, business:d.business||"—", help:d.help, email:d.email||"—", language:LANG.toUpperCase(), message:d.message||"—", summary:text};
-    if(email){
-      payload._replyto = email;
-      payload._autoresponse = [L("Hi {name},",{name:d.name.split(" ")[0]}),"",
-        L("Thanks for contacting Ace Digital Solutions. I've received your message and will reply on WhatsApp within 1 working day."),"",
-        L("No payment is needed now. A 50% deposit is only paid after you receive a written quote and decide to go ahead."),"",
-        L("Thanks,"),"Adam","Ace Digital Solutions","WhatsApp: 010-264 1824"].join("\n");
+    // One server handles everything: it checks the captcha and spam limits, then sends the enquiry
+    // to Adam's WhatsApp and email. Nothing is sent from the browser to any other service.
+    if(WA_ENQUIRY_API){
+      try{
+        const c2 = new AbortController(); const t2 = setTimeout(()=>c2.abort(),15000);
+        const r2 = await fetch(WA_ENQUIRY_API,{method:"POST",signal:c2.signal,headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({captcha:capToken(), company_website:hp, submissionId, name:d.name, phone:d.phone, business:d.business, help:d.help, email:d.email, language:LANG.toUpperCase(), message:d.message})});
+        clearTimeout(t2);
+        const b2 = await r2.json().catch(()=>({}));
+        if(r2.status===403 && b2.stage==="captcha_failed"){ btn.disabled = false; btnLabel.textContent = label0; capReset();
+          capErr.textContent = L("The check didn't work. Please try again."); capErr.hidden = false; return; }
+        dryRun = r2.ok && b2.ok === true && b2.stage === "dry_run";
+        sent = r2.ok && b2.ok === true && ["accepted_by_whatsapp", "delivered_by_email"].includes(b2.stage);
+      }catch(err){ sent = false; }
     }
-    try{
-      const ctrl = new AbortController(); const t = setTimeout(()=>ctrl.abort(),12000);
-      const res = await fetch(FORM_ENDPOINT,{method:"POST",signal:ctrl.signal,headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(payload)});
-      const data = await res.json().catch(()=>({}));
-      sent = res.ok && String(data.success)==="true";
-      if(!sent) failReason = String(data.message||"");
-      clearTimeout(t);
-    }catch(err){ sent = false; }
-    btn.disabled = false; btnLabel.textContent = label0;
-    if(sent){ status.hidden = true; showSuccess(d); form.reset(); return; }
+    btn.disabled = false; btnLabel.textContent = label0; capReset();
+    if(sent || dryRun){ status.hidden = true; showSuccess(d, dryRun); form.reset(); submissionId = newSubmissionId(); return; }
     status.hidden = false; status.className = "status fallback";
-    if(/activat/i.test(failReason)){
-      status.innerHTML = `<b>One-time setup needed.</b> This form has to be activated before it can deliver enquiries. If you're the site owner, check <b>${EMAIL}</b> for an email from FormSubmit and click <b>Activate Form</b>, then send this again.`;
-    }else{
-      status.innerHTML = `<b>${L("Sorry, the form couldn't be sent from here.")}</b> ${L("Please send your message on WhatsApp instead. Your details are ready to go.")}
-        <div class="acts"><a class="btn btn-wa" href="${waLink(text)}" target="_blank" rel="noopener">${ico("chat")}${L("Send on WhatsApp")}</a><button type="button" class="btn btn-dark" id="copyEnq">${ico("copy")}${L("Copy my message")}</button></div>`;
-      $("#copyEnq").addEventListener("click",ev=>copyText(text,ev.currentTarget));
-    }
+    status.innerHTML = `<b>${L("Sorry, the form couldn't be sent from here.")}</b> ${L("Please send your message on WhatsApp instead. Your details are ready to go.")}
+      <div class="acts"><a class="btn btn-wa" href="${waLink(text)}" target="_blank" rel="noopener">${ico("chat")}${L("Send on WhatsApp")}</a><button type="button" class="btn btn-dark" id="copyEnq">${ico("copy")}${L("Copy my message")}</button></div>`;
+    $("#copyEnq").addEventListener("click",ev=>copyText(text,ev.currentTarget));
     status.scrollIntoView({block:"nearest",behavior:"smooth"});
   });
   /* ---------- Success pop-up ---------- */
   const modal = $("#okModal");
   let lastFocus = null;
-  function showSuccess(d){
+  function showSuccess(d, dryRun = false){
+    modal.querySelector(".ok-lede").textContent = dryRun ? L("Staging check passed. Nothing was sent.") : L("Your message has been sent. I'll reply on WhatsApp within 1 working day.");
     $("#okHi").textContent = L("Thanks, {name}!",{name:d.name.split(" ")[0]});
     lastFocus = document.activeElement; modal.hidden = false; document.body.style.overflow = "hidden";
     setTimeout(()=>$("#okClose").focus(),30);
@@ -2106,17 +2569,111 @@ When someone compares two businesses side by side, the one that looks profession
   const cdays = (n, rush) => { const r = rush ? 2 : 0; return C("{a}–{b} working days",{a:Math.max(1,3+n-r), b:5+n-r}); };
   const chat = $("#chat"), log = $("#chatLog"), handoffBtn = $("#handoff"), fab = $("#chatFab");
   let started = false, opener = null;
-  function openChat(e){ opener = e && e.currentTarget || null; chat.hidden = false; document.body.classList.add("chat-open"); fab.setAttribute("aria-expanded","true"); fab.innerHTML = ico("x"); if(!started){ started = true; greet(); } setTimeout(()=>$("#chatInput").focus(),50); }
-  function closeChat(){ chat.hidden = true; document.body.classList.remove("chat-open"); fab.setAttribute("aria-expanded","false"); fab.innerHTML = ico("msg"); if(opener) opener.focus({preventScroll:true}); }
-  fab.addEventListener("click",e=>{ if(chat.hidden) openChat(e); else closeChat(); });
+  /* ----- Fluid motion: a tiny critically-damped spring (Apple's damping 1.0 / response ~0.35s).
+     Springs start from the current value and keep their velocity, so every motion can be interrupted and reversed. */
+  const REDUCED = matchMedia("(prefers-reduced-motion: reduce)");
+  function Spring(apply, {response = 0.35, damping = 1} = {}){
+    const w = 2*Math.PI/response; let x = 0, v = 0, target = 0, raf = 0, last = 0, done = null;
+    const step = t => {
+      const dt = Math.min(0.032, (t - last)/1000 || 0.016); last = t;
+      for(let i=0;i<4;i++){ const h = dt/4, a = -w*w*(x-target) - 2*damping*w*v; v += a*h; x += v*h; }
+      if(Math.abs(x-target) < 0.001 && Math.abs(v) < 0.01){ x = target; v = 0; apply(x); raf = 0; const d = done; done = null; d && d(); return; }
+      apply(x); raf = requestAnimationFrame(step);
+    };
+    return {
+      get value(){ return x; },
+      to(t, {velocity, onDone} = {}){ target = t; if(velocity !== undefined) v = velocity; done = onDone || null;
+        if(REDUCED.matches){ cancelAnimationFrame(raf); raf = 0; x = t; v = 0; apply(x); onDone && onDone(); return; }
+        if(!raf){ last = performance.now(); raf = requestAnimationFrame(step); } },
+      set(val){ cancelAnimationFrame(raf); raf = 0; x = val; v = 0; done = null; apply(x); }
+    };
+  }
+  // Chat panel: grows out of the chat button on computers; on phones it is a bottom sheet you can drag down to close
+  const isSheet = () => matchMedia("(max-width:600px)").matches;
+  const scrim = document.createElement("div"); scrim.className = "chat-scrim"; chat.before(scrim);
+  const paintChat = p => {
+    const q = Math.max(0, Math.min(1, p));
+    if(isSheet()){
+      chat.style.transform = `translateY(${(1-p)*chat.offsetHeight}px)`; chat.style.opacity = 1;
+      scrim.style.opacity = q; scrim.style.pointerEvents = q > 0.05 ? "auto" : "none";
+    } else {
+      chat.style.transform = `scale(${0.6 + 0.4*p})`; chat.style.opacity = Math.min(1, q*1.6);
+      scrim.style.opacity = 0; scrim.style.pointerEvents = "none";
+    }
+    if(REDUCED.matches){ chat.style.transform = "none"; }
+  };
+  const chatSpring = Spring(paintChat, {response: 0.38, damping: 1});
+  chatSpring.set(0);
+  let chatOpen = false;
+  function openChat(e){
+    opener = e && e.currentTarget || null; chatOpen = true;
+    chat.hidden = false; document.body.classList.add("chat-open"); fab.setAttribute("aria-expanded","true"); fab.innerHTML = ico("x");
+    if(REDUCED.matches) chat.animate([{opacity:0},{opacity:1}],{duration:160,easing:"ease-out"});
+    chatSpring.to(1);
+    if(!started){ started = true; greet(); }
+    setTimeout(()=>$("#chatInput").focus({preventScroll:true}), isSheet() ? 320 : 50);
+  }
+  function closeChat(velocity){
+    chatOpen = false; document.body.classList.remove("chat-open"); fab.setAttribute("aria-expanded","false"); fab.innerHTML = ico("msg");
+    if(document.activeElement && chat.contains(document.activeElement)) document.activeElement.blur();
+    const finish = () => { if(!chatOpen) chat.hidden = true; };
+    if(REDUCED.matches){ const a = chat.animate([{opacity:1},{opacity:0}],{duration:140,easing:"ease-in"}); a.onfinish = () => { chatSpring.set(0); finish(); }; }
+    else chatSpring.to(0, {velocity: typeof velocity === "number" ? velocity : undefined, onDone: finish});
+    if(opener) opener.focus({preventScroll:true});
+  }
+  scrim.addEventListener("click", ()=>closeChat());
+  // Drag the sheet's top bar down to close: follows the finger 1:1, then hands its speed to the spring
+  (function(){
+    const grip = chat.querySelector(".chat-top"); let drag = null;
+    grip.addEventListener("pointerdown", e => {
+      if(!isSheet() || e.target.closest("button")) return;
+      grip.setPointerCapture(e.pointerId);
+      drag = {y0: e.clientY, p0: chatSpring.value, h: chat.offsetHeight, hist: [[e.clientY, e.timeStamp]], moved: false};
+    });
+    grip.addEventListener("pointermove", e => {
+      if(!drag) return; const dy = e.clientY - drag.y0;
+      if(!drag.moved && Math.abs(dy) < 6) return; drag.moved = true;
+      let p = drag.p0 - dy/drag.h;
+      if(p > 1){ const over = (p-1)*drag.h; p = 1 + (over*drag.h*0.55)/(drag.h + 0.55*over)/drag.h; } // rubber-band past fully open
+      chatSpring.set(p);
+      drag.hist.push([e.clientY, e.timeStamp]); if(drag.hist.length > 5) drag.hist.shift();
+    });
+    const end = e => {
+      if(!drag) return; const d = drag; drag = null; if(!d.moved) return;
+      const [y1,t1] = d.hist[0], [y2,t2] = d.hist[d.hist.length-1];
+      const vpx = (t2 > t1) ? (y2-y1)/((t2-t1)/1000) : 0;              // px/s, + = moving down
+      const projected = chatSpring.value - (vpx/1000*0.998/(1-0.998))/d.h; // where the flick is heading
+      const vel = -vpx/d.h;                                             // same speed, in sheet units
+      if(projected < 0.5 || vpx > 900) closeChat(vel); else chatSpring.to(1, {velocity: vel});
+    };
+    grip.addEventListener("pointerup", end); grip.addEventListener("pointercancel", end);
+  })();
+  fab.addEventListener("click",e=>{ if(!chatOpen) openChat(e); else closeChat(); });
   // Show the red "Call" button in the phone header once the hero buttons have scrolled away
   const heroCta = document.querySelector(".hero .hero-cta");
   const setScrolled = () => { const r = heroCta && !homeView.hidden ? heroCta.getBoundingClientRect() : null; document.body.classList.toggle("scrolled", !r || r.bottom < head.offsetHeight); };
   addEventListener("scroll", setScrolled, {passive:true}); addEventListener("hashchange", ()=>setTimeout(setScrolled,50)); setScrolled();
-  $("#chatClose").addEventListener("click",closeChat);
+  $("#chatClose").addEventListener("click",()=>closeChat());
   $("#chatReset").addEventListener("click",()=>{ if(!busy) resetChat(); });
   document.querySelectorAll("[data-open-chat]").forEach(b=>b.addEventListener("click",openChat));
-  addEventListener("keydown",e=>{ if(e.key==="Escape" && !chat.hidden) closeChat(); });
+  addEventListener("keydown",e=>{ if(e.key==="Escape" && chatOpen) closeChat(); });
+  // FAQ answers slide open and closed (interruptible: each change starts from the current height)
+  document.querySelectorAll("details").forEach(d => {
+    const sum = d.querySelector("summary"), body = sum && sum.nextElementSibling; if(!body) return;
+    let anim = null;
+    sum.addEventListener("click", e => {
+      if(REDUCED.matches) return;
+      e.preventDefault();
+      const from = d.open ? body.getBoundingClientRect().height : 0;
+      const closing = d.open && !d.classList.contains("closing");
+      if(anim) anim.cancel();
+      if(!closing){ d.open = true; d.classList.remove("closing"); }
+      else d.classList.add("closing");
+      const to = closing ? 0 : body.scrollHeight;
+      anim = body.animate([{height: from+"px", opacity: closing ? 1 : (from ? 1 : 0)}, {height: to+"px", opacity: closing ? 0 : 1}], {duration: closing ? 220 : 300, easing: "cubic-bezier(.2,.9,.25,1)"});
+      anim.onfinish = () => { anim = null; if(closing){ d.open = false; d.classList.remove("closing"); } };
+    });
+  });
 
   // Everything said in the chat, as plain text, for the WhatsApp summary
   const transcript = [];
@@ -2163,7 +2720,7 @@ When someone compares two businesses side by side, the one that looks profession
   function included(){ say(()=>C("Every RM1,600 website includes <b>up to 8 pages or sections</b> in one language, a <b>website chatbot</b>, a custom-designed homepage, a mobile-friendly layout, a services section, WhatsApp and click-to-call buttons, a contact form, basic SEO setup and social media links. <b>Google Business Profile setup</b> and a <b>standard domain for the first year</b> are included free. Without the chatbot, it's RM1,500.")); after(); }
   function timing(){ say(()=>C("Usually <b>3–5 working days</b>, depending on the project and how quickly you can send your content (text, photos and logo). Each add-on adds 1 working day. Need it sooner? Rush delivery cuts <b>2 working days</b> for <b>+20%</b> of the project total.")); after(); }
   function rushInfo(){ say(()=>C("<b>Rush delivery</b> cuts your delivery time by <b>2 working days</b>, for example from 3–5 working days to 1–3. It costs an extra <b>20%</b> of the project total (website plus add-ons).")); after(); }
-  function payments(){ say(()=>C("You pay a <b>50% deposit</b> to start and the other <b>50% when your website is ready, before launch</b>. For the RM1,600 website, that's RM800 + RM800. You can pay by <b>DuitNow, Touch 'n Go eWallet or cash</b>. Adam works as a freelancer, so payments go to him personally.")); after(); }
+  function payments(){ say(()=>C("You pay a <b>RM200 deposit</b> to start and <b>the rest when your website is ready, before launch</b>. For the RM1,600 website, that's RM200 + RM1,400. You can pay by <b>DuitNow, Touch 'n Go eWallet or cash</b>. Adam works as a freelancer, so payments go to him personally.")); after(); }
   function urgent(){ say(()=>C("Without Website Care, urgent fixes and small changes are <b>RM100 per hour</b>. With Website Care (RM199/month), minor updates and support are included.")); after(); }
   function careInfo(){ say(()=>C("Website Care is optional at <b>RM199/month</b>: hosting and standard domain renewal included, website health monitoring, minor updates, security and maintenance checks, social media update monitoring where supported, and ongoing support.")); after(); }
   function domainInfo(){ say(()=>C("Two things are included free with your website: <b>Google Business Profile setup</b>, and a <b>standard domain (.com, .com.my or .my) for the first year</b>. Premium domains are quoted separately. From the second year, you pay the domain renewal yourself, unless you're on Website Care.")); after(); }
@@ -2352,7 +2909,7 @@ When someone compares two businesses side by side, the one that looks profession
       /(assistant|chatbot|bot|auto.?reply|messenger|助手|机器人)/.test(t) ? assistInfo :
       /(cost|price|how much|quote|calculat|total|estimate|rm\s?\d|harga|berapa|kos|价格|多少钱|报价)/.test(t) ? ()=>calc() :
       /(how long|days|time|fast|quick|when|berapa lama|hari|多久|几天)/.test(t) ? timing :
-      /(pay|deposit|duitnow|tng|touch|ewallet|e-wallet|cash|tunai|50%|bayar|付款|定金|现金)/.test(t) ? payments :
+      /(pay|deposit|duitnow|tng|touch|ewallet|e-wallet|cash|tunai|50%|rm200|bayar|付款|定金|现金)/.test(t) ? payments :
       /(care|maint|monthly|support|update|host|penjagaan|维护)/.test(t) ? careInfo :
       /(meet|zoom|google meet|in person|jumpa|见面)/.test(t) ? meetInfo :
       /(content|text|photo|logo|write|copy|gambar|照片|内容)/.test(t) ? content :

@@ -1,16 +1,32 @@
-# Cloudflare settings for the chatbot server (ace-chat).
-# Used when Cloudflare deploys this Worker automatically from GitHub.
 name = "ace-chat"
-main = "chat-worker.js"
+main = "./production-worker.js"
 compatibility_date = "2026-01-01"
-
-# Keep the variables and secrets you set in the Cloudflare dashboard (GEMINI_API_KEY, ALLOWED_ORIGIN, ...).
-keep_vars = true
-
-# Always run in the US, next to Google's servers. Gemini's free API is not available
-# from some locations (e.g. Hong Kong, where Malaysian visitors are often routed).
+keep_vars = false
 [placement]
 region = "gcp:us-east4"
-
 [observability]
 enabled = true
+[vars]
+AI_DISABLED = "false"
+STAGING = "false"
+AI_MOCK = "false"
+ALLOWED_ORIGIN = "https://acedigitalsolutionsbiz.org,https://www.acedigitalsolutionsbiz.org"
+CHAT_DAILY_CAP = "100"
+CHAT_IP_PER_HOUR = "20"
+GEMINI_MODEL = "gemini-3.1-flash-lite"
+GEMINI_BACKUP_MODEL = "gemini-3.5-flash-lite"
+GEMINI_MAX_OUTPUT_TOKENS = "600"
+[[ratelimits]]
+name = "CHAT_LIMITER"
+namespace_id = "1002"
+[ratelimits.simple]
+limit = 10
+period = 60
+[[durable_objects.bindings]]
+name = "USAGE"
+class_name = "ChatUsage"
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["ChatUsage"]
+[secrets]
+required = ["LIMIT_HMAC_KEY", "GEMINI_API_KEY"]

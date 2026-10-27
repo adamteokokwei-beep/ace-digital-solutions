@@ -9,6 +9,7 @@ Writes site/index.html (EN), site/bm/index.html (BM), site/zh/index.html (中文
 Run:  python3 src/build_site.py          (add --missing to list text that has no translation yet)
 """
 import json, os, re, sys, html as H
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))  # for csp.py
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "src", "index.src.html")
@@ -135,12 +136,16 @@ def preview_paths(page, root):
     """Relative links so the files can be opened straight from a folder (no web server)."""
     for a, b in [('"/img/', '"' + root + 'img/'), ('href="/bm/"', 'href="' + root + 'bm/index.html"'),
                  ('href="/zh/"', 'href="' + root + 'zh/index.html"'), ('href="/privacy/"', 'href="' + root + 'privacy/index.html"'),
-                 ('"/demos/jb-plumbing/"', '"' + root + 'demos/jb-plumbing/index.html"'), ('href="/"', 'href="' + root + 'index.html"')]:
+                 ('"/demos/jb-plumbing/"', '"' + root + 'demos/jb-plumbing/index.html"'),
+                 ('"/demos/skudai-tuition/"', '"' + root + 'demos/skudai-tuition/index.html"'), ('href="/#work"', 'href="' + root + 'index.html#work"'),
+                 ('href="/"', 'href="' + root + 'index.html"')]:
         page = page.replace(a, b)
     return page
 
-def build(show_missing=False, preview_dir=None):
+def build(show_missing=False, preview_dir=None, form_only=False):
     src = open(SRC, encoding="utf-8").read()
+    if form_only:
+        src = src.replace('const CHAT_API = "https://ace-chat.adamteokokwei.workers.dev/chat";', 'const CHAT_API = "";')
     keys = js_keys(src)
     global ALL_JS
     ALL_JS = {}
@@ -180,6 +185,8 @@ def build(show_missing=False, preview_dir=None):
         assert "{{" not in page, re.findall(r"\{\{\w+\}\}", page)
         out = os.path.join(SITE, cfg["path"].strip("/"), "index.html")
         os.makedirs(os.path.dirname(out), exist_ok=True)
+        if code == "zh":  # Chinese needs no space after full-width punctuation
+            page = re.sub(r"([，。！？])<span> ", r"\1<span>", page)
         open(out, "w", encoding="utf-8").write(page)
         if preview_dir:
             pv = os.path.join(preview_dir, cfg["path"].strip("/"), "index.html")
@@ -191,6 +198,10 @@ def build(show_missing=False, preview_dir=None):
     alts += f'    <xhtml:link rel="alternate" hreflang="x-default" href="{DOMAIN}/"/>\n'
     urls = "".join(f'  <url>\n    <loc>{DOMAIN}{c["path"]}</loc>\n{alts}  </url>\n' for c in LANGS.values())
     urls += f'  <url>\n    <loc>{DOMAIN}/privacy/</loc>\n  </url>\n'
+    # Content Security Policy (hashes of every inline script) -> site/_headers
+    import csp as _csp
+    _name, _ = _csp.write_headers(SITE, ["https://ace-wa-enquiry.adamteokokwei.workers.dev", "https://ace-chat.adamteokokwei.workers.dev"])
+    print("security headers:", _name, "written to site/_headers")
     open(os.path.join(SITE, "sitemap.xml"), "w").write('<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + urls + "</urlset>\n")
     for code, miss in report.items():
@@ -202,14 +213,14 @@ def build(show_missing=False, preview_dir=None):
 
 if __name__ == "__main__":
     pv = sys.argv[sys.argv.index("--preview") + 1] if "--preview" in sys.argv else None
-    build("--missing" in sys.argv, pv)
+    build("--missing" in sys.argv, pv, "--form-only" in sys.argv)
     if pv:  # copy the other files, with relative links for the extra pages
         import shutil
         for d in ["img", "demos"]:
             shutil.copytree(os.path.join(SITE, d), os.path.join(pv, d), dirs_exist_ok=True)
         for f in ["og-image.jpg", "robots.txt", "sitemap.xml"]:
             shutil.copy(os.path.join(SITE, f), pv)
-        for rel, root in [("privacy/index.html", "../"), ("demos/jb-plumbing/index.html", "../../")]:
+        for rel, root in [("privacy/index.html", "../"), ("demos/jb-plumbing/index.html", "../../"), ("demos/skudai-tuition/index.html", "../../")]:
             src = open(os.path.join(SITE, rel), encoding="utf-8").read()
             os.makedirs(os.path.dirname(os.path.join(pv, rel)), exist_ok=True)
             open(os.path.join(pv, rel), "w", encoding="utf-8").write(preview_paths(src, root))

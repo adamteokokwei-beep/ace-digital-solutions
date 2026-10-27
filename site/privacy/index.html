@@ -33,7 +33,7 @@ a{color:#1D4ED8}
 <header><div class="in"><a href="/">ACE DIGITAL SOLUTIONS</a><nav><a href="/">EN</a><a href="/bm/">BM</a><a href="/zh/">中文</a></nav></div></header>
 <main>
   <h1>Privacy Notice · Notis Privasi</h1>
-  <p class="muted">Personal Data Protection Act 2010 (Malaysia) · Akta Perlindungan Data Peribadi 2010. Last updated / Kemas kini terakhir: 12 October 2026.</p>
+  <p class="muted">Personal Data Protection Act 2010 (Malaysia) · Akta Perlindungan Data Peribadi 2010. Last updated / Kemas kini terakhir: 24 October 2026.</p>
   <div class="jump"><a href="#en">English</a><a href="#bm">Bahasa Melayu</a></div>
 
   <section class="lang" id="en" lang="en">
@@ -58,10 +58,11 @@ a{color:#1D4ED8}
 
     <h2>3. Who else handles it</h2>
     <ul>
-      <li><b>FormSubmit</b> (formsubmit.co) delivers the contact form to my email inbox.</li>
-      <li><b>The chat assistant</b> sends the messages you type to Google's Gemini AI service, through a Cloudflare server, to write its replies. Under Google's terms for this service, Google may use what is typed to improve its products. Please don't type sensitive personal information (such as IC numbers or bank details) into the chat.</li>
+      <li><b>Cloudflare</b> hosts the website and runs the two small servers behind it: one for the contact form and one for the chat assistant. When you send the form, the form server checks it with <b>Cloudflare Turnstile</b> (to confirm a person, not a bot, is sending it), applies spam limits, and then passes your details on to me. It doesn't store your details. For spam limits it keeps keyed, scrambled counters and submission fingerprints, without enquiry content; form records expire after about 48 hours of inactivity.</li>
+      <li><b>WhatsApp Business Platform</b> (Meta): the form server sends your details to my own WhatsApp using Meta's official WhatsApp service.</li>
+      <li><b>Cloudflare Email Routing</b> and <b>Google</b> (Gmail): form-to-email delivery is currently disabled. If you email me directly, Gmail stores the email I receive. The website doesn't send any automatic emails to you.</li>
+      <li><b>The chat assistant</b> sends the messages you type to Google's Gemini AI service, through the chat server, to write its replies. Answers are automatically checked before you see them, and prices are always confirmed by me in writing. Under Google's terms for this service, Google may use what is typed to improve its products. Please don't type sensitive personal information (such as IC numbers or bank details) into the chat.</li>
       <li><b>WhatsApp</b> (Meta) handles messages you choose to send me on WhatsApp, including any chat summary you choose to send from the website.</li>
-      <li><b>Google</b> (Gmail) stores emails I receive. The website itself is hosted on <b>Cloudflare</b>.</li>
     </ul>
     <p>These services may process data outside Malaysia.</p>
 
@@ -102,10 +103,11 @@ a{color:#1D4ED8}
 
     <h2>3. Pihak lain yang mengendalikannya</h2>
     <ul>
-      <li><b>FormSubmit</b> (formsubmit.co) menghantar borang hubungan ke peti e-mel saya.</li>
-      <li><b>Pembantu sembang</b> menghantar mesej yang anda taip kepada perkhidmatan AI Gemini milik Google, melalui pelayan Cloudflare, untuk menulis jawapannya. Di bawah terma Google bagi perkhidmatan ini, Google boleh menggunakan apa yang ditaip untuk menambah baik produknya. Sila jangan taip maklumat peribadi yang sensitif (seperti nombor kad pengenalan atau butiran bank) dalam sembang.</li>
+      <li><b>Cloudflare</b> mengehos laman web ini dan menjalankan dua pelayan kecil di belakangnya: satu untuk borang hubungan dan satu untuk pembantu sembang. Apabila anda menghantar borang, pelayan borang memeriksanya dengan <b>Cloudflare Turnstile</b> (untuk memastikan ia dihantar oleh manusia, bukan bot), menggunakan had anti-spam, kemudian menghantar butiran anda kepada saya. Ia tidak menyimpan butiran anda. Untuk had anti-spam, ia menyimpan pembilang berkunci dan cap jari penghantaran yang dikodkan tanpa kandungan pertanyaan; rekod borang luput selepas kira-kira 48 jam tanpa aktiviti.</li>
+      <li><b>WhatsApp Business Platform</b> (Meta): pelayan borang menghantar butiran anda ke WhatsApp saya sendiri menggunakan perkhidmatan WhatsApp rasmi Meta.</li>
+      <li><b>Cloudflare Email Routing</b> dan <b>Google</b> (Gmail): penghantaran borang melalui e-mel kini dimatikan. Jika anda menghantar e-mel terus kepada saya, Gmail menyimpan e-mel yang saya terima. Laman web ini tidak menghantar sebarang e-mel automatik kepada anda.</li>
+      <li><b>Pembantu sembang</b> menghantar mesej yang anda taip kepada perkhidmatan AI Gemini milik Google, melalui pelayan sembang, untuk menulis jawapannya. Jawapan diperiksa secara automatik sebelum anda melihatnya, dan harga sentiasa disahkan oleh saya secara bertulis. Di bawah terma Google bagi perkhidmatan ini, Google boleh menggunakan apa yang ditaip untuk menambah baik produknya. Sila jangan taip maklumat peribadi yang sensitif (seperti nombor kad pengenalan atau butiran bank) dalam sembang.</li>
       <li><b>WhatsApp</b> (Meta) mengendalikan mesej yang anda pilih untuk hantar kepada saya melalui WhatsApp, termasuk sebarang ringkasan sembang yang anda pilih untuk hantar dari laman web.</li>
-      <li><b>Google</b> (Gmail) menyimpan e-mel yang saya terima. Laman web ini dihoskan di <b>Cloudflare</b>.</li>
     </ul>
     <p>Perkhidmatan ini mungkin memproses data di luar Malaysia.</p>
 
