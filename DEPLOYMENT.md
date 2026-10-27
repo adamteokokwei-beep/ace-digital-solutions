@@ -12,6 +12,6 @@ When publishing new website changes, regenerate the security headers through the
 
 ## Pull-request previews
 
-Cloudflare preview builds run `npx wrangler preview`. The website uses repository root `/`; the chatbot must use `backend/` for both its production and preview build roots. These roots are separate dashboard settings.
+Cloudflare preview builds run `npx wrangler preview`. The website uses repository root `/`. The chatbot production root is `backend/`; its preview command explicitly selects `backend/wrangler.toml` from repository root `/` (`npx wrangler preview --config backend/wrangler.toml`). Production and preview build settings are separate; verify the actual build log uses the chatbot entry point.
 
 The website config explicitly enables static previews. The chatbot preview overrides disable AI and set both attempt caps to zero, with no required secrets or production counter bindings. The preview returns a safe 503; it is a configuration/build check, not a real-provider acceptance environment. Do not import production secrets into Previews Base. The existing isolated mock staging Worker remains the functional test environment.
