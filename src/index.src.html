@@ -2370,7 +2370,7 @@ When someone compares two businesses side by side, the one that looks profession
       <div class="post-body"><span class="post-cat pill-cat">${escH(p.cat)}</span><h3>${escH(p.title)}</h3><p>${escH(p.excerpt)}</p>
         <div class="post-foot"><span class="who">${ico("clock")} ${L("This article is on its way. Check back soon.")}</span></div></div>
     </div>` : `
-    <a class="post-card" href="#${p.id}">
+    <a class="post-card" href="${LANG==="en"?"/":"/"+LANG+"/"}articles/${p.id.slice(5)}/">
       ${p.cardImg ? `<div class="post-img"><img src="${p.cardImg}" alt="" loading="lazy"></div>` : `<div class="post-art" style="background:${p.bg}" aria-hidden="true">${ico(p.icon)}</div>`}
       <div class="post-body"><span class="post-cat pill-cat">${escH(p.cat)}</span><h3>${escH(p.title)}</h3><p>${escH(p.excerpt)}</p>
         <div class="post-foot">${AVATAR?`<img src="${AVATAR}" alt="">`:""}<span class="who">${L("By <b>Adam</b>")}<br>${p.date?`<time>${fmtPostDate(p.date)}</time> · `:""}${L("{n} min read",{n:mins(p.body)})}</span><span class="go" aria-hidden="true">${ico("arrow")}</span></div></div>
@@ -2430,7 +2430,9 @@ When someone compares two businesses side by side, the one that looks profession
     else { scrollTo(0,0); }
   }
   function setActive(href){ links.forEach(a=>a.classList.toggle("on", a.getAttribute("href")===href)); }
+  function contentURL(id){ const base=LANG==="en"?"/":"/"+LANG+"/"; return base+(id==="about"?"about/":id==="articles"?"articles/":"articles/"+id.slice(5)+"/"); }
   function go(id){
+    if(id==="about" || id==="articles" || (id.startsWith("post-") && POSTS.some(p=>p.id===id && !p.soon))){ location.href=contentURL(id); return; }
     current = id; lastClicked = id;
     show(id, true);
     const navHref = viewFor(id)==="post" ? "#articles" : "#"+id;
@@ -2445,7 +2447,7 @@ When someone compares two businesses side by side, the one that looks profession
     go(id);
     if(a.hasAttribute("data-goform")) setTimeout(()=>{ const f=$("#f-name"); if(f) f.focus({preventScroll:true}); },60);
   });
-  function route(){ const id = location.hash.slice(1); if(id===current) return; current = id; show(id,false); onScroll(); }
+  function route(){ const id = location.hash.slice(1); if(id==="about" || id==="articles" || (id.startsWith("post-") && POSTS.some(p=>p.id===id && !p.soon))){ location.replace(contentURL(id)); return; } if(id===current) return; current = id; show(id,false); onScroll(); }
   function onScroll(){
     if(Date.now() < lockUntil) return;
     if(!aboutView.hidden) return setActive("#about");
