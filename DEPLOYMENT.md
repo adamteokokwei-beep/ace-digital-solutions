@@ -9,3 +9,9 @@ Backend deployments are separate: `backend/wrangler.toml` for `ace-chat`, and `w
 Current limits: chat 100 model attempts/day and 20/visitor/hour, with one counted backup attempt at most; form 50 deliveries/day with shared atomic reservations. Handover text quotes visitor messages without asking AI to rewrite them. See docs/security/chatbot-launch-2026-10-27.md for validation and limitations.
 
 When publishing new website changes, regenerate the security headers through the builder and verify canonical URLs, language links, chatbot fallback and the contact form. Do not merge historical branch snapshots over these release files.
+
+## Pull-request previews
+
+Cloudflare preview builds run `npx wrangler preview`. The website uses repository root `/`; the chatbot must use `backend/` for both its production and preview build roots. These roots are separate dashboard settings.
+
+The website config explicitly enables static previews. The chatbot preview overrides disable AI and set both attempt caps to zero, with no required secrets or production counter bindings. The preview returns a safe 503; it is a configuration/build check, not a real-provider acceptance environment. Do not import production secrets into Previews Base. The existing isolated mock staging Worker remains the functional test environment.

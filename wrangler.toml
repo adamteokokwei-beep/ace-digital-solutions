@@ -3,3 +3,6 @@ name = "ace-digital-solutions"
 compatibility_date = "2026-10-12"
 [assets]
 directory = "./site"
+
+# Cloudflare PR Builds use `wrangler preview`; static assets stay at the top level.
+[previews]

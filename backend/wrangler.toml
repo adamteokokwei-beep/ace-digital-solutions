@@ -30,3 +30,13 @@ tag = "v1"
 new_sqlite_classes = ["ChatUsage"]
 [secrets]
 required = ["LIMIT_HMAC_KEY", "GEMINI_API_KEY"]
+
+# PR previews must never use real AI or production counters/credentials.
+# The production entry point respects AI_DISABLED before accessing any provider or binding.
+[previews.vars]
+AI_DISABLED = "true"
+AI_MOCK = "false"
+STAGING = "false"
+ALLOWED_ORIGIN = "https://preview.invalid"
+CHAT_DAILY_CAP = "0"
+CHAT_IP_PER_HOUR = "0"
