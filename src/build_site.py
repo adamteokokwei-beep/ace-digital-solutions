@@ -9,6 +9,7 @@ Writes site/index.html (EN), site/bm/index.html (BM), site/zh/index.html (中文
 Run:  python3 src/build_site.py          (add --missing to list text that has no translation yet)
 """
 import json, os, re, sys, html as H
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))  # for csp.py
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "src", "index.src.html")
@@ -19,18 +20,18 @@ FB = "https://www.facebook.com/profile.php?id=61595360692132"
 
 LANGS = {
   "en": {"path": "/", "html_lang": "en-MY", "hreflang": "en", "og_locale": "en_MY",
-         "title": "Professional Websites for Malaysian Businesses | Ace Digital Solutions",
-         "desc": "Professional, mobile-friendly websites for businesses in Malaysia, built by Adam in Johor Bahru. RM1,600 for up to 8 pages with a website chatbot, or RM1,500 without, with a free domain for the first year and free Google Business Profile setup.",
+         "title": "Web Design Malaysia | Ace Digital Solutions",
+         "desc": "Website design for businesses across Malaysia by Adam in Johor Bahru. Mobile-friendly websites from RM1,500, with WhatsApp enquiries and basic SEO.",
          "wa_text": "Hi Adam, I'm interested in a website for my business.",
          "blog_note": ""},
   "bm": {"path": "/bm/", "html_lang": "ms-MY", "hreflang": "ms", "og_locale": "ms_MY",
-         "title": "Laman Web Profesional untuk Perniagaan di Malaysia | Ace Digital Solutions",
-         "desc": "Laman web profesional dan mesra telefon untuk perniagaan di Malaysia, dibina oleh Adam di Johor Bahru. RM1,600 untuk sehingga 8 halaman bersama chatbot laman web, atau RM1,500 tanpanya, dengan domain percuma untuk tahun pertama dan persediaan Google Business Profile percuma.",
+         "title": "Reka Bentuk Laman Web Malaysia | Ace Digital Solutions",
+         "desc": "Reka bentuk laman web mesra telefon untuk perniagaan di seluruh Malaysia oleh Adam di Johor Bahru. Dari RM1,500, dengan pertanyaan WhatsApp dan SEO asas.",
          "wa_text": "Hai Adam, saya berminat dengan laman web untuk perniagaan saya.",
          "blog_note": "Artikel blog buat masa ini dalam Bahasa Inggeris sahaja."},
   "zh": {"path": "/zh/", "html_lang": "zh-Hans", "hreflang": "zh-Hans", "og_locale": "zh_CN",
-         "title": "为马来西亚企业打造的专业网站 | Ace Digital Solutions",
-         "desc": "由新山的 Adam 亲自为马来西亚企业打造专业、适合手机浏览的网站。RM1,600，最多 8 个页面并含网站聊天机器人（不含则 RM1,500），首年域名免费，并免费设置 Google 商家资料（Google Business Profile）。",
+         "title": "马来西亚网站设计 | Ace Digital Solutions",
+         "desc": "由新山的 Adam 为全马企业提供网站设计。RM1,500 起，适合手机浏览，包含 WhatsApp 联系功能、基础 SEO 与首年标准域名。",
          "wa_text": "Adam 你好，我想了解为我的生意制作网站。",
          "blog_note": "博客文章目前只有英文版。"},
 }
@@ -101,9 +102,10 @@ def head_for(code, cfg):
     url = DOMAIN + cfg["path"]
     alts = "".join(f'<link rel="alternate" hreflang="{c["hreflang"]}" href="{DOMAIN}{c["path"]}">\n' for c in LANGS.values())
     alts += f'<link rel="alternate" hreflang="x-default" href="{DOMAIN}/">\n'
+    image_alt = {"en": "Ace Digital Solutions: website design for businesses across Malaysia", "bm": "Ace Digital Solutions: reka bentuk laman web untuk perniagaan di seluruh Malaysia", "zh": "Ace Digital Solutions：为全马企业提供网站设计"}[code]
     t, d = H.escape(cfg["title"]), H.escape(cfg["desc"], quote=True)
-    org = {"@context": "https://schema.org", "@type": "ProfessionalService", "name": "Ace Digital Solutions",
-           "url": url, "image": DOMAIN + "/og-image.jpg", "logo": DOMAIN + "/og-image.jpg", "sameAs": [FB, "https://www.instagram.com/acedigitalsolutionsbiz/", "https://www.youtube.com/@AceDigitalSolutionsBiz"],
+    org = {"@context": "https://schema.org", "@type": "ProfessionalService", "@id": DOMAIN + "/#business", "name": "Ace Digital Solutions",
+           "url": DOMAIN + "/", "image": DOMAIN + "/og-image.jpg", "logo": DOMAIN + "/og-image.jpg", "sameAs": [FB, "https://www.instagram.com/acedigitalsolutionsbiz/", "https://www.youtube.com/@AceDigitalSolutionsBiz"],
            "description": cfg["desc"], "email": "adamteokokwei@gmail.com", "telephone": "+60102641824",
            "priceRange": "RM1,500–RM1,600", "inLanguage": cfg["html_lang"],
            "founder": {"@type": "Person", "name": "Adam", "jobTitle": "Freelance Web Designer"},
@@ -126,7 +128,7 @@ def head_for(code, cfg):
             f'<meta property="og:locale" content="{cfg["og_locale"]}">\n'
             + "".join(f'<meta property="og:locale:alternate" content="{c["og_locale"]}">\n' for k, c in LANGS.items() if k != code) +
             f'<meta property="og:image" content="{DOMAIN}/og-image.jpg">\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n'
-            '<meta property="og:image:alt" content="Ace Digital Solutions: professional websites for businesses in Malaysia, RM1,600 with a website chatbot">\n'
+            f'<meta property="og:image:alt" content="{image_alt}">\n'
             f'<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:title" content="{t}">\n<meta name="twitter:description" content="{d}">\n'
             f'<meta name="twitter:image" content="{DOMAIN}/og-image.jpg">\n'
             f'<script type="application/ld+json">{json.dumps(org, ensure_ascii=False)}</script>\n')
@@ -135,12 +137,16 @@ def preview_paths(page, root):
     """Relative links so the files can be opened straight from a folder (no web server)."""
     for a, b in [('"/img/', '"' + root + 'img/'), ('href="/bm/"', 'href="' + root + 'bm/index.html"'),
                  ('href="/zh/"', 'href="' + root + 'zh/index.html"'), ('href="/privacy/"', 'href="' + root + 'privacy/index.html"'),
-                 ('"/demos/jb-plumbing/"', '"' + root + 'demos/jb-plumbing/index.html"'), ('href="/"', 'href="' + root + 'index.html"')]:
+                 ('"/demos/jb-plumbing/"', '"' + root + 'demos/jb-plumbing/index.html"'),
+                 ('"/demos/skudai-tuition/"', '"' + root + 'demos/skudai-tuition/index.html"'), ('href="/#work"', 'href="' + root + 'index.html#work"'),
+                 ('href="/"', 'href="' + root + 'index.html"')]:
         page = page.replace(a, b)
     return page
 
-def build(show_missing=False, preview_dir=None):
+def build(show_missing=False, preview_dir=None, form_only=False):
     src = open(SRC, encoding="utf-8").read()
+    if form_only:
+        src = src.replace('const CHAT_API = "https://ace-chat.adamteokokwei.workers.dev/chat";', 'const CHAT_API = "";')
     keys = js_keys(src)
     global ALL_JS
     ALL_JS = {}
@@ -178,19 +184,32 @@ def build(show_missing=False, preview_dir=None):
                 '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n' % cfg["html_lang"]
                 + s[:i] + "\n</head>\n<body>\n" + s[i:] + "\n</body>\n</html>\n")
         assert "{{" not in page, re.findall(r"\{\{\w+\}\}", page)
+        page = page.replace('href="#articles"', f'href="{cfg["path"]}articles/"').replace('href="#about"', f'href="{cfg["path"]}about/"')
         out = os.path.join(SITE, cfg["path"].strip("/"), "index.html")
         os.makedirs(os.path.dirname(out), exist_ok=True)
+        if code == "zh":  # Chinese needs no space after full-width punctuation
+            page = re.sub(r"([，。！？])<span> ", r"\1<span>", page)
         open(out, "w", encoding="utf-8").write(page)
         if preview_dir:
             pv = os.path.join(preview_dir, cfg["path"].strip("/"), "index.html")
             os.makedirs(os.path.dirname(pv), exist_ok=True)
             open(pv, "w", encoding="utf-8").write(preview_paths(page, "" if code == "en" else "../"))
         report[code] = sorted(missing)
+    # Publish existing articles as ordinary HTML pages before hashing scripts.
+    import seo_pages
+    seo_routes = seo_pages.build(ROOT, LANGS)
     # Sitemap with language alternates
     alts = "".join(f'    <xhtml:link rel="alternate" hreflang="{c["hreflang"]}" href="{DOMAIN}{c["path"]}"/>\n' for c in LANGS.values())
     alts += f'    <xhtml:link rel="alternate" hreflang="x-default" href="{DOMAIN}/"/>\n'
     urls = "".join(f'  <url>\n    <loc>{DOMAIN}{c["path"]}</loc>\n{alts}  </url>\n' for c in LANGS.values())
     urls += f'  <url>\n    <loc>{DOMAIN}/privacy/</loc>\n  </url>\n'
+    for page_url, variants in seo_routes:
+        alt_xml = "".join(f'    <xhtml:link rel="alternate" hreflang="{lang}" href="{href}"/>\n' for lang, href in variants)
+        urls += f"  <url>\n    <loc>{page_url}</loc>\n{alt_xml}  </url>\n"
+    # Content Security Policy (hashes of every inline script) -> site/_headers
+    import csp as _csp
+    _name, _ = _csp.write_headers(SITE, ["https://ace-wa-enquiry.adamteokokwei.workers.dev", "https://ace-chat.adamteokokwei.workers.dev"])
+    print("security headers:", _name, "written to site/_headers")
     open(os.path.join(SITE, "sitemap.xml"), "w").write('<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + urls + "</urlset>\n")
     for code, miss in report.items():
@@ -202,14 +221,14 @@ def build(show_missing=False, preview_dir=None):
 
 if __name__ == "__main__":
     pv = sys.argv[sys.argv.index("--preview") + 1] if "--preview" in sys.argv else None
-    build("--missing" in sys.argv, pv)
+    build("--missing" in sys.argv, pv, "--form-only" in sys.argv)
     if pv:  # copy the other files, with relative links for the extra pages
         import shutil
         for d in ["img", "demos"]:
             shutil.copytree(os.path.join(SITE, d), os.path.join(pv, d), dirs_exist_ok=True)
         for f in ["og-image.jpg", "robots.txt", "sitemap.xml"]:
             shutil.copy(os.path.join(SITE, f), pv)
-        for rel, root in [("privacy/index.html", "../"), ("demos/jb-plumbing/index.html", "../../")]:
+        for rel, root in [("privacy/index.html", "../"), ("demos/jb-plumbing/index.html", "../../"), ("demos/skudai-tuition/index.html", "../../")]:
             src = open(os.path.join(SITE, rel), encoding="utf-8").read()
             os.makedirs(os.path.dirname(os.path.join(pv, rel)), exist_ok=True)
             open(os.path.join(pv, rel), "w", encoding="utf-8").write(preview_paths(src, root))

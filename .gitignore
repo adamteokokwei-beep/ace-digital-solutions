@@ -1,1 +1,14 @@
 __pycache__/
+undefined/
+
+# Local staging secrets and generated artifacts
+staging/STAGING-CREDENTIALS.env
+staging/*.gen.toml
+staging/site-dist/
+.wrangler/
+node_modules/
+enquiry-build/
+
+# Local evidence and release preparation
+work/
+outputs/

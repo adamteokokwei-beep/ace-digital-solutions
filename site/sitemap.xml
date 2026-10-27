@@ -24,4 +24,109 @@
   <url>
     <loc>https://acedigitalsolutionsbiz.org/privacy/</loc>
   </url>
+  <url>
+    <loc>https://acedigitalsolutionsbiz.org/articles/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/articles/"/>
+    <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/articles/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/articles/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/articles/"/>
+  </url>
+  <url>
+    <loc>https://acedigitalsolutionsbiz.org/about/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/about/"/>
+    <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/about/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/about/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/about/"/>
+  </url>
+  <url>
+    <loc>https://acedigitalsolutionsbiz.org/articles/website-cost-malaysia-2026/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/articles/website-cost-malaysia-2026/"/>
+    <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/articles/website-cost-malaysia-2026/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/articles/website-cost-malaysia-2026/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/articles/website-cost-malaysia-2026/"/>
+  </url>
+  <url>
+    <loc>https://acedigitalsolutionsbiz.org/articles/tuition-website-generative-ai/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/articles/tuition-website-generative-ai/"/>
+    <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/articles/tuition-website-generative-ai/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/articles/tuition-website-generative-ai/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/articles/tuition-website-generative-ai/"/>
+  </url>
+  <url>
+    <loc>https://acedigitalsolutionsbiz.org/articles/why-website/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/articles/why-website/"/>
+    <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/articles/why-website/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/articles/why-website/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/articles/why-website/"/>
+  </url>
+  <url>
+    <loc>https://acedigitalsolutionsbiz.org/bm/articles/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/articles/"/>
+    <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/articles/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/articles/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/articles/"/>
+  </url>
+  <url>
+    <loc>https://acedigitalsolutionsbiz.org/bm/about/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/about/"/>
+    <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/about/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/about/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/about/"/>
+  </url>
+  <url>
+    <loc>https://acedigitalsolutionsbiz.org/bm/articles/website-cost-malaysia-2026/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/articles/website-cost-malaysia-2026/"/>
+    <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/articles/website-cost-malaysia-2026/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/articles/website-cost-malaysia-2026/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/articles/website-cost-malaysia-2026/"/>
+  </url>
+  <url>
+    <loc>https://acedigitalsolutionsbiz.org/bm/articles/tuition-website-generative-ai/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/articles/tuition-website-generative-ai/"/>
+    <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/articles/tuition-website-generative-ai/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/articles/tuition-website-generative-ai/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/articles/tuition-website-generative-ai/"/>
+  </url>
+  <url>
+    <loc>https://acedigitalsolutionsbiz.org/bm/articles/why-website/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/articles/why-website/"/>
+    <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/articles/why-website/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/articles/why-website/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/articles/why-website/"/>
+  </url>
+  <url>
+    <loc>https://acedigitalsolutionsbiz.org/zh/articles/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/articles/"/>
+    <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/articles/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/articles/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/articles/"/>
+  </url>
+  <url>
+    <loc>https://acedigitalsolutionsbiz.org/zh/about/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/about/"/>
+    <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/about/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/about/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/about/"/>
+  </url>
+  <url>
+    <loc>https://acedigitalsolutionsbiz.org/zh/articles/website-cost-malaysia-2026/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/articles/website-cost-malaysia-2026/"/>
+    <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/articles/website-cost-malaysia-2026/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/articles/website-cost-malaysia-2026/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/articles/website-cost-malaysia-2026/"/>
+  </url>
+  <url>
+    <loc>https://acedigitalsolutionsbiz.org/zh/articles/tuition-website-generative-ai/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/articles/tuition-website-generative-ai/"/>
+    <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/articles/tuition-website-generative-ai/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/articles/tuition-website-generative-ai/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/articles/tuition-website-generative-ai/"/>
+  </url>
+  <url>
+    <loc>https://acedigitalsolutionsbiz.org/zh/articles/why-website/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/articles/why-website/"/>
+    <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/articles/why-website/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/articles/why-website/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/articles/why-website/"/>
+  </url>
 </urlset>

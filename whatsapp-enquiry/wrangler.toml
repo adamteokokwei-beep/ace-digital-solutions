@@ -1,0 +1,44 @@
+# Cloudflare settings for the WhatsApp enquiry endpoint (separate from the ace-chat chatbot server).
+# Verified production WhatsApp-only configuration; existing encrypted settings are preserved.
+# Required secret/variable changes are listed in docs/security/ADS-000001-WO-000001-launch-readiness.md.
+name = "ace-wa-enquiry"
+main = "production-worker.js"
+compatibility_date = "2026-01-01"
+
+# Replace inherited plaintext settings with reviewed release settings; encrypted secrets remain required.
+keep_vars = false
+
+# Cloudflare's built-in rate limiter: 3 enquiries per IP per 60 seconds (counters only, no enquiry content).
+# Missing or failing limiter bindings refuse requests.
+[[ratelimits]]
+name = "RATE_LIMITER"
+namespace_id = "1001"
+
+  [ratelimits.simple]
+  limit = 3
+  period = 60
+
+[observability]
+enabled = true
+
+# Spam counters only (one-way hashed keys, no enquiry content). Used for the hourly/daily limits.
+[[durable_objects.bindings]]
+name = "ENQ_USAGE"
+class_name = "EnquiryUsage"
+
+[[migrations]]
+tag = "enquiry-usage-v1"
+new_sqlite_classes = ["EnquiryUsage"]
+
+# WhatsApp-first release: email delivery remains off until separately verified.
+[vars]
+STAGING = "false"
+DAILY_CAP = "50"
+
+[secrets]
+required = ["TURNSTILE_SECRET", "LIMIT_HMAC_KEY", "WHATSAPP_ACCESS_TOKEN", "WHATSAPP_PHONE_NUMBER_ID", "WHATSAPP_RECIPIENT_NUMBER"]
+
+# Preserve the previous counter binding for rollback.
+[[kv_namespaces]]
+binding = "ENQ_KV"
+id = "31c49a6d55554940b83671b5d140f187"
