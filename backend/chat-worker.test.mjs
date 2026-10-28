@@ -69,7 +69,7 @@ const legit = [
   "Free with the website: Google Business Profile setup and a standard domain for the first year.",
 ];
 for (const t of legit) ok(checkReply(t) === "", "legit reply passes: " + t.slice(0, 50) + " -> " + checkReply(t));
-ok(checkReply("With a budget of RM3,000 you could add a few extras.", { userText: "my budget is RM3,000" }) === "", "amount the visitor typed is allowed");
+ok(checkReply("With a budget of RM337 you could add a few extras.", { userText: "my budget is RM337" }) === "price", "visitor budget cannot authorize an invented assistant price");
 const bad = [
   ["An online shop with 200 products would be about RM3,750.", "price"],
   ["Sure! For you it's only RM999.", "price"],
