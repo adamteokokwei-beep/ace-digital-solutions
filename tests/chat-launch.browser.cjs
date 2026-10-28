@@ -35,7 +35,9 @@ const server=http.createServer((q,s)=>{let p=q.url.split('?')[0];if(p.endsWith('
     assert.ok(!reset.includes('END_0'),'reset clears the prior conversation');
     await p.getByRole('button',{name:'Estimate my cost',exact:true}).click();await p.waitForSelector('[data-use]');
     await p.locator('[data-use]').click();const estimate=await p.locator('#chatExport').isVisible()?await p.locator('#chatExportText').inputValue():new URL((await p.evaluate(()=>window.__opened)).at(-1)).searchParams.get('text');
-    assert.ok(estimate.includes('Estimated total'));assert.ok(estimate.includes('RM1,600'));assert.ok(estimate.includes('Estimate I saw:'));
+    assert.ok(estimate.includes('RM200 to start, RM1,400 before launch'));assert.ok(estimate.includes('Estimated total'));assert.ok(estimate.includes('RM1,600'));assert.ok(estimate.includes('Estimate I saw:'));
+    await p.fill('#chatInput','cost only website care');await p.press('#chatInput','Enter');await p.waitForFunction(()=>!document.querySelector('#chatInput').disabled);
+    const empty= p.locator('.calc').last();assert.ok((await empty.locator('.tot').innerText()).includes('Tick at least one item'));assert.ok(await empty.locator('[data-use]').isDisabled());
    }
    // A long CJK/emoji conversation stays intact without an oversized WhatsApp URL.
    await p.fill('#chatInput',('中文😀'.repeat(150))+' LONG_END');await p.press('#chatInput','Enter');await p.waitForFunction(()=>!document.querySelector('#chatInput').disabled);
@@ -52,6 +54,8 @@ const server=http.createServer((q,s)=>{let p=q.url.split('?')[0];if(p.endsWith('
    assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);
    await p.screenshot({path:path.join(__dirname,'../'+lang+'-'+mode+'.png'),fullPage:false});
    await p.click('#chatReset');assert.equal(await p.locator('#chatExportText').inputValue(),'');assert.ok(!await p.locator('#chatExport').isVisible());
+   await p.locator('#chatLog .quick button').first().click();await p.waitForSelector('.calc .tot');
+   const deposit=await p.locator('.calc .tot').innerText();assert.match(deposit,/RM200[\s\S]*RM1,400/,'published deposit and balance in '+lang);assert.ok(!deposit.includes('RM800'));
    await p.fill('#chatInput','Short question');await p.press('#chatInput','Enter');await p.waitForFunction(()=>!document.querySelector('#chatInput').disabled);
    // Exercise the synchronous direct link independently of transcript size.
    await p.locator('#chatLog .msg').evaluateAll(els=>els.forEach(el=>el.textContent='Short'));
