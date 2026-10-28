@@ -110,23 +110,24 @@ npx wrangler deploy
 npx wrangler secret put WHATSAPP_ACCESS_TOKEN
 ```
 
-The last command asks you to paste the token; it's never stored in a file. Then, in **Cloudflare → Workers →
-ace-wa-enquiry → Settings → Variables**, add the other settings:
+The last command asks for the token privately. Never put it in source or chat.
 
-| Variable | Value |
-|---|---|
-| `WHATSAPP_PHONE_NUMBER_ID` | from Meta |
-| `WHATSAPP_RECIPIENT_NUMBER` | the number that receives enquiries |
-| `WHATSAPP_API_VERSION` | e.g. `v23.0` |
-| `WHATSAPP_TEMPLATE_NAME` | e.g. `website_enquiry` |
-| `ALLOWED_ORIGIN` | `https://acedigitalsolutionsbiz.org` |
-| `WHATSAPP_DRY_RUN` | `false` |
+Production uses `keep_vars = false`: do **not** add required settings as plaintext dashboard Variables.
+Keep the following as encrypted Secrets, and confirm their names exist before deploying:
+`TURNSTILE_SECRET`, `LIMIT_HMAC_KEY`, `WHATSAPP_ACCESS_TOKEN`,
+`WHATSAPP_PHONE_NUMBER_ID`, `WHATSAPP_RECIPIENT_NUMBER`, `ALLOWED_ORIGIN`,
+`WHATSAPP_TEMPLATE_NAME`, `WHATSAPP_TEMPLATE_LANGUAGE`, `WHATSAPP_API_VERSION`.
+The config declares all ten as required. Preserve existing values; never guess sender IDs or rotate tokens as part of deployment.
+
+For the current release, the approved template is `website_enquiry`, language `en`, API `v23.0`.
+`ALLOWED_ORIGIN` is `https://acedigitalsolutionsbiz.org`. Secret values must be entered privately by the owner.
+The production entry forces secure mode and real delivery; Turnstile is required, not optional.
 
 On the website, point the form to `https://ace-wa-enquiry.<your-account>.workers.dev/enquiry`. That's the
 `ENDPOINT` line in `public/index.html`. Adding the form to the live site is a separate step I'll only do when you say so.
 
-**Optional captcha:** create a Cloudflare Turnstile widget, put its secret in `TURNSTILE_SECRET`, and add the
-widget to the page. When the secret is set, the server rejects submissions without a valid captcha.
+**Required production captcha:** create a Cloudflare Turnstile widget, put its secret in `TURNSTILE_SECRET`, and add the
+widget to the page. The production server rejects submissions without a valid captcha.
 
 ## 6. What the customer sees
 

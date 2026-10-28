@@ -499,5 +499,12 @@
   "{n} min read": "阅读约 {n} 分钟",
   "{p}/month": "每月 {p}",
   "{total} for {items} ({days})": "{items}：{total}（{days}）",
-  "· no separate bills": "· 无需另付账单"
+  "· no separate bills": "· 无需另付账单",
+  "Assistant (automated, not a quote)": "助手（自动回复，并非报价）",
+  "Prices are confirmed only in Adam’s written quote.": "价格仅以 Adam 的书面报价为准。",
+  "This chat is too long for a WhatsApp link. Copy the full chat and paste it in WhatsApp, or download it to attach.": "对话太长，无法通过 WhatsApp 链接完整传送。请复制完整对话后粘贴到 WhatsApp，或下载文件作为附件发送。",
+  "Copy full chat": "复制完整对话",
+  "Download full chat": "下载完整对话",
+  "Hi Adam, I have a website chat to share. I will paste it or attach the text file.": "Adam 你好，我想分享网站上的对话。我会粘贴内容或附上文本文件。",
+  "Copy was blocked. Your full chat is selected above; copy it manually, or download it.": "复制被阻止。上方已选中完整对话，请手动复制或下载。"
 }

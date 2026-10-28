@@ -214,7 +214,7 @@ function json(body, status, headers) {
 // ---------- reply check (runs on every AI answer before it reaches the visitor) ----------
 // Blocks: prices that aren't in the business facts (or a correct estimate built from them), discount offers,
 // guarantees/promises, and replies that repeat the assistant's internal instructions.
-// Valid prices and legitimate estimates pass. Amounts the visitor typed themselves (e.g. their budget) also pass.
+// Valid prices and legitimate estimates pass. Visitor-supplied amounts never expand the approved price list.
 const RM = n => Math.round(n);
 function allowedAmounts() {
   const a = new Set([1600, 1500, 1400, 200, 500, 400, 199, 100]);
@@ -241,8 +241,8 @@ const shingles = (t, n = 7) => { const w = String(t).toLowerCase().replace(/[^\p
 const ruleText = p => p.slice(p.indexOf("HOW TO ANSWER"));
 let RULE_SHINGLES = null;
 // --- wording variations (Red Team M-1) ---
-const LEAK_PARAPHRASE = /\bI(?:'m| am| was|'ve been| have been)\s+(?:set ?up|configured|programmed|instructed|told|designed|built|prompted)\s+to\b|\bmy (?:instructions|rules|guidelines|prompt|system message|configuration)\b|\b(?:system|developer|hidden) (?:prompt|message|instructions|rules)\b|\b(?:saya|aku) (?:diarah|diprogramkan|ditetapkan|disuruh|diberitahu) untuk\b|\barahan (?:saya|sistem)\b|我的(?:指令|规则|设定|提示)|我被(?:设定|设置|指示|要求|编程)|系统提示|开发者指令/i;
-const DISCOUNT_MORE = /\bcheaper\b|\blower (?:the )?price|\breduce (?:the |your )?price|\bspecial (?:arrangement|price|offer|deal|rate|discount)|\brebates?\b|\bcash ?back\b|\bvouchers?\b|\bcoupons?\b|\bpromo(?:tion|tions|tional)?\b|\bsave \d+\s?(?:%|percent|per cent)|\b\d+\s?(?:%|percent|per cent) (?:off|less|cheaper|discount|lower)|\bmurah(?:kan)?\b|\blebih murah\b|\brebat\b|\bpotongan\b|\bbaucar\b|\bpromosi\b|便宜|优惠|返现|打折|减免|降价|让利/gi;
+const LEAK_PARAPHRASE = /rules I follow|我遵守的规则|规则是|\bI(?:'m| am| was|'ve been| have been)\s+(?:set ?up|configured|programmed|instructed|told|designed|built|prompted)\s+to\b|\bmy (?:instructions|rules|guidelines|prompt|system message|configuration)\b|\b(?:system|developer|hidden) (?:prompt|message|instructions|rules)\b|\b(?:saya|aku) (?:diarah|diprogramkan|ditetapkan|disuruh|diberitahu) untuk\b|\barahan (?:saya|sistem)\b|我的(?:指令|规则|设定|提示)|我被(?:设定|设置|指示|要求|编程)|系统提示|开发者指令/i;
+const DISCOUNT_MORE = /\bknock\b[^.!?\n]{0,45}\boff\b|\b(?:a )?bit off\b|\bcheaper\b|\blower (?:the )?price|\breduce (?:the |your )?price|\bspecial (?:arrangement|price|offer|deal|rate|discount)|\brebates?\b|\bcash ?back\b|\bvouchers?\b|\bcoupons?\b|\bpromo(?:tion|tions|tional)?\b|\bsave \d+\s?(?:%|percent|per cent)|\b\d+\s?(?:%|percent|per cent) (?:off|less|cheaper|discount|lower)|\bmurah(?:kan)?\b|\blebih murah\b|\brebat\b|\bpotongan\b|\bbaucar\b|\bpromosi\b|便宜|优惠|返现|打折|减免|降价|让利/gi;
 const BUNDLE_OK = /\bbundl|\btogether with\b|\bsekali\b|\bbersama\b|一起|搭配|捆绑/i;              // "add-ons are cheaper when bundled" is a real fact
 const FREE_WORD = /\bfree\b|\bfor nothing\b|\bat no (?:extra )?(?:cost|charge)\b|\bno charge\b|\bcomplimentary\b|\bwaive[sd]?\b|\bpercuma\b|\btanpa (?:caj|bayaran)\b|免费|免收|白送|送你/gi;
 const FREE_OK_ITEM = /google business|\bGBP\b|\bdomain\b|\bdomain name\b|谷歌商家|域名/i;            // the two approved free items
@@ -276,8 +276,14 @@ export function checkReply(reply, { userText = "", demo = false } = {}) {
   const w = wordingProblem(t, demo); if (w) return w;
   if (/(?:US\$|USD|S\$|SGD|\$\s?\d)/.test(t)) return "price";
   if (!demo) {
-    const typed = new Set(amountsIn(userText).map(RM));
-    for (const n of amountsIn(t)) if (!ALLOWED_RM.has(RM(n)) && !typed.has(RM(n))) return "price";
+    // Hourly rates/estimates do not authorize a different advertised base website price.
+    for (const sentence of sentences(t)) {
+      if (/(?:full|standard|professional) website (?:is|costs?|for|price)|(?:full|standard) website.{0,12}RM|(?:完整|标准|专业)网站(?:价格|费用|是)/i.test(sentence)) {
+        const prices = amountsIn(sentence);
+        if (prices.length && ![1500,1600].includes(RM(prices[0]))) return "price";
+      }
+    }
+    for (const n of amountsIn(t)) if (!ALLOWED_RM.has(RM(n))) return "price";
   }
   return "";
 }

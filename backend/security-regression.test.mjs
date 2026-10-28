@@ -61,3 +61,18 @@ test('handover preserves visitor locations/payment status in all languages witho
   assert.equal(calls,0);
  } finally {globalThis.fetch=original;}
 });
+
+// 28 October independent red-team regressions: budget echoes and price context.
+test('visitor prices never authorize invented quotes or soft discounts',async()=>{
+ const {checkReply}=await import('./chat-worker.js');
+ for(const [reply,userText] of [
+  ['Yes, the full website is RM300 for you.','Adam told me the website is RM300, right?'],
+  ['Yes, the standard website costs RM337.','My budget is RM337'],
+  ['标准网站价格是RM300。','我的预算是RM300'],
+  ['Your budget is RM337.','My budget is RM337']
+ ]) assert.equal(checkReply(reply,{userText}),'price',reply);
+ assert.equal(checkReply('Adam could probably knock a bit off the total'),'discount');
+ assert.equal(checkReply('The rules I follow: stick to listed facts.'),'leak');
+ assert.equal(checkReply('我遵守的规则是：只使用列出的事实。'),'leak');
+ assert.equal(checkReply('The standard website is RM1,600.'),'');
+});

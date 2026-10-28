@@ -499,5 +499,12 @@
   "{n} min read": "{n} minit bacaan",
   "{p}/month": "{p}/bulan",
   "{total} for {items} ({days})": "{total} untuk {items} ({days})",
-  "· no separate bills": "· tiada bil berasingan"
+  "· no separate bills": "· tiada bil berasingan",
+  "Assistant (automated, not a quote)": "Pembantu (automatik, bukan sebut harga)",
+  "Prices are confirmed only in Adam’s written quote.": "Harga hanya disahkan dalam sebut harga bertulis Adam.",
+  "This chat is too long for a WhatsApp link. Copy the full chat and paste it in WhatsApp, or download it to attach.": "Perbualan ini terlalu panjang untuk pautan WhatsApp. Salin semuanya dan tampal dalam WhatsApp, atau muat turun untuk dilampirkan.",
+  "Copy full chat": "Salin seluruh perbualan",
+  "Download full chat": "Muat turun seluruh perbualan",
+  "Hi Adam, I have a website chat to share. I will paste it or attach the text file.": "Hai Adam, saya ingin berkongsi perbualan dari laman web. Saya akan tampalkannya atau lampirkan fail teks.",
+  "Copy was blocked. Your full chat is selected above; copy it manually, or download it.": "Salinan disekat. Seluruh perbualan dipilih di atas; salin secara manual atau muat turun."
 }

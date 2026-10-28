@@ -1814,6 +1814,13 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
   <div class="chat-langbar" role="group" aria-label="Chat language"><button type="button" data-chat-lang="en">EN</button><button type="button" data-chat-lang="bm">BM</button><button type="button" data-chat-lang="zh">中文</button></div>
   <div class="chat-log" id="chatLog" aria-live="polite"></div>
   <button type="button" class="handoff" id="handoff" hidden><svg class="ico"><use href="#i-chat"/></svg><span>Send full chat to Adam on WhatsApp</span><svg class="ico"><use href="#i-arrow"/></svg></button>
+  <div id="chatExport" hidden>
+    <p id="chatExportHelp" style="font-size:14px;padding:8px;margin:0"></p>
+    <textarea id="chatExportText" rows="3" readonly style="width:100%;box-sizing:border-box;font:inherit" aria-labelledby="chatExportHelp"></textarea>
+    <button type="button" class="handoff" style="width:100%" id="copyFullChat"></button>
+    <button type="button" class="handoff" style="width:100%" id="downloadFullChat"></button>
+    <a class="handoff" id="openWhatsApp" target="_blank" rel="noopener noreferrer"></a>
+  </div>
   <form class="chat-in" id="chatForm"><input id="chatInput" placeholder="Ask a question…" autocomplete="off" aria-label="Your question"><button type="submit" aria-label="Send"><svg class="ico"><use href="#i-send"/></svg></button></form>
   <p class="chat-note">AI replies use Google Gemini and may be wrong. Google may use chat messages to improve its products. Don't share sensitive details; Adam confirms prices in writing. <a href="/privacy/">Privacy</a></p>
 </div>
@@ -2687,6 +2694,7 @@ When someone compares two businesses side by side, the one that looks profession
     if(en.wire) en.wire(m); log.scrollTop = log.scrollHeight; return m;
   }
   function say(html, who="bot", cls="", rec, wire){
+    $("#chatExport").hidden = true; $("#chatExportText").value = "";
     const en = {k:"say", html, who, cls, wire};
     if(cls!=="typing") entries.push(en);
     const m = drawSay(en); en.el = m;
@@ -2736,20 +2744,48 @@ When someone compares two businesses side by side, the one that looks profession
   function fullConversation(){
     const messages = entries.filter(en=>en.k==="say" && en.cls!=="typing").map(en=>{
       const content = en.el ? en.el.innerText.trim() : plain(txt(en.html));
-      return content ? (en.who==="me" ? C("Visitor") : C("Assistant")) + ": " + content : "";
+      return content ? (en.who==="me" ? C("Visitor") : C("Assistant (automated, not a quote)")) + ":\n" + content.split(/[\r\n\u0085\u2028\u2029]+/).map(line=>"> " + line).join("\n") : "";
     }).filter(Boolean);
     if(lastEstimate) messages.push(C("Estimate I saw: {e}",{e:estimateText(lastEstimate)}));
+    messages.push(C("Prices are confirmed only in Adam’s written quote."));
     return messages.join("\n\n");
   }
   function handoff(){
     if(busy) return;
     const message = C("Hi Adam, I was chatting with the assistant on your website.") + "\n\n" + C("Full conversation:") + "\n\n" + fullConversation();
+    const target = waLink(message);
+    $("#chatExport").hidden = true;
+    // A conservative URL budget, measured after percent-encoding (including Chinese).
+    // Longer transcripts are preserved in full locally; never silently truncate them.
+    if(target.length > 1800){
+      $("#chatExportText").value = message;
+      $("#chatExportHelp").textContent = C("This chat is too long for a WhatsApp link. Copy the full chat and paste it in WhatsApp, or download it to attach.");
+      $("#copyFullChat").textContent = C("Copy full chat");
+      $("#downloadFullChat").textContent = C("Download full chat");
+      $("#openWhatsApp").textContent = C("Open WhatsApp");
+      $("#openWhatsApp").href = waLink(C("Hi Adam, I have a website chat to share. I will paste it or attach the text file."));
+      $("#chatExport").hidden = false;
+      $("#copyFullChat").focus();
+      return;
+    }
     // Synchronous navigation preserves the visitor's click gesture on mobile.
-    window.open(waLink(message), "_blank", "noopener,noreferrer");
+    window.open(target, "_blank", "noopener,noreferrer");
   }
+  $("#copyFullChat").addEventListener("click",async()=>{
+    const field = $("#chatExportText");
+    try { await navigator.clipboard.writeText(field.value); $("#copyFullChat").textContent = C("Copied"); }
+    catch { $("#copyFullChat").textContent = C("Copy full chat"); field.focus(); field.select(); $("#chatExportHelp").textContent = C("Copy was blocked. Your full chat is selected above; copy it manually, or download it."); }
+  });
+  $("#downloadFullChat").addEventListener("click",()=>{
+    const url = URL.createObjectURL(new Blob([$("#chatExportText").value], {type:"text/plain;charset=utf-8"}));
+    const a = document.createElement("a"); a.href = url; a.download = "ace-website-chat.txt"; a.click();
+    setTimeout(()=>URL.revokeObjectURL(url),1000);
+  });
+  $("#chatReset").addEventListener("click",()=>{ if(!busy){ $("#chatExport").hidden=true; $("#chatExportText").value=""; } });
   handoffBtn.addEventListener("click",handoff);
   // Switching language redraws everything already in the chat in the new language
   function applyChatLang(l){
+    $("#chatExport").hidden = true; $("#chatExportText").value = "";
     chatLang = l;
     document.querySelectorAll("[data-chat-lang]").forEach(b=>b.setAttribute("aria-pressed", b.dataset.chatLang===l));
     chatInput.placeholder = busy ? C("Assistant is typing…") : C("Ask a question…");
