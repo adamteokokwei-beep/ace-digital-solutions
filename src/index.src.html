@@ -1813,7 +1813,7 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
   <div class="chat-top"><span class="av"><svg class="ico"><use href="#i-bot"/></svg></span><div><b>Ace Assistant</b><small>Automated assistant · quick answers</small></div><button type="button" id="chatReset" class="reset-btn" aria-label="Reset chat" title="Reset chat"><svg class="ico"><use href="#i-reset"/></svg><span>Reset</span></button><button type="button" id="chatClose" aria-label="Close chat"><svg class="ico" style="width:20px;height:20px"><use href="#i-x"/></svg></button></div>
   <div class="chat-langbar" role="group" aria-label="Chat language"><button type="button" data-chat-lang="en">EN</button><button type="button" data-chat-lang="bm">BM</button><button type="button" data-chat-lang="zh">中文</button></div>
   <div class="chat-log" id="chatLog" aria-live="polite"></div>
-  <button type="button" class="handoff" id="handoff" hidden><svg class="ico"><use href="#i-chat"/></svg><span>Continue on WhatsApp with Adam</span><svg class="ico"><use href="#i-arrow"/></svg></button>
+  <button type="button" class="handoff" id="handoff" hidden><svg class="ico"><use href="#i-chat"/></svg><span>Send full chat to Adam on WhatsApp</span><svg class="ico"><use href="#i-arrow"/></svg></button>
   <form class="chat-in" id="chatForm"><input id="chatInput" placeholder="Ask a question…" autocomplete="off" aria-label="Your question"><button type="submit" aria-label="Send"><svg class="ico"><use href="#i-send"/></svg></button></form>
   <p class="chat-note">AI replies use Google Gemini and may be wrong. Google may use chat messages to improve its products. Don't share sensitive details; Adam confirms prices in writing. <a href="/privacy/">Privacy</a></p>
 </div>
@@ -2192,7 +2192,6 @@ When someone compares two businesses side by side, the one that looks profession
   const waLink = text => "https://wa.me/" + WA_NUMBER + (text ? "?text=" + encodeURIComponent(text) : "");
   // Chatbot AI connection (Cloudflare Worker, see backend/chat-worker.js). Leave empty for scripted answers only.
   const CHAT_API = "https://ace-chat.adamteokokwei.workers.dev/chat";
-  const SUMMARY_API = CHAT_API ? CHAT_API.replace(/\/chat$/,"/summary") : "";
   // Captcha (Cloudflare Turnstile). Paste the widget's SITE key here to switch it on; leave "" to keep it off.
   const TURNSTILE_SITEKEY = "0x4AAAAAAFjkFvWRmLvTXswG";
   // Checks the captcha and sends the enquiry to Adam's WhatsApp (Cloudflare Worker, see whatsapp-enquiry/worker.js)
@@ -2677,8 +2676,7 @@ When someone compares two businesses side by side, the one that looks profession
     });
   });
 
-  // Everything said in the chat, as plain text, for the WhatsApp summary
-  const transcript = [];
+  // Keep the displayed conversation for direct WhatsApp handover.
   let lastEstimate = null;
   const plain = html => { const d = document.createElement("div"); d.innerHTML = html.replace(/<br\s*\/?>/gi,"\n"); return (d.textContent||"").replace(/[ \t]+/g," ").replace(/\n\s*/g,"\n").trim(); };
   // Every bubble is kept as an "entry", so the whole chat can be redrawn in another language
@@ -2692,7 +2690,6 @@ When someone compares two businesses side by side, the one that looks profession
     const en = {k:"say", html, who, cls, wire};
     if(cls!=="typing") entries.push(en);
     const m = drawSay(en); en.el = m;
-    if(cls!=="typing" && rec!==false){ transcript.push({role: who==="me" ? "user" : "assistant", content: (rec || plain(txt(html))).slice(0,600)}); if(transcript.length>40) transcript.shift(); }
     if(who==="me") handoffBtn.hidden = false;
     return m;
   }
@@ -2705,20 +2702,20 @@ When someone compares two businesses side by side, the one that looks profession
   function drawQuick(en){
     const q = document.createElement("div"); q.className = "quick";
     en.opts.forEach(([label,fn,cls])=>{ const b=document.createElement("button"); b.type="button"; b.textContent=txt(label); if(cls) b.className=cls;
-      b.addEventListener("click",()=>{ if(busy) return; q.remove(); entries.splice(entries.indexOf(en),1); if(fn===resetChat) return resetChat(); if(fn===handoff) return handoff(); if(fn===callNow){ entries.push(en); drawQuick(en); return callNow(); } say(()=>escapeHtml(txt(label)),"me","","["+txt(label)+"]"); respond(fn); }); q.appendChild(b); });
+      b.addEventListener("click",()=>{ if(busy) return; if(fn===handoff) return handoff(); q.remove(); entries.splice(entries.indexOf(en),1); if(fn===resetChat) return resetChat(); if(fn===callNow){ entries.push(en); drawQuick(en); return callNow(); } say(()=>escapeHtml(txt(label)),"me","","["+txt(label)+"]"); respond(fn); }); q.appendChild(b); });
     log.appendChild(q); log.scrollTop = log.scrollHeight;
   }
   function clearQuick(){ log.querySelectorAll(".quick").forEach(x=>x.remove()); for(let k=entries.length-1;k>=0;k--) if(entries[k].k==="quick") entries.splice(k,1); }
   function redraw(){ log.innerHTML = ""; entries.forEach(en=> en.k==="quick" ? drawQuick(en) : (en.el = drawSay(en))); }
   async function respond(fn, mult=1){ lock(true); const d = typing(); await wait(thinkTime()*mult); d.remove(); lock(false); fn(); }
   function quick(opts){ clearQuick(); const en = {k:"quick", opts}; entries.push(en); drawQuick(en); }
-  const WA_CTA = () => [()=>C("Talk to Adam on WhatsApp"),handoff,"q-wa"];
+  const WA_CTA = () => [()=>C("Send full chat on WhatsApp"),handoff,"q-wa"];
   const CALL_CTA = () => [()=>C("Urgent? Call Adam"),callNow,"q-red"];
   function callNow(){ location.href = "tel:+60102641824"; }
   function after(){ quick([WA_CTA(),[()=>C("Main menu"),menu]]); }
   function menu(){ say(()=>C("What would you like to know? You can also type any question.")); quick([[()=>C("Estimate my cost"),calc],[()=>C("What's included?"),included],WA_CTA(),CALL_CTA()]); }
   function greet(){ say(()=>C("Hi! I'm the Ace Digital Solutions assistant. I can answer quick questions, estimate what your website would cost, or pass you to Adam on WhatsApp.")); menu(); }
-  function resetChat(){ log.innerHTML = ""; entries.length = 0; if(chatLang!==LANG) applyChatLang(LANG); aiHistory.length = 0; transcript.length = 0; lastEstimate = null; estMode = false; strikes = 0; handoffBtn.hidden = true; lock(false); greet(); }
+  function resetChat(){ log.innerHTML = ""; entries.length = 0; if(chatLang!==LANG) applyChatLang(LANG); aiHistory.length = 0; lastEstimate = null; estMode = false; strikes = 0; handoffBtn.hidden = true; lock(false); greet(); }
   function included(){ say(()=>C("Every RM1,600 website includes <b>up to 8 pages or sections</b> in one language, a <b>website chatbot</b>, a custom-designed homepage, a mobile-friendly layout, a services section, WhatsApp and click-to-call buttons, a contact form, basic SEO setup and social media links. <b>Google Business Profile setup</b> and a <b>standard domain for the first year</b> are included free. Without the chatbot, it's RM1,500.")); after(); }
   function timing(){ say(()=>C("Usually <b>3–5 working days</b>, depending on the project and how quickly you can send your content (text, photos and logo). Each add-on adds 1 working day. Need it sooner? Rush delivery cuts <b>2 working days</b> for <b>+20%</b> of the project total.")); after(); }
   function rushInfo(){ say(()=>C("<b>Rush delivery</b> cuts your delivery time by <b>2 working days</b>, for example from 3–5 working days to 1–3. It costs an extra <b>20%</b> of the project total (website plus add-ons).")); after(); }
@@ -2728,43 +2725,27 @@ When someone compares two businesses side by side, the one that looks profession
   function domainInfo(){ say(()=>C("Two things are included free with your website: <b>Google Business Profile setup</b>, and a <b>standard domain (.com, .com.my or .my) for the first year</b>. Premium domains are quoted separately. From the second year, you pay the domain renewal yourself, unless you're on Website Care.")); after(); }
   function content(){ say(()=>C("You send your services, contact details, the areas you cover and any photos or logo you have, and Adam turns it into a clear, professional website. He can help tidy up the wording.")); after(); }
   function langInfo(){ say(()=>C("Your website includes <b>one language</b>: English, Bahasa Melayu or Chinese. Each extra language is an add-on: RM500 on its own, or <b>RM400</b> when bundled with the website or another add-on.")); after(); }
-  function assistInfo(){ say(()=>C("A <b>website chatbot</b> answers the questions you approve on your website and passes customers to your WhatsApp with a chat summary. It's <b>included in the RM1,600 website</b> (RM1,500 without it), or <b>RM500</b> to add to an existing website. You're using one right now.")); after(); }
+  function assistInfo(){ say(()=>C("A <b>website chatbot</b> answers the questions you approve on your website and passes customers to your WhatsApp with the full conversation. It's <b>included in the RM1,600 website</b> (RM1,500 without it), or <b>RM500</b> to add to an existing website. You're using one right now.")); after(); }
   function meetInfo(){ say(()=>C("Adam can chat with you by WhatsApp, Zoom or Google Meet, or meet in person if you're in Johor Bahru. He replies within 1 working day.")); after(); }
   const formLink = (label) => `<a href="#contact" class="chat-link" data-goform>${label||C("Open the contact form")} ${ico("arrow")}</a>`;
   log.addEventListener("click",e=>{ const a=e.target.closest("[data-goform]"); if(!a) return; e.preventDefault(); e.stopPropagation(); closeChat(); go("contact"); setTimeout(()=>$("#f-name").focus({preventScroll:true}),50); });
-  function enquire(){ say(()=>C("The quickest way is WhatsApp. Adam replies within 1 working day. Tap below and I'll prepare a short summary of our chat, so you don't have to repeat yourself.")+`<br>${formLink(C("Or use the contact form"))}`); quick([WA_CTA(),[()=>C("Main menu"),menu]]); }
+  function enquire(){ say(()=>C("The quickest way is WhatsApp. Adam replies within 1 working day. Tap below to open WhatsApp with our full conversation ready to send.")+`<br>${formLink(C("Or use the contact form"))}`); quick([WA_CTA(),[()=>C("Main menu"),menu]]); }
 
-  /* ----- Hand over to WhatsApp with a summary of the chat ----- */
+  /* ----- Open WhatsApp directly with the full displayed conversation ----- */
   const estimateText = e => e ? C("{total} for {items} ({days})",{total:money(e.total), items:e.items.map(x=>typeof x==="function"?x():x).join(chatLang==="zh"?"、":", "), days:e.days}) + (e.care?", "+C("plus Website Care {care}/month",{care:money(CARE)}):"") : "";
-  function fallbackSummary(){
-    const qs = transcript.filter(m=>m.role==="user").map(m=>m.content).filter(q=>!q.startsWith("[")).slice(-6);
-    const lines = [];
-    if(qs.length) lines.push(C("My questions:"), ...qs.map(q=>"- "+q.replace(/\s+/g," ").slice(0,160)));
-    if(lastEstimate) lines.push(C("Estimate I saw: {e}",{e:estimateText(lastEstimate)}));
-    return lines.join("\n");
+  function fullConversation(){
+    const messages = entries.filter(en=>en.k==="say" && en.cls!=="typing").map(en=>{
+      const content = en.el ? en.el.innerText.trim() : plain(txt(en.html));
+      return content ? (en.who==="me" ? C("Visitor") : C("Assistant")) + ": " + content : "";
+    }).filter(Boolean);
+    if(lastEstimate) messages.push(C("Estimate I saw: {e}",{e:estimateText(lastEstimate)}));
+    return messages.join("\n\n");
   }
-  async function aiSummary(){
-    if(!SUMMARY_API || !transcript.some(m=>m.role==="user")) return "";
-    try{
-      const ctrl = new AbortController(); const t = setTimeout(()=>ctrl.abort(),9000);
-      const res = await fetch(SUMMARY_API,{method:"POST",signal:ctrl.signal,headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({lang:chatLang, messages:transcript.slice(-30), estimate:estimateText(lastEstimate)})});
-      clearTimeout(t);
-      const data = await res.json().catch(()=>({}));
-      return res.ok && data.summary ? String(data.summary).trim().slice(0,700) : "";
-    }catch(e){ return ""; }
-  }
-  async function handoff(){
+  function handoff(){
     if(busy) return;
-    clearQuick(); say(()=>escapeHtml(C("Talk to Adam on WhatsApp")),"me","",false);
-    lock(true); const d = typing();
-    const [ai] = await Promise.all([aiSummary(), wait(1200)]);
-    d.remove(); lock(false);
-    const summary = ai || fallbackSummary();
-    const msg = () => C("Hi Adam, I was chatting with the assistant on your website.") + (summary ? "\n\n" + summary : "");
-    say(()=>C("Here's the message I've prepared for Adam. WhatsApp will open with it filled in, and you can edit it before sending.")+
-      `<div class="wa-preview">${escapeHtml(msg()).replace(/\n/g,"<br>")}</div><a class="chat-link wa" href="${waLink(msg())}" target="_blank" rel="noopener">${ico("chat")}${C("Open WhatsApp")}</a>`, "bot", "", false);
-    quick([[()=>C("Main menu"),menu]]);
+    const message = C("Hi Adam, I was chatting with the assistant on your website.") + "\n\n" + C("Full conversation:") + "\n\n" + fullConversation();
+    // Synchronous navigation preserves the visitor's click gesture on mobile.
+    window.open(waLink(message), "_blank", "noopener,noreferrer");
   }
   handoffBtn.addEventListener("click",handoff);
   // Switching language redraws everything already in the chat in the new language
@@ -2774,7 +2755,7 @@ When someone compares two businesses side by side, the one that looks profession
     chatInput.placeholder = busy ? C("Assistant is typing…") : C("Ask a question…");
     $("#chat .chat-top small").textContent = C("Automated assistant · quick answers");
     $("#chatReset span").textContent = C("Reset");
-    handoffBtn.querySelector("span").textContent = C("Continue on WhatsApp with Adam");
+    handoffBtn.querySelector("span").textContent = C("Send full chat to Adam on WhatsApp");
   }
   function setChatLang(l){
     if(l===chatLang || busy) return;
