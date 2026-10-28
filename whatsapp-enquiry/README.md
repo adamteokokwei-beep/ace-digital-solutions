@@ -117,7 +117,7 @@ Keep the following as encrypted Secrets, and confirm their names exist before de
 `TURNSTILE_SECRET`, `LIMIT_HMAC_KEY`, `WHATSAPP_ACCESS_TOKEN`,
 `WHATSAPP_PHONE_NUMBER_ID`, `WHATSAPP_RECIPIENT_NUMBER`, `ALLOWED_ORIGIN`,
 `WHATSAPP_TEMPLATE_NAME`, `WHATSAPP_TEMPLATE_LANGUAGE`, `WHATSAPP_API_VERSION`.
-The config declares all ten as required. Preserve existing values; never guess sender IDs or rotate tokens as part of deployment.
+The config declares all nine as required. Preserve existing values; never guess sender IDs or rotate tokens as part of deployment.
 
 For the current release, the approved template is `website_enquiry`, language `en`, API `v23.0`.
 `ALLOWED_ORIGIN` is `https://acedigitalsolutionsbiz.org`. Secret values must be entered privately by the owner.

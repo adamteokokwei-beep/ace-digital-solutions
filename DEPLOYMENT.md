@@ -18,4 +18,4 @@ The website config explicitly enables static previews. The chatbot preview overr
 
 ## Form settings preflight
 
-All ten names in `whatsapp-enquiry/wrangler.toml` `[secrets].required` must exist as encrypted production secrets. On 28 October a names-only API check confirmed all ten; no values were read or changed. `keep_vars = false` removes inherited plaintext variables but preserves encrypted secrets. Do not deploy if any required name is missing; the owner must supply its reviewed value privately. This preflight is not a verification of secret correctness or production build-trigger isolation.
+All nine names in `whatsapp-enquiry/wrangler.toml` `[secrets].required` must exist as encrypted production secrets. On 28 October a names-only API check confirmed all nine; no values were read or changed. `keep_vars = false` removes inherited plaintext variables but preserves encrypted secrets. Do not deploy if any required name is missing; the owner must supply its reviewed value privately. This preflight is not a verification of secret correctness or production build-trigger isolation.

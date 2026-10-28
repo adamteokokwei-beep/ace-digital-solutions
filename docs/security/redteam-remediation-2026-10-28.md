@@ -7,7 +7,7 @@ Status: prepared and locally validated; not merged or deployed. Base main: 1ee61
 - M-A: removed visitor-supplied amount exemptions. Added a contextual base-website-price guard: the report's RM300 example also overlaps a legitimate hourly-support total and needs a contextual check. Automated transcript turns are labelled “not a quote”, content lines are prefixed `>`, and the transcript ends with the written-quote reminder. Full conversations remain included as requested.
 - L-A: direct WhatsApp links have a conservative 1,800-character budget after percent-encoding. Longer transcripts are preserved fully in a local readonly text field with clipboard and UTF-8 text-file export, plus a short WhatsApp link. No chat truncation, server upload or automatic external navigation. Clipboard refusal selects the entire transcript and explains manual copy/download. Reset, new messages and language changes invalidate old exports.
 - L-B: blocked the report's English/Chinese rule paraphrases and “knock … off” discount phrasing. Pattern checks remain bounded safeguards; they cannot prove all model replies correct.
-- L-C: declared all ten production settings as required encrypted secrets; corrected README guidance and deployment notes. Names-only authenticated Cloudflare API inspection confirmed all ten names exist on ace-wa-enquiry; no values were read or changed. Form Worker runtime and recipient are unchanged.
+- L-C: declared all nine production settings as required encrypted secrets; corrected README guidance and deployment notes. Names-only authenticated Cloudflare API inspection confirmed all nine names exist on ace-wa-enquiry; no values were read or changed. Form Worker runtime and recipient are unchanged.
 
 ## Validation
 
