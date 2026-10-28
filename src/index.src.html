@@ -2837,7 +2837,7 @@ When someone compares two businesses side by side, the one that looks profession
         box.querySelectorAll("[data-p]").forEach(x=>{ x.textContent = "+"+money(itemPrice(x.closest("label").querySelector("[data-a]").dataset.a, st.base, p.n)); });
         box.querySelector(".tot").innerHTML = p.total === 0 ? `<span class="muted">${C("Tick at least one item to see an estimate.")}</span>` :
           `${C("Estimated total")} <b>${money(p.total)}</b>`+
-          `<br><span class="muted">${C("{a} to start, {b} before launch",{a:money(Math.round(p.total/2)), b:money(p.total-Math.round(p.total/2))})}`+
+          `<br><span class="muted">${C("{a} to start, {b} before launch",{a:money(200), b:money(p.total-200)})}`+
           `${st.rush?` · ${C("includes {f} rush fee",{f:money(p.rushFee)})}`:""}${st.base?` · ${cdays(p.n,st.rush)}`:""}${st.care?` · ${C("plus {p}/month Website Care",{p:money(CARE)})}`:""}</span>`;
         box.querySelector("[data-use]").disabled = p.total === 0;
         remember(st, p);
@@ -2876,6 +2876,7 @@ When someone compares two businesses side by side, the one that looks profession
   }
   function showEstimate(sel){
     const p = priceOf(sel);
+    if(!p.total) return calc(sel); // No selected project: do not quote a deposit.
     remember(sel, p);
     say(()=>{
       const counts = {}, lines = [];
@@ -2886,7 +2887,7 @@ When someone compares two businesses side by side, the one that looks profession
       return C("Here's a rough estimate based on what you described:")+`
       <div class="est-lines">${lines.map(([l,v])=>`<div><span>${escapeHtml(l)}</span><span>${money(v)}</span></div>`).join("")}
       <div class="t"><span>${C("Estimated total")}</span><span>${money(p.total)}</span></div></div>
-      <span class="muted">${C("{a} to start",{a:money(Math.round(p.total/2))})}${sel.base?` · ${cdays(p.n,sel.rush)}`:""}${sel.care?` · ${C("plus {p}/month Website Care",{p:money(CARE)})}`:""}</span><br>
+      <span class="muted">${C("{a} to start",{a:money(200)})}${sel.base?` · ${cdays(p.n,sel.rush)}`:""}${sel.care?` · ${C("plus {p}/month Website Care",{p:money(CARE)})}`:""}</span><br>
       <span class="muted">${C("Adam confirms the final price in a written quote.")}</span>`; });
     quick([[()=>C("Send this estimate to Adam"),handoff,"q-wa"],[()=>C("Adjust in calculator"),()=>calc(sel)]]);
   }

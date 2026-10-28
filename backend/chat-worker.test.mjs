@@ -1,9 +1,9 @@
 // Chatbot server tests. Run: node chat-worker.test.mjs   (all AI calls are mocked; nothing is sent)
-import worker, { checkReply, counterId, ChatUsage, reserveAttempt } from "./chat-worker.js";
+import worker, { checkReply, PRICING_GUIDE, BUSINESS_REPLIES, counterId, ChatUsage, reserveAttempt } from "./chat-worker.js";
 let pass = 0, fail = 0;
 const ok = (c, m) => { if (c) pass++; else { fail++; process.stdout.write("FAIL " + m + "\n"); } };
 const realLog = console.log; const logs = []; console.log = (...a) => logs.push(a.join(" "));
-let aiCalls = 0, aiReply = "Hello!", aiStatus = 200;
+let aiCalls = 0, aiReply = '{"answer":"business"}', aiStatus = 200;
 globalThis.fetch = async (u) => { aiCalls++; if (aiStatus !== 200) return new Response("provider detail: quota", { status: aiStatus }); return new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text: aiReply }] } }] }), { status: 200 }); };
 const memKV = () => { const m = new Map(); return { m, get: async k => m.get(k) ?? null, put: async (k, v) => { m.set(k, v); } }; };
 const limiter = (max = 1e9) => { const c = new Map(); return { limit: async ({ key }) => { const n = (c.get(key) || 0) + 1; c.set(key, n); return { success: n <= max }; } }; };
@@ -19,13 +19,13 @@ const ENV = (x = {}) => ({ GEMINI_API_KEY: "k", LIMIT_HMAC_KEY: "h".repeat(32), 
 const O = "https://acedigitalsolutionsbiz.org";
 let ipN = 0;
 const req = (path, body, { origin = O, ip = "10.1.0." + (++ipN % 250), method = "POST" } = {}) => new Request("https://ace-chat.x" + path, { method, headers: { "Content-Type": "application/json", Origin: origin, "CF-Connecting-IP": ip }, body: method === "POST" ? (typeof body === "string" ? body : JSON.stringify(body)) : undefined });
-const chat = (q = "How much is a website?", lang = "en", bot) => ({ lang, bot, messages: [{ role: "user", content: q }] });
+const chat = (q = "Can the website explain my bakery services?", lang = "en", bot) => ({ lang, bot, messages: [{ role: "user", content: q }] });
 
 // ---- basics (unchanged behaviour) ----
 let r = await worker.fetch(req("/", null, { method: "GET" }), ENV()); ok(r.status === 200 && (await r.text()) === "OK" && aiCalls === 0, "GET health says OK without calling the AI");
 r = await worker.fetch(new Request("https://ace-chat.x/?key=secret"), ENV({ HEALTH_KEY: "secret" })); ok(r.status === 200 && (await r.text()).includes("ai_test"), "GET with HEALTH_KEY tests the AI");
 r = await worker.fetch(new Request("https://ace-chat.x/?key=wrong"), ENV({ HEALTH_KEY: "secret" })); ok((await r.text()) === "OK", "wrong HEALTH_KEY gets plain OK");
-r = await worker.fetch(req("/chat", chat()), ENV()); ok(r.status === 200 && (await r.json()).reply === "Hello!", "chat works from the real website");
+r = await worker.fetch(req("/chat", chat()), ENV()); ok(r.status === 200 && (await r.json()).reply === BUSINESS_REPLIES.business.en, "chat works from the real website");
 ok((await worker.fetch(req("/chat", chat(), { origin: "https://evil.example" }), ENV())).status === 403, "other websites refused");
 ok((await worker.fetch(req("/enquiry", { name: "x" }), ENV())).status === 404, "old /enquiry route gone");
 ok((await worker.fetch(req("/notify", { name: "x" }), ENV())).status === 404, "old /notify route gone");
@@ -90,9 +90,9 @@ ok(checkReply("We guarantee same-day repair!", { demo: true }) === "guarantee", 
 // end to end: blocked reply is replaced, in the right language
 aiReply = "Special deal: 40% off today only, RM960!";
 r = await worker.fetch(req("/chat", chat("discount?", "bm")), ENV()); let j = await r.json();
-ok(r.status === 200 && /WhatsApp Adam/.test(j.reply) && /Saya tidak dapat/.test(j.reply) && !/40%/.test(j.reply), "blocked reply replaced with safe BM answer");
-ok(logs.some(l => l === "chat: reply replaced: discount") && !logs.some(l => l.includes("40% off")), "only the reason is logged, not the text");
-aiReply = "The standard website is RM1,600."; r = await worker.fetch(req("/chat", chat()), ENV()); ok((await r.json()).reply === aiReply, "valid reply passes unchanged end to end");
+ok(r.status === 200 && /Saya tidak dapat/.test(j.reply) && !/40%/.test(j.reply), "blocked reply replaced with safe BM answer");
+ok(!logs.some(l => l.includes("40% off")), "generated wording is never logged");
+aiReply = '{"answer":"pricing"}'; r = await worker.fetch(req("/chat", chat()), ENV()); ok((await r.json()).reply === PRICING_GUIDE.en, "even a valid generated price is replaced by reviewed pricing");
 
 
 // ---- staging ----
@@ -102,7 +102,7 @@ aiReply = "The standard website is RM1,600."; r = await worker.fetch(req("/chat"
   ok((await worker.fetch(sreq("x".repeat(32), chat()), STG())).status === 401, "staging: wrong key -> 401");
   ok((await worker.fetch(sreq(SK, chat()), STG({ STAGING_ACCESS_KEY: "" }))).status === 401, "staging: no key configured -> refuse all");
   aiCalls = 0; let res = await worker.fetch(sreq(SK, chat()), STG()); let jj = await res.json();
-  ok(res.status === 200 && /staging test reply/.test(jj.reply) && aiCalls === 0, "staging mock AI answers without any provider call");
+  ok(res.status === 200 && /not able to confirm/.test(jj.reply) && aiCalls === 0, "staging mock AI answers without any provider call");
   res = await worker.fetch(sreq(SK, chat("MOCK_REPLY: Sure, 30% off for you!")), STG()); jj = await res.json();
   ok(/WhatsApp Adam/.test(jj.reply), "staging: forced bad reply is caught by the reply check");
   const e = STG(); res = await worker.fetch(sreq(SK, chat("MOCK_FAIL:503")), e);
