@@ -104,14 +104,14 @@ def head_for(code, cfg):
     alts += f'<link rel="alternate" hreflang="x-default" href="{DOMAIN}/">\n'
     image_alt = {"en": "Ace Digital Solutions: website design for businesses across Malaysia", "bm": "Ace Digital Solutions: reka bentuk laman web untuk perniagaan di seluruh Malaysia", "zh": "Ace Digital Solutions：为全马企业提供网站设计"}[code]
     t, d = H.escape(cfg["title"]), H.escape(cfg["desc"], quote=True)
-    org = {"@context": "https://schema.org", "@type": "ProfessionalService", "@id": DOMAIN + "/#business", "name": "Ace Digital Solutions",
+    org = {"@context": "https://schema.org", "@type": "Organization", "@id": DOMAIN + "/#business", "name": "Ace Digital Solutions",
            "url": DOMAIN + "/", "image": DOMAIN + "/og-image.jpg", "logo": DOMAIN + "/og-image.jpg", "sameAs": [FB, "https://www.instagram.com/acedigitalsolutionsbiz/", "https://www.youtube.com/@AceDigitalSolutionsBiz"],
            "description": cfg["desc"], "email": "adamteokokwei@gmail.com", "telephone": "+60102641824",
-           "priceRange": "RM1,500–RM1,600", "inLanguage": cfg["html_lang"],
            "founder": {"@type": "Person", "name": "Adam", "jobTitle": "Freelance Web Designer"},
            "address": {"@type": "PostalAddress", "addressLocality": "Johor Bahru", "addressRegion": "Johor", "addressCountry": "MY"},
            "areaServed": {"@type": "Country", "name": "Malaysia"},
-           "serviceType": "Website design for businesses", "availableLanguage": ["English", "Malay", "Chinese"],
+           "contactPoint": {"@type": "ContactPoint", "contactType": "sales", "telephone": "+60102641824",
+                            "availableLanguage": ["English", "Malay", "Chinese"]},
            "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Website services", "itemListElement": [
              {"@type": "Offer", "name": "Professional website (up to 8 pages or sections)", "price": "1500", "priceCurrency": "MYR"},
             {"@type": "Offer", "name": "Professional website with a website chatbot (up to 8 pages or sections)", "price": "1600", "priceCurrency": "MYR"},
@@ -119,6 +119,14 @@ def head_for(code, cfg):
              {"@type": "Offer", "name": "Website add-on on its own", "price": "500", "priceCurrency": "MYR"},
              {"@type": "Offer", "name": "Website Care (hosting and domain renewal included)", "price": "199", "priceCurrency": "MYR",
               "priceSpecification": {"@type": "UnitPriceSpecification", "price": "199", "priceCurrency": "MYR", "unitText": "MONTH"}}]}}
+    service = {"@type": "Service", "@id": DOMAIN + "/#website-design",
+               "name": "Website design for businesses", "serviceType": "Website design for businesses",
+               "provider": {"@id": DOMAIN + "/#business"},
+               "areaServed": {"@type": "Country", "name": "Malaysia"},
+               "hasOfferCatalog": {"@id": DOMAIN + "/#website-services"}}
+    org["hasOfferCatalog"]["@id"] = DOMAIN + "/#website-services"
+    org.pop("@context")
+    structured_data = {"@context": "https://schema.org", "@graph": [org, service]}
     return (f"<title>{t}</title>\n<meta name=\"description\" content=\"{d}\">\n"
             '<meta name="robots" content="index, follow, max-image-preview:large">\n'
             '<meta name="author" content="Adam, Ace Digital Solutions">\n<meta name="theme-color" content="#0B1220">\n'
@@ -131,7 +139,7 @@ def head_for(code, cfg):
             f'<meta property="og:image:alt" content="{image_alt}">\n'
             f'<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:title" content="{t}">\n<meta name="twitter:description" content="{d}">\n'
             f'<meta name="twitter:image" content="{DOMAIN}/og-image.jpg">\n'
-            f'<script type="application/ld+json">{json.dumps(org, ensure_ascii=False)}</script>\n')
+            f'<script type="application/ld+json">{json.dumps(structured_data, ensure_ascii=False)}</script>\n')
 
 def preview_paths(page, root):
     """Relative links so the files can be opened straight from a folder (no web server)."""
