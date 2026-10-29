@@ -1335,6 +1335,8 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 .pricing-cta p{color:rgba(255,255,255,.72);margin:0 auto 26px;max-width:32em}
 .pricing-cta .hero-cta{justify-content:center;display:flex;gap:12px;flex-wrap:wrap}
 @media (max-width:600px){.price-teaser{padding:28px 22px;border-radius:22px}.pricing-cta{padding:40px 20px;border-radius:24px}.pricing-hero .hero-cta .btn,.pricing-cta .btn{width:100%;justify-content:center}}
+
+.restaurant-plans{background:#f3f6fb;color:#172840;padding:88px 80px;scroll-margin-top:88px}.restaurant-wrap{max-width:1120px;margin:auto}.restaurant-plans h2{font-size:clamp(2rem,4vw,3.25rem);line-height:1.12;letter-spacing:-.025em;max-width:22ch;margin:0 0 24px;text-wrap:balance}.restaurant-intro{font-size:1.125rem;max-width:68ch;margin:0 0 40px}.restaurant-plan{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:48px;border-top:1px solid #b7c4d6;padding:32px 0}.restaurant-plan h3{font-size:1.6rem;margin:0 0 12px}.restaurant-description p{max-width:68ch;line-height:1.65;margin:8px 0}.restaurant-price{font-variant-numeric:tabular-nums}.restaurant-price p{margin:0 0 10px}.restaurant-price strong{font-size:2.6rem;letter-spacing:-.025em;line-height:1.1;color:#123e8a}.restaurant-price span{white-space:nowrap}.restaurant-terms{border-top:1px solid #b7c4d6;padding-top:24px;columns:2;column-gap:48px;margin-bottom:24px}.restaurant-terms p{break-inside:avoid;font-size:.9rem;line-height:1.65;margin:0 0 16px}.restaurant-alternative{margin-top:20px;max-width:70ch}@media(max-width:700px){.side-social{display:none}.restaurant-plans{padding:56px 20px}.restaurant-plan{grid-template-columns:1fr;gap:20px;padding:28px 0}.restaurant-price{border:0}.restaurant-terms{columns:1}.restaurant-price strong{font-size:2.3rem}}
 </style>
 
 <!-- Icon sprite -->
@@ -1441,9 +1443,15 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 </section>
 
 <!-- PRICING + ADD-ONS -->
-<section class="pricing" id="pricing">
+<section class="restaurant-plans" id="pricing" aria-labelledby="restaurant-title"><div class="restaurant-wrap">
+<h2 id="restaurant-title">Your restaurant. Your brand. A direct way to order.</h2><p class="restaurant-intro">Monthly restaurant plans for cafés and restaurants building their own ordering channel. Start with a compatibility review before committing.</p>
+<article class="restaurant-plan"><div class="restaurant-description"><h3>Essentials</h3><p>For cafés and restaurants starting direct online orders.</p><p>Menu, cart and hosted payment checkout; order receipt after confirmed payment. Scheduled function, security and basic SEO checks every two weeks.</p></div><div class="restaurant-price"><p><strong>RM168</strong> <span>/month</span></p><p>Setup: RM1,688</p><p>Total over 24 months: RM5,720</p></div></article>
+<article class="restaurant-plan"><div class="restaurant-description"><h3>Signature</h3><p>For restaurants bringing their brand and ordering experience together.</p><p>Essentials scope, plus a website ordering assistant, announcement pop-ups and staff-confirmed reservation requests. Checks every 5–7 days and up to 8 agreed seasonal theme refreshes per year.</p></div><div class="restaurant-price"><p><strong>RM288</strong> <span>/month</span></p><p>Setup: RM3,288</p><p>Total over 24 months: RM10,200</p></div></article>
+<article class="restaurant-plan"><div class="restaurant-description"><h3>Signature + WhatsApp</h3><p>For restaurants that also want assisted ordering through WhatsApp.</p><p>Signature scope, plus a WhatsApp ordering assistant. Customers review item quantities, individual prices and the total before confirming payment.</p></div><div class="restaurant-price"><p><strong>RM388</strong> <span>/month</span></p><p>Setup: RM3,888</p><p>Total over 24 months: RM13,200</p></div></article>
+<div class="restaurant-terms"><p>24-month minimum term. Hosting is included for the initial 24 months. Setup fees are additional to the monthly subscription.</p><p>POS menu, sales and refund workflows, payment providers and third-party delivery connections require a compatibility and API-access check. Supported integrations, costs and delivery timing are confirmed in the written quote; universal POS support is not promised.</p><p>Payment-provider and rider charges are paid separately by the client. AI and WhatsApp usage allowances and any additional charges are agreed before signing. No unlimited messaging promise.</p><p>Covered technical faults are repaired without extra labour charges during an active maintenance subscription. New features and other out-of-scope work are quoted separately: RM49/hour for our website clients, RM89/hour for websites built elsewhere.</p><p>After 24 months, continue by agreement or arrange a website and hosting handover. Renewal costs and cancellation, payment-notice and suspension terms are confirmed before signing.</p><p>Seasonal refreshes cover agreed colours, banners and decorations, rather than full redesigns. Both plans use secure payment-provider checkout; refunds require authorised staff approval.</p></div><a class="btn btn-primary" href="#contact">Check my restaurant’s fit</a><p class="restaurant-alternative">Need a website for enquiries, courses or services? See the Business Website below.</p></div></section>
+<section class="pricing" id="business-websites">
   <div class="left dark">
-    <h2 class="sec-title">What's included for RM1,600</h2>
+    <h2 class="sec-title">What's included for RM1,600</h2><p>For tuition centres, tutors, salons, contractors, consultants and other service businesses. Present your services and receive enquiries. Food ordering, payment collection, customer accounts, confirmed bookings and POS integration are separate projects.</p>
     <p class="sec-lede muted">A professional, mobile-friendly website with everything you need to get online and start getting enquiries.</p>
     <div class="inc-grid">
       <ul class="inc-list">
@@ -1459,7 +1467,7 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
       <div class="price-card">
         <span class="pill">One-time project price</span>
         <div class="amount"><sup>RM</sup>1,600</div>
-        <h3>Professional Website</h3>
+        <h3>Business Website</h3>
         <p class="pc-sub">Up to 8 pages or sections, with a website chatbot</p>
         <p class="pc-bot">or <b>RM1,500</b> without the chatbot</p>
         <div class="terms">
@@ -1648,7 +1656,7 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
         <details><summary>Is the domain really free?</summary><p>Yes, for the first year, for a standard .com, .com.my or .my domain. Premium domains are quoted separately. From the second year, you pay the renewal yourself, unless you're on Website Care, which includes it.</p></details>
         <details><summary>Is hosting included?</summary><p>Hosting is included with Website Care (RM199/month). Without it, you pay a hosting provider directly, and I help you set it up at launch.</p></details>
         <details><summary>What is Website Care?</summary><p>An optional plan at RM199/month: hosting, standard domain renewal, website health monitoring, minor updates, security and maintenance checks, social media update monitoring where supported, and ongoing support.</p></details>
-        <details><summary>What if I need an urgent fix without Website Care?</summary><p>Urgent fixes and small changes are charged at RM100 per hour.</p></details>
+        <details><summary>What if I need an urgent fix without Website Care?</summary><p>Urgent fixes and small changes are charged at RM49 per hour for our website clients, or RM89 per hour for websites built elsewhere.</p></details>
         <details><summary>Can we meet in person?</summary><p>Yes, if you're in Johor Bahru. Otherwise we can talk by WhatsApp, Zoom or Google Meet.</p></details>
         <details><summary>I already have a website or a Facebook page. Do I need a new one?</summary><p>Not always. If what you have already works well for your business, I'll tell you. If your website is outdated or hard to use on a phone, I can replace it and reuse what still works.</p></details>
         <details><summary>Who will I be working with?</summary><p>With me, Adam. Ace Digital Solutions is run by me as a freelance web designer in Johor Bahru, so you deal with the same person from your first message to launch.</p></details>
@@ -2721,14 +2729,15 @@ When someone compares two businesses side by side, the one that looks profession
   const CALL_CTA = () => [()=>C("Urgent? Call Adam"),callNow,"q-red"];
   function callNow(){ location.href = "tel:+60102641824"; }
   function after(){ quick([WA_CTA(),[()=>C("Main menu"),menu]]); }
-  function menu(){ say(()=>C("What would you like to know? You can also type any question.")); quick([[()=>C("Estimate my cost"),calc],[()=>C("What's included?"),included],WA_CTA(),CALL_CTA()]); }
+  function restaurantInfo(){say(()=>C("Restaurant plans start at RM168/month + RM1,688 setup, with a 24-month minimum term. Signature is RM288/month + RM3,288 setup; Signature + WhatsApp is RM388/month + RM3,888 setup. POS and delivery compatibility, usage charges and the final scope must be confirmed with Adam. See the restaurant plans above or ask Adam for a written quote."));after();}
+  function menu(){ say(()=>C("What would you like to know? You can also type any question.")); quick([[()=>C("Estimate my cost"),calc],[()=>C("What's included?"),included],[()=>C("Restaurant monthly plans"),restaurantInfo],WA_CTA(),CALL_CTA()]); }
   function greet(){ say(()=>C("Hi! I'm the Ace Digital Solutions assistant. I can answer quick questions, estimate what your website would cost, or pass you to Adam on WhatsApp.")); menu(); }
   function resetChat(){ log.innerHTML = ""; entries.length = 0; if(chatLang!==LANG) applyChatLang(LANG); aiHistory.length = 0; lastEstimate = null; estMode = false; strikes = 0; handoffBtn.hidden = true; lock(false); greet(); }
   function included(){ say(()=>C("Every RM1,600 website includes <b>up to 8 pages or sections</b> in one language, a <b>website chatbot</b>, a custom-designed homepage, a mobile-friendly layout, a services section, WhatsApp and click-to-call buttons, a contact form, basic SEO setup and social media links. <b>Google Business Profile setup</b> and a <b>standard domain for the first year</b> are included free. Without the chatbot, it's RM1,500.")); after(); }
   function timing(){ say(()=>C("Usually <b>3–5 working days</b>, depending on the project and how quickly you can send your content (text, photos and logo). Each add-on adds 1 working day. Need it sooner? Rush delivery cuts <b>2 working days</b> for <b>+20%</b> of the project total.")); after(); }
   function rushInfo(){ say(()=>C("<b>Rush delivery</b> cuts your delivery time by <b>2 working days</b>, for example from 3–5 working days to 1–3. It costs an extra <b>20%</b> of the project total (website plus add-ons).")); after(); }
   function payments(){ say(()=>C("You pay a <b>RM200 deposit</b> to start and <b>the rest when your website is ready, before launch</b>. For the RM1,600 website, that's RM200 + RM1,400. You can pay by <b>DuitNow, Touch 'n Go eWallet or cash</b>. Adam works as a freelancer, so payments go to him personally.")); after(); }
-  function urgent(){ say(()=>C("Without Website Care, urgent fixes and small changes are <b>RM100 per hour</b>. With Website Care (RM199/month), minor updates and support are included.")); after(); }
+  function urgent(){ say(()=>C("Without Website Care, urgent fixes and small changes are <b>RM49 per hour for our website clients, or RM89 per hour for websites built elsewhere</b>. With Website Care (RM199/month), minor updates and support are included.")); after(); }
   function careInfo(){ say(()=>C("Website Care is optional at <b>RM199/month</b>: hosting and standard domain renewal included, website health monitoring, minor updates, security and maintenance checks, social media update monitoring where supported, and ongoing support.")); after(); }
   function domainInfo(){ say(()=>C("Two things are included free with your website: <b>Google Business Profile setup</b>, and a <b>standard domain (.com, .com.my or .my) for the first year</b>. Premium domains are quoted separately. From the second year, you pay the domain renewal yourself, unless you're on Website Care.")); after(); }
   function content(){ say(()=>C("You send your services, contact details, the areas you cover and any photos or logo you have, and Adam turns it into a clear, professional website. He can help tidy up the wording.")); after(); }
@@ -2921,6 +2930,7 @@ When someone compares two businesses side by side, the one that looks profession
   function scripted(q){
     const t = q.toLowerCase();
     const route =
+      /(restaurant|café|cafe|food order|pos integration|restoran|pesanan makanan|餐厅|餐馆|咖啡|点餐|餐饮)/.test(t) ? restaurantInfo :
       /(how can you help|what can you do|what do you do|help me|apa yang (anda|awak) boleh buat|boleh bantu apa|你能做什么|能帮我什么|可以帮我什么)/.test(t) ? helpInfo :
       /(rush|asap|sooner|faster|express|priority|segera|加急)/.test(t) ? rushInfo :
       /(urgent|emergency|hourly|per hour|broken|fix|rosak|坏了|修复)/.test(t) ? urgent :
@@ -2947,7 +2957,9 @@ When someone compares two businesses side by side, the one that looks profession
     if(ABUSE.test(q)) return respond(abuseReply, 2);
     // 2. Estimates from typed needs
     const costy = /(cost|price|how much|quote|estimate|budget|total|harga|berapa|kos|价格|多少钱|报价|预算)/i.test(q);
-    const needs = (estMode || costy) ? parseNeeds(q) : null;
+    const restaurantQuestion = /(restaurant|café|cafe|food order|POS|restoran|pesanan makanan|餐厅|餐馆|咖啡|点餐|餐饮)/i.test(q);
+    const needs = !restaurantQuestion && (estMode || costy) ? parseNeeds(q) : null;
+    if(restaurantQuestion) estMode = false;
     if(needs){ estMode = false; return respond(()=>showEstimate(needs)); }
     if(estMode){ estMode = false; return respond(()=>{ say(()=>C("I couldn't spot specific features in that. Try the calculator, or mention things like extra pages, another language, a booking form, listings or rush delivery.")); quick([[()=>C("Open calculator"),()=>calc()],[()=>C("Main menu"),menu]]); }); }
     // 3. AI (if connected), shown with the typing bubble for a moment
