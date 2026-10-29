@@ -46,6 +46,6 @@ test('numeric addresses, old budgets and prior pricing cannot force unrelated la
 });
 
 test('published rates, deposit, hourly work and approved estimates remain server-owned',()=>{
- for(const guide of Object.values(PRICING_GUIDE))for(const amount of ['RM1,600','RM1,500','RM500','RM400','RM199','RM49','RM89','RM200','20%'])assert.ok(guide.includes(amount));
+ for(const guide of Object.values(PRICING_GUIDE))for(const amount of ['RM1,600','RM1,500','RM500','RM400','RM128','RM49','RM89','RM200','20%'])assert.ok(guide.includes(amount));
  for(const lang of ['en','bm','zh'])assert.equal(approvedBusinessReply('{"answer":"pricing"}',lang),PRICING_GUIDE[lang]);
 });

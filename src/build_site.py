@@ -117,8 +117,8 @@ def head_for(code, cfg):
             {"@type": "Offer", "name": "Professional website with a website chatbot (up to 8 pages or sections)", "price": "1600", "priceCurrency": "MYR"},
               {"@type": "Offer", "name": "Website add-on, bundled with the website or another add-on", "price": "400", "priceCurrency": "MYR"},
              {"@type": "Offer", "name": "Website add-on on its own", "price": "500", "priceCurrency": "MYR"},
-             {"@type": "Offer", "name": "Website Care (hosting and domain renewal included)", "price": "199", "priceCurrency": "MYR",
-              "priceSpecification": {"@type": "UnitPriceSpecification", "price": "199", "priceCurrency": "MYR", "unitText": "MONTH"}}]}}
+             {"@type": "Offer", "name": "Website Care (hosting and domain renewal included)", "price": "128", "priceCurrency": "MYR",
+              "priceSpecification": {"@type": "UnitPriceSpecification", "price": "128", "priceCurrency": "MYR", "unitText": "MONTH"}}]}}
     service = {"@type": "Service", "@id": DOMAIN + "/#website-design",
                "name": "Website design for businesses", "serviceType": "Website design for businesses",
                "provider": {"@id": DOMAIN + "/#business"},
