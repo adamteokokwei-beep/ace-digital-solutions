@@ -91,6 +91,23 @@ Perbandingan kos dibahagi mengikut bulan **bukan tempoh pulangan tunai**. Bayara
 - Masukkan masa tambahan staf untuk menerima pesanan, mengatur penghantaran, menjawab pelanggan dan menyelaraskan bayaran. Tentukan siapa menangani bayaran gagal atau rider tidak hadir.
 - Sahkan sokongan menu, jualan dan bayaran balik POS dahulu. Akses API dan kelulusan penyedia bukan universal; integrasi tersuai boleh menambah kos awal dan berterusan.
 
+## Restoran macam mana lebih sesuai ada website pesanan sendiri?
+**Pada pandangan kami daripada kiraan kos ini, kafe yang sudah ada pelanggan tetap atau restoran kawasan perumahan lebih sesuai untuk mula berbanding kedai baharu yang masih bergantung pada orang baru mengenalinya.** Ini pandangan praktikal, bukan bukti semua kafe pasti jimat.
+
+Ada pelanggan tetap sahaja belum cukup. Sebahagian mereka perlu mahu memesan melalui pautan anda, dan restoran mesti boleh menyediakan serta menghantar pesanan dengan baik.
+
+Contoh yang boleh dipertimbangkan:
+
+- **Kafe dekat pejabat:** orang yang sama datang semula untuk makan tengah hari dan ada yang mahu pesan awal. Set makan atau pesanan berkumpulan mungkin lebih mudah menampung kos delivery berbanding satu minuman murah.
+- **Restoran kejiranan dengan pelanggan bungkus berulang:** keluarga sudah kenal menu dan selalu pesan semula. Pautan sendiri boleh memudahkan pesanan seterusnya, terutama ambil sendiri atau penghantaran dekat.
+- **Peniaga makanan yang sudah terima pesanan berulang melalui WhatsApp:** pelanggan memang terus hubungi kedai, tetapi staf perlu tanya item, kuantiti dan bayaran satu per satu. Menu dan checkout yang jelas mungkin mengurangkan mesej ulang-alik jika sistem sesuai dengan cara kerja kedai.
+
+Sebelum bayar, semak empat perkara: **pelanggan yang mahu pesan terus, makanan yang sesuai dihantar, kos delivery yang masuk akal dan staf yang boleh urus pesanan serta masalah bayaran**. Sahkan ketersediaan rider di kawasan anda dan waktu sibuk. Website bukan bermakna terus ada pasukan penghantaran sendiri.
+
+Kafe yang banyak menjual satu minuman murah mungkin masih susah menampung delivery walaupun ada pelanggan tetap. Kedai yang bergantung pada promosi aplikasi untuk menarik pembeli baharu mungkin masih perlukan aplikasi itu. Mulakan dengan pelanggan tetap yang berminat, kekalkan saluran yang membawa pelanggan dan semak hasil percubaan kecil.
+
+**Masukkan jumlah pesanan anda sendiri dalam kalkulator.** Angka 58 dalam contoh bukan syarat minimum semua restoran. Jumlah sebenar berubah mengikut nilai pesanan, caj bayaran, rider dan kerja tambahan.
+
 ## Bila laman pesanan belum menjadi keutamaan
 Saluran langsung mungkin terlalu awal jika pelanggan berulang masih sedikit, pengendalian pesanan tidak stabil atau integrasi mahal untuk jumlah kecil. Menu jelas, waktu operasi tepat serta borang pertanyaan atau permintaan tempahan mungkin menyelesaikan masalah terdekat dahulu.
 
