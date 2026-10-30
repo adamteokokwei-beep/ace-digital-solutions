@@ -1459,7 +1459,7 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
         <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>One language of your choice (English, BM or Chinese)</span></li>
         <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Basic SEO setup and a Google-friendly structure</span></li>
         <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Domain and launch setup</span></li>
-        <li class="hl-li"><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span><b>Website chatbot</b> (RM1,500 without it)</span></li>
+        <li class="hl-li"><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span><b>AI-powered website chatbot</b> (RM1,500 without it)</span></li>
       </ul>
       <div class="price-card">
         <span class="pill">One-time project price</span>
@@ -1486,7 +1486,7 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
     <ul class="addon-list">
       <li class="hd"><span></span><span>Add-on</span><span>On its own</span><span>Bundled</span></li>
       <li><span class="ai"><svg class="ico"><use href="#i-plusfile"/></svg></span><span class="nm"><b>2 extra pages or sections</b><small>e.g. a gallery and a service page</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-      <li><span class="ai"><svg class="ico"><use href="#i-bot"/></svg></span><span class="nm"><b>Website chatbot</b><small>Included in the RM1,600 website · RM500 for an existing website</small></span><span class="was">RM500</span><span class="deal deal-word">Included</span></li>
+      <li><span class="ai"><svg class="ico"><use href="#i-bot"/></svg></span><span class="nm"><b>AI-powered website chatbot</b><small>Included in the RM1,600 website · RM400 when bundled with another add-on</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
       <li><span class="ai"><svg class="ico"><use href="#i-globe"/></svg></span><span class="nm"><b>Additional language</b><small>e.g. add BM or Chinese to an English website</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
       <li><span class="ai"><svg class="ico"><use href="#i-calcheck"/></svg></span><span class="nm"><b>Enquiry &amp; booking request form</b><small>Customers choose a service and a preferred date and time</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
       <li><span class="ai"><svg class="ico"><use href="#i-pin"/></svg></span><span class="nm"><b>Listings setup</b><small>Your business on Apple Maps and Foursquare</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
@@ -2205,7 +2205,7 @@ When someone compares two businesses side by side, the one that looks profession
      Each add-on adds 1 working day. Rush: +20% of the project total, 2 working days faster. */
   const BASE = 1600, ADDON = 400, ADDON_SOLO = 500, BOT_WITH_SITE = 100, BOT_SOLO = 500, CARE = 128, RUSH = 0.20;
   const ADDONS = [
-    ["a-page","2 extra pages or sections"],["a-bot","Website chatbot"],["a-lang","Additional language"],
+    ["a-page","2 extra pages or sections"],["a-bot","AI-powered website chatbot"],["a-lang","Additional language"],
     ["a-book","Enquiry & booking request form"],["a-list","Listings setup (Apple Maps + Foursquare)"]
   ];
   const $ = s => document.querySelector(s);
@@ -2213,7 +2213,7 @@ When someone compares two businesses side by side, the one that looks profession
   const money = n => "RM" + n.toLocaleString("en-MY");
   const eachPrice = (base, n) => (base || n >= 2) ? ADDON : ADDON_SOLO;
   // The RM1,600 website includes the website chatbot (RM1,500 without it). On its own, the chatbot is RM500.
-  const itemPrice = (id, base, n) => id==="a-bot" ? (base ? BOT_WITH_SITE : BOT_SOLO) : eachPrice(base, n);
+  const itemPrice = (id, base, n) => eachPrice(base, n);
   const days = (n, rush) => { const r = rush ? 2 : 0; return L("{a}–{b} working days",{a:Math.max(1,3+n-r), b:5+n-r}); };
 
   /* ---------- Mini website mockups ---------- */
@@ -2728,7 +2728,7 @@ When someone compares two businesses side by side, the one that looks profession
   function domainInfo(){ say(()=>C("Two things are included free with your website: <b>Google Business Profile setup</b>, and a <b>standard domain (.com, .com.my or .my) for the first year</b>. Premium domains are quoted separately. From the second year, you pay the domain renewal yourself, unless you're on Website Care.")); after(); }
   function content(){ say(()=>C("You send your services, contact details, the areas you cover and any photos or logo you have, and Adam turns it into a clear, professional website. He can help tidy up the wording.")); after(); }
   function langInfo(){ say(()=>C("Your website includes <b>one language</b>: English, Bahasa Melayu or Chinese. Each extra language is an add-on: RM500 on its own, or <b>RM400</b> when bundled with the website or another add-on.")); after(); }
-  function assistInfo(){ say(()=>C("A <b>website chatbot</b> answers the questions you approve on your website and passes customers to your WhatsApp with the full conversation. It's <b>included in the RM1,600 website</b> (RM1,500 without it), or <b>RM500</b> to add to an existing website. You're using one right now.")); after(); }
+  function assistInfo(){ say(()=>C("An <b>AI-powered website chatbot</b> answers your approved business questions and passes customers to WhatsApp with the full conversation. Included in the RM1,600 website (RM1,500 without it). As an add-on: <b>RM500 on its own</b>, or <b>RM400 bundled with another add-on</b>. You're using one right now.")); after(); }
   function meetInfo(){ say(()=>C("Adam can chat with you by WhatsApp, Zoom or Google Meet, or meet in person if you're in Johor Bahru. He replies within 1 working day.")); after(); }
   const formLink = (label) => `<a href="#contact" class="chat-link" data-goform>${label||C("Open the contact form")} ${ico("arrow")}</a>`;
   log.addEventListener("click",e=>{ const a=e.target.closest("[data-goform]"); if(!a) return; e.preventDefault(); e.stopPropagation(); closeChat(); go("contact"); setTimeout(()=>$("#f-name").focus({preventScroll:true}),50); });
