@@ -13,6 +13,13 @@ Komisen rendah tidak semestinya bermakna lebih banyak duit tinggal. Bagi kafe at
 
 Aplikasi boleh membantu pelanggan menemui restoran anda. Laman pesanan sendiri mungkin sesuai untuk pelanggan yang sudah mengenali anda. Kedua-duanya boleh digunakan bersama. Panduan ini membandingkan kos, bukan menjanjikan jualan atau mengesyorkan semua restoran meninggalkan platform.
 
+## Aplikasi delivery boleh bantu pelanggan baharu jumpa anda
+Orang yang buka aplikasi mungkin sedang mencari makan tengah hari berdekatan, bukan mencari nama restoran anda. Gambar makanan, menu dan ulasan boleh membantu mereka jumpa restoran anda dan cuba membuat pesanan. Itu juga nilai aplikasi, bukan delivery sahaja.
+
+Website sendiri memberi pelanggan tetap satu lagi cara untuk memesan. Tetapi anda masih perlu bawa orang ke website, contohnya melalui Google Business Profile, media sosial atau kod QR di kedai. Website baharu tidak terus datang dengan pelanggan.
+
+**Anda boleh guna aplikasi untuk mencapai pelanggan baharu, dan website untuk pelanggan yang mahu pesan terus.** Tengok cara pelanggan anda sebenarnya membeli. Jangan lepaskan jualan aplikasi yang berguna hanya kerana caj website setiap pesanan lebih rendah. Kalkulator membandingkan pesanan yang sama; ia tidak mengira nilai pelanggan baharu yang mungkin dibawa aplikasi.
+
 ## Contoh pengiraan sebelum membuat keputusan
 **Apa maksud “basket”?** Ia ialah jumlah harga makanan dan minuman dalam satu pesanan, sebelum caj penghantaran, caj perkhidmatan dan caj lain semasa pembayaran. Dalam panduan ini, kami panggilnya **jumlah pesanan**. Contohnya, dua hidangan RM20 dan dua minuman RM5 berjumlah RM50.
 

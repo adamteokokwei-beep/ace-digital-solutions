@@ -13,6 +13,13 @@ Paying less commission does not always mean you keep more money. The better ques
 
 Delivery apps can help people discover your restaurant. Your own ordering website may suit regular customers who already know you. You can use both. Let’s compare the costs before deciding.
 
+## Delivery apps can help new customers find you
+Someone opening a delivery app may be looking for lunch nearby, not searching for your restaurant by name. Your food photos, menu and reviews can help them discover you and decide to try an order. That is part of what the platform offers—not just delivery.
+
+Your own website can give regular customers another way to order. But you still need to bring people to it, for example through your Google Business Profile, social posts or a QR code in the shop. A website does not arrive with a ready-made audience.
+
+**A sensible mix can be apps for reaching new customers, and a website for customers who want to order directly.** See what your customers actually use. Don’t give up useful app sales just because the website has a lower fee per order. Our calculator compares similar orders; it does not put a value on new customers the app might bring.
+
 ## Let’s say a customer orders RM50 of food
 **What does “basket” mean?** It is the total price of the food and drinks in one order, before delivery fees, service charges and any other checkout charges. In this guide, we call it the **order amount**. For example, two meals at RM20 each and two drinks at RM5 each make a RM50 basket.
 
