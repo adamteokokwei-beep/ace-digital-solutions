@@ -1440,7 +1440,7 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
         <a class="btn btn-wa" href="{{WA}}" target="_blank" rel="noopener"><svg class="ico"><use href="#i-chat"/></svg>WhatsApp me</a>
         <a class="text-link" href="#work">See my work ↓</a>
       </div>
-      <p class="consult-note"><svg class="ico"><use href="#i-clock"/></svg><span>I reply within 1 working day. No obligation.</span></p>
+      <p class="consult-note"><svg class="ico"><use href="#i-clock"/></svg><span>I reply within 1 working day.</span></p>
     </div>
     <div class="stage" aria-hidden="true">
       <div class="laptop"><div class="lid"><div class="screen" data-mini="yours"></div></div><div class="lbase"></div></div>
@@ -1637,7 +1637,7 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
     </div>
     <div class="faq-list">
       <div class="faq-col">
-        <details><summary>How do I get started?</summary><p>Send me a WhatsApp message at 010-264 1824, or use the form below. I reply within 1 working day, we have a short chat, and then I send you a written quote. There's no obligation.</p></details>
+        <details><summary>How do I get started?</summary><p>Send me a WhatsApp message at 010-264 1824, or use the form below. I reply within 1 working day, we have a short chat, and then I send you a written quote.</p></details>
         <details><summary>How much does a website cost?</summary><p>RM1,600 for a professional, mobile-friendly website with up to 8 pages or sections in one language, including a website chatbot, or RM1,500 without the chatbot. Google Business Profile setup and a standard domain for the first year are included free. Need more pages? Every 2 extra pages or sections is one add-on. Add-ons are RM500 each on their own, or RM400 each when bundled with the website or another add-on.</p></details>
         <details><summary>How long does it take?</summary><p>Usually 3–5 working days, depending on what your project needs and how quickly you can send your content (text, photos and logo). Each add-on adds 1 working day.</p></details>
         <details><summary>Can you rush my website?</summary><p>Yes. Rush delivery cuts 2 working days off your delivery time, for example from 3–5 working days to 1–3. It costs an extra 20% of the project total (website plus any add-ons).</p></details>
@@ -1678,7 +1678,7 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
       <div class="field full"><label for="f-email">Email <span class="opt">(optional)</span></label><input id="f-email" name="email" type="email" autocomplete="email"><span class="err" hidden>Please check your email address.</span></div>
       <div class="hp" aria-hidden="true"><label for="f-hp">Company website</label><input id="f-hp" name="company_website" tabindex="-1" autocomplete="off"></div>
       <div class="field full cap-field" id="capBox" hidden><div id="turnstile"></div><span class="err" id="capErr" hidden>Please complete the check above.</span></div>
-      <div class="form-foot"><button class="btn btn-primary" type="submit" id="f-submit"><span>Send message</span> <svg class="ico"><use href="#i-arrow"/></svg></button><small>I reply within 1 working day. No obligation.</small></div>
+      <div class="form-foot"><button class="btn btn-primary" type="submit" id="f-submit"><span>Send message</span> <svg class="ico"><use href="#i-arrow"/></svg></button><small>I reply within 1 working day.</small></div>
       <p class="privacy-note">By sending this form, you agree that I use your details to reply to your enquiry, as explained in the <a href="/privacy/">privacy notice</a>.</p>
       <div class="status" id="f-status" hidden role="status"></div>
     </form>
@@ -2407,7 +2407,7 @@ When someone compares two businesses side by side, the one that looks profession
     if(p.cover){ const c = document.createElement("div"); c.className = "cover"; c.style.backgroundImage = `url("${p.cover}")`; if(p.coverAlt){ c.setAttribute("role","img"); c.setAttribute("aria-label",p.coverAlt); } hero.prepend(c); }
     $("#postBody").classList.toggle("rich", p.rich);
     $("#postBody").classList.toggle("flat", !!p.flat);
-    $("#postBody").innerHTML = p.body + `<div class="article-cta dark"><div><h3>${L("Ready for a website that works for your business?")}</h3><p>${L("Start with a short, no-obligation chat on WhatsApp. Websites from RM1,600.")}</p></div><a class="btn btn-wa" href="${waLink(L("Hi Adam, I'm interested in a website for my business."))}" target="_blank" rel="noopener">${ico("chat")}${L("WhatsApp me")}</a></div>`;
+    $("#postBody").innerHTML = p.body + `<div class="article-cta dark"><div><h3>${L("Ready for a website that works for your business?")}</h3><p>${L("Start with a short, chat on WhatsApp. Websites from RM1,600.")}</p></div><a class="btn btn-wa" href="${waLink(L("Hi Adam, I'm interested in a website for my business."))}" target="_blank" rel="noopener">${ico("chat")}${L("WhatsApp me")}</a></div>`;
     const others = POSTS.filter(o=>o!==p && !o.soon).slice(0,3);
     const upcoming = POSTS.filter(o=>o.soon).length;
     $("#postMore").innerHTML = others.length ? `<h3>${L("More articles")}</h3>` + others.map(o=>`<a href="#${o.id}"><span class="dotico" style="background:${o.bg}">${ico(o.icon)}</span>${escH(o.title)}</a>`).join("") + `<a href="#articles" style="color:var(--blue)">${L("View all articles")} ${ico("arrow")}</a>` : (upcoming ? `<h3>${L("More articles coming soon")}</h3><a href="#articles" style="color:var(--blue)">${L("See what's coming")} ${ico("arrow")}</a>` : "");
