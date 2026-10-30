@@ -1330,11 +1330,22 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 .pricing-hero h1 span{background:linear-gradient(90deg,#60A5FA,#A78BFA);-webkit-background-clip:text;background-clip:text;color:transparent}
 .pricing-hero .hero-cta{justify-content:center;margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
 .pc-cta{width:100%;justify-content:center;margin:18px 0 4px}
-.pricing-cta{text-align:center;max-width:720px;margin:0 auto;padding:56px 28px;border-radius:32px;background:#1D1D1F;color:#fff}
+.pricing-cta{text-align:center;max-width:720px;margin:0 auto;padding:56px 28px;border-radius:32px;background:linear-gradient(rgba(5,20,43,.60),rgba(5,20,43,.60)),url('/img/hero-bg.jpg') 60% center/cover no-repeat,var(--navy);color:#fff}
 .pricing-cta h2{font-size:clamp(28px,4vw,42px);letter-spacing:-.02em;margin:0 0 12px;color:#fff}
-.pricing-cta p{color:rgba(255,255,255,.72);margin:0 auto 26px;max-width:32em}
+.pricing-cta p{color:#EEF4FF;margin:0 auto 26px;max-width:32em}
 .pricing-cta .hero-cta{justify-content:center;display:flex;gap:12px;flex-wrap:wrap}
 @media (max-width:600px){.price-teaser{padding:28px 22px;border-radius:22px}.pricing-cta{padding:40px 20px;border-radius:24px}.pricing-hero .hero-cta .btn,.pricing-cta .btn{width:100%;justify-content:center}}
+
+.restaurant-plans{background:#f3f6fb;color:#172840;padding:88px 80px;scroll-margin-top:88px}.restaurant-wrap{max-width:1120px;margin:auto}.restaurant-plans h2{font-size:clamp(2rem,4vw,3.25rem);line-height:1.12;letter-spacing:-.025em;max-width:22ch;margin:0 0 24px;text-wrap:balance}.restaurant-intro{font-size:1.125rem;max-width:68ch;margin:0 0 40px}.restaurant-plan{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:48px;border-top:1px solid #b7c4d6;padding:32px 0}.restaurant-plan h3{font-size:1.6rem;margin:0 0 12px}.restaurant-description p{max-width:68ch;line-height:1.65;margin:8px 0}.restaurant-price{font-variant-numeric:tabular-nums}.restaurant-price p{margin:0 0 10px}.restaurant-price strong{font-size:2.6rem;letter-spacing:-.025em;line-height:1.1;color:#123e8a}.restaurant-price span{white-space:nowrap}.restaurant-terms{border-top:1px solid #b7c4d6;padding-top:24px;columns:2;column-gap:48px;margin-bottom:24px}.restaurant-terms p{break-inside:avoid;font-size:.9rem;line-height:1.65;margin:0 0 16px}.restaurant-alternative{margin-top:20px;max-width:70ch}@media(max-width:700px){.side-social{display:none}.restaurant-plans{padding:56px 20px}.restaurant-plan{grid-template-columns:1fr;gap:20px;padding:28px 0}.restaurant-price{border:0}.restaurant-terms{columns:1}.restaurant-price strong{font-size:2.3rem}}
+
+.care-details{max-width:68ch;padding:24px 32px;line-height:1.7}.care-details p+p{margin-top:16px}.service-support{color:#172840;background:#fff}.service-support h2{font-size:clamp(1.8rem,3vw,2.5rem);margin-bottom:16px}.service-support>.wrap>p{max-width:68ch}.support-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin:32px 0}.support-grid h3{font-size:1.25rem;margin-bottom:12px}.support-grid p,.service-support details p{max-width:68ch;line-height:1.7}.service-support details{border-top:1px solid #b7c4d6;padding:20px 0}.service-support summary{cursor:pointer;font-weight:700;padding:8px 0}.service-support details p{margin-top:16px}@media(max-width:700px){.support-grid{grid-template-columns:1fr;gap:24px}.care-details{padding:20px}}
+
+.restaurant-plans{background:var(--tint-2);color:var(--ink)}
+.restaurant-introduction{padding:48px;min-height:360px;margin-bottom:32px;border-radius:var(--r-lg);background:linear-gradient(90deg,rgba(238,244,255,.82) 0%,rgba(238,244,255,.70) 46%,rgba(238,244,255,.12) 100%),linear-gradient(rgba(37,99,235,.12),rgba(37,99,235,.12)),url('/img/restaurant-cafe-bg.jpg') center/cover no-repeat}
+.restaurant-introduction h2{max-width:20ch;color:var(--navy)}
+.restaurant-introduction .restaurant-intro{max-width:48ch;width:62%;margin-bottom:0;color:var(--ink)}
+.restaurant-price strong{color:var(--blue-d)}
+@media(max-width:700px){.restaurant-introduction{padding:28px 24px 180px;min-height:0;background:linear-gradient(180deg,rgba(238,244,255,.86) 0%,rgba(238,244,255,.76) 56%,rgba(238,244,255,.08) 100%),linear-gradient(rgba(37,99,235,.12),rgba(37,99,235,.12)),url('/img/restaurant-cafe-bg.jpg') 65% center/cover no-repeat}.restaurant-introduction .restaurant-intro{width:100%;max-width:48ch}.restaurant-introduction h2{font-size:1.8rem}}
 </style>
 
 <!-- Icon sprite -->
@@ -1429,7 +1440,7 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
         <a class="btn btn-wa" href="{{WA}}" target="_blank" rel="noopener"><svg class="ico"><use href="#i-chat"/></svg>WhatsApp me</a>
         <a class="text-link" href="#work">See my work ↓</a>
       </div>
-      <p class="consult-note"><svg class="ico"><use href="#i-clock"/></svg><span>I reply within 1 working day. No obligation.</span></p>
+      <p class="consult-note"><svg class="ico"><use href="#i-clock"/></svg><span>I reply within 1 working day.</span></p>
     </div>
     <div class="stage" aria-hidden="true">
       <div class="laptop"><div class="lid"><div class="screen" data-mini="yours"></div></div><div class="lbase"></div></div>
@@ -1441,9 +1452,10 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 </section>
 
 <!-- PRICING + ADD-ONS -->
+
 <section class="pricing" id="pricing">
   <div class="left dark">
-    <h2 class="sec-title">What's included for RM1,600</h2>
+    <h2 class="sec-title">What's included for RM1,600</h2><p>For tuition centres, tutors, salons, contractors, consultants and other service businesses. Present your services and receive enquiries. Food ordering, payment collection, customer accounts, confirmed bookings and POS integration are separate projects.</p>
     <p class="sec-lede muted">A professional, mobile-friendly website with everything you need to get online and start getting enquiries.</p>
     <div class="inc-grid">
       <ul class="inc-list">
@@ -1454,12 +1466,12 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
         <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>One language of your choice (English, BM or Chinese)</span></li>
         <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Basic SEO setup and a Google-friendly structure</span></li>
         <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Domain and launch setup</span></li>
-        <li class="hl-li"><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span><b>Website chatbot</b> (RM1,500 without it)</span></li>
+        <li class="hl-li"><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span><b>AI-powered website chatbot</b> (RM1,500 without it)</span></li>
       </ul>
       <div class="price-card">
         <span class="pill">One-time project price</span>
         <div class="amount"><sup>RM</sup>1,600</div>
-        <h3>Professional Website</h3>
+        <h3>Business Website</h3>
         <p class="pc-sub">Up to 8 pages or sections, with a website chatbot</p>
         <p class="pc-bot">or <b>RM1,500</b> without the chatbot</p>
         <div class="terms">
@@ -1481,7 +1493,7 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
     <ul class="addon-list">
       <li class="hd"><span></span><span>Add-on</span><span>On its own</span><span>Bundled</span></li>
       <li><span class="ai"><svg class="ico"><use href="#i-plusfile"/></svg></span><span class="nm"><b>2 extra pages or sections</b><small>e.g. a gallery and a service page</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-      <li><span class="ai"><svg class="ico"><use href="#i-bot"/></svg></span><span class="nm"><b>Website chatbot</b><small>Included in the RM1,600 website · RM500 for an existing website</small></span><span class="was">RM500</span><span class="deal deal-word">Included</span></li>
+      <li><span class="ai"><svg class="ico"><use href="#i-bot"/></svg></span><span class="nm"><b>AI-powered website chatbot</b><small>Answers business FAQs and hands the full conversation over to WhatsApp</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
       <li><span class="ai"><svg class="ico"><use href="#i-globe"/></svg></span><span class="nm"><b>Additional language</b><small>e.g. add BM or Chinese to an English website</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
       <li><span class="ai"><svg class="ico"><use href="#i-calcheck"/></svg></span><span class="nm"><b>Enquiry &amp; booking request form</b><small>Customers choose a service and a preferred date and time</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
       <li><span class="ai"><svg class="ico"><use href="#i-pin"/></svg></span><span class="nm"><b>Listings setup</b><small>Your business on Apple Maps and Foursquare</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
@@ -1490,34 +1502,23 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
     <p class="addon-note rush-note"><svg class="ico"><use href="#i-zap"/></svg><span><b>Need it sooner?</b> Rush delivery cuts 2 working days off your delivery time for +20% of your project total.</span></p>
   </div>
 </section>
+<section class="care-sec" id="care"><div class="wrap"><div class="care-card"><div class="care-head"><h2>Website Care</h2><div class="care-price"><span>RM128</span>/month</div><p>Optional support for the standard Business Website. Hosting, standard domain renewal, technical upkeep and covered fault repairs included.</p></div><div class="care-details"><p>Includes 1 small content-update batch per month for existing text or images. New pages, redesigns and new functions are quoted separately.</p><p>Restaurant subscriptions already include their own hosting and support; Website Care is not an additional required charge.</p></div></div></div></section>
+<section class="restaurant-plans" id="restaurant-plans" aria-labelledby="restaurant-title"><div class="restaurant-wrap">
+<div class="restaurant-introduction"><h2 id="restaurant-title">Your restaurant. Your brand. A direct way to order.</h2><p class="restaurant-intro">Monthly restaurant plans for cafés and restaurants building their own ordering channel. Start with a compatibility review before committing.</p></div>
+<article class="restaurant-plan"><div class="restaurant-description"><h3>Essentials</h3><p>For cafés and restaurants starting direct online orders.</p><p>Menu, cart and secure hosted checkout, with an order receipt after confirmed payment. Hosting, technical upkeep and support included.</p><p>Essentials delivery: 5–7 days.</p></div><div class="restaurant-price"><p><strong>RM168</strong> <span>/month</span></p><p>Setup: RM1,688</p><p>Total over 24 months: RM5,720</p></div></article>
+<article class="restaurant-plan"><div class="restaurant-description"><h3>Signature</h3><p>For restaurants bringing their brand and ordering experience together.</p><p>Everything in Essentials, plus a website ordering assistant, announcement pop-ups, a reservation request form with staff-confirmed bookings and up to 8 agreed seasonal theme refreshes per year.</p><p>Signature delivery: 12–14 days. Menu updates included during the 24-month subscription: 3 consolidated requests per month for existing item names, prices, photos and availability.</p></div><div class="restaurant-price"><p><strong>RM388</strong> <span>/month</span></p><p>Setup: RM3,288</p><p>Total over 24 months: RM12,600</p></div></article>
+<article class="restaurant-plan"><div class="restaurant-description"><h3>Signature + WhatsApp</h3><p>For restaurants that also want assisted ordering through WhatsApp.</p><p>Signature scope, plus a WhatsApp ordering assistant. Customers review item quantities, individual prices and the total before confirming payment.</p><p>Signature delivery: 12–14 days. Menu updates included during the 24-month subscription: 3 consolidated requests per month for existing item names, prices, photos and availability.</p></div><div class="restaurant-price"><p><strong>RM468</strong> <span>/month</span></p><p>Setup: RM3,888</p><p>Total over 24 months: RM15,120</p></div></article>
+<div class="restaurant-terms"><p>24-month minimum term. Hosting is included for the initial 24 months. Setup fees are additional to the monthly subscription.</p><p>POS, payment and delivery connections are confirmed after a compatibility and API-access review. Custom integrations are quoted separately. Payment-provider and rider fees are separate; AI and WhatsApp usage allowances are agreed before signing.</p><p>Delivery starts after the required content and access are received, subject to agreed integration dependencies. After 24 months, continue by agreement or arrange a website and hosting handover.</p></div><a class="btn btn-primary" href="#contact" data-goform data-restaurant>Check my restaurant’s fit</a><p class="restaurant-alternative">Only need a website for enquiries, courses or services? See the Business Website above.</p></div></section>
 
 <!-- WEBSITE CARE -->
-<section class="care-sec" id="care">
-  <div class="wrap">
-    <div class="care-card">
-      <div class="care-head">
-        <span class="care-tag">Optional monthly plan</span>
-        <h2>Website Care</h2>
-        <div class="care-price"><span>RM199</span>/month</div>
-        <div class="care-host"><svg class="ico"><use href="#i-home"/></svg><span><b>Hosting and domain renewal included</b> · no separate bills</span></div>
-        <p>Keep your website running, updated and looked after, without worrying about the technical side.</p>
-      </div>
-      <ul class="care-list">
-        <li><span class="ci"><svg class="ico"><use href="#i-monitor"/></svg></span><span><b>Website health monitoring</b>I check regularly for errors, broken features and basic technical issues.</span></li>
-        <li><span class="ci"><svg class="ico"><use href="#i-pen"/></svg></span><span><b>Minor website updates</b>Small text, image and content changes.</span></li>
-        <li><span class="ci"><svg class="ico"><use href="#i-shield"/></svg></span><span><b>Security &amp; maintenance checks</b>Keep the website maintained and working properly.</span></li>
-        <li><span class="ci"><svg class="ico"><use href="#i-send"/></svg></span><span><b>Social media update monitoring</b>Where supported, I help keep your website in line with your social media updates.</span></li>
-        <li><span class="ci"><svg class="ico"><use href="#i-msg"/></svg></span><span><b>Ongoing support</b>Help on WhatsApp when you need small changes or fixes.</span></li>
-      </ul>
-    </div>
-  </div>
-</section>
 
-<section class="band pricing-cta-sec">
+
+<section class="band service-support" id="support" aria-labelledby="support-title"><div class="wrap"><h2 id="support-title">Support and additional work</h2><p>Clear scope before work begins. These terms apply across our website services.</p><div class="support-grid"><div><h3>Included support</h3><p>During an active support subscription, covered technical faults are repaired without additional labour charges. Content changes use the update allowance in your plan.</p></div><div><h3>Work outside your plan</h3><p>RM49/hour for websites built by us. RM89/hour for websites built elsewhere. We confirm the scope and estimated charge before you approve any paid work.</p></div></div><details><summary>Service scope and renewal terms</summary><p>Support hours, response targets, renewal costs and payment-notice, suspension and cancellation terms are confirmed in the written agreement. Support is provided during the hours agreed in your quote.</p><p>Seasonal refreshes cover agreed colours, banners and decorations rather than complete redesigns. New functions, full menu restructuring and custom integrations require a separate quote. Secure payment-provider checkout is used across restaurant plans; refunds require authorised staff approval.</p></details></div></section>
+<section class="band pricing-cta-sec" id="get-started">
   <div class="wrap">
     <div class="pricing-cta">
       <h2>Ready to get your website?</h2>
-      <p>Tell me about your business in the form. I'll reply within 1 working day with a clear written quote. No obligation.</p>
+      <p>Tell me about your business in the form. I'll reply within 1 working day with a clear written quote.</p>
       <div class="hero-cta"><a class="btn btn-primary" href="#contact" data-goform>Fill in the enquiry form <svg class="ico"><use href="#i-arrow"/></svg></a><a class="btn btn-wa" href="{{WA}}" target="_blank" rel="noopener"><svg class="ico"><use href="#i-chat"/></svg>WhatsApp me</a></div>
     </div>
   </div>
@@ -1636,7 +1637,7 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
     </div>
     <div class="faq-list">
       <div class="faq-col">
-        <details><summary>How do I get started?</summary><p>Send me a WhatsApp message at 010-264 1824, or use the form below. I reply within 1 working day, we have a short chat, and then I send you a written quote. There's no obligation.</p></details>
+        <details><summary>How do I get started?</summary><p>Send me a WhatsApp message at 010-264 1824, or use the form below. I reply within 1 working day, we have a short chat, and then I send you a written quote.</p></details>
         <details><summary>How much does a website cost?</summary><p>RM1,600 for a professional, mobile-friendly website with up to 8 pages or sections in one language, including a website chatbot, or RM1,500 without the chatbot. Google Business Profile setup and a standard domain for the first year are included free. Need more pages? Every 2 extra pages or sections is one add-on. Add-ons are RM500 each on their own, or RM400 each when bundled with the website or another add-on.</p></details>
         <details><summary>How long does it take?</summary><p>Usually 3–5 working days, depending on what your project needs and how quickly you can send your content (text, photos and logo). Each add-on adds 1 working day.</p></details>
         <details><summary>Can you rush my website?</summary><p>Yes. Rush delivery cuts 2 working days off your delivery time, for example from 3–5 working days to 1–3. It costs an extra 20% of the project total (website plus any add-ons).</p></details>
@@ -1646,9 +1647,9 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
       </div>
       <div class="faq-col">
         <details><summary>Is the domain really free?</summary><p>Yes, for the first year, for a standard .com, .com.my or .my domain. Premium domains are quoted separately. From the second year, you pay the renewal yourself, unless you're on Website Care, which includes it.</p></details>
-        <details><summary>Is hosting included?</summary><p>Hosting is included with Website Care (RM199/month). Without it, you pay a hosting provider directly, and I help you set it up at launch.</p></details>
-        <details><summary>What is Website Care?</summary><p>An optional plan at RM199/month: hosting, standard domain renewal, website health monitoring, minor updates, security and maintenance checks, social media update monitoring where supported, and ongoing support.</p></details>
-        <details><summary>What if I need an urgent fix without Website Care?</summary><p>Urgent fixes and small changes are charged at RM100 per hour.</p></details>
+        <details><summary>Is hosting included?</summary><p>For the standard Business Website, hosting is included with optional Website Care (RM128/month); otherwise you pay the hosting provider directly. Restaurant subscriptions include hosting for the initial 24 months. One-time restaurant projects include the first year.</p></details>
+        <details><summary>What is Website Care?</summary><p>Optional Website Care at RM128/month includes hosting, standard domain renewal, technical upkeep, covered fault repairs and 1 small content-update batch per month. New features and larger changes are quoted separately.</p></details>
+        <details><summary>What is the hourly rate if I need changes?</summary><p>For changes outside your plan, labour is RM49/hour for websites built by us, or RM89/hour for websites built elsewhere. We confirm the scope and estimated charge before you approve the work. Included content updates use your plan’s allowance; repairs to covered technical faults during an active support subscription have no additional labour charge.</p></details>
         <details><summary>Can we meet in person?</summary><p>Yes, if you're in Johor Bahru. Otherwise we can talk by WhatsApp, Zoom or Google Meet.</p></details>
         <details><summary>I already have a website or a Facebook page. Do I need a new one?</summary><p>Not always. If what you have already works well for your business, I'll tell you. If your website is outdated or hard to use on a phone, I can replace it and reuse what still works.</p></details>
         <details><summary>Who will I be working with?</summary><p>With me, Adam. Ace Digital Solutions is run by me as a freelance web designer in Johor Bahru, so you deal with the same person from your first message to launch.</p></details>
@@ -1672,12 +1673,12 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
       <div class="field"><label for="f-phone">WhatsApp number *</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="e.g. 012-345 6789" required><span class="err" hidden>Please enter a WhatsApp number I can reply to.</span></div>
       <div class="field"><label for="f-biz">Business name <span class="opt">(optional)</span></label><input id="f-biz" name="business" autocomplete="organization"></div>
       <div class="field"><label for="f-help">What would you like help with?</label>
-        <select id="f-help" name="help"><option value="A new website">A new website</option><option value="Redo my current website">Redo my current website</option><option value="Add-ons for my existing website">Add-ons for my existing website</option><option value="Customer enquiry assistant">Customer enquiry assistant</option><option value="Not sure yet">Not sure yet</option></select></div>
+        <select id="f-help" name="help"><option value="A new website">A new website</option><option value="A new website for a restaurant">A new website for a restaurant</option><option value="Redo my current website">Redo my current website</option><option value="Add-ons for my existing website">Add-ons for my existing website</option><option value="Customer enquiry assistant">Customer enquiry assistant</option><option value="Not sure yet">Not sure yet</option></select></div>
       <div class="field full"><label for="f-msg">Message <span class="opt">(optional)</span></label><textarea id="f-msg" name="message" placeholder="What your business does, the areas you cover, and what you'd like your website to do."></textarea></div>
       <div class="field full"><label for="f-email">Email <span class="opt">(optional)</span></label><input id="f-email" name="email" type="email" autocomplete="email"><span class="err" hidden>Please check your email address.</span></div>
       <div class="hp" aria-hidden="true"><label for="f-hp">Company website</label><input id="f-hp" name="company_website" tabindex="-1" autocomplete="off"></div>
       <div class="field full cap-field" id="capBox" hidden><div id="turnstile"></div><span class="err" id="capErr" hidden>Please complete the check above.</span></div>
-      <div class="form-foot"><button class="btn btn-primary" type="submit" id="f-submit"><span>Send message</span> <svg class="ico"><use href="#i-arrow"/></svg></button><small>I reply within 1 working day. No obligation.</small></div>
+      <div class="form-foot"><button class="btn btn-primary" type="submit" id="f-submit"><span>Send message</span> <svg class="ico"><use href="#i-arrow"/></svg></button><small>I reply within 1 working day.</small></div>
       <p class="privacy-note">By sending this form, you agree that I use your details to reply to your enquiry, as explained in the <a href="/privacy/">privacy notice</a>.</p>
       <div class="status" id="f-status" hidden role="status"></div>
     </form>
@@ -2209,9 +2210,9 @@ When someone compares two businesses side by side, the one that looks profession
   /* ---------- Prices (RM) ----------
      Add-ons: RM500 on their own, RM400 when bundled with the website or another add-on.
      Each add-on adds 1 working day. Rush: +20% of the project total, 2 working days faster. */
-  const BASE = 1600, ADDON = 400, ADDON_SOLO = 500, BOT_WITH_SITE = 100, BOT_SOLO = 500, CARE = 199, RUSH = 0.20, URGENT = 100;
+  const BASE = 1600, ADDON = 400, ADDON_SOLO = 500, BOT_WITH_SITE = 100, BOT_SOLO = 500, CARE = 128, RUSH = 0.20;
   const ADDONS = [
-    ["a-page","2 extra pages or sections"],["a-bot","Website chatbot"],["a-lang","Additional language"],
+    ["a-page","2 extra pages or sections"],["a-bot","AI-powered website chatbot"],["a-lang","Additional language"],
     ["a-book","Enquiry & booking request form"],["a-list","Listings setup (Apple Maps + Foursquare)"]
   ];
   const $ = s => document.querySelector(s);
@@ -2219,7 +2220,7 @@ When someone compares two businesses side by side, the one that looks profession
   const money = n => "RM" + n.toLocaleString("en-MY");
   const eachPrice = (base, n) => (base || n >= 2) ? ADDON : ADDON_SOLO;
   // The RM1,600 website includes the website chatbot (RM1,500 without it). On its own, the chatbot is RM500.
-  const itemPrice = (id, base, n) => id==="a-bot" ? (base ? BOT_WITH_SITE : BOT_SOLO) : eachPrice(base, n);
+  const itemPrice = (id, base, n) => eachPrice(base, n);
   const days = (n, rush) => { const r = rush ? 2 : 0; return L("{a}–{b} working days",{a:Math.max(1,3+n-r), b:5+n-r}); };
 
   /* ---------- Mini website mockups ---------- */
@@ -2406,7 +2407,7 @@ When someone compares two businesses side by side, the one that looks profession
     if(p.cover){ const c = document.createElement("div"); c.className = "cover"; c.style.backgroundImage = `url("${p.cover}")`; if(p.coverAlt){ c.setAttribute("role","img"); c.setAttribute("aria-label",p.coverAlt); } hero.prepend(c); }
     $("#postBody").classList.toggle("rich", p.rich);
     $("#postBody").classList.toggle("flat", !!p.flat);
-    $("#postBody").innerHTML = p.body + `<div class="article-cta dark"><div><h3>${L("Ready for a website that works for your business?")}</h3><p>${L("Start with a short, no-obligation chat on WhatsApp. Websites from RM1,600.")}</p></div><a class="btn btn-wa" href="${waLink(L("Hi Adam, I'm interested in a website for my business."))}" target="_blank" rel="noopener">${ico("chat")}${L("WhatsApp me")}</a></div>`;
+    $("#postBody").innerHTML = p.body + `<div class="article-cta dark"><div><h3>${L("Ready for a website that works for your business?")}</h3><p>${L("Start with a short, chat on WhatsApp. Websites from RM1,600.")}</p></div><a class="btn btn-wa" href="${waLink(L("Hi Adam, I'm interested in a website for my business."))}" target="_blank" rel="noopener">${ico("chat")}${L("WhatsApp me")}</a></div>`;
     const others = POSTS.filter(o=>o!==p && !o.soon).slice(0,3);
     const upcoming = POSTS.filter(o=>o.soon).length;
     $("#postMore").innerHTML = others.length ? `<h3>${L("More articles")}</h3>` + others.map(o=>`<a href="#${o.id}"><span class="dotico" style="background:${o.bg}">${ico(o.icon)}</span>${escH(o.title)}</a>`).join("") + `<a href="#articles" style="color:var(--blue)">${L("View all articles")} ${ico("arrow")}</a>` : (upcoming ? `<h3>${L("More articles coming soon")}</h3><a href="#articles" style="color:var(--blue)">${L("See what's coming")} ${ico("arrow")}</a>` : "");
@@ -2450,6 +2451,7 @@ When someone compares two businesses side by side, the one that looks profession
     const a = e.target.closest('a[href^="#"]'); if(!a) return;
     const id = a.getAttribute("href").slice(1); if(!id) return;
     e.preventDefault(); head.classList.remove("open"); burger.setAttribute("aria-expanded","false");
+    if(a.hasAttribute("data-restaurant")){ const help=$("#f-help"); if(help){ help.value="A new website for a restaurant"; help.dispatchEvent(new Event("change",{bubbles:true})); } }
     go(id);
     if(a.hasAttribute("data-goform")) setTimeout(()=>{ const f=$("#f-name"); if(f) f.focus({preventScroll:true}); },60);
   });
@@ -2721,19 +2723,20 @@ When someone compares two businesses side by side, the one that looks profession
   const CALL_CTA = () => [()=>C("Urgent? Call Adam"),callNow,"q-red"];
   function callNow(){ location.href = "tel:+60102641824"; }
   function after(){ quick([WA_CTA(),[()=>C("Main menu"),menu]]); }
-  function menu(){ say(()=>C("What would you like to know? You can also type any question.")); quick([[()=>C("Estimate my cost"),calc],[()=>C("What's included?"),included],WA_CTA(),CALL_CTA()]); }
+  function restaurantInfo(){say(()=>C("Restaurant plans have a 24-month minimum: Essentials RM1,688 setup + RM168/month (RM5,720 total); Signature RM3,288 + RM388/month (RM12,600); Signature + WhatsApp RM3,888 + RM468/month (RM15,120). Hosting, technical upkeep and support are included for the initial term. Essentials delivery: 5–7 days; Signature: 12–14 days, after required content and access arrive and subject to agreed integration dependencies. Signature includes up to 8 agreed seasonal refreshes yearly and 3 consolidated menu-update requests per month during the subscription. POS/delivery compatibility, custom integration quotes, provider charges and API allowances are agreed before signing. Ask Adam for a written quote."));after();}
+  function menu(){ say(()=>C("What would you like to know? You can also type any question.")); quick([[()=>C("Estimate my cost"),calc],[()=>C("What's included?"),included],[()=>C("Restaurant monthly plans"),restaurantInfo],WA_CTA(),CALL_CTA()]); }
   function greet(){ say(()=>C("Hi! I'm the Ace Digital Solutions assistant. I can answer quick questions, estimate what your website would cost, or pass you to Adam on WhatsApp.")); menu(); }
   function resetChat(){ log.innerHTML = ""; entries.length = 0; if(chatLang!==LANG) applyChatLang(LANG); aiHistory.length = 0; lastEstimate = null; estMode = false; strikes = 0; handoffBtn.hidden = true; lock(false); greet(); }
   function included(){ say(()=>C("Every RM1,600 website includes <b>up to 8 pages or sections</b> in one language, a <b>website chatbot</b>, a custom-designed homepage, a mobile-friendly layout, a services section, WhatsApp and click-to-call buttons, a contact form, basic SEO setup and social media links. <b>Google Business Profile setup</b> and a <b>standard domain for the first year</b> are included free. Without the chatbot, it's RM1,500.")); after(); }
   function timing(){ say(()=>C("Usually <b>3–5 working days</b>, depending on the project and how quickly you can send your content (text, photos and logo). Each add-on adds 1 working day. Need it sooner? Rush delivery cuts <b>2 working days</b> for <b>+20%</b> of the project total.")); after(); }
   function rushInfo(){ say(()=>C("<b>Rush delivery</b> cuts your delivery time by <b>2 working days</b>, for example from 3–5 working days to 1–3. It costs an extra <b>20%</b> of the project total (website plus add-ons).")); after(); }
   function payments(){ say(()=>C("You pay a <b>RM200 deposit</b> to start and <b>the rest when your website is ready, before launch</b>. For the RM1,600 website, that's RM200 + RM1,400. You can pay by <b>DuitNow, Touch 'n Go eWallet or cash</b>. Adam works as a freelancer, so payments go to him personally.")); after(); }
-  function urgent(){ say(()=>C("Without Website Care, urgent fixes and small changes are <b>RM100 per hour</b>. With Website Care (RM199/month), minor updates and support are included.")); after(); }
-  function careInfo(){ say(()=>C("Website Care is optional at <b>RM199/month</b>: hosting and standard domain renewal included, website health monitoring, minor updates, security and maintenance checks, social media update monitoring where supported, and ongoing support.")); after(); }
+  function urgent(){ say(()=>C("Without Website Care, urgent fixes and small changes are <b>RM49 per hour for our website clients, or RM89 per hour for websites built elsewhere</b>. With Website Care (RM128/month), minor updates and support are included.")); after(); }
+  function careInfo(){ say(()=>C("Website Care is optional at RM128/month for the standard Business Website: hosting, standard domain renewal, technical upkeep, covered fault repairs and 1 small content-update batch per month. Restaurant subscriptions include their own hosting and support. New features and work outside your plan are quoted separately.")); after(); }
   function domainInfo(){ say(()=>C("Two things are included free with your website: <b>Google Business Profile setup</b>, and a <b>standard domain (.com, .com.my or .my) for the first year</b>. Premium domains are quoted separately. From the second year, you pay the domain renewal yourself, unless you're on Website Care.")); after(); }
   function content(){ say(()=>C("You send your services, contact details, the areas you cover and any photos or logo you have, and Adam turns it into a clear, professional website. He can help tidy up the wording.")); after(); }
   function langInfo(){ say(()=>C("Your website includes <b>one language</b>: English, Bahasa Melayu or Chinese. Each extra language is an add-on: RM500 on its own, or <b>RM400</b> when bundled with the website or another add-on.")); after(); }
-  function assistInfo(){ say(()=>C("A <b>website chatbot</b> answers the questions you approve on your website and passes customers to your WhatsApp with the full conversation. It's <b>included in the RM1,600 website</b> (RM1,500 without it), or <b>RM500</b> to add to an existing website. You're using one right now.")); after(); }
+  function assistInfo(){ say(()=>C("An <b>AI-powered website chatbot</b> answers your approved business questions and passes customers to WhatsApp with the full conversation. Included in the RM1,600 website (RM1,500 without it). As an add-on: <b>RM500 on its own</b>, or <b>RM400 bundled with another add-on</b>. You're using one right now.")); after(); }
   function meetInfo(){ say(()=>C("Adam can chat with you by WhatsApp, Zoom or Google Meet, or meet in person if you're in Johor Bahru. He replies within 1 working day.")); after(); }
   const formLink = (label) => `<a href="#contact" class="chat-link" data-goform>${label||C("Open the contact form")} ${ico("arrow")}</a>`;
   log.addEventListener("click",e=>{ const a=e.target.closest("[data-goform]"); if(!a) return; e.preventDefault(); e.stopPropagation(); closeChat(); go("contact"); setTimeout(()=>$("#f-name").focus({preventScroll:true}),50); });
@@ -2921,6 +2924,7 @@ When someone compares two businesses side by side, the one that looks profession
   function scripted(q){
     const t = q.toLowerCase();
     const route =
+      /(restaurant|café|cafe|food order|pos integration|restoran|pesanan makanan|餐厅|餐馆|咖啡|点餐|餐饮)/.test(t) ? restaurantInfo :
       /(how can you help|what can you do|what do you do|help me|apa yang (anda|awak) boleh buat|boleh bantu apa|你能做什么|能帮我什么|可以帮我什么)/.test(t) ? helpInfo :
       /(rush|asap|sooner|faster|express|priority|segera|加急)/.test(t) ? rushInfo :
       /(urgent|emergency|hourly|per hour|broken|fix|rosak|坏了|修复)/.test(t) ? urgent :
@@ -2947,7 +2951,9 @@ When someone compares two businesses side by side, the one that looks profession
     if(ABUSE.test(q)) return respond(abuseReply, 2);
     // 2. Estimates from typed needs
     const costy = /(cost|price|how much|quote|estimate|budget|total|harga|berapa|kos|价格|多少钱|报价|预算)/i.test(q);
-    const needs = (estMode || costy) ? parseNeeds(q) : null;
+    const restaurantQuestion = /(restaurant|café|cafe|food order|POS|restoran|pesanan makanan|餐厅|餐馆|咖啡|点餐|餐饮)/i.test(q);
+    const needs = !restaurantQuestion && (estMode || costy) ? parseNeeds(q) : null;
+    if(restaurantQuestion) estMode = false;
     if(needs){ estMode = false; return respond(()=>showEstimate(needs)); }
     if(estMode){ estMode = false; return respond(()=>{ say(()=>C("I couldn't spot specific features in that. Try the calculator, or mention things like extra pages, another language, a booking form, listings or rush delivery.")); quick([[()=>C("Open calculator"),()=>calc()],[()=>C("Main menu"),menu]]); }); }
     // 3. AI (if connected), shown with the typing bubble for a moment

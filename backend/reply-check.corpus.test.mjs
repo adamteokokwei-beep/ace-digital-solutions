@@ -10,8 +10,8 @@ const LEGIT = [
   "With 2 add-ons bundled, your total is RM2,400.",
   "Rush delivery adds 20%, so RM2,400 becomes RM2,880.",
   "You pay a RM200 deposit to start, and the remaining RM1,400 when the website is ready.",
-  "Website Care is optional at RM199/month.",
-  "Urgent fixes without Website Care are RM100 per hour.",
+  "Website Care is optional at RM128/month.",
+  "Out-of-scope work for our website clients is RM49 per hour.",
   "Adding the chatbot to an existing website is RM500.",
   "Add-ons are cheaper when bundled: RM400 each instead of RM500.",
   // the two approved free items, in different wordings
@@ -58,7 +58,7 @@ const LEGIT = [
   "Tempoh biasa ialah 3–5 hari bekerja.",
   "Kami tidak dapat menjamin kedudukan di Google.",
   "Sila WhatsApp Adam di 010-264 1824 untuk sebut harga.",
-  "Website Care ialah RM199 sebulan.",
+  "Website Care ialah RM128 sebulan.",
   // Chinese
   "标准网站价格是RM1,600，包括聊天机器人。",
   "我们不提供折扣。",
@@ -69,7 +69,7 @@ const LEGIT = [
   "一般需要3到5个工作日。",
   "我们无法保证谷歌排名。",
   "如需报价，请WhatsApp联系Adam：010-264 1824。",
-  "网站维护服务每月RM199。",
+  "网站维护服务每月RM128。",
 ];
 
 const BAD = [

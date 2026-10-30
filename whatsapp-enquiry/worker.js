@@ -25,7 +25,7 @@ const MAX_BODY_BYTES = 8 * 1024;          // whole request
 const LIMITS = { name: 80, phone: 25, type: 60, description: 1500, location: 100, budget: 60, timeline: 60 };
 const ENQUIRY_TYPES = ["New website", "Redo my website", "Add-ons for my website", "Website chatbot", "Other",
   // options on the acedigitalsolutionsbiz.org contact form
-  "A new website", "Redo my current website", "Add-ons for my existing website", "Customer enquiry assistant", "Not sure yet"];
+  "A new website", "A new website for a restaurant", "Redo my current website", "Add-ons for my existing website", "Customer enquiry assistant", "Not sure yet"];
 // Budget and timeline are fixed choices (test page); anything else is refused
 const BUDGETS = ["", "Below RM1,500", "RM1,500 – RM2,500", "RM2,500 – RM4,000", "Above RM4,000"];
 const TIMELINES = ["", "As soon as possible", "Within 2 weeks", "Within 1 month", "In 1–3 months"];

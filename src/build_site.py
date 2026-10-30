@@ -21,17 +21,17 @@ FB = "https://www.facebook.com/profile.php?id=61595360692132"
 LANGS = {
   "en": {"path": "/", "html_lang": "en-MY", "hreflang": "en", "og_locale": "en_MY",
          "title": "Web Design Malaysia | Ace Digital Solutions",
-         "desc": "Website design for businesses across Malaysia by Adam in Johor Bahru. Mobile-friendly websites from RM1,500, with WhatsApp enquiries and basic SEO.",
+         "desc": "Website design for businesses across Malaysia by Adam in Johor Bahru. Mobile-friendly websites with a chatbot for RM1,600, with WhatsApp enquiries and basic SEO.",
          "wa_text": "Hi Adam, I'm interested in a website for my business.",
          "blog_note": ""},
   "bm": {"path": "/bm/", "html_lang": "ms-MY", "hreflang": "ms", "og_locale": "ms_MY",
          "title": "Reka Bentuk Laman Web Malaysia | Ace Digital Solutions",
-         "desc": "Reka bentuk laman web mesra telefon untuk perniagaan di seluruh Malaysia oleh Adam di Johor Bahru. Dari RM1,500, dengan pertanyaan WhatsApp dan SEO asas.",
+         "desc": "Reka bentuk laman web mesra telefon untuk perniagaan di seluruh Malaysia oleh Adam di Johor Bahru. Dengan chatbot pada RM1,600, dengan pertanyaan WhatsApp dan SEO asas.",
          "wa_text": "Hai Adam, saya berminat dengan laman web untuk perniagaan saya.",
          "blog_note": "Artikel blog buat masa ini dalam Bahasa Inggeris sahaja."},
   "zh": {"path": "/zh/", "html_lang": "zh-Hans", "hreflang": "zh-Hans", "og_locale": "zh_CN",
          "title": "马来西亚网站设计 | Ace Digital Solutions",
-         "desc": "由新山的 Adam 为全马企业提供网站设计。RM1,500 起，适合手机浏览，包含 WhatsApp 联系功能、基础 SEO 与首年标准域名。",
+         "desc": "由新山的 Adam 为全马企业提供网站设计。含聊天机器人 RM1,600，适合手机浏览，包含 WhatsApp 联系功能、基础 SEO 与首年标准域名。",
          "wa_text": "Adam 你好，我想了解为我的生意制作网站。",
          "blog_note": "博客文章目前只有英文版。"},
 }
@@ -117,8 +117,8 @@ def head_for(code, cfg):
             {"@type": "Offer", "name": "Professional website with a website chatbot (up to 8 pages or sections)", "price": "1600", "priceCurrency": "MYR"},
               {"@type": "Offer", "name": "Website add-on, bundled with the website or another add-on", "price": "400", "priceCurrency": "MYR"},
              {"@type": "Offer", "name": "Website add-on on its own", "price": "500", "priceCurrency": "MYR"},
-             {"@type": "Offer", "name": "Website Care (hosting and domain renewal included)", "price": "199", "priceCurrency": "MYR",
-              "priceSpecification": {"@type": "UnitPriceSpecification", "price": "199", "priceCurrency": "MYR", "unitText": "MONTH"}}]}}
+             {"@type": "Offer", "name": "Website Care (hosting and domain renewal included)", "price": "128", "priceCurrency": "MYR",
+              "priceSpecification": {"@type": "UnitPriceSpecification", "price": "128", "priceCurrency": "MYR", "unitText": "MONTH"}}]}}
     service = {"@type": "Service", "@id": DOMAIN + "/#website-design",
                "name": "Website design for businesses", "serviceType": "Website design for businesses",
                "provider": {"@id": DOMAIN + "/#business"},
