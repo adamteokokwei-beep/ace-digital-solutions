@@ -5,7 +5,7 @@ Not customer marketing copy. This document does not configure logging, alerts or
 ## Pricing and scope
 
 Business Website RM1,600; optional Care RM128/month. Care includes hosting, standard domain renewal, covered technical fault repairs and one small existing-text/image update batch monthly.
-Restaurant Essentials RM1,688 + RM168/month, minimum 24 months. Signature RM3,288 + RM368/month. Signature + WhatsApp RM3,888 + RM468/month. Initial-term totals RM5,720/RM12,120/RM15,120.
+Restaurant Essentials RM1,688 + RM168/month, minimum 24 months. Signature RM3,288 + RM388/month. Signature + WhatsApp RM3,888 + RM468/month. Initial-term totals RM5,720/RM12,600/RM15,120.
 Signature options include two consolidated menu-update requests monthly for existing names/prices/photos/availability during the 24-month subscription and up to eight agreed seasonal refreshes annually. No unlimited updates or new functionality.
 
 ## Internal reviews
