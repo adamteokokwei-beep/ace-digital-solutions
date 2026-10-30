@@ -14,6 +14,8 @@ Komisen rendah tidak semestinya bermakna lebih banyak duit tinggal. Bagi kafe at
 Aplikasi boleh membantu pelanggan menemui restoran anda. Laman pesanan sendiri mungkin sesuai untuk pelanggan yang sudah mengenali anda. Kedua-duanya boleh digunakan bersama. Panduan ini membandingkan kos, bukan menjanjikan jualan atau mengesyorkan semua restoran meninggalkan platform.
 
 ## Contoh pengiraan sebelum membuat keputusan
+**Apa maksud “basket”?** Ia ialah jumlah harga makanan dan minuman dalam satu pesanan, sebelum caj penghantaran, caj perkhidmatan dan caj lain semasa pembayaran. Dalam panduan ini, kami panggilnya **jumlah pesanan**. Contohnya, dua hidangan RM20 dan dua minuman RM5 berjumlah RM50.
+
 Ini **contoh ilustrasi, bukan sebut harga GrabFood atau foodpanda, kajian kes restoran atau jaminan penjimatan**. Anggap bakul RM50 yang sama beralih daripada aplikasi ke laman sendiri. Kos makanan, pembungkusan dan kos lain yang sama dikecualikan daripada kedua-dua saluran.
 
 | Andaian | Nilai ilustrasi |
