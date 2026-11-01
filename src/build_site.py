@@ -26,7 +26,7 @@ LANGS = {
          "blog_note": ""},
   "bm": {"path": "/bm/", "html_lang": "ms-MY", "hreflang": "ms", "og_locale": "ms_MY",
          "title": "Reka Bentuk Laman Web Malaysia | Ace Digital Solutions",
-         "desc": "Reka bentuk laman web mesra telefon untuk perniagaan di seluruh Malaysia oleh Adam di Johor Bahru. Dengan chatbot pada RM1,600, dengan pertanyaan WhatsApp dan SEO asas.",
+         "desc": "Reka bentuk laman web mesra telefon di Malaysia oleh Adam di Johor Bahru pada harga RM1,600, lengkap chatbot, WhatsApp dan SEO asas.",
          "wa_text": "Hai Adam, saya berminat dengan laman web untuk perniagaan saya.",
          "blog_note": "Artikel blog buat masa ini dalam Bahasa Inggeris sahaja."},
   "zh": {"path": "/zh/", "html_lang": "zh-Hans", "hreflang": "zh-Hans", "og_locale": "zh_CN",
