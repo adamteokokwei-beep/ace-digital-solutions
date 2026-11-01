@@ -31,7 +31,7 @@ LANGS = {
          "blog_note": "Artikel blog buat masa ini dalam Bahasa Inggeris sahaja."},
   "zh": {"path": "/zh/", "html_lang": "zh-Hans", "hreflang": "zh-Hans", "og_locale": "zh_CN",
          "title": "马来西亚网站设计 | Ace Digital Solutions",
-         "desc": "由新山的 Adam 为全马企业提供网站设计。含聊天机器人 RM1,600，适合手机浏览，包含 WhatsApp 联系功能、基础 SEO 与首年标准域名。",
+         "desc": "由新山Adam为马来西亚企业提供手机网页设计，RM1,600起含聊天机器人、WhatsApp查询与基础SEO。",
          "wa_text": "Adam 你好，我想了解为我的生意制作网站。",
          "blog_note": "博客文章目前只有英文版。"},
 }
