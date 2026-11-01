@@ -16,7 +16,7 @@ const server = http.createServer((req, res) => {
   const browser = await chromium.launch({ executablePath: process.env.PLAYWRIGHT_EXECUTABLE_PATH });
   try {
     const urls = [...fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8').matchAll(/<loc>https:\/\/acedigitalsolutionsbiz.org([^<]*)<\/loc>/g)].map(m => m[1]);
-    assert.equal(urls.length, 19);
+    assert.equal(urls.length, 22);
     const noJS = await browser.newContext({ javaScriptEnabled: false });
     const page = await noJS.newPage();
     await page.route('https://**', route => route.abort());
@@ -36,7 +36,7 @@ const server = http.createServer((req, res) => {
         assert.ok(fs.existsSync(path.join(root, target, target.endsWith('/') ? 'index.html' : '')), route + ': ' + raw);
       }
     }
-    console.log('PASS 15 crawlable content pages without JavaScript, canonicals, language alternates and local links');
+    console.log('PASS 18 crawlable content pages without JavaScript, canonicals, language alternates and local links');
     await noJS.close();
     const context = await browser.newContext();
     const p = await context.newPage();
