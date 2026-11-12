@@ -20,8 +20,8 @@ FB = "https://www.facebook.com/profile.php?id=61595360692132"
 
 LANGS = {
   "en": {"path": "/", "html_lang": "en-MY", "hreflang": "en", "og_locale": "en_MY",
-         "title": "Web Design Malaysia | Ace Digital Solutions",
-         "desc": "Mobile-friendly website design in Malaysia by Adam in Johor Bahru for RM1,600, featuring a chatbot, WhatsApp enquiries, and basic SEO.",
+         "title": "Web Design Malaysia | Ace Digital Solutions Johor Bahru",
+         "desc": "Affordable mobile-friendly website design in Malaysia by Adam in Johor Bahru for RM1,600, including a chatbot, WhatsApp enquiries, and basic SEO.",
          "wa_text": "Hi Adam, I'm interested in a website for my business.",
          "blog_note": ""},
   "bm": {"path": "/bm/", "html_lang": "ms-MY", "hreflang": "ms", "og_locale": "ms_MY",
