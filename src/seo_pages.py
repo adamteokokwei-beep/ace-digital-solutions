@@ -4,6 +4,7 @@ import json
 import os
 import re
 import subprocess
+from ordering_calculator import markup as ordering_calculator_markup
 from html.parser import HTMLParser
 
 DOMAIN = "https://acedigitalsolutionsbiz.org"
@@ -71,7 +72,7 @@ def build(root, languages):
             input=json.dumps({"images": images, "bodies": [p["body"] for p in posts]}), text=True,
             stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True).stdout)
         for post, body in zip(posts, rendered):
-            post["body_html"] = body
+            post["body_html"] = body.replace("<p>ORDERING_COST_CALCULATOR</p>", ordering_calculator_markup(code))
         records[code] = (home, posts)
 
     def url(code, route):
@@ -102,6 +103,8 @@ def build(root, languages):
             nav, foot, content = links(nav), links(footer), links(content)
             image_url = image if image.startswith('https://') else DOMAIN + image
             menu = "document.querySelectorAll('.lang a[data-lang],.lang-m a[lang]').forEach(a=>a.addEventListener('click',()=>{try{localStorage.setItem('ace-lang',a.dataset.lang||(a.lang==='ms'?'bm':a.lang==='zh-Hans'?'zh':'en'));sessionStorage.setItem('ace-lang-checked','1');}catch(e){}}));const b=document.getElementById('burger'),h=document.getElementById('head');b.addEventListener('click',()=>{const open=h.classList.toggle('open');b.setAttribute('aria-expanded',String(open));});document.addEventListener('keydown',e=>{if(e.key==='Escape'){h.classList.remove('open');b.setAttribute('aria-expanded','false');}});"
+            if route == 'articles/delivery-apps-vs-ordering-website-malaysia/':
+                menu += open(os.path.join(root, 'src', 'ordering_calculator.js'), encoding='utf-8').read()
             out = f'''<!doctype html>
 <html lang="{cfg['html_lang']}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{html.escape(page_title)}</title><meta name="description" content="{html.escape(description, quote=True)}">
@@ -130,7 +133,7 @@ def build(root, languages):
         for p in posts:
             route = 'articles/' + p['slug'] + '/'
             cover = f'<img src="{p["cover"]}" alt="{html.escape(p["alt"], quote=True)}" fetchpriority="high" style="width:100%;height:auto">' if p['cover'] else ''
-            body = f'<section class="article-hero dark"><div class="wrap"><a class="back" href="{cfg["path"]}articles/">{back}</a><h1>{html.escape(p["title"])}</h1><p class="lede">{html.escape(p["excerpt"])}</p><p>{author} · <time datetime="{p["date"]}">{p["date"]}</time></p></div></section><section class="band"><div class="wrap">{cover}<article class="article rich {"flat" if p["flat"] else ""}">{p["body_html"]}<p><a class="btn btn-primary" href="{cfg["path"]}#contact">{cta}</a></p></article></div></section>'
+            body = f'<section class="article-hero dark"><div class="wrap"><a class="back" href="{cfg["path"]}articles/">{back}</a><h1>{html.escape(p["title"])}</h1><p class="lede">{html.escape(p["excerpt"])}</p><p>{author} · <time datetime="{p["date"]}">{p["date"]}</time></p></div></section><section class="band"><div class="wrap">{cover}<article class="article rich {"flat" if p["flat"] else ""}">{p["body_html"]}<p class="article-enquiry"><a class="btn btn-primary" href="{cfg["path"]}#contact">{cta}</a></p></article></div></section>'
             shell(route, (p['seo_title'] or p['title']) + ' | Ace Digital Solutions', p['description'], body,
                   {"@context": "https://schema.org", "@type": "BlogPosting", "@id": url(code, route) + '#article', "url": url(code, route), "mainEntityOfPage": url(code, route), "headline": p['title'], "description": p['description'], "datePublished": p['date'], "inLanguage": cfg['html_lang'], "author": {"@type": "Person", "name": "Adam", "url": url(code, 'about/')}, "publisher": {"@type": "Organization", "@id": DOMAIN + '/#business', "name": "Ace Digital Solutions", "url": DOMAIN + '/'}, "image": DOMAIN + p['cover'] if p['cover'] else DOMAIN + '/og-image.jpg'}, p['cover'] or '/og-image.jpg', p['alt'])
     return routes

@@ -177,6 +177,9 @@ def build(show_missing=False, preview_dir=None, form_only=False):
             s = s.replace('/*LANG*/"en"/*/LANG*/', '/*LANG*/"%s"/*/LANG*/' % code)
             s = s.replace("/*I18N*/{}/*/I18N*/", "/*I18N*/" + json.dumps(js, ensure_ascii=False).replace("</", "<\\/") + "/*/I18N*/")
         s = s.replace("{{BLOG_NOTE}}", cfg["blog_note"])
+        guide_path = os.path.join(ROOT, "src", "articles", "restaurant-ordering-cost", code + ".md")
+        guide = open(guide_path, encoding="utf-8").read()
+        s = s.replace("<!--ORDERING_COST_GUIDE-->", '<script type="text/plain" class="blog-post" data-date="2026-10-30" data-lang="' + code + '" data-id="delivery-apps-vs-ordering-website-malaysia">\n' + guide + '</script>')
         # Blog: keep only the posts written in this page's language
         s = s.replace("<!--BLOG_TRANSLATIONS-->", open(os.path.join(ROOT, "src", "blog-translations.html"), encoding="utf-8").read())
         s = re.sub(r'<script type="text/plain" class="blog-post"[^>]*data-lang="(\w+)"[^>]*>.*?</script>\n?',
