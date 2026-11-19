@@ -29,7 +29,7 @@ for (const lang of ["", "bm/", "zh/"]) {
   const web = read(`site/${lang}websites/index.html`);
   for (const p of ["RM888", "RM400", "RM88", "RM200", "RM49"]) if (!web.includes(p)) failures.push(`site/${lang}websites/index.html: missing ${p}`);
 }
-const worker = read("backend/chat-worker.js").replace(/  restaurant_one_time: \{.*\n/, "");  // ponytail: one-time POS prices await an owner decision
+const worker = read("backend/chat-worker.js");
 for (const old of RETIRED) if (worker.includes(old)) failures.push(`backend/chat-worker.js: retired price "${old}"`);
 const src = read("src/index.src.html");
 assert.match(src, /const BASE = 888,.*CARE = 88,/, "chat calculator constants must match RM888 website / RM88 upkeep");

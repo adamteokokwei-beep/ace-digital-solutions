@@ -10,7 +10,7 @@ Starting prices (indicative): simple automation RM388; AI enquiry processing RM8
 POS & website rebuild (restaurant, café, retail, banquet workflows), minimum 24 months: Essential from RM1,288 + RM128/month (from RM4,360); Signature from RM2,888 + RM288/month (from RM9,800). AI WhatsApp ordering/enquiries add-on from RM88/month with an agreed usage allowance; free setup for the first 5 cafés. 10% deposit; detailed SOP review after deposit.
 Essential: delivery and payment-channel setup, function checks, bug fixes, security updates, backups, hosting; admin-page menu edits or up to 3 change requests monthly. Excludes SEO/GEO, branding, seasonal themes, workflow redesign and promotional design. Signature: own branding, SOP-based workflow redesign, SEO/GEO, announcements/banners, up to eight agreed seasonal refreshes annually, banquet enquiry form, up to 4 change requests monthly. No unlimited updates or new functionality.
 After 24 months the system is the client's: POS Care RM128/month or full handover. Do not modify third-party POS software without vendor authorisation.
-One-time restaurant project prices (RM2,888/RM5,288/RM5,888, chatbot only) are unchanged pending owner review.
+One-time restaurant project prices (RM2,888/RM5,288/RM5,888) were retired on 20 Nov 2026. POS is offered on the 24-month plans only.
 
 ## Internal reviews
 
@@ -24,5 +24,5 @@ SEO: monthly for Care and Signature. GEO: quarterly for Care, monthly for Signat
 
 Quote-supported POS/payment/delivery integrations after checking API rights. Custom integrations separately priced. Provider/rider fees and agreed AI/WhatsApp allowances separate from unlimited-service promises. Refunds require authorised staff approval.
 Delivery: Essential 5–7 days; Signature 12–14 days after content/access are received, subject to agreed integration dependencies.
-Hosting: first 24 months of subscription; first year of one-time restaurant projects. Domain, renewal, handover, support hours/response targets and cancellation terms must be documented in the quote. Owner requested three payment warnings four days apart; precise suspension timing still requires contract confirmation. No invented termination fee.
+Hosting: first 24 months of subscription. Domain, renewal, handover, support hours/response targets and cancellation terms must be documented in the quote. Owner requested three payment warnings four days apart; precise suspension timing still requires contract confirmation. No invented termination fee.
 Shared out-of-scope rates: RM49/hour for sites we built, RM89/hour for externally built sites, after scope/estimate approval. Covered faults during active subscription incur no extra labour charge.
