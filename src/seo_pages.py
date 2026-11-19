@@ -41,9 +41,9 @@ def json_script(data):
 def build(root, languages):
     site = os.path.join(root, "site")
     labels = {
-        "en": ("Website Guides for Malaysian Businesses", "Practical guides to website costs, features and online enquiries for businesses in Malaysia.", "All articles", "By Adam, Ace Digital Solutions", "Ask Adam about your website"),
-        "bm": ("Panduan Laman Web untuk Perniagaan Malaysia", "Panduan praktikal tentang kos laman web, ciri dan pertanyaan dalam talian untuk perniagaan di Malaysia.", "Semua artikel", "Oleh Adam, Ace Digital Solutions", "Tanya Adam tentang laman web anda"),
-        "zh": ("马来西亚企业网站指南", "为马来西亚企业提供实用的网站费用、功能与网上询问指南。", "全部文章", "作者：Adam，Ace Digital Solutions", "向 Adam 咨询你的网站"),
+        "en": ("Website Guides for Businesses", "Practical guides to website costs, features and online enquiries for businesses in Malaysia.", "All articles", "By Adam, Ace Digital Solutions", "Ask Adam about your website"),
+        "bm": ("Panduan Laman Web untuk Perniagaan", "Panduan praktikal tentang kos laman web, ciri dan pertanyaan dalam talian untuk perniagaan di Malaysia.", "Semua artikel", "Oleh Adam, Ace Digital Solutions", "Tanya Adam tentang laman web anda"),
+        "zh": ("企业网站指南", "为企业提供实用的网站费用、功能与网上询问指南。", "全部文章", "作者：Adam，Ace Digital Solutions", "向 Adam 咨询你的网站"),
     }
     records, routes = {}, []
     for code, cfg in languages.items():

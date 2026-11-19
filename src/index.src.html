@@ -1436,7 +1436,7 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
     <div>
       <span class="eyebrow">Digital solutions · Johor Bahru, Malaysia</span>
       <h1>Less Manual Work. Fewer Mistakes. <span>Smarter Business Operations.</span></h1>
-      <p class="lede">Ace Digital Solutions helps Malaysian businesses solve everyday operational problems through custom software, automation, AI and system integration.</p>
+      <p class="lede">Ace Digital Solutions helps businesses solve everyday operational problems through custom software, automation, AI and system integration.</p>
       <p class="lede">We study how your business currently operates, identify inefficiencies and develop practical solutions that fit your existing workflow.</p>
       <p class="lede"><b>No unnecessary hardware. No unnecessary system replacements.</b></p>
       <div class="hero-facts">
@@ -2472,7 +2472,7 @@ When someone compares two businesses side by side, the one that looks profession
     const view = viewFor(id), post = POSTS.find(p=>p.id===id && !p.soon);
     homeView.hidden = view!=="home"; aboutView.hidden = view!=="about"; postView.hidden = view!=="post"; articlesView.hidden = view!=="articles";
     if(post) showPost(post); else if(metaDesc) metaDesc.content = defaultDesc;
-    document.title = view==="about" ? L("About Adam, Freelance Web Designer in Johor Bahru | Ace Digital Solutions") : view==="articles" ? L("Blog: Website Tips for Malaysian Businesses | Ace Digital Solutions") : post ? (post.seoTitle || post.title+" | Ace Digital Solutions") : HOME_TITLE;
+    document.title = view==="about" ? L("About Adam, Freelance Web Designer in Johor Bahru | Ace Digital Solutions") : view==="articles" ? L("Blog: Website Tips for Businesses | Ace Digital Solutions") : post ? (post.seoTitle || post.title+" | Ace Digital Solutions") : HOME_TITLE;
     const behavior = smooth && !matchMedia("(prefers-reduced-motion: reduce)").matches ? "smooth" : "auto";
     const t = view==="home" && id && id!=="top" ? document.getElementById(id) : null;
     if(t){ const y = t.getBoundingClientRect().top + scrollY - head.offsetHeight - 12; scrollTo({top:Math.max(0,y), behavior}); }
