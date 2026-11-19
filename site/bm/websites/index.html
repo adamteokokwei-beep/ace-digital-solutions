@@ -1365,6 +1365,17 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 @media (max-width:1024px){.flow{justify-self:stretch;max-width:none}}
 @media (min-width:1100px){.hero-grid{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);align-items:center}.hero-grid .flow{justify-self:end}}
 @media (max-width:480px){.flow li{grid-template-columns:26px minmax(0,1fr)}.flow .was,.flow .now{grid-column:2;grid-row:2}}
+.pkg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:18px;margin-top:8px;align-items:start}
+.pkg{border:1px solid #d5deea;border-radius:var(--r-lg);padding:22px;display:flex;flex-direction:column;gap:8px;background:#fff}
+.pkg h3{font-size:1.25rem}.pkg-tag{color:#475569;line-height:1.5}
+.pkg-price{font:700 1.6rem/1.2 var(--f-head);color:var(--ink);margin-top:6px}.pkg-days{font-size:14px;color:#475569;font-weight:600}
+.pkg-sum{line-height:1.55;color:#334155}
+.pkg details{border-top:1px solid #e3e8f1;padding-top:10px}.pkg summary{cursor:pointer;font-weight:600;color:var(--blue-d)}
+.pkg h4{font-size:15px;margin:12px 0 6px}.pkg ul{padding-left:1.2em;display:grid;gap:4px;font-size:14.5px;line-height:1.5}
+.addon-table{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:12px}.addon-table caption{text-align:left;font-weight:700;margin-bottom:6px}
+.addon-table th,.addon-table td{text-align:left;padding:7px 4px;border-bottom:1px solid #e3e8f1;font-weight:500}.addon-table td{text-align:right;white-space:nowrap;font-weight:700}
+.pkg-note{font-size:13.5px;color:#475569;line-height:1.5;margin-top:10px}.pkg-cta{margin-top:auto;align-self:flex-start}
+.care-title{margin-top:36px;font-size:1.3rem}.care-table td{white-space:normal}
 .problems{background:var(--tint);scroll-margin-top:88px}
 .problem-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:16px}
 .problem-grid li{background:#fff;border:1px solid #d5deea;border-radius:var(--r-lg);padding:20px 22px;display:flex;flex-direction:column;gap:10px}
@@ -1481,23 +1492,15 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 <section class="pricing" id="pricing">
   <div class="left dark">
     <h2 class="sec-title">Apa yang termasuk untuk RM888</h2><p>Untuk pusat tuisyen, tutor, salun, kontraktor, perunding dan perniagaan perkhidmatan lain. Paparkan perkhidmatan anda dan terima pertanyaan.</p>
-    <p class="sec-lede muted">Laman web profesional dan mesra telefon, lengkap dengan semua yang anda perlukan untuk hadir dalam talian dan mula menerima pertanyaan.</p>
+    <p class="sec-lede muted">Kehadiran dalam talian yang profesional untuk perniagaan anda, dengan semua yang diperlukan untuk mula menerima pertanyaan.</p>
     <div class="inc-grid">
-      <ul class="inc-list">
-        <li class="hl-li"><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Sehingga 8 halaman atau seksyen</b></span></li>
-        <li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Halaman utama yang direka khas, halaman pendaratan yang menarik dan seksyen Perkhidmatan</span></li>
-        <li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Mesra telefon, tablet dan komputer</span></li>
-        <li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Butang WhatsApp dan klik-untuk-telefon, borang hubungan / pertanyaan dan pautan media sosial</span></li>
-        <li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Satu bahasa pilihan anda (Inggeris, BM atau Cina)</span></li>
-        <li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Persediaan SEO asas dan struktur mesra Google</span></li>
-        <li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Persediaan domain dan pelancaran</span></li>
-      </ul>
+      <ul class="inc-list"><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Sehingga 8 halaman maklumat standard</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Reka bentuk responsif untuk telefon, tablet dan desktop</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Penjenamaan perniagaan menggunakan logo, warna dan maklumat anda</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Bahagian Utama, Tentang, Perkhidmatan dan Hubungi mengikut keperluan</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Butang hubungi WhatsApp</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Borang hubungan atau pertanyaan asas</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Pautan atau paparan lokasi Google Maps</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>SEO asas pada halaman, termasuk tajuk dan perihalan meta</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Peta laman, robots.txt dan tetapan kanonik</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Data berstruktur asas jika berkaitan</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Pengepala keselamatan laman web standard dan perlindungan borang</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>HTTPS pada hosting yang disokong</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Semakan prestasi dan kebolehcapaian asas</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Satu pusingan semakan kecil</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Pelancaran ke hosting yang dipersetujui</span></li></ul>
       <div class="price-card">
         <span class="pill">Harga projek sekali bayar</span>
         <div class="amount"><sup>RM</sup>888</div>
         <h3>Laman Web Perniagaan</h3>
-        <p class="pc-sub">Sehingga 8 halaman atau bahagian, dalam satu bahasa</p>
-        <p class="pc-bot">Tambah chatbot laman web untuk <b>RM400</b></p>
+        <p class="pc-sub">Sehingga 8 halaman standard, dalam satu bahasa</p>
+        <p class="pc-bot">Pembantu laman web AI dari <b>RM388</b></p>
         <div class="terms">
           <div><svg class="ico" viewBox="0 0 24 24"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r="1"/></svg><span><b>Deposit RM200 untuk bermula</b>Baki apabila siap, sebelum dilancarkan</span></div>
           <div><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span><b>3–5 hari bekerja</b>+1 hari bekerja bagi setiap tambahan</span></div>
@@ -1511,16 +1514,9 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
   </div>
   <div class="right addons" id="addons">
     <h2>Tambahan pilihan</h2>
-    <p class="lede">Tambah hanya apa yang perniagaan anda perlukan. Setiap tambahan berharga RM500 jika diambil sendiri, atau RM400 jika digabungkan dengan laman web atau tambahan lain.</p>
-    <div class="save-banner"><span class="big">RM400</span><span>bagi setiap tambahan apabila digabungkan dengan laman web anda atau tambahan lain.</span></div>
-    <ul class="addon-list">
-      <li class="hd"><span></span><span>Tambahan</span><span>Diambil sendiri</span><span>Digabungkan</span></li>
-      <li><span class="ai"><svg class="ico" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M12 18v-6M9 15h6"/></svg></span><span class="nm"><b>2 halaman atau seksyen tambahan</b><small>cth. galeri dan halaman perkhidmatan</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-      <li><span class="ai"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="3"/><path d="M12 8V4"/><circle cx="12" cy="3" r="1"/><path d="M9 13v1M15 13v1M10 17h4"/></svg></span><span class="nm"><b>Chatbot laman web berkuasa AI</b><small>Menjawab soalan lazim perniagaan dan menyerahkan seluruh perbualan ke WhatsApp. Termasuk persediaan Google Business Profile.</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-      <li><span class="ai"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><span class="nm"><b>Bahasa tambahan</b><small>cth. tambah BM atau Cina pada laman web bahasa Inggeris</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-      <li><span class="ai"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m9 16 2 2 4-4"/></svg></span><span class="nm"><b>Borang pertanyaan &amp; permintaan tempahan</b><small>Pelanggan memilih perkhidmatan serta tarikh dan masa pilihan</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-      <li><span class="ai"><svg class="ico" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span><span class="nm"><b>Persediaan penyenaraian</b><small>Perniagaan anda di Apple Maps dan Foursquare</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-    </ul>
+    <p class="lede">Tambah hanya apa yang perniagaan anda perlukan. Harga ialah harga permulaan, disahkan dalam sebut harga bertulis anda.</p>
+    <table class="price-table addon-table"><tbody><tr><th scope="row">Halaman standard tambahan</th><td>+RM88/halaman</td></tr><tr><th scope="row">Bahasa tambahan</th><td>Dari RM388</td></tr><tr><th scope="row">Pembantu laman web AI</th><td>Dari RM388</td></tr><tr><th scope="row">Tempahan janji temu</th><td>Dari RM488</td></tr><tr><th scope="row">Katalog dalam talian</th><td>Dari RM388</td></tr><tr><th scope="row">Integrasi pembayaran dalam talian</th><td>Dari RM588</td></tr><tr><th scope="row">Persediaan SEO setempat lanjutan</th><td>Dari RM388</td></tr><tr><th scope="row">Pengoptimuman kandungan GEO / carian AI</th><td>Dari RM388</td></tr><tr><th scope="row">Persediaan penerbitan blog</th><td>+RM288</td></tr><tr><th scope="row">Tema laman web bermusim</th><td>Dari RM188</td></tr><tr><th scope="row">Borang tersuai tambahan</th><td>+RM188</td></tr></tbody></table>
+    <p class="pkg-note">Pembaharuan domain mulai tahun kedua, hosting berbayar, API pihak ketiga dan penyelenggaraan berterusan tidak termasuk kecuali disebut harga secara khusus. Kerja SEO/GEO lanjutan tidak menjamin kedudukan carian atau cadangan AI.</p>
     <p class="addon-note"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>Setiap tambahan menambah 1 hari bekerja kepada tempoh siap.</span></p>
     <p class="addon-note rush-note"><svg class="ico" viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg><span><b>Perlukan lebih cepat?</b> Penghantaran segera memendekkan tempoh siap sebanyak 2 hari bekerja dengan caj +20% daripada jumlah projek anda.</span></p>
   </div>
@@ -1607,13 +1603,13 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 
 
 <section class="band faq-sec"><div class="wrap faq-grid"><div class="faq-intro"><h2>Soalan tentang laman web</h2></div><div class="faq-list"><div class="faq-col">
-<details class="wfaq"><summary>Berapakah kos sebuah laman web?</summary><p>RM888 untuk laman web mesra telefon dengan sehingga 8 halaman atau bahagian dalam satu bahasa, butang WhatsApp dan hubungi, SEO asas dan domain standard untuk tahun pertama. Chatbot laman web dikenakan RM400 tambahan. Setiap 2 halaman atau bahagian tambahan ialah satu tambahan pada RM400 apabila digabungkan, atau RM500 secara berasingan.</p></details>
+<details class="wfaq"><summary>Berapakah kos sebuah laman web?</summary><p>RM888 untuk laman web mesra telefon dengan sehingga 8 halaman standard dalam satu bahasa, butang WhatsApp, borang pertanyaan, SEO asas dan domain standard untuk tahun pertama. Halaman tambahan RM88 setiap satu, dan pembantu laman web AI bermula dari RM388.</p></details>
 <details class="wfaq"><summary>Berapa lama masa diambil?</summary><p>Biasanya 3–5 hari bekerja, bergantung pada keperluan projek anda dan berapa cepat anda boleh menghantar kandungan (teks, gambar dan logo). Setiap tambahan menambah 1 hari bekerja.</p></details>
 <details class="wfaq"><summary>Bagaimana cara membayar?</summary><p>Melalui DuitNow, Touch 'n Go eWallet atau tunai. Anda membayar deposit RM200 untuk bermula dan bakinya apabila laman web anda siap, sebelum dilancarkan.</p></details>
 </div><div class="faq-col">
 <details class="wfaq"><summary>Berapakah kos penyelenggaraan?</summary><p>Penyelenggaraan pilihan ialah RM88 setiap 3 bulan, merangkumi kemas kini SEO, kemas kini keselamatan, semakan fungsi dan penyelenggaraan asas. Tanpanya, pembaikan dikenakan RM49/jam.</p></details>
 <details class="wfaq"><summary>Bolehkah restoran menerima pesanan di laman web RM888?</summary><p>Ya. Versi kafe, restoran dan gerai termasuk pesanan dalam talian, persediaan penghantaran dan persediaan gerbang pembayaran, dengan reka bentuk standard. Caj penghantar dan gerbang pembayaran dibayar berasingan.</p></details>
-<details class="wfaq"><summary>Dalam bahasa apa laman web saya boleh dibuat?</summary><p>Laman web anda merangkumi satu bahasa: Inggeris, Bahasa Melayu atau Cina. Setiap bahasa tambahan ialah tambahan pada harga RM500, atau RM400 jika digabungkan.</p></details>
+<details class="wfaq"><summary>Dalam bahasa apa laman web saya boleh dibuat?</summary><p>Laman web anda termasuk satu bahasa: Inggeris, Bahasa Melayu atau Cina. Setiap bahasa tambahan bermula dari RM388.</p></details>
 </div></div></div></section>
 </main><footer>
   <div class="wrap foot">

@@ -1365,6 +1365,17 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 @media (max-width:1024px){.flow{justify-self:stretch;max-width:none}}
 @media (min-width:1100px){.hero-grid{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);align-items:center}.hero-grid .flow{justify-self:end}}
 @media (max-width:480px){.flow li{grid-template-columns:26px minmax(0,1fr)}.flow .was,.flow .now{grid-column:2;grid-row:2}}
+.pkg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:18px;margin-top:8px;align-items:start}
+.pkg{border:1px solid #d5deea;border-radius:var(--r-lg);padding:22px;display:flex;flex-direction:column;gap:8px;background:#fff}
+.pkg h3{font-size:1.25rem}.pkg-tag{color:#475569;line-height:1.5}
+.pkg-price{font:700 1.6rem/1.2 var(--f-head);color:var(--ink);margin-top:6px}.pkg-days{font-size:14px;color:#475569;font-weight:600}
+.pkg-sum{line-height:1.55;color:#334155}
+.pkg details{border-top:1px solid #e3e8f1;padding-top:10px}.pkg summary{cursor:pointer;font-weight:600;color:var(--blue-d)}
+.pkg h4{font-size:15px;margin:12px 0 6px}.pkg ul{padding-left:1.2em;display:grid;gap:4px;font-size:14.5px;line-height:1.5}
+.addon-table{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:12px}.addon-table caption{text-align:left;font-weight:700;margin-bottom:6px}
+.addon-table th,.addon-table td{text-align:left;padding:7px 4px;border-bottom:1px solid #e3e8f1;font-weight:500}.addon-table td{text-align:right;white-space:nowrap;font-weight:700}
+.pkg-note{font-size:13.5px;color:#475569;line-height:1.5;margin-top:10px}.pkg-cta{margin-top:auto;align-self:flex-start}
+.care-title{margin-top:36px;font-size:1.3rem}.care-table td{white-space:normal}
 .problems{background:var(--tint);scroll-margin-top:88px}
 .problem-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:16px}
 .problem-grid li{background:#fff;border:1px solid #d5deea;border-radius:var(--r-lg);padding:20px 22px;display:flex;flex-direction:column;gap:10px}
@@ -1481,23 +1492,15 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 <section class="pricing" id="pricing">
   <div class="left dark">
     <h2 class="sec-title">RM888 包括什么</h2><p>适合补习中心、补习老师、美发沙龙、承包商、顾问及其他服务型企业。展示你的服务并接收询问。</p>
-    <p class="sec-lede muted">一个专业、适合手机浏览的网站，包含上线和开始接收询问所需的一切。</p>
+    <p class="sec-lede muted">为你的业务打造专业的网上形象，具备开始接收询问所需的一切。</p>
     <div class="inc-grid">
-      <ul class="inc-list">
-        <li class="hl-li"><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>最多 8 个页面或版块</b></span></li>
-        <li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>量身设计的首页、吸引人的着陆页和服务介绍版块</span></li>
-        <li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>适合手机、平板和电脑浏览</span></li>
-        <li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>WhatsApp 和一键拨号按钮、联系 / 询问表格以及社交媒体链接</span></li>
-        <li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>一种语言（英文、马来文或中文任选）</span></li>
-        <li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>基础 SEO 设置和适合 Google 的网站结构</span></li>
-        <li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>域名及上线设置</span></li>
-      </ul>
+      <ul class="inc-list"><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>最多 8 个标准资讯页面</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>适配手机、平板和电脑的响应式设计</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>使用你的标志、颜色和资料呈现品牌</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>按需提供首页、关于、服务和联系版块</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>WhatsApp 联系按钮</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>基本联系或询问表格</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Google 地图位置链接或嵌入</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>基础页面 SEO，包括标题和元描述</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>网站地图、robots.txt 与规范网址设置</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>按需提供基本结构化数据</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>标准网站安全标头与表格防护</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>在支持的主机上启用 HTTPS</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>基本性能和无障碍检查</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>一轮小修改</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>部署到约定的主机</span></li></ul>
       <div class="price-card">
         <span class="pill">一次性项目价格</span>
         <div class="amount"><sup>RM</sup>888</div>
         <h3>企业网站</h3>
-        <p class="pc-sub">最多 8 个页面或版块，一种语言</p>
-        <p class="pc-bot">加购网站聊天机器人： <b>RM400</b></p>
+        <p class="pc-sub">最多 8 个标准页面，一种语言</p>
+        <p class="pc-bot">AI 网站助手 <b>RM388</b></p>
         <div class="terms">
           <div><svg class="ico" viewBox="0 0 24 24"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r="1"/></svg><span><b>先付 RM200 订金开工</b>完成后、上线前付余款</span></div>
           <div><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span><b>3–5 个工作日</b>每项附加服务 +1 个工作日</span></div>
@@ -1511,16 +1514,9 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
   </div>
   <div class="right addons" id="addons">
     <h2>可选附加服务</h2>
-    <p class="lede">只加你的生意需要的。每项附加服务单独购买 RM500，与网站或其他附加服务一起购买则为 RM400。</p>
-    <div class="save-banner"><span class="big">RM400</span><span>每项附加服务，与网站或其他附加服务一起购买时。</span></div>
-    <ul class="addon-list">
-      <li class="hd"><span></span><span>附加服务</span><span>单独购买</span><span>组合购买</span></li>
-      <li><span class="ai"><svg class="ico" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M12 18v-6M9 15h6"/></svg></span><span class="nm"><b>额外 2 个页面或版块</b><small>例如图库和服务页面</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-      <li><span class="ai"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="3"/><path d="M12 8V4"/><circle cx="12" cy="3" r="1"/><path d="M9 13v1M15 13v1M10 17h4"/></svg></span><span class="nm"><b>AI 驱动的网站聊天机器人</b><small>回答业务常见问题，并把完整对话转到 WhatsApp。附送 Google 商家资料设置。</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-      <li><span class="ai"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><span class="nm"><b>额外语言</b><small>例如为英文网站加上马来文或中文</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-      <li><span class="ai"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m9 16 2 2 4-4"/></svg></span><span class="nm"><b>询问及预约申请表格</b><small>顾客可选择服务项目以及希望的日期和时间</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-      <li><span class="ai"><svg class="ico" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span><span class="nm"><b>地图登录设置</b><small>让你的生意出现在 Apple Maps 和 Foursquare 上</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-    </ul>
+    <p class="lede">只加你的业务需要的。以下为起价，以书面报价为准。</p>
+    <table class="price-table addon-table"><tbody><tr><th scope="row">额外标准页面</th><td>每页 +RM88</td></tr><tr><th scope="row">额外语言</th><td>RM388 起</td></tr><tr><th scope="row">AI 网站助手</th><td>RM388 起</td></tr><tr><th scope="row">预约功能</th><td>RM488 起</td></tr><tr><th scope="row">在线目录</th><td>RM388 起</td></tr><tr><th scope="row">在线付款集成</th><td>RM588 起</td></tr><tr><th scope="row">进阶本地 SEO 设置</th><td>RM388 起</td></tr><tr><th scope="row">GEO / AI 搜索内容优化</th><td>RM388 起</td></tr><tr><th scope="row">博客发布设置</th><td>+RM288</td></tr><tr><th scope="row">节庆网站主题</th><td>RM188 起</td></tr><tr><th scope="row">额外定制表格</th><td>+RM188</td></tr></tbody></table>
+    <p class="pkg-note">第二年起的域名续费、付费主机、第三方 API 和持续维护不包括在内，除非另行报价。进阶 SEO/GEO 工作不保证搜索排名或 AI 推荐。</p>
     <p class="addon-note"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>每项附加服务会让交付时间增加 1 个工作日。</span></p>
     <p class="addon-note rush-note"><svg class="ico" viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg><span><b>需要更快？</b> 加急交付可缩短 2 个工作日，费用为项目总额的 +20%。</span></p>
   </div>
@@ -1607,13 +1603,13 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 
 
 <section class="band faq-sec"><div class="wrap faq-grid"><div class="faq-intro"><h2>网站常见问题</h2></div><div class="faq-list"><div class="faq-col">
-<details class="wfaq"><summary>做一个网站要多少钱？</summary><p>RM888 即可拥有适合手机的网站，包括一种语言的最多 8 个页面或版块、WhatsApp 和联系按钮、基础 SEO 及首年标准域名。网站聊天机器人另加 RM400。每增加 2 个页面或版块算一项附加服务，搭配购买 RM400，单独购买 RM500。</p></details>
+<details class="wfaq"><summary>做一个网站要多少钱？</summary><p>RM888 即可拥有适合手机的网站，包括一种语言的最多 8 个标准页面、WhatsApp 按钮、询问表格、基础 SEO 及首年标准域名。每增加一页 RM88，AI 网站助手 RM388 起。</p></details>
 <details class="wfaq"><summary>需要多长时间？</summary><p>通常 3–5 个工作日，视项目需要以及你提供内容（文字、照片和标志）的速度而定。每项附加服务增加 1 个工作日。</p></details>
 <details class="wfaq"><summary>怎么付款？</summary><p>可通过 DuitNow、Touch 'n Go 电子钱包或现金付款。先付 RM200 订金开始，网站完成后、上线前付清余款。</p></details>
 </div><div class="faq-col">
 <details class="wfaq"><summary>维护费用是多少？</summary><p>可选维护每 3 个月 RM88，包括 SEO 更新、安全更新、功能检查和基本维护。未选维护时，修复按每小时 RM49 收费。</p></details>
 <details class="wfaq"><summary>餐厅可以在 RM888 网站上接单吗？</summary><p>可以。咖啡馆、餐厅和摊位版本包括网上点餐、外送设置和支付网关设置，采用标准设计。外送员费用和支付网关费用另付。</p></details>
-<details class="wfaq"><summary>我的网站可以用哪些语言？</summary><p>你的网站包括一种语言：英文、马来文或中文。每增加一种语言算一项附加服务，单独购买 RM500，组合购买 RM400。</p></details>
+<details class="wfaq"><summary>我的网站可以用哪些语言？</summary><p>网站包括一种语言：英文、马来文或中文任选。每种额外语言 RM388 起。</p></details>
 </div></div></div></section>
 </main><footer>
   <div class="wrap foot">

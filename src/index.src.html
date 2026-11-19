@@ -1363,6 +1363,17 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 @media (max-width:1024px){.flow{justify-self:stretch;max-width:none}}
 @media (min-width:1100px){.hero-grid{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);align-items:center}.hero-grid .flow{justify-self:end}}
 @media (max-width:480px){.flow li{grid-template-columns:26px minmax(0,1fr)}.flow .was,.flow .now{grid-column:2;grid-row:2}}
+.pkg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:18px;margin-top:8px;align-items:start}
+.pkg{border:1px solid #d5deea;border-radius:var(--r-lg);padding:22px;display:flex;flex-direction:column;gap:8px;background:#fff}
+.pkg h3{font-size:1.25rem}.pkg-tag{color:#475569;line-height:1.5}
+.pkg-price{font:700 1.6rem/1.2 var(--f-head);color:var(--ink);margin-top:6px}.pkg-days{font-size:14px;color:#475569;font-weight:600}
+.pkg-sum{line-height:1.55;color:#334155}
+.pkg details{border-top:1px solid #e3e8f1;padding-top:10px}.pkg summary{cursor:pointer;font-weight:600;color:var(--blue-d)}
+.pkg h4{font-size:15px;margin:12px 0 6px}.pkg ul{padding-left:1.2em;display:grid;gap:4px;font-size:14.5px;line-height:1.5}
+.addon-table{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:12px}.addon-table caption{text-align:left;font-weight:700;margin-bottom:6px}
+.addon-table th,.addon-table td{text-align:left;padding:7px 4px;border-bottom:1px solid #e3e8f1;font-weight:500}.addon-table td{text-align:right;white-space:nowrap;font-weight:700}
+.pkg-note{font-size:13.5px;color:#475569;line-height:1.5;margin-top:10px}.pkg-cta{margin-top:auto;align-self:flex-start}
+.care-title{margin-top:36px;font-size:1.3rem}.care-table td{white-space:normal}
 .problems{background:var(--tint);scroll-margin-top:88px}
 .problem-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:16px}
 .problem-grid li{background:#fff;border:1px solid #d5deea;border-radius:var(--r-lg);padding:20px 22px;display:flex;flex-direction:column;gap:10px}
@@ -1537,10 +1548,10 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 <p class="services-intro">We start with how your business runs today, then choose the simplest tool that fixes the problem.</p>
 <ol class="services-grid">
 <li><h3>Business Process Optimisation</h3><p>We study your SOP, find repetitive steps, bottlenecks and error points, and redesign the workflow before any software is built.</p><a class="text-link" href="#contact" data-goform>Tell us your process →</a></li>
-<li><h3>Custom Software &amp; Automation</h3><p>Scripts and small tools that automate repetitive tasks, such as copying data between files, sending reminders or answering customer enquiries.</p><p class="from">Simple automation from RM388 · AI enquiry processing from RM888</p><a class="text-link" href="#contact" data-goform>Discuss your idea →</a></li>
-<li><h3>POS Customisation &amp; Workflow Redesign</h3><p>POS screens and workflows redesigned around your counter, kitchen and delivery, or rebuilt under your own brand.</p><p class="from">Workflow customisation from RM1,888 · Custom POS from RM2,888 + RM288/month</p><a class="text-link" href="#pos">How it works →</a></li>
-<li><h3>Software &amp; API Integration</h3><p>We connect your existing systems through official APIs, so data moves automatically instead of being retyped.</p><p class="from">From RM1,288</p><a class="text-link" href="#contact" data-goform>Connect your systems →</a></li>
-<li><h3>Accounting &amp; Administrative Automation</h3><p>Automate invoices, records, reports and routine admin to cut manual entry and mistakes.</p><p class="from">From RM1,888</p><a class="text-link" href="#contact" data-goform>Reduce your admin →</a></li>
+<li><h3>Custom Software &amp; Automation</h3><p>Scripts and small tools that automate repetitive tasks, such as copying data between files, sending reminders or answering customer enquiries.</p><p class="from">Simple automation RM388–RM888 · AI enquiry processing quoted after review</p><a class="text-link" href="#contact" data-goform>Discuss your idea →</a></li>
+<li><h3>POS Customisation &amp; Workflow Redesign</h3><p>POS screens and workflows redesigned around your counter, kitchen and delivery, or rebuilt under your own brand.</p><p class="from">POS &amp; website rebuild from RM1,288 + RM128/month · Changes to an existing POS quoted after review</p><a class="text-link" href="#pos">How it works →</a></li>
+<li><h3>Software &amp; API Integration</h3><p>We connect your existing systems through official APIs, so data moves automatically instead of being retyped.</p><p class="from">Quoted after a free review</p><a class="text-link" href="#contact" data-goform>Connect your systems →</a></li>
+<li><h3>Accounting &amp; Administrative Automation</h3><p>Automate invoices, records, reports and routine admin to cut manual entry and mistakes.</p><p class="from">RM1,888–RM5,888</p><a class="text-link" href="#contact" data-goform>Reduce your admin →</a></li>
 <li><h3>Website Development &amp; Digital Visibility</h3><p>Mobile-friendly websites with WhatsApp enquiries, when your business needs one.</p><p class="from">From RM888</p><a class="text-link" href="#websites">See website options →</a></li>
 </ol></div></section>
 
@@ -1578,17 +1589,26 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 
 <!-- STARTING PRICES -->
 <section class="band prices-sec" id="prices" aria-labelledby="prices-title"><div class="wrap">
-<h2 class="sec-title" id="prices-title">Starting prices</h2>
-<table class="price-table"><thead><tr><th scope="col">Service</th><th scope="col">Starting price</th></tr></thead><tbody>
-<tr><th scope="row">Simple automation</th><td>RM388</td></tr>
-<tr><th scope="row">Website development</th><td>RM888</td></tr>
-<tr><th scope="row">AI enquiry processing</th><td>RM888</td></tr>
-<tr><th scope="row">Software/API integration</th><td>RM1,288</td></tr>
-<tr><th scope="row">POS workflow customisation</th><td>RM1,888</td></tr>
-<tr><th scope="row">Accounting workflow automation</th><td>RM1,888</td></tr>
-<tr><th scope="row">Custom POS development</th><td>RM2,888 + RM288/month</td></tr>
-</tbody></table>
-<p class="prices-note">Indicative starting prices. You get a fixed written quote after a free problem review.</p>
+<h2 class="sec-title" id="prices-title">Packages and prices</h2>
+<p class="services-intro">Fixed scope, clear starting prices. Final price in a written quote after a free problem review.</p>
+<div class="pkg-grid">
+<article class="pkg"><h3>Simple Automation</h3><p class="pkg-tag">Save time on repetitive business tasks.</p><p class="pkg-price">RM388–RM888</p><p class="pkg-days">3–5 working days</p><p class="pkg-sum">Includes one automated workflow, validation, testing, setup and basic documentation.</p>
+<details><summary>View what's included &amp; optional add-ons</summary><h4>What's included</h4><ul><li>Assessment of one clearly defined repetitive task</li><li>One automation script or small automated workflow</li><li>Basic input and output validation</li><li>Error messages and basic failure handling</li><li>One supported data source and one output destination, where applicable</li><li>Testing using agreed sample data</li><li>Basic setup and usage instructions</li><li>One round of minor corrections after testing</li><li>Essential security checks for the delivered solution</li></ul><table class="addon-table"><caption>Optional add-ons</caption><tbody><tr><th scope="row">Additional automation workflow</th><td>+RM288</td></tr><tr><th scope="row">Excel / Google Sheets automation</th><td>+RM188</td></tr><tr><th scope="row">Automated report generation</th><td>+RM188</td></tr><tr><th scope="row">Scheduled task execution</th><td>+RM188</td></tr><tr><th scope="row">Email or staff notifications</th><td>+RM188</td></tr><tr><th scope="row">Duplicate detection and advanced validation</th><td>+RM288</td></tr><tr><th scope="row">PDF data extraction</th><td>+RM388</td></tr><tr><th scope="row">AI-assisted document classification</th><td>+RM388</td></tr><tr><th scope="row">Additional supported software connection</th><td>From RM488</td></tr></tbody></table><p class="pkg-note">Add-ons apply only when the work is outside the agreed base workflow. You are never charged twice for something already included.</p></details>
+<a class="btn btn-primary pkg-cta" href="#contact" data-goform>Discuss my business problem</a></article>
+<article class="pkg"><h3>Business Website</h3><p class="pkg-tag">A professional online presence for your business.</p><p class="pkg-price">From RM888</p><p class="pkg-days">3–5 working days</p><p class="pkg-sum">Up to 8 pages, mobile-friendly design, WhatsApp button, enquiry form, basic SEO and a free first-year domain.</p>
+<details><summary>View what's included &amp; optional add-ons</summary><h4>What's included</h4><ul><li>Up to 8 standard informational pages</li><li>Mobile, tablet and desktop responsive design</li><li>Business branding using your logo, colours and information</li><li>Homepage, About, Services and Contact sections as required</li><li>WhatsApp contact button</li><li>Basic contact or enquiry form</li><li>Google Maps location link or embed</li><li>Basic on-page SEO, including titles and meta descriptions</li><li>Sitemap, robots.txt and canonical settings</li><li>Basic structured data where relevant</li><li>Standard website security headers and form protections</li><li>HTTPS on supported hosting</li><li>Basic performance and accessibility checks</li><li>One round of minor revisions</li><li>Deployment to the agreed hosting</li><li>A standard domain (.com, .com.my or .my) free for the first year</li></ul><table class="addon-table"><caption>Optional add-ons</caption><tbody><tr><th scope="row">Additional standard page</th><td>+RM88/page</td></tr><tr><th scope="row">Additional language</th><td>From RM388</td></tr><tr><th scope="row">AI website assistant</th><td>From RM388</td></tr><tr><th scope="row">Appointment booking</th><td>From RM488</td></tr><tr><th scope="row">Online catalogue</th><td>From RM388</td></tr><tr><th scope="row">Payment checkout integration</th><td>From RM588</td></tr><tr><th scope="row">Advanced local SEO setup</th><td>From RM388</td></tr><tr><th scope="row">GEO / AI-search content optimisation</th><td>From RM388</td></tr><tr><th scope="row">Blog publishing setup</th><td>+RM288</td></tr><tr><th scope="row">Seasonal website theme</th><td>From RM188</td></tr><tr><th scope="row">Additional custom form</th><td>+RM188</td></tr></tbody></table><p class="pkg-note">Domain renewal from the second year, paid hosting, third-party APIs and ongoing maintenance are excluded unless specifically quoted. Advanced SEO/GEO work does not guarantee search rankings or AI recommendations.</p><p><a class="text-link" href="#websites">Full website details →</a></p></details>
+<a class="btn btn-primary pkg-cta" href="#contact" data-goform>Discuss my business problem</a></article>
+<article class="pkg"><h3>Accounting Automation</h3><p class="pkg-tag">Reduce repetitive accounting and document-processing work.</p><p class="pkg-price">RM1,888–RM5,888</p><p class="pkg-days">5–10 working days</p><p class="pkg-sum">Automates one accounting or admin workflow, with validation, exception reports and human review.</p>
+<details><summary>View what's included &amp; optional add-ons</summary><h4>What's included</h4><ul><li>Review of one existing accounting or administrative workflow</li><li>Identification of repetitive steps and common errors</li><li>Automation of one agreed process, such as preparing invoice records or matching imported transaction data</li><li>Import of one agreed source format</li><li>Basic data extraction and field mapping</li><li>Amount, date and duplicate validation rules</li><li>Exception reporting for records that need manual attention</li><li>Export to an agreed spreadsheet or supported format</li><li>Human review before final accounting entries are accepted</li><li>Basic activity logging and error handling</li><li>Testing with sample records</li><li>Usage documentation and handover</li><li>Essential security and data-handling controls</li></ul><table class="addon-table"><caption>Optional add-ons</caption><tbody><tr><th scope="row">Additional invoice or receipt format</th><td>From RM288</td></tr><tr><th scope="row">AI-assisted receipt extraction</th><td>From RM488</td></tr><tr><th scope="row">Bank statement matching</th><td>From RM688</td></tr><tr><th scope="row">Expense categorisation</th><td>From RM388</td></tr><tr><th scope="row">Additional accounting workflow</th><td>From RM688</td></tr><tr><th scope="row">Accounting software integration</th><td>From RM888</td></tr><tr><th scope="row">Approval workflow</th><td>From RM488</td></tr><tr><th scope="row">Automated monthly reports</th><td>From RM388</td></tr><tr><th scope="row">Advanced reconciliation rules</th><td>From RM688</td></tr><tr><th scope="row">Multi-company processing</th><td>From RM888</td></tr><tr><th scope="row">Audit reporting dashboard</th><td>From RM688</td></tr></tbody></table><p class="pkg-note">This is workflow automation, not bookkeeping certification, tax advice or an assurance of accounting accuracy. Financial records need appropriate controls and review. Malaysian e-Invoice compliance features are assessed separately.</p></details>
+<a class="btn btn-primary pkg-cta" href="#contact" data-goform>Discuss my business problem</a></article>
+<article class="pkg"><h3>POS &amp; Website Rebuild</h3><p class="pkg-tag">Your POS and website, rebuilt around your business.</p><p class="pkg-price">From RM1,288 + RM128/month</p><p class="pkg-days">24-month plan · Essential 5–7 days, Signature 12–14 days</p><p class="pkg-sum">Essential from RM1,288 + RM128/month. Signature with your own branding from RM2,888 + RM288/month.</p>
+<details><summary>View what's included &amp; optional add-ons</summary><h4>What's included</h4><ul><li>Review of your sales, checkout and kitchen SOP</li><li>POS and website ordering with secure checkout</li><li>Delivery setup (Lalamove where supported, or your own drivers) and payment channel setup</li><li>Hosting, security updates, backups, monthly function checks and bug fixes for 24 months</li><li>Menu and description edits in your admin page, plus monthly change requests</li><li>Signature adds your own branding, SEO/GEO upkeep, seasonal themes, workflow redesign and a banquet enquiry form</li></ul><table class="addon-table"><caption>Optional add-ons</caption><tbody><tr><th scope="row">AI WhatsApp ordering and enquiries</th><td>From RM88/month</td></tr></tbody></table><p class="pkg-note">Delivery-provider fees, payment processing charges and hardware are paid separately. Integrations are confirmed after a compatibility check.</p><p><a class="text-link" href="#restaurant-plans">Compare Essential and Signature →</a></p></details>
+<a class="btn btn-primary pkg-cta" href="#contact" data-goform>Discuss my business problem</a></article>
+</div>
+<p class="prices-note">Software/API integration, AI enquiry processing and changes to an existing POS are quoted after a free problem review.</p>
+<h3 class="care-title">Ongoing care (optional)</h3>
+<table class="price-table care-table"><tbody><tr><th scope="row">Website upkeep</th><td>RM88 every 3 months</td></tr><tr><th scope="row">Automation Care</th><td>RM88/month</td></tr><tr><th scope="row">Website SEO/GEO Care</th><td>From RM188/month</td></tr><tr><th scope="row">POS &amp; Website Rebuild</th><td>Included for 24 months, then POS Care RM128/month</td></tr></tbody></table>
+<p class="prices-note">Each care plan states its checks, support channel, included fixes and exclusions in writing. Security fixes for software we manage never depend on buying a marketing or personalisation plan.</p>
 </div></section>
 
 <section class="restaurant-plans" id="restaurant-plans" aria-labelledby="restaurant-title"><div class="restaurant-wrap">
@@ -1673,13 +1693,13 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
       <div class="faq-col">
         <details><summary>Do I have to replace my current POS?</summary><p>No. We first look at what your current POS can do. If it can be connected or extended with the vendor's permission, we work with it. We only suggest a new POS when that is clearly simpler and cheaper for you.</p></details>
         <details><summary>Can you work with my existing software?</summary><p>Usually, yes. We connect systems through official APIs, exports or vendor-authorised access. We check compatibility before you commit to anything.</p></details>
-        <details><summary>How much does automation cost?</summary><p>Simple automation starts from RM388. Software and API integration starts from RM1,288, and accounting workflow automation from RM1,888. You get a fixed written quote after a free problem review.</p></details>
+        <details><summary>How much does automation cost?</summary><p>Simple automation is RM388–RM888 and accounting automation is RM1,888–RM5,888, depending on the workflow. Software/API integration is quoted after a free problem review. You get a fixed written quote before any work starts.</p></details>
         <details><summary>What happens after I send the form?</summary><p>I read your answers and reply on WhatsApp within 1 working day. We then have a short chat about how you work today, and I send you a written quote.</p></details>
       </div>
       <div class="faq-col">
         <details><summary>I'm not sure what I need. Can I still ask?</summary><p>Yes. Describe the problem in your own words. You don't need to know which software or service you need.</p></details>
         <details><summary>Will my staff need to change how they work?</summary><p>As little as possible. We design the system around your existing SOP, and only suggest changes that clearly save time or prevent mistakes.</p></details>
-        <details><summary>Do you still build websites?</summary><p>Yes. Websites start from RM888 for up to 8 pages or sections. See the website development page for details.</p></details>
+        <details><summary>Do you still build websites?</summary><p>Yes. Websites start from RM888 for up to 8 pages. See the website development page for details.</p></details>
         <details><summary>Can we meet in person?</summary><p>Yes, if you're in Johor Bahru. Otherwise we can talk by WhatsApp, Zoom or Google Meet.</p></details>
       </div>
     </div>
@@ -1724,23 +1744,15 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 <section class="pricing" id="pricing">
   <div class="left dark">
     <h2 class="sec-title">What's included for RM888</h2><p>For tuition centres, tutors, salons, contractors, consultants and other service businesses. Present your services and receive enquiries.</p>
-    <p class="sec-lede muted">A professional, mobile-friendly website with everything you need to get online and start getting enquiries.</p>
+    <p class="sec-lede muted">A professional online presence for your business, with everything you need to start getting enquiries.</p>
     <div class="inc-grid">
-      <ul class="inc-list">
-        <li class="hl-li"><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span><b>Up to 8 pages or sections</b></span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Custom-designed homepage, an eye-catching landing page and a Services section</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Mobile-friendly on phone, tablet and desktop</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>WhatsApp and click-to-call buttons, a contact / enquiry form and social media links</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>One language of your choice (English, BM or Chinese)</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Basic SEO setup and a Google-friendly structure</span></li>
-        <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Domain and launch setup</span></li>
-      </ul>
+      <ul class="inc-list"><li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Up to 8 standard informational pages</span></li><li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Mobile, tablet and desktop responsive design</span></li><li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Business branding using your logo, colours and information</span></li><li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Homepage, About, Services and Contact sections as required</span></li><li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>WhatsApp contact button</span></li><li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Basic contact or enquiry form</span></li><li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Google Maps location link or embed</span></li><li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Basic on-page SEO, including titles and meta descriptions</span></li><li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Sitemap, robots.txt and canonical settings</span></li><li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Basic structured data where relevant</span></li><li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Standard website security headers and form protections</span></li><li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>HTTPS on supported hosting</span></li><li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Basic performance and accessibility checks</span></li><li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>One round of minor revisions</span></li><li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span><span>Deployment to the agreed hosting</span></li></ul>
       <div class="price-card">
         <span class="pill">One-time project price</span>
         <div class="amount"><sup>RM</sup>888</div>
         <h3>Business Website</h3>
-        <p class="pc-sub">Up to 8 pages or sections, in one language</p>
-        <p class="pc-bot">Add a website chatbot for <b>RM400</b></p>
+        <p class="pc-sub">Up to 8 standard pages, in one language</p>
+        <p class="pc-bot">AI website assistant from <b>RM388</b></p>
         <div class="terms">
           <div><svg class="ico"><use href="#i-tag"/></svg><span><b>RM200 deposit to start</b>The rest when it's ready, before launch</span></div>
           <div><svg class="ico"><use href="#i-clock"/></svg><span><b>3–5 working days</b>+1 working day per add-on</span></div>
@@ -1754,16 +1766,9 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
   </div>
   <div class="right addons" id="addons">
     <h2>Optional add-ons</h2>
-    <p class="lede">Add only what your business needs. Each add-on is RM500 on its own, or RM400 when bundled with the website or another add-on.</p>
-    <div class="save-banner"><span class="big">RM400</span><span>per add-on when bundled with your website or another add-on.</span></div>
-    <ul class="addon-list">
-      <li class="hd"><span></span><span>Add-on</span><span>On its own</span><span>Bundled</span></li>
-      <li><span class="ai"><svg class="ico"><use href="#i-plusfile"/></svg></span><span class="nm"><b>2 extra pages or sections</b><small>e.g. a gallery and a service page</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-      <li><span class="ai"><svg class="ico"><use href="#i-bot"/></svg></span><span class="nm"><b>AI-powered website chatbot</b><small>Answers business FAQs and hands the full conversation over to WhatsApp. Includes Google Business Profile setup.</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-      <li><span class="ai"><svg class="ico"><use href="#i-globe"/></svg></span><span class="nm"><b>Additional language</b><small>e.g. add BM or Chinese to an English website</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-      <li><span class="ai"><svg class="ico"><use href="#i-calcheck"/></svg></span><span class="nm"><b>Enquiry &amp; booking request form</b><small>Customers choose a service and a preferred date and time</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-      <li><span class="ai"><svg class="ico"><use href="#i-pin"/></svg></span><span class="nm"><b>Listings setup</b><small>Your business on Apple Maps and Foursquare</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-    </ul>
+    <p class="lede">Add only what your business needs. Prices are starting prices, confirmed in your written quote.</p>
+    <table class="price-table addon-table"><tbody><tr><th scope="row">Additional standard page</th><td>+RM88/page</td></tr><tr><th scope="row">Additional language</th><td>From RM388</td></tr><tr><th scope="row">AI website assistant</th><td>From RM388</td></tr><tr><th scope="row">Appointment booking</th><td>From RM488</td></tr><tr><th scope="row">Online catalogue</th><td>From RM388</td></tr><tr><th scope="row">Payment checkout integration</th><td>From RM588</td></tr><tr><th scope="row">Advanced local SEO setup</th><td>From RM388</td></tr><tr><th scope="row">GEO / AI-search content optimisation</th><td>From RM388</td></tr><tr><th scope="row">Blog publishing setup</th><td>+RM288</td></tr><tr><th scope="row">Seasonal website theme</th><td>From RM188</td></tr><tr><th scope="row">Additional custom form</th><td>+RM188</td></tr></tbody></table>
+    <p class="pkg-note">Domain renewal from the second year, paid hosting, third-party APIs and ongoing maintenance are excluded unless specifically quoted. Advanced SEO/GEO work does not guarantee search rankings or AI recommendations.</p>
     <p class="addon-note"><svg class="ico"><use href="#i-clock"/></svg><span>Each add-on adds 1 working day to delivery.</span></p>
     <p class="addon-note rush-note"><svg class="ico"><use href="#i-zap"/></svg><span><b>Need it sooner?</b> Rush delivery cuts 2 working days off your delivery time for +20% of your project total.</span></p>
   </div>
@@ -1850,13 +1855,13 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 
 
 <section class="band faq-sec"><div class="wrap faq-grid"><div class="faq-intro"><h2>Website questions</h2></div><div class="faq-list"><div class="faq-col">
-<details class="wfaq"><summary>How much does a website cost?</summary><p>RM888 for a mobile-friendly website with up to 8 pages or sections in one language, WhatsApp and contact buttons, basic SEO and a standard domain for the first year. A website chatbot is RM400 extra. Every 2 extra pages or sections is one add-on at RM400 when bundled, or RM500 on its own.</p></details>
+<details class="wfaq"><summary>How much does a website cost?</summary><p>RM888 for a mobile-friendly website with up to 8 standard pages in one language, a WhatsApp button, an enquiry form, basic SEO and a standard domain for the first year. Extra pages are RM88 each, and an AI website assistant starts from RM388.</p></details>
 <details class="wfaq"><summary>How long does it take?</summary><p>Usually 3–5 working days, depending on what your project needs and how quickly you can send your content (text, photos and logo). Each add-on adds 1 working day.</p></details>
 <details class="wfaq"><summary>How do I pay?</summary><p>By DuitNow, Touch 'n Go eWallet or cash. You pay a RM200 deposit to start and the rest when your website is ready, before launch.</p></details>
 </div><div class="faq-col">
 <details class="wfaq"><summary>What does upkeep cost?</summary><p>Optional upkeep is RM88 every 3 months, covering an SEO update, security updates, a function check and basic maintenance. Without it, fixes are RM49/hour.</p></details>
 <details class="wfaq"><summary>Can a restaurant take orders on the RM888 website?</summary><p>Yes. The café, restaurant and stall version includes online ordering, delivery setup and payment-gateway setup, with a standard design. Rider and payment-gateway fees are paid separately.</p></details>
-<details class="wfaq"><summary>Which languages can my website be in?</summary><p>Your website includes one language: English, Bahasa Melayu or Chinese. Each extra language is an add-on at RM500, or RM400 when bundled.</p></details>
+<details class="wfaq"><summary>Which languages can my website be in?</summary><p>Your website includes one language: English, Bahasa Melayu or Chinese. Each additional language starts from RM388.</p></details>
 </div></div></div></section>
 </template>
 
@@ -2301,7 +2306,7 @@ Someone searching "aircond repair Johor Bahru" or "plumber near me" usually isn'
 
 ## The basics that make the biggest difference
 - **A clear, fast, mobile-friendly website** with page titles and headings that say what you do and where.
-- **A complete Google Business Profile** with your services, hours, photos and service area. I set this up free with every website.
+- **A complete Google Business Profile** with your services, hours, photos and service area. I can set this up as part of the Advanced local SEO add-on.
 - **Consistent business details** so your name, address and phone number match everywhere, including Google Maps, Apple Maps and Foursquare.
 - **Real reviews** from happy customers, and replies to them.
 - **Service and area content** that matches what customers actually type.
@@ -2309,7 +2314,7 @@ Someone searching "aircond repair Johor Bahru" or "plumber near me" usually isn'
 ## SEO is a foundation, not a magic trick
 Nobody can honestly promise you the top spot overnight. What good SEO does is remove the reasons search engines might skip you, and give them clear signals about what you do and where. Get the foundations right, keep your information accurate, and your visibility builds over time.
 
-> Every Ace Digital Solutions website includes basic SEO setup, a Google-friendly structure and free Google Business Profile setup. The Listings setup add-on covers Apple Maps and Foursquare.
+> Every Ace Digital Solutions website includes basic on-page SEO, a sitemap and a Google-friendly structure. Advanced local SEO setup, including Google Business Profile, starts from RM388.
 </script>
 
 <script type="text/plain" class="blog-post" data-date="2026-10-07" data-lang="en" data-id="sloppy-website">
@@ -2382,19 +2387,20 @@ When someone compares two businesses side by side, the one that looks profession
   let submissionId = newSubmissionId();
 
   /* ---------- Prices (RM) ----------
-     Add-ons: RM500 on their own, RM400 when bundled with the website or another add-on.
      Each add-on adds 1 working day. Rush: +20% of the project total, 2 working days faster. */
-  const BASE = 888, ADDON = 400, ADDON_SOLO = 500, CARE = 88, RUSH = 0.20;  // CARE = optional upkeep, charged every 3 months
+  const BASE = 888, CARE = 88, RUSH = 0.20;  // CARE = optional upkeep, charged every 3 months
+  const N = s => s;  // marks text for translation (collected by build_site.py); C() translates it when shown
+  // Website add-ons and starting prices (owner price list, 20 Nov 2026).
   const ADDONS = [
-    ["a-page","2 extra pages or sections"],["a-bot","AI-powered website chatbot"],["a-lang","Additional language"],
-    ["a-book","Enquiry & booking request form"],["a-list","Listings setup (Apple Maps + Foursquare)"]
+    ["a-page",N("Additional standard page"),88],["a-bot",N("AI website assistant"),388],["a-lang",N("Additional language"),388],
+    ["a-book",N("Appointment booking"),488],["a-cat",N("Online catalogue"),388],["a-pay",N("Payment checkout integration"),588],
+    ["a-seo",N("Advanced local SEO setup"),388],["a-geo",N("GEO / AI-search content optimisation"),388],["a-blog",N("Blog publishing setup"),288],
+    ["a-theme",N("Seasonal website theme"),188],["a-form",N("Additional custom form"),188]
   ];
   const $ = s => document.querySelector(s);
   const ico = id => `<svg class="ico"><use href="#i-${id}"/></svg>`;
   const money = n => "RM" + n.toLocaleString("en-MY");
-  const eachPrice = (base, n) => (base || n >= 2) ? ADDON : ADDON_SOLO;
-  // The RM888 website has no chatbot; the chatbot is a normal add-on (RM400 bundled, RM500 on its own).
-  const itemPrice = (id, base, n) => eachPrice(base, n);
+  const itemPrice = id => ADDONS.find(a=>a[0]===id)[2];
   const days = (n, rush) => { const r = rush ? 2 : 0; return L("{a}–{b} working days",{a:Math.max(1,3+n-r), b:5+n-r}); };
 
   /* ---------- Mini website mockups ---------- */
@@ -2897,20 +2903,59 @@ When someone compares two businesses side by side, the one that looks profession
   function callNow(){ location.href = "tel:+60102641824"; }
   function after(){ quick([WA_CTA(),[()=>C("Main menu"),menu]]); }
   function restaurantInfo(){say(()=>C("Restaurant and retail plans have a 24-month minimum. Essential: from RM1,288 setup + RM128/month (from RM4,360 total), with delivery and payment setup, function checks, security updates and backups. Signature: from RM2,888 setup + RM288/month (from RM9,800 total), adding your own branding, SEO/GEO upkeep, seasonal themes, workflow redesign and a banquet enquiry form. AI WhatsApp ordering is an add-on from RM88/month. Essential delivery: 5–7 days; Signature: 12–14 days, after required content and access arrive. A 10% deposit starts the work and the detailed SOP review follows. POS and delivery compatibility, provider charges and usage allowances are confirmed in a written quote. Ask Adam for a free compatibility chat."));after();}
-  function menu(){ say(()=>C("What would you like to know? You can also type any question.")); quick([[()=>C("Describe my business problem"),problemInfo],[()=>C("Restaurant monthly plans"),restaurantInfo],[()=>C("Estimate a website cost"),calc],WA_CTA(),CALL_CTA()]); }
-  function problemInfo(){ say(()=>C("Tell Adam what takes too much time or keeps going wrong. You don't need to know which service you need. Starting prices: simple automation from RM388, software/API integration from RM1,288, POS workflow customisation and accounting automation from RM1,888.")+`<br>${formLink(C("Open the short problem form"))}`); after(); }
-  function greet(){ say(()=>C("Hi! I'm the Ace Digital Solutions assistant. Tell me what slows your business down, or ask about automation, POS or websites. I can also pass you to Adam on WhatsApp.")); menu(); }
-  function resetChat(){ log.innerHTML = ""; entries.length = 0; if(chatLang!==LANG) applyChatLang(LANG); aiHistory.length = 0; lastEstimate = null; estMode = false; strikes = 0; handoffBtn.hidden = true; lock(false); greet(); }
-  function included(){ say(()=>C("Every RM888 website includes <b>up to 8 pages or sections</b> in one language, a custom-designed homepage, a mobile-friendly layout, a services section, WhatsApp and click-to-call buttons, a contact form, basic SEO setup and social media links. A <b>standard domain for the first year</b> is included free. A website chatbot is an add-on at <b>RM400</b>. For cafés, restaurants and stalls, the RM888 website uses a standard design and includes online ordering, delivery setup and payment-gateway setup.")); after(); }
+  function menu(){ diagWait = null; say(()=>C("What would you like to know? You can also type any question.")); quick([[()=>C("Find my business problem"),diagStart],[()=>C("Restaurant monthly plans"),restaurantInfo],[()=>C("Estimate a website cost"),calc],WA_CTA(),CALL_CTA()]); }
+  /* ----- Guided problem finder: up to 7 short questions that pin down the business problem ----- */
+  let diag = {}, diagWait = null;
+  const PROBLEM_RE = /(problem|manual|mistake|error|repetitive|tedious|time.?consuming|automat|workflow|integrat|invoice|receipt|accounting|report|masalah|kesilapan|berulang|automasi|invois|resit|perakaunan|laporan|问题|手动|错误|出错|重复|自动化|发票|收据|会计|报表)/i;
+  const ask = (q, opts, wait) => { say(()=>C(q)); diagWait = wait || null; quick(opts); };
+  const pick = (key, label, next) => [label, ()=>{ diag[key] = label; next(); }];
+  const typeOwn = (key, prompt) => [()=>C("Something else"), ()=>{ say(()=>C(prompt)); diagWait = key; }];
+  const AREAS = {
+    pos:[N("Orders and POS"),N("What goes wrong with orders?"),[N("Orders typed in twice"),N("Counter and kitchen mix-ups"),N("Delivery orders are hard to manage"),N("Menu or stock not updated everywhere")]],
+    enq:[N("Customer enquiries"),N("What happens with customer enquiries?"),[N("Messages get missed"),N("Same questions again and again"),N("Replies are too slow"),N("Bookings handled by hand")]],
+    acc:[N("Accounting and invoices"),N("Which accounting task takes the most effort?"),[N("Keying in receipts and invoices"),N("Matching bank statements"),N("Preparing invoices"),N("Month-end reports")]],
+    rep:[N("Reports"),N("What makes your reports slow?"),[N("Copying data from several places"),N("Building them in Excel by hand"),N("Numbers don't match"),N("Reports arrive too late")]],
+    staff:[N("Staff coordination"),N("Where does staff coordination break down?"),[N("Instructions get lost"),N("Shift or task handover"),N("Approvals take too long"),N("No one knows the latest status")]],
+  };
+  const SUGGEST = {
+    pos:N("This looks like a POS workflow problem. We start by reviewing your SOP, then either improve your current POS (only with the vendor's permission) or rebuild it. POS & website rebuild plans start from RM1,288 + RM128/month; changes to an existing POS are quoted after a free review."),
+    enq:N("This can usually be fixed with an enquiry assistant or a simple automation that logs every message and answers common questions. Simple automation costs RM388–RM888; AI enquiry processing is quoted after a free review."),
+    acc:N("This fits our Accounting Automation package: one workflow automated with validation, exception reports and human review, RM1,888–RM5,888 depending on the work."),
+    rep:N("Reports like this can usually be produced automatically. Simple automation with automated reports costs RM388–RM888; financial reports may fit Accounting Automation (RM1,888–RM5,888)."),
+    staff:N("A small custom workflow for handovers, approvals or status tracking usually fixes this. Simple automation costs RM388–RM888; larger workflows are quoted after a free review."),
+    other:N("Adam will review this and suggest the simplest fix that works with your current tools."),
+  };
+  function diagStart(){ diag = {}; ask(N("Let's pin down the problem. I'll ask up to 7 quick questions. Tap an answer or type your own. First, what kind of business do you run?"),
+    [N("Café or restaurant"),N("Retail shop"),N("Service business"),N("Office, accounting or admin"),N("Other")].map(l=>pick("biz",()=>C(l),diagArea)), "biz"); }
+  function diagArea(){ ask(N("Which part of your work causes the most trouble?"),
+    Object.entries(AREAS).map(([k,[l]])=>[()=>C(l), ()=>{ diag.cat = k; diag.area = ()=>C(l); diagDetail(); }])
+      .concat([[()=>C("Something else"), ()=>{ diag.cat = "other"; say(()=>C("Describe it in one or two sentences: what happens now, and what should happen instead?")); diagWait = "detail"; }]]), "area"); }
+  function diagDetail(){ const [, q, opts] = AREAS[diag.cat];
+    ask(q, opts.map(o=>pick("detail",()=>C(o),diagFreq)).concat([typeOwn("detail",N("Tell me in your own words what goes wrong."))]), "detail"); }
+  function diagFreq(){ ask(N("How often does this happen?"), [N("Every day"),N("A few times a week"),N("A few times a month")].map(l=>pick("freq",()=>C(l),diagTime)), "freq"); }
+  function diagTime(){ ask(N("Roughly how many staff hours does it cost each week, including fixing mistakes?"), [N("Under 2 hours"),N("2–5 hours"),N("5–10 hours"),N("More than 10 hours"),N("Not sure")].map(l=>pick("time",()=>C(l),diagSoft)), "time"); }
+  function diagSoft(){ ask(N("What software or tools do you use for this now? Type them, for example Excel, WhatsApp, a POS or accounting software."),
+    [pick("soft",()=>C("No software, all by hand"),diagGoal), pick("soft",()=>C("Skip"),diagGoal)], "soft"); }
+  function diagGoal(){ ask(N("If we fix this, what matters most to you?"), [N("Save time"),N("Fewer mistakes"),N("Faster replies to customers"),N("Better reports and visibility")].map(l=>pick("goal",()=>C(l),diagSummary)), "goal"); }
+  function diagSummary(){
+    const d = {...diag}, v = k => d[k] ? escapeHtml(txt(d[k])) : N("—");
+    say(()=>C("Here's what I understood:")+`<br><b>${C("Business")}:</b> ${v("biz")}<br><b>${C("Problem")}:</b> ${d.area ? v("area")+N(" – ") : ""}${v("detail")}<br><b>${C("How often")}:</b> ${v("freq")}<br><b>${C("Time each week")}:</b> ${v("time")}<br><b>${C("Current tools")}:</b> ${v("soft")}<br><b>${C("Most important")}:</b> ${v("goal")}<br><br>`
+      + C(SUGGEST[d.cat || "other"]) + N(" ") + C("Send this to Adam on WhatsApp and he'll reply within 1 working day with the next step."));
+    quick([[()=>C("Send to Adam on WhatsApp"),handoff,"q-wa"],[()=>C("Start again"),diagStart],[()=>C("Main menu"),menu]]);
+  }
+  const DIAG_NEXT = {biz:diagArea, detail:diagFreq, freq:diagTime, time:diagSoft, soft:diagGoal, goal:diagSummary};
+  function greet(){ say(()=>C("Hi! I'm the Ace Digital Solutions assistant. I can ask you a few quick questions to find what's slowing your business down, answer questions about automation, POS or websites, or pass you to Adam on WhatsApp.")); menu(); }
+  function resetChat(){ log.innerHTML = ""; entries.length = 0; if(chatLang!==LANG) applyChatLang(LANG); aiHistory.length = 0; lastEstimate = null; estMode = false; diag = {}; diagWait = null; strikes = 0; handoffBtn.hidden = true; lock(false); greet(); }
+  function included(){ say(()=>C("Every RM888 website includes <b>up to 8 pages or sections</b> in one language, a custom-designed homepage, a mobile-friendly layout, a services section, WhatsApp and click-to-call buttons, a contact form, basic SEO setup and social media links. A <b>standard domain for the first year</b> is included free. An AI website assistant starts from <b>RM388</b>. For cafés, restaurants and stalls, the RM888 website uses a standard design and includes online ordering, delivery setup and payment-gateway setup.")); after(); }
   function timing(){ say(()=>C("Usually <b>3–5 working days</b>, depending on the project and how quickly you can send your content (text, photos and logo). Each add-on adds 1 working day. Need it sooner? Rush delivery cuts <b>2 working days</b> for <b>+20%</b> of the project total.")); after(); }
   function rushInfo(){ say(()=>C("<b>Rush delivery</b> cuts your delivery time by <b>2 working days</b>, for example from 3–5 working days to 1–3. It costs an extra <b>20%</b> of the project total (website plus add-ons).")); after(); }
   function payments(){ say(()=>C("You pay a <b>RM200 deposit</b> to start and <b>the rest when your website is ready, before launch</b>. For the RM888 website, that's RM200 + RM688. You can pay by <b>DuitNow, Touch 'n Go eWallet or cash</b>. Adam works as a freelancer, so payments go to him personally.")); after(); }
   function urgent(){ say(()=>C("Urgent fixes and small changes are <b>RM49 per hour for our website clients, or RM89 per hour for websites built elsewhere</b>. Optional upkeep at <b>RM88 every 3 months</b> covers an SEO update, security updates, a function check and basic maintenance.")); after(); }
   function careInfo(){ say(()=>C("Website upkeep is optional at <b>RM88 every 3 months</b>: an SEO update, security updates, a function check and basic maintenance. Adam offers it every 3 months and you decide each time. Without it, fixes are RM49/hour. Existing Website Care clients keep their current terms. POS plans include their own hosting and support.")); after(); }
-  function domainInfo(){ say(()=>C("A <b>standard domain (.com, .com.my or .my) for the first year</b> is included free with your website. Premium domains are quoted separately. From the second year, you pay the domain renewal yourself. Google Business Profile setup is included when you add the website chatbot.")); after(); }
+  function domainInfo(){ say(()=>C("A <b>standard domain (.com, .com.my or .my) for the first year</b> is included free with your website. Premium domains are quoted separately. From the second year, you pay the domain renewal yourself. Advanced local SEO setup starts from RM388.")); after(); }
   function content(){ say(()=>C("You send your services, contact details, the areas you cover and any photos or logo you have, and Adam turns it into a clear, professional website. He can help tidy up the wording.")); after(); }
-  function langInfo(){ say(()=>C("Your website includes <b>one language</b>: English, Bahasa Melayu or Chinese. Each extra language is an add-on: RM500 on its own, or <b>RM400</b> when bundled with the website or another add-on.")); after(); }
-  function assistInfo(){ say(()=>C("An <b>AI-powered website chatbot</b> answers your approved business questions and passes customers to WhatsApp with the full conversation. It is an add-on: <b>RM400</b> with the RM888 website or another add-on, or <b>RM500 on its own</b>. It includes Google Business Profile setup. You're using one right now.")); after(); }
+  function langInfo(){ say(()=>C("Your website includes <b>one language</b>: English, Bahasa Melayu or Chinese. Each additional language starts from <b>RM388</b>.")); after(); }
+  function assistInfo(){ say(()=>C("An <b>AI-powered website chatbot</b> answers your approved business questions and passes customers to WhatsApp with the full conversation. It is an add-on from <b>RM388</b>. You're using one right now.")); after(); }
   function meetInfo(){ say(()=>C("Adam can chat with you by WhatsApp, Zoom or Google Meet, or meet in person if you're in Johor Bahru. He replies within 1 working day.")); after(); }
   const formLink = (label) => `<a href="#contact" class="chat-link" data-goform>${label||C("Open the contact form")} ${ico("arrow")}</a>`;
   log.addEventListener("click",e=>{ const a=e.target.closest("[data-goform]"); if(!a) return; e.preventDefault(); e.stopPropagation(); closeChat(); go("contact"); setTimeout(()=>$("#f-name").focus({preventScroll:true}),50); });
@@ -2979,9 +3024,9 @@ When someone compares two businesses side by side, the one that looks profession
 
   /* ----- Estimates ----- */
   function priceOf(sel){
-    const n = sel.items.length, each = eachPrice(sel.base, n), basePrice = sel.base ? BASE : 0;
-    const sub = basePrice + sel.items.reduce((t,id)=>t+itemPrice(id, sel.base, n),0), rushFee = sel.rush ? Math.round(sub*RUSH) : 0, total = sub + rushFee;
-    return {each, n, sub, rushFee, total, basePrice};
+    const n = sel.items.length, basePrice = sel.base ? BASE : 0;
+    const sub = basePrice + sel.items.reduce((t,id)=>t+itemPrice(id),0), rushFee = sel.rush ? Math.round(sub*RUSH) : 0, total = sub + rushFee;
+    return {n, sub, rushFee, total, basePrice};
   }
   const labelOf = id => C(ADDONS.find(a=>a[0]===id)[1]);
   function remember(sel, p){
@@ -2992,7 +3037,7 @@ When someone compares two businesses side by side, the one that looks profession
   }
   function calc(pre){
     const st = pre ? {...pre, items:[...pre.items]} : {base:true, items:[], rush:false, care:false};
-    const html = () => C("Tick what you need. Add-ons are <b>RM400</b> each when bundled with the website or another add-on, or RM500 on their own.")+`
+    const html = () => C("Tick what you need. Add-on prices are starting prices; Adam confirms the final price in a written quote.")+`
       <div class="calc">
         <label class="base"><input type="checkbox" data-base ${st.base?"checked":""}>${C("Professional website (up to 8 pages)")}<span>${money(BASE)}</span></label>
         <div class="calc-sub">${C("Add-ons")}</div>
@@ -3009,7 +3054,7 @@ When someone compares two businesses side by side, the one that looks profession
       const read = () => ({base: box.querySelector("[data-base]").checked, items:[...box.querySelectorAll("[data-a]:checked")].map(c=>c.dataset.a), rush: box.querySelector("[data-rush]").checked, care: box.querySelector("[data-care]").checked});
       const upd = () => {
         Object.assign(st, read()); const p = priceOf(st);
-        box.querySelectorAll("[data-p]").forEach(x=>{ x.textContent = "+"+money(itemPrice(x.closest("label").querySelector("[data-a]").dataset.a, st.base, p.n)); });
+        box.querySelectorAll("[data-p]").forEach(x=>{ x.textContent = "+"+money(itemPrice(x.closest("label").querySelector("[data-a]").dataset.a)); });
         box.querySelector(".tot").innerHTML = p.total === 0 ? `<span class="muted">${C("Tick at least one item to see an estimate.")}</span>` :
           `${C("Estimated total")} <b>${money(p.total)}</b>`+
           `<br><span class="muted">${C("{a} to start, {b} before launch",{a:money(200), b:money(p.total-200)})}`+
@@ -3036,13 +3081,16 @@ When someone compares two businesses side by side, the one that looks profession
     const pm = t.match(/(\d+|one|two|three|four|five|satu|dua|tiga|empat|lima)\s*(?:extra|additional|more|new|lagi|tambahan)?\s*(?:pages?|sections?|halaman|seksyen)/) || t.match(/(?:多|加|额外)?([0-9一两二三四五])\s*个?\s*(?:页|页面)/);
     let pages = pm ? (words[pm[1]] || parseInt(pm[1],10)) : (/\b(extra|additional|another|gallery) (page|section)|halaman tambahan|额外页/.test(t) ? 1 : 0);
     pages = Math.min(pages||0, 10);
-    for(let i=0;i<Math.ceil(pages/2);i++) items.push("a-page");
+    for(let i=0;i<pages;i++) items.push("a-page");
     const nobot = /(no|without|don'?t need( a)?|tanpa|tak perlu)\s+(the\s+|a\s+)?chat ?bot|不要.{0,4}(聊天)?机器人|不需要.{0,4}(聊天)?机器人|没有.{0,4}(聊天)?机器人/.test(t);
     if(!nobot && /chat ?bot|chatbot|聊天机器人|机器人/.test(t)) items.push("a-bot");
     const langHits = (t.match(/\b(bm|malay|bahasa melayu|chinese|mandarin|english|tamil|bahasa cina|bahasa inggeris)\b|中文|华文|英文|马来文|淡米尔/g)||[]).length;
     if(langHits>=2 || /\b(another|extra|additional|second) language|bahasa tambahan|dua bahasa|双语|多语|加.?语言/.test(t)) items.push("a-lang");
     if(/booking|appointment|schedul|reserv|tempahan|temujanji|预约|预订/.test(t)) items.push("a-book");
-    if(/apple maps|foursquare|listing|directory|senarai|地图/.test(t)) items.push("a-list");
+    if(/local seo|google maps|listing|directory|senarai|地图/.test(t)) items.push("a-seo");
+    if(/catalog|catalogue|katalog|目录/.test(t)) items.push("a-cat");
+    if(/payment|checkout|pay online|bayaran dalam talian|在线付款|付款/.test(t)) items.push("a-pay");
+    if(/blog/.test(t)) items.push("a-blog");
     const rush = /rush|urgent|asap|sooner|hurry|segera|cepat|加急|赶/.test(t);
     const care = /care plan|website care|hosting|maintenance|monthly|penjagaan|bulanan|维护|托管/.test(t);
     const base = !/(no|without|don'?t need( a)?|already have( a)?|only)\s+(new\s+)?(website|site)|add-?ons? only|sudah ada laman web|已经有网站/.test(t);
@@ -3057,7 +3105,7 @@ When someone compares two businesses side by side, the one that looks profession
       const counts = {}, lines = [];
       sel.items.forEach(id=>counts[id]=(counts[id]||0)+1);
       if(sel.base) lines.push([C("Professional website"), p.basePrice]);
-      Object.entries(counts).forEach(([id,n])=>lines.push([labelOf(id)+(n>1?` × ${n}`:""), n*itemPrice(id, sel.base, p.n)]));
+      Object.entries(counts).forEach(([id,n])=>lines.push([labelOf(id)+(n>1?` × ${n}`:""), n*itemPrice(id)]));
       if(sel.rush) lines.push([C("Rush delivery (+20%)"), p.rushFee]);
       return C("Here's a rough estimate based on what you described:")+`
       <div class="est-lines">${lines.map(([l,v])=>`<div><span>${escapeHtml(l)}</span><span>${money(v)}</span></div>`).join("")}
@@ -3092,7 +3140,7 @@ When someone compares two businesses side by side, the one that looks profession
     }catch(e){ aiHistory.pop(); return null; }
   }
   function helpInfo(){ say(()=>C("I can explain how we reduce manual work with automation, POS workflow redesign and system integration, estimate a website cost, or pass you to Adam on WhatsApp. Pick a topic below, or type your question.")); menu(); }
-  function canBuild(){ say(()=>C("Yes. Adam builds websites for all kinds of small businesses in Malaysia, for example bakeries, cafés, tuition centres, clinics, salons and workshops. The standard website is <b>RM888</b> for up to 8 pages or sections. A website chatbot is an add-on at RM400. Adam can talk through what your business needs on WhatsApp.")); quick([[()=>C("Estimate my cost"),calc],[()=>C("What's included?"),included],WA_CTA()]); }
+  function canBuild(){ say(()=>C("Yes. Adam builds websites for all kinds of small businesses in Malaysia, for example bakeries, cafés, tuition centres, clinics, salons and workshops. The standard website is <b>RM888</b> for up to 8 pages or sections. An AI website assistant starts from RM388. Adam can talk through what your business needs on WhatsApp.")); quick([[()=>C("Estimate my cost"),calc],[()=>C("What's included?"),included],WA_CTA()]); }
   function scripted(q){
     const t = q.toLowerCase();
     const route =
@@ -3121,14 +3169,17 @@ When someone compares two businesses side by side, the one that looks profession
     clearQuick();
     // 1. Abusive messages: a reminder after double the usual wait
     if(ABUSE.test(q)) return respond(abuseReply, 2);
-    // 2. Estimates from typed needs
+    // 2. Guided problem finder: a typed answer to its current question, or a message describing a business problem
+    if(diagWait){ const k = diagWait; diagWait = null; if(k==="area"){ diag.cat = "other"; diag.detail = q; return respond(diagFreq); } diag[k] = q; return respond(DIAG_NEXT[k]); }
+    if(!estMode && PROBLEM_RE.test(q)) return respond(diagStart);
+    // 3. Estimates from typed needs
     const costy = /(cost|price|how much|quote|estimate|budget|total|harga|berapa|kos|价格|多少钱|报价|预算)/i.test(q);
     const restaurantQuestion = /(restaurant|café|cafe|food order|POS|restoran|pesanan makanan|餐厅|餐馆|咖啡|点餐|餐饮)/i.test(q);
     const needs = !restaurantQuestion && (estMode || costy) ? parseNeeds(q) : null;
     if(restaurantQuestion) estMode = false;
     if(needs){ estMode = false; return respond(()=>showEstimate(needs)); }
     if(estMode){ estMode = false; return respond(()=>{ say(()=>C("I couldn't spot specific features in that. Try the calculator, or mention things like extra pages, another language, a booking form, listings or rush delivery.")); quick([[()=>C("Open calculator"),()=>calc()],[()=>C("Main menu"),menu]]); }); }
-    // 3. AI (if connected), shown with the typing bubble for a moment
+    // 4. AI (if connected), shown with the typing bubble for a moment
     lock(true); const d = typing();
     const [reply] = await Promise.all([askAI(q), wait(thinkTime())]);
     d.remove(); lock(false);

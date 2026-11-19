@@ -1365,6 +1365,17 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 @media (max-width:1024px){.flow{justify-self:stretch;max-width:none}}
 @media (min-width:1100px){.hero-grid{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);align-items:center}.hero-grid .flow{justify-self:end}}
 @media (max-width:480px){.flow li{grid-template-columns:26px minmax(0,1fr)}.flow .was,.flow .now{grid-column:2;grid-row:2}}
+.pkg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:18px;margin-top:8px;align-items:start}
+.pkg{border:1px solid #d5deea;border-radius:var(--r-lg);padding:22px;display:flex;flex-direction:column;gap:8px;background:#fff}
+.pkg h3{font-size:1.25rem}.pkg-tag{color:#475569;line-height:1.5}
+.pkg-price{font:700 1.6rem/1.2 var(--f-head);color:var(--ink);margin-top:6px}.pkg-days{font-size:14px;color:#475569;font-weight:600}
+.pkg-sum{line-height:1.55;color:#334155}
+.pkg details{border-top:1px solid #e3e8f1;padding-top:10px}.pkg summary{cursor:pointer;font-weight:600;color:var(--blue-d)}
+.pkg h4{font-size:15px;margin:12px 0 6px}.pkg ul{padding-left:1.2em;display:grid;gap:4px;font-size:14.5px;line-height:1.5}
+.addon-table{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:12px}.addon-table caption{text-align:left;font-weight:700;margin-bottom:6px}
+.addon-table th,.addon-table td{text-align:left;padding:7px 4px;border-bottom:1px solid #e3e8f1;font-weight:500}.addon-table td{text-align:right;white-space:nowrap;font-weight:700}
+.pkg-note{font-size:13.5px;color:#475569;line-height:1.5;margin-top:10px}.pkg-cta{margin-top:auto;align-self:flex-start}
+.care-title{margin-top:36px;font-size:1.3rem}.care-table td{white-space:normal}
 .problems{background:var(--tint);scroll-margin-top:88px}
 .problem-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:16px}
 .problem-grid li{background:#fff;border:1px solid #d5deea;border-radius:var(--r-lg);padding:20px 22px;display:flex;flex-direction:column;gap:10px}
@@ -1481,23 +1492,15 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 <section class="pricing" id="pricing">
   <div class="left dark">
     <h2 class="sec-title">What's included for RM888</h2><p>For tuition centres, tutors, salons, contractors, consultants and other service businesses. Present your services and receive enquiries.</p>
-    <p class="sec-lede muted">A professional, mobile-friendly website with everything you need to get online and start getting enquiries.</p>
+    <p class="sec-lede muted">A professional online presence for your business, with everything you need to start getting enquiries.</p>
     <div class="inc-grid">
-      <ul class="inc-list">
-        <li class="hl-li"><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Up to 8 pages or sections</b></span></li>
-        <li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Custom-designed homepage, an eye-catching landing page and a Services section</span></li>
-        <li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Mobile-friendly on phone, tablet and desktop</span></li>
-        <li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>WhatsApp and click-to-call buttons, a contact / enquiry form and social media links</span></li>
-        <li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>One language of your choice (English, BM or Chinese)</span></li>
-        <li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Basic SEO setup and a Google-friendly structure</span></li>
-        <li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Domain and launch setup</span></li>
-      </ul>
+      <ul class="inc-list"><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Up to 8 standard informational pages</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Mobile, tablet and desktop responsive design</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Business branding using your logo, colours and information</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Homepage, About, Services and Contact sections as required</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>WhatsApp contact button</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Basic contact or enquiry form</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Google Maps location link or embed</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Basic on-page SEO, including titles and meta descriptions</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Sitemap, robots.txt and canonical settings</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Basic structured data where relevant</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Standard website security headers and form protections</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>HTTPS on supported hosting</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Basic performance and accessibility checks</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>One round of minor revisions</span></li><li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>Deployment to the agreed hosting</span></li></ul>
       <div class="price-card">
         <span class="pill">One-time project price</span>
         <div class="amount"><sup>RM</sup>888</div>
         <h3>Business Website</h3>
-        <p class="pc-sub">Up to 8 pages or sections, in one language</p>
-        <p class="pc-bot">Add a website chatbot for <b>RM400</b></p>
+        <p class="pc-sub">Up to 8 standard pages, in one language</p>
+        <p class="pc-bot">AI website assistant from <b>RM388</b></p>
         <div class="terms">
           <div><svg class="ico" viewBox="0 0 24 24"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r="1"/></svg><span><b>RM200 deposit to start</b>The rest when it's ready, before launch</span></div>
           <div><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span><b>3–5 working days</b>+1 working day per add-on</span></div>
@@ -1511,16 +1514,9 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
   </div>
   <div class="right addons" id="addons">
     <h2>Optional add-ons</h2>
-    <p class="lede">Add only what your business needs. Each add-on is RM500 on its own, or RM400 when bundled with the website or another add-on.</p>
-    <div class="save-banner"><span class="big">RM400</span><span>per add-on when bundled with your website or another add-on.</span></div>
-    <ul class="addon-list">
-      <li class="hd"><span></span><span>Add-on</span><span>On its own</span><span>Bundled</span></li>
-      <li><span class="ai"><svg class="ico" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M12 18v-6M9 15h6"/></svg></span><span class="nm"><b>2 extra pages or sections</b><small>e.g. a gallery and a service page</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-      <li><span class="ai"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="3"/><path d="M12 8V4"/><circle cx="12" cy="3" r="1"/><path d="M9 13v1M15 13v1M10 17h4"/></svg></span><span class="nm"><b>AI-powered website chatbot</b><small>Answers business FAQs and hands the full conversation over to WhatsApp. Includes Google Business Profile setup.</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-      <li><span class="ai"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><span class="nm"><b>Additional language</b><small>e.g. add BM or Chinese to an English website</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-      <li><span class="ai"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m9 16 2 2 4-4"/></svg></span><span class="nm"><b>Enquiry &amp; booking request form</b><small>Customers choose a service and a preferred date and time</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-      <li><span class="ai"><svg class="ico" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span><span class="nm"><b>Listings setup</b><small>Your business on Apple Maps and Foursquare</small></span><span class="was">RM500</span><span class="deal">RM400</span></li>
-    </ul>
+    <p class="lede">Add only what your business needs. Prices are starting prices, confirmed in your written quote.</p>
+    <table class="price-table addon-table"><tbody><tr><th scope="row">Additional standard page</th><td>+RM88/page</td></tr><tr><th scope="row">Additional language</th><td>From RM388</td></tr><tr><th scope="row">AI website assistant</th><td>From RM388</td></tr><tr><th scope="row">Appointment booking</th><td>From RM488</td></tr><tr><th scope="row">Online catalogue</th><td>From RM388</td></tr><tr><th scope="row">Payment checkout integration</th><td>From RM588</td></tr><tr><th scope="row">Advanced local SEO setup</th><td>From RM388</td></tr><tr><th scope="row">GEO / AI-search content optimisation</th><td>From RM388</td></tr><tr><th scope="row">Blog publishing setup</th><td>+RM288</td></tr><tr><th scope="row">Seasonal website theme</th><td>From RM188</td></tr><tr><th scope="row">Additional custom form</th><td>+RM188</td></tr></tbody></table>
+    <p class="pkg-note">Domain renewal from the second year, paid hosting, third-party APIs and ongoing maintenance are excluded unless specifically quoted. Advanced SEO/GEO work does not guarantee search rankings or AI recommendations.</p>
     <p class="addon-note"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>Each add-on adds 1 working day to delivery.</span></p>
     <p class="addon-note rush-note"><svg class="ico" viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg><span><b>Need it sooner?</b> Rush delivery cuts 2 working days off your delivery time for +20% of your project total.</span></p>
   </div>
@@ -1607,13 +1603,13 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 
 
 <section class="band faq-sec"><div class="wrap faq-grid"><div class="faq-intro"><h2>Website questions</h2></div><div class="faq-list"><div class="faq-col">
-<details class="wfaq"><summary>How much does a website cost?</summary><p>RM888 for a mobile-friendly website with up to 8 pages or sections in one language, WhatsApp and contact buttons, basic SEO and a standard domain for the first year. A website chatbot is RM400 extra. Every 2 extra pages or sections is one add-on at RM400 when bundled, or RM500 on its own.</p></details>
+<details class="wfaq"><summary>How much does a website cost?</summary><p>RM888 for a mobile-friendly website with up to 8 standard pages in one language, a WhatsApp button, an enquiry form, basic SEO and a standard domain for the first year. Extra pages are RM88 each, and an AI website assistant starts from RM388.</p></details>
 <details class="wfaq"><summary>How long does it take?</summary><p>Usually 3–5 working days, depending on what your project needs and how quickly you can send your content (text, photos and logo). Each add-on adds 1 working day.</p></details>
 <details class="wfaq"><summary>How do I pay?</summary><p>By DuitNow, Touch 'n Go eWallet or cash. You pay a RM200 deposit to start and the rest when your website is ready, before launch.</p></details>
 </div><div class="faq-col">
 <details class="wfaq"><summary>What does upkeep cost?</summary><p>Optional upkeep is RM88 every 3 months, covering an SEO update, security updates, a function check and basic maintenance. Without it, fixes are RM49/hour.</p></details>
 <details class="wfaq"><summary>Can a restaurant take orders on the RM888 website?</summary><p>Yes. The café, restaurant and stall version includes online ordering, delivery setup and payment-gateway setup, with a standard design. Rider and payment-gateway fees are paid separately.</p></details>
-<details class="wfaq"><summary>Which languages can my website be in?</summary><p>Your website includes one language: English, Bahasa Melayu or Chinese. Each extra language is an add-on at RM500, or RM400 when bundled.</p></details>
+<details class="wfaq"><summary>Which languages can my website be in?</summary><p>Your website includes one language: English, Bahasa Melayu or Chinese. Each additional language starts from RM388.</p></details>
 </div></div></div></section>
 </main><footer>
   <div class="wrap foot">

@@ -36,8 +36,7 @@ LANGS = {
          "blog_note": "博客文章目前只有英文版。"},
 }
 # Text used by the page script through a variable rather than L("…"), so it is not found automatically
-EXTRA_JS_KEYS = ["Additional page or section", "Additional language", "Enquiry & booking request form",
-                 "Listings setup (Apple Maps + Foursquare)"]
+EXTRA_JS_KEYS = []
 
 norm = lambda t: re.sub(r"\s+", " ", t).strip()
 WORDY = re.compile(r"[A-Za-z]{2,}")
@@ -82,7 +81,7 @@ def tr_chunk(c, D, missing):
 
 def js_keys(s):
     keys = set(EXTRA_JS_KEYS)
-    for m in re.finditer(r'\b[LC]\("((?:[^"\\]|\\.)*)"', s):
+    for m in re.finditer(r'\b[LCN]\("((?:[^"\\]|\\.)*)"', s):
         keys.add(json.loads('"' + m.group(1) + '"'))
     keys.discard("English text")                  # appears only in a code comment
     return keys
@@ -113,15 +112,12 @@ def head_for(code, cfg):
            "contactPoint": {"@type": "ContactPoint", "contactType": "sales", "telephone": "+60102641824",
                             "availableLanguage": ["English", "Malay", "Chinese"]},
            "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Business solutions", "itemListElement": [
-             {"@type": "Offer", "name": "Simple automation", "price": "388", "priceCurrency": "MYR"},
-             {"@type": "Offer", "name": "Website development (up to 8 pages or sections)", "price": "888", "priceCurrency": "MYR"},
-             {"@type": "Offer", "name": "AI enquiry processing", "price": "888", "priceCurrency": "MYR"},
-             {"@type": "Offer", "name": "Software and API integration", "price": "1288", "priceCurrency": "MYR"},
-             {"@type": "Offer", "name": "POS workflow customisation", "price": "1888", "priceCurrency": "MYR"},
-             {"@type": "Offer", "name": "Accounting workflow automation", "price": "1888", "priceCurrency": "MYR"},
-             {"@type": "Offer", "name": "Custom POS development, setup (plus RM288/month for 24 months)", "price": "2888", "priceCurrency": "MYR"},
-             {"@type": "Offer", "name": "Website add-on, bundled with the website or another add-on", "price": "400", "priceCurrency": "MYR"},
-             {"@type": "Offer", "name": "Website upkeep, every 3 months", "price": "88", "priceCurrency": "MYR"}]}}
+             {"@type": "Offer", "name": "Simple Automation (one automated workflow)", "priceCurrency": "MYR", "priceSpecification": {"@type": "PriceSpecification", "minPrice": "388", "maxPrice": "888", "priceCurrency": "MYR"}},
+             {"@type": "Offer", "name": "Business Website (up to 8 pages)", "price": "888", "priceCurrency": "MYR"},
+             {"@type": "Offer", "name": "Accounting Automation (one workflow)", "priceCurrency": "MYR", "priceSpecification": {"@type": "PriceSpecification", "minPrice": "1888", "maxPrice": "5888", "priceCurrency": "MYR"}},
+             {"@type": "Offer", "name": "POS and website rebuild, Essential setup (plus RM128/month for 24 months)", "price": "1288", "priceCurrency": "MYR"},
+             {"@type": "Offer", "name": "Website upkeep, every 3 months", "price": "88", "priceCurrency": "MYR"},
+             {"@type": "Offer", "name": "Automation Care", "price": "88", "priceCurrency": "MYR", "priceSpecification": {"@type": "UnitPriceSpecification", "price": "88", "priceCurrency": "MYR", "unitText": "MONTH"}}]}}
     service = {"@type": "Service", "@id": DOMAIN + "/#website-design",
                "name": "Business process optimisation and custom software", "serviceType": "Business process automation",
                "provider": {"@id": DOMAIN + "/#business"},

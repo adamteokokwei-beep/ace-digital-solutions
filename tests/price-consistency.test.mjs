@@ -9,10 +9,10 @@ const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..")
 const read = p => fs.readFileSync(path.join(root, p), "utf8");
 const walk = d => fs.readdirSync(path.join(root, d), { withFileTypes: true }).flatMap(e => e.isDirectory() ? walk(path.join(d, e.name)) : e.name.endsWith(".html") ? [path.join(d, e.name)] : []);
 
-// Approved starting prices (owner decisions, 20 Nov 2026).
-const PRICES = ["RM388", "RM888", "RM1,288", "RM1,888", "RM2,888", "RM288", "RM88"];
+// Approved package and add-on prices (owner price list, 20 Nov 2026).
+const PACKAGE_PRICES = ["RM388", "RM888", "RM1,888", "RM5,888", "RM1,288", "RM128", "RM88", "RM188", "RM288", "RM488", "RM588", "RM688"];
 // Retired ADS prices. Blog articles quote market ranges such as "RM500–RM1,500", so those pages are exempt.
-const RETIRED = ["RM1,600", "RM1,500", "RM1,400", "RM3,888", "RM168", "RM468", "RM3,288", "RM5,288", "RM5,888", "Website Care at RM128"];
+const RETIRED = ["RM1,600", "RM1,500", "RM1,400", "RM3,888", "RM168", "RM468", "RM3,288", "RM5,288", "Website Care at RM128", "RM400 when bundled", "RM500 on its own", "Listings setup"];
 const isArticle = f => f.includes(`${path.sep}articles${path.sep}`);
 
 const pages = walk("site");
@@ -24,10 +24,10 @@ for (const f of pages) {
 }
 for (const lang of ["", "bm/", "zh/"]) {
   const home = read(`site/${lang}index.html`);
-  const table = home.match(/<table class="price-table">[\s\S]*?<\/table>/)?.[0] || "";
-  for (const p of PRICES.filter(p => p !== "RM88")) if (!table.includes(p)) failures.push(`site/${lang}index.html: starting-price table missing ${p}`);
+  const cards = home.match(/<div class="pkg-grid">[\s\S]*?<p class="prices-note">/)?.[0] || "";
+  for (const p of PACKAGE_PRICES) if (!cards.includes(p)) failures.push(`site/${lang}index.html: package cards missing ${p}`);
   const web = read(`site/${lang}websites/index.html`);
-  for (const p of ["RM888", "RM400", "RM88", "RM200", "RM49"]) if (!web.includes(p)) failures.push(`site/${lang}websites/index.html: missing ${p}`);
+  for (const p of ["RM888", "RM88", "RM388", "RM588", "RM200", "RM49"]) if (!web.includes(p)) failures.push(`site/${lang}websites/index.html: missing ${p}`);
 }
 const worker = read("backend/chat-worker.js");
 for (const old of RETIRED) if (worker.includes(old)) failures.push(`backend/chat-worker.js: retired price "${old}"`);
