@@ -1345,6 +1345,7 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 .restaurant-introduction h2{max-width:20ch;color:var(--navy)}
 .restaurant-introduction .restaurant-intro{max-width:48ch;width:62%;margin-bottom:0;color:var(--ink)}
 .restaurant-price strong{color:var(--blue-d)}
+.services{background:#fff;color:var(--ink);scroll-margin-top:88px}.services-intro{max-width:60ch;margin:12px 0 32px;font-size:1.1rem;color:var(--muted)}.services-grid{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px;counter-reset:svc}.services-grid li{counter-increment:svc;border:1px solid #d5deea;border-radius:var(--r-lg);padding:24px;display:flex;flex-direction:column;gap:10px}.services-grid li::before{content:counter(svc,decimal-leading-zero);font:700 13px/1 var(--f-body);color:var(--blue);letter-spacing:.08em}.services-grid h3{font-size:1.2rem;line-height:1.3}.services-grid p{line-height:1.6;color:#475569;flex:1}.services .text-link{color:var(--blue-d);font-weight:600}
 .restaurant-approach{padding:8px 0 32px}.restaurant-approach h3{font-size:1.6rem;margin:0 0 12px}.restaurant-approach ol{margin:0 0 16px;padding-left:1.4em;display:grid;gap:8px;max-width:72ch;line-height:1.6}.restaurant-approach p{max-width:68ch;line-height:1.65;font-weight:600}
 .restaurant-compare{border-top:1px solid #b7c4d6;padding:32px 0}.restaurant-compare table{width:100%;border-collapse:collapse;font-size:15px;line-height:1.4}.restaurant-compare caption{text-align:left;font-weight:700;font-size:1.25rem;margin-bottom:12px}.restaurant-compare th,.restaurant-compare td{padding:10px 8px;border-bottom:1px solid #d5deea;text-align:left;vertical-align:top}.restaurant-compare thead th{color:var(--navy)}.restaurant-compare td.no{color:#8a5a00;font-weight:600}
 @media(max-width:700px){.restaurant-compare table{font-size:13px}.restaurant-compare th,.restaurant-compare td{padding:8px 4px}}
@@ -1409,8 +1410,9 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
     </a>
     <nav class="nav" id="nav" aria-label="Main">
       <a href="#top" class="on">Home</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#restaurant-plans">Solutions</a>
+      <a href="#services">Solutions</a>
+      <a href="#restaurant-plans">POS</a>
+      <a href="#pricing">Websites</a>
       <a href="#work">My Work</a>
       <a href="#faq">FAQ</a>
       <a href="#contact">Contact</a>
@@ -1432,29 +1434,43 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 <section class="hero dark" id="top">
   <div class="wrap hero-grid">
     <div>
-      <span class="eyebrow">Web design · Johor Bahru, Malaysia</span>
-      <h1>Professional websites for businesses <span>ready to grow.</span></h1>
-      <p class="lede">Built personally by Adam in Johor Bahru: a clear, mobile-friendly website that makes your business look credible and easy to contact.</p>
+      <span class="eyebrow">Digital solutions · Johor Bahru, Malaysia</span>
+      <h1>Less Manual Work. Fewer Mistakes. <span>Smarter Business Operations.</span></h1>
+      <p class="lede">Ace Digital Solutions helps Malaysian businesses solve everyday operational problems through custom software, automation, AI and system integration.</p>
+      <p class="lede">We study how your business currently operates, identify inefficiencies and develop practical solutions that fit your existing workflow.</p>
+      <p class="lede"><b>No unnecessary hardware. No unnecessary system replacements.</b></p>
       <div class="hero-facts">
-        <div class="fact"><svg class="ico"><use href="#i-tag"/></svg><span>RM1,600<br>with chatbot</span></div>
-        <div class="fact"><svg class="ico"><use href="#i-calendar"/></svg><span>3–5 working<br>days</span></div>
-        <div class="fact"><svg class="ico"><use href="#i-pin"/></svg><span>Free domain and<br>Google Business Profile</span></div>
+        <div class="fact"><svg class="ico"><use href="#i-file"/></svg><span>We study your<br>SOP first</span></div>
+        <div class="fact"><svg class="ico"><use href="#i-link"/></svg><span>Works with your<br>existing systems</span></div>
+        <div class="fact"><svg class="ico"><use href="#i-clock"/></svg><span>Reply within<br>1 working day</span></div>
       </div>
       <div class="hero-cta">
-        <a class="btn btn-wa" href="{{WA}}" target="_blank" rel="noopener"><svg class="ico"><use href="#i-chat"/></svg>WhatsApp me</a>
-        <a class="text-link" href="#work">See my work ↓</a>
+        <a class="btn btn-wa" href="{{WA}}" target="_blank" rel="noopener"><svg class="ico"><use href="#i-chat"/></svg>Tell Us Your Business Problem</a>
+        <a class="text-link" href="#services">Explore Our Solutions ↓</a>
       </div>
       <p class="consult-note"><svg class="ico"><use href="#i-clock"/></svg><span>I reply within 1 working day.</span></p>
-      <p class="consult-note"><a class="text-link" href="#restaurant-plans">Café, restaurant or retail? POS and website rebuild from RM1,288 →</a></p>
     </div>
     <div class="stage" aria-hidden="true">
       <div class="laptop"><div class="lid"><div class="screen" data-mini="yours"></div></div><div class="lbase"></div></div>
       <div class="phone"><div class="screen" data-mini="yours" data-m></div></div>
       <div class="enquiry wa-enq"><span class="av"><svg class="ico"><use href="#i-chat"/></svg></span><div><b>New WhatsApp enquiry</b>Mei Ling<br><span class="muted">Hi, can I get a quote for a kitchen renovation in Skudai?</span><br><time>2 min ago</time></div><span class="dot"></span></div>
-      <div class="note hand"><span>Your website working<br>for you 24/7</span><svg viewBox="0 0 44 36"><path d="M34 34C22 30 16 20 18 4M18 4l-6 8M18 4l7 7"/></svg></div>
+      <div class="note hand"><span>Less manual work,<br>every day</span><svg viewBox="0 0 44 36"><path d="M34 34C22 30 16 20 18 4M18 4l-6 8M18 4l7 7"/></svg></div>
     </div>
   </div>
 </section>
+
+<!-- SERVICES -->
+<section class="band services" id="services" aria-labelledby="services-title"><div class="wrap">
+<h2 class="sec-title" id="services-title">Our solutions</h2>
+<p class="services-intro">We start with how your business runs today, then choose the simplest tool that fixes the problem.</p>
+<ol class="services-grid">
+<li><h3>Business Process Optimisation</h3><p>We study your SOP, find repetitive steps, bottlenecks and error points, and redesign the workflow before any software is built.</p><a class="text-link" href="#contact" data-goform>Tell us your process →</a></li>
+<li><h3>Custom Software &amp; Automation</h3><p>Software built around how your team already works, automating repeated tasks such as customer enquiry handling and WhatsApp replies.</p><a class="text-link" href="#contact" data-goform>Discuss your idea →</a></li>
+<li><h3>POS Customisation &amp; Workflow Redesign</h3><p>POS screens and workflows redesigned around your counter, kitchen and delivery, or rebuilt under your own brand.</p><a class="text-link" href="#restaurant-plans">See POS plans →</a></li>
+<li><h3>Software &amp; API Integration</h3><p>We connect your existing systems through official APIs, so data moves automatically instead of being retyped.</p><a class="text-link" href="#contact" data-goform>Connect your systems →</a></li>
+<li><h3>Accounting &amp; Administrative Automation</h3><p>Automate invoices, records, reports and routine admin to cut manual entry and mistakes.</p><a class="text-link" href="#contact" data-goform>Reduce your admin →</a></li>
+<li><h3>Website Development &amp; Digital Visibility</h3><p>Mobile-friendly websites with a chatbot and WhatsApp enquiries, when your business needs one.</p><a class="text-link" href="#pricing">See website options →</a></li>
+</ol></div></section>
 
 <!-- PRICING + ADD-ONS -->
 
@@ -1809,7 +1825,7 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 <footer>
   <div class="wrap foot">
     <a class="logo" href="#top" aria-label="Ace Digital Solutions home"><svg viewBox="0 0 44 40" aria-hidden="true"><path d="M22 2 42 38H32L22 19 12 38H2Z" fill="url(#lg)"/><path d="M5 31c9-6 21-8 37-5-14 0-25 3-34 9Z" fill="#fff" opacity=".95"/></svg><span><b>ACE</b><small>DIGITAL SOLUTIONS</small></span></a>
-    <nav aria-label="Footer"><a href="#pricing">Pricing</a><a href="#restaurant-plans">Solutions</a><a href="#work">My Work</a><a href="#faq">FAQ</a><a href="#contact">Contact</a><a href="#about">About</a><a href="#articles">Blog</a><a href="/privacy/">Privacy notice</a></nav>
+    <nav aria-label="Footer"><a href="#services">Solutions</a><a href="#restaurant-plans">POS</a><a href="#pricing">Websites</a><a href="#work">My Work</a><a href="#faq">FAQ</a><a href="#contact">Contact</a><a href="#about">About</a><a href="#articles">Blog</a><a href="/privacy/">Privacy notice</a></nav>
     <div class="foot-contact"><a href="{{WA}}" target="_blank" rel="noopener"><svg class="ico"><use href="#i-chat"/></svg>WhatsApp 010-264 1824</a><a href="https://www.facebook.com/profile.php?id=61595360692132" target="_blank" rel="noopener"><svg class="ico"><use href="#i-fb"/></svg>Facebook</a><a href="https://www.instagram.com/acedigitalsolutionsbiz/" target="_blank" rel="noopener"><svg class="ico"><use href="#i-ig"/></svg>Instagram</a><a href="https://www.youtube.com/@AceDigitalSolutionsBiz/shorts" target="_blank" rel="noopener"><svg class="ico"><use href="#i-yt"/></svg>YouTube</a></div>
     <span class="foot-legal">© <span id="yr">2026</span> Ace Digital Solutions. Run by Adam, freelance web designer, Johor Bahru, Malaysia.</span>
   </div>

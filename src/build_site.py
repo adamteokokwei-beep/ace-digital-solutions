@@ -20,19 +20,19 @@ FB = "https://www.facebook.com/profile.php?id=61595360692132"
 
 LANGS = {
   "en": {"path": "/", "html_lang": "en-MY", "hreflang": "en", "og_locale": "en_MY",
-         "title": "Web Design Malaysia | Ace Digital Solutions Johor Bahru",
-         "desc": "Affordable mobile-friendly website design in Malaysia by Adam in Johor Bahru for RM1,600, including a chatbot, WhatsApp enquiries, and basic SEO.",
-         "wa_text": "Hi Adam, I'm interested in a website for my business.",
+         "title": "Business Process Automation Malaysia | Ace Digital Solutions",
+         "desc": "Ace Digital Solutions helps Malaysian businesses reduce manual work and human error with custom software, automation, AI, POS workflow redesign and system integration.",
+         "wa_text": "Hi Adam, I'd like help with a business problem.",
          "blog_note": ""},
   "bm": {"path": "/bm/", "html_lang": "ms-MY", "hreflang": "ms", "og_locale": "ms_MY",
-         "title": "Reka Bentuk Laman Web Malaysia | Ace Digital Solutions",
-         "desc": "Perkhidmatan reka bentuk laman web mesra telefon di Malaysia oleh Adam di Johor Bahru pada harga RM1,600, lengkap chatbot, WhatsApp dan SEO asas.",
-         "wa_text": "Hai Adam, saya berminat dengan laman web untuk perniagaan saya.",
+         "title": "Automasi Proses Perniagaan Malaysia | Ace Digital Solutions",
+         "desc": "Ace Digital Solutions membantu perniagaan Malaysia mengurangkan kerja manual dan kesilapan manusia melalui perisian tersuai, automasi, AI, reka semula aliran kerja POS dan integrasi sistem.",
+         "wa_text": "Hai Adam, saya perlukan bantuan untuk masalah perniagaan.",
          "blog_note": "Artikel blog buat masa ini dalam Bahasa Inggeris sahaja."},
   "zh": {"path": "/zh/", "html_lang": "zh-Hans", "hreflang": "zh-Hans", "og_locale": "zh_CN",
-         "title": "马来西亚网站设计 | Ace Digital Solutions 新山",
-         "desc": "由新山Adam为马来西亚企业提供手机网页设计，RM1,600起含聊天机器人、WhatsApp查询与基础SEO。",
-         "wa_text": "Adam 你好，我想了解为我的生意制作网站。",
+         "title": "马来西亚业务流程自动化 | Ace Digital Solutions",
+         "desc": "Ace Digital Solutions 通过定制软件、自动化、AI、POS 流程重新设计与系统整合，帮助马来西亚企业减少手工作业与人为错误。",
+         "wa_text": "Adam 你好，我想咨询一个业务上的问题。",
          "blog_note": "博客文章目前只有英文版。"},
 }
 # Text used by the page script through a variable rather than L("…"), so it is not found automatically
