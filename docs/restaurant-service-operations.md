@@ -4,10 +4,12 @@ Not customer marketing copy. This document does not configure logging, alerts or
 
 ## Pricing and scope
 
-Business Website RM1,600; optional Care RM128/month. Care includes hosting, standard domain renewal, covered technical fault repairs and one small existing-text/image update batch monthly.
+Business Website RM888 (up to 8 pages or sections, one language, no chatbot; chatbot add-on RM400 bundled). Café/restaurant/stall version: standard design, online ordering, delivery setup after a compatibility check and payment-gateway setup; rider and gateway fees paid separately. Optional website upkeep RM88 every 3 months (SEO update, security updates, function check, basic maintenance), offered each quarter; without it fixes are RM49/hour. Website Care RM128/month is closed to new clients; existing Care clients keep their terms.
+
+Starting prices (indicative): simple automation RM388; AI enquiry processing RM888; software/API integration RM1,288; POS workflow customisation RM1,888; accounting workflow automation RM1,888; custom POS RM2,888 setup + RM288/month.
 POS & website rebuild (restaurant, café, retail, banquet workflows), minimum 24 months: Essential from RM1,288 + RM128/month (from RM4,360); Signature from RM2,888 + RM288/month (from RM9,800). AI WhatsApp ordering/enquiries add-on from RM88/month with an agreed usage allowance; free setup for the first 5 cafés. 10% deposit; detailed SOP review after deposit.
 Essential: delivery and payment-channel setup, function checks, bug fixes, security updates, backups, hosting; admin-page menu edits or up to 3 change requests monthly. Excludes SEO/GEO, branding, seasonal themes, workflow redesign and promotional design. Signature: own branding, SOP-based workflow redesign, SEO/GEO, announcements/banners, up to eight agreed seasonal refreshes annually, banquet enquiry form, up to 4 change requests monthly. No unlimited updates or new functionality.
-After 24 months the system is the client's: Website Care RM128/month or full handover. Do not modify third-party POS software without vendor authorisation.
+After 24 months the system is the client's: POS Care RM128/month or full handover. Do not modify third-party POS software without vendor authorisation.
 One-time restaurant project prices (RM2,888/RM5,288/RM5,888, chatbot only) are unchanged pending owner review.
 
 ## Internal reviews

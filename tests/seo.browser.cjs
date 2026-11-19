@@ -16,7 +16,7 @@ const server = http.createServer((req, res) => {
   const browser = await chromium.launch({ executablePath: process.env.PLAYWRIGHT_EXECUTABLE_PATH });
   try {
     const urls = [...fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8').matchAll(/<loc>https:\/\/acedigitalsolutionsbiz.org([^<]*)<\/loc>/g)].map(m => m[1]);
-    assert.equal(urls.length, 19);
+    assert.equal(urls.length, 22);  // +3 /websites/ pages
     const noJS = await browser.newContext({ javaScriptEnabled: false });
     const page = await noJS.newPage();
     await page.route('https://**', route => route.abort());

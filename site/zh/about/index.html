@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="zh-Hans"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>关于 Adam，马来西亚网页设计师 | Ace Digital Solutions</title><meta name="description" content="Ace Digital Solutions 通过定制软件、自动化、AI、POS 流程重新设计与系统整合，帮助企业减少手工作业与人为错误。">
+<title>关于 Adam，数字解决方案顾问 | Ace Digital Solutions</title><meta name="description" content="Ace Digital Solutions 通过定制软件、自动化、AI、POS 流程重新设计与系统整合，帮助企业减少手工作业与人为错误。">
 <meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="https://acedigitalsolutionsbiz.org/zh/about/"><link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/about/"><link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/about/"><link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/about/"><link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/about/">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Ace Digital Solutions"><meta property="og:locale" content="zh_CN">
-<meta property="og:title" content="关于 Adam，马来西亚网页设计师 | Ace Digital Solutions"><meta property="og:description" content="Ace Digital Solutions 通过定制软件、自动化、AI、POS 流程重新设计与系统整合，帮助企业减少手工作业与人为错误。"><meta property="og:url" content="https://acedigitalsolutionsbiz.org/zh/about/"><meta property="og:image" content="https://acedigitalsolutionsbiz.org/og-image.jpg"><meta property="og:image:alt" content="Ace Digital Solutions">
-<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="关于 Adam，马来西亚网页设计师 | Ace Digital Solutions"><meta name="twitter:description" content="Ace Digital Solutions 通过定制软件、自动化、AI、POS 流程重新设计与系统整合，帮助企业减少手工作业与人为错误。"><meta name="twitter:image" content="https://acedigitalsolutionsbiz.org/og-image.jpg">
+<meta property="og:title" content="关于 Adam，数字解决方案顾问 | Ace Digital Solutions"><meta property="og:description" content="Ace Digital Solutions 通过定制软件、自动化、AI、POS 流程重新设计与系统整合，帮助企业减少手工作业与人为错误。"><meta property="og:url" content="https://acedigitalsolutionsbiz.org/zh/about/"><meta property="og:image" content="https://acedigitalsolutionsbiz.org/og-image.jpg"><meta property="og:image:alt" content="Ace Digital Solutions">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="关于 Adam，数字解决方案顾问 | Ace Digital Solutions"><meta name="twitter:description" content="Ace Digital Solutions 通过定制软件、自动化、AI、POS 流程重新设计与系统整合，帮助企业减少手工作业与人为错误。"><meta name="twitter:image" content="https://acedigitalsolutionsbiz.org/og-image.jpg">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 40'><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Caveat:wght@500;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"><style>
 /* Layout: alternating navy / light bands exactly as the reference — dark hero, light problem, dark "why", light flow, split pricing, work grid, process + chat, four-up closer. */
 :root{
@@ -1347,12 +1347,64 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 .restaurant-introduction h2{max-width:20ch;color:var(--navy)}
 .restaurant-introduction .restaurant-intro{max-width:48ch;width:62%;margin-bottom:0;color:var(--ink)}
 .restaurant-price strong{color:var(--blue-d)}
+/* Business-first homepage */
+.flow{margin:0;justify-self:end;width:100%;max-width:520px;background:rgba(255,255,255,.06);border:1px solid rgba(148,170,220,.28);border-radius:var(--r-lg);padding:22px}
+.flow figcaption{font:600 13px/1 var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:#A9B6CF;margin-bottom:14px}
+.flow ol{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:fl}
+.flow li{counter-increment:fl;display:grid;grid-template-columns:28px minmax(0,1fr) minmax(0,1.3fr);align-items:center;gap:10px;background:rgba(11,18,32,.55);border-radius:10px;padding:10px 12px;position:relative}
+.flow li::before{content:counter(fl);width:26px;height:26px;border-radius:50%;background:#2563EB;color:#fff;display:grid;place-items:center;font:700 13px/1 var(--f-body)}
+.flow li b{color:#fff;font-size:14.5px}
+.flow .was,.flow .now{grid-column:3;grid-row:1;font-size:13px;border-radius:999px;padding:5px 10px;justify-self:start}
+.flow .was{background:rgba(220,38,38,.18);color:#FCA5A5;text-decoration:line-through;animation:flowWas 6s infinite}
+.flow .now{background:rgba(22,163,74,.2);color:#86EFAC;opacity:0;animation:flowNow 6s infinite}
+.flow .now::before{content:"✓ "}
+.flow li:nth-child(2) span{animation-delay:.4s}.flow li:nth-child(3) span{animation-delay:.8s}.flow li:nth-child(4) span{animation-delay:1.2s}.flow li:nth-child(5) span{animation-delay:1.6s}
+@keyframes flowWas{0%,30%{opacity:1}40%,90%{opacity:0}100%{opacity:1}}
+@keyframes flowNow{0%,30%{opacity:0}40%,90%{opacity:1}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.flow .was{display:none}.flow .now{opacity:1}}
+@media (max-width:1024px){.flow{justify-self:stretch;max-width:none}}
+@media (min-width:1100px){.hero-grid{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);align-items:center}.hero-grid .flow{justify-self:end}}
+@media (max-width:480px){.flow li{grid-template-columns:26px minmax(0,1fr)}.flow .was,.flow .now{grid-column:2;grid-row:2}}
+.problems{background:var(--tint);scroll-margin-top:88px}
+.problem-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:16px}
+.problem-grid li{background:#fff;border:1px solid #d5deea;border-radius:var(--r-lg);padding:20px 22px;display:flex;flex-direction:column;gap:10px}
+.problem-grid .pb{font-weight:700;color:var(--ink);line-height:1.45}
+.problem-grid .lbl{display:block;font:700 11.5px/1 var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:#B91C1C;margin-bottom:8px}
+.problem-grid .fx{color:#334155;line-height:1.55;border-top:1px dashed #d5deea;padding-top:10px}
+.problem-grid .fx .lbl{color:#15803D}
+.problems-cta{margin-top:28px}
+.services-grid .from{font-weight:700;color:var(--ink);font-size:14.5px;flex:0}
+.pos-sec{background:#fff;scroll-margin-top:88px}
+.pos-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:40px;align-items:center}
+.pos-lead{font-size:1.25rem;font-weight:600;margin:12px 0 18px;max-width:40ch}
+.pos-list{margin:0 0 18px;padding-left:1.2em;display:grid;gap:8px;line-height:1.55}
+.pos-note{font-size:14.5px;color:#475569;max-width:62ch}
+.pos-mock{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pm{border:1px solid #d5deea;border-radius:var(--r-lg);padding:16px;background:var(--tint);display:flex;flex-direction:column;gap:12px}
+.pm-tag{font:700 12px/1 var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:#B91C1C}.pm.after .pm-tag{color:#15803D}
+.pm-keys{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;flex:1}.pm-keys i{display:block;aspect-ratio:1.4;border-radius:6px;background:#CBD5E1}
+.pm.after .pm-keys{grid-template-columns:1fr 1fr}.pm.after .pm-keys i{background:#2563EB;aspect-ratio:1.2}
+.pm small{font-weight:600;color:#334155}
+@media (max-width:900px){.pos-grid{grid-template-columns:1fr}}
+.how-sec{background:var(--tint)}
+.how-steps{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:16px;counter-reset:hw}
+.how-steps li{counter-increment:hw;background:#fff;border-radius:var(--r-lg);padding:20px;display:flex;flex-direction:column;gap:6px;border:1px solid #d5deea}
+.how-steps li::before{content:counter(hw);font:700 28px/1 var(--f-head);color:var(--blue)}
+.how-steps span{color:#475569;line-height:1.55}
+.prices-sec{background:#fff;scroll-margin-top:88px}
+.price-table{width:100%;max-width:720px;border-collapse:collapse;margin-top:20px;font-size:16px}
+.price-table th,.price-table td{text-align:left;padding:14px 12px;border-bottom:1px solid #d5deea}
+.price-table thead th{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#475569}
+.price-table td{font-weight:700;white-space:nowrap;text-align:right}.price-table thead th:last-child{text-align:right}
+.prices-note{margin-top:14px;color:#475569;font-size:14.5px}
+@media (max-width:480px){.price-table td{white-space:normal}}
+.web-extra-grid{display:grid;grid-template-columns:1fr;gap:20px}
 .services{background:#fff;color:var(--ink);scroll-margin-top:88px}.services-intro{max-width:60ch;margin:12px 0 32px;font-size:1.1rem;color:var(--muted)}.services-grid{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px;counter-reset:svc}.services-grid li{counter-increment:svc;border:1px solid #d5deea;border-radius:var(--r-lg);padding:24px;display:flex;flex-direction:column;gap:10px}.services-grid li::before{content:counter(svc,decimal-leading-zero);font:700 13px/1 var(--f-body);color:var(--blue);letter-spacing:.08em}.services-grid h3{font-size:1.2rem;line-height:1.3}.services-grid p{line-height:1.6;color:#475569;flex:1}.services .text-link{color:var(--blue-d);font-weight:600}
 .restaurant-approach{padding:8px 0 32px}.restaurant-approach h3{font-size:1.6rem;margin:0 0 12px}.restaurant-approach ol{margin:0 0 16px;padding-left:1.4em;display:grid;gap:8px;max-width:72ch;line-height:1.6}.restaurant-approach p{max-width:68ch;line-height:1.65;font-weight:600}
 .restaurant-compare{border-top:1px solid #b7c4d6;padding:32px 0}.restaurant-compare table{width:100%;border-collapse:collapse;font-size:15px;line-height:1.4}.restaurant-compare caption{text-align:left;font-weight:700;font-size:1.25rem;margin-bottom:12px}.restaurant-compare th,.restaurant-compare td{padding:10px 8px;border-bottom:1px solid #d5deea;text-align:left;vertical-align:top}.restaurant-compare thead th{color:var(--navy)}.restaurant-compare td.no{color:#8a5a00;font-weight:600}
 @media(max-width:700px){.restaurant-compare table{font-size:13px}.restaurant-compare th,.restaurant-compare td{padding:8px 4px}}
 @media(max-width:700px){.restaurant-introduction{padding:28px 24px 180px;min-height:0;background:linear-gradient(180deg,rgba(238,244,255,.86) 0%,rgba(238,244,255,.76) 56%,rgba(238,244,255,.08) 100%),linear-gradient(rgba(37,99,235,.12),rgba(37,99,235,.12)),url('/img/restaurant-cafe-bg.jpg') 65% center/cover no-repeat}.restaurant-introduction .restaurant-intro{width:100%;max-width:48ch}.restaurant-introduction h2{font-size:1.8rem}}
-</style><script type="application/ld+json">{"@context": "https://schema.org", "@type": "AboutPage", "url": "https://acedigitalsolutionsbiz.org/zh/about/", "name": "关于 Adam，马来西亚网页设计师", "inLanguage": "zh-Hans", "mainEntity": {"@type": "Person", "name": "Adam", "jobTitle": "Freelance Web Designer", "worksFor": {"@id": "https://acedigitalsolutionsbiz.org/#business"}}}</script></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
+</style><script type="application/ld+json">{"@context": "https://schema.org", "@type": "AboutPage", "url": "https://acedigitalsolutionsbiz.org/zh/about/", "name": "关于 Adam，数字解决方案顾问", "inLanguage": "zh-Hans", "mainEntity": {"@type": "Person", "name": "Adam", "jobTitle": "Digital Solutions Consultant", "worksFor": {"@id": "https://acedigitalsolutionsbiz.org/#business"}}}</script></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
   <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></symbol>
   <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></symbol>
@@ -1407,11 +1459,11 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
     </a>
     <nav class="nav" id="nav" aria-label="主菜单">
       <a href="/zh/#top">首页</a>
+      <a href="/zh/#problems">问题</a>
       <a href="/zh/#services">解决方案</a>
-      <a href="/zh/#restaurant-plans">POS</a>
-      <a href="/zh/#pricing">网站</a>
-      <a href="/zh/#work">作品</a>
-      <a href="/zh/#faq">常见问题</a>
+      <a href="/zh/#pos">POS</a>
+      <a href="/zh/#prices">价格</a>
+      <a href="/zh/websites/">网站</a>
       <a href="/zh/#contact">联系</a>
       <a href="/zh/about/">关于我</a>
       <a href="/zh/articles/">博客</a>
@@ -1428,15 +1480,15 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
   <div class="wrap about-grid">
     <div class="portrait">
       <img src="/img/adam-portrait.jpg" alt="Ace Digital Solutions 创办人 Adam" loading="lazy">
-      <div class="badge-card"><svg class="ico" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span><b>Adam</b>自由职业网页设计师</span></div>
+      <div class="badge-card"><svg class="ico" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span><b>Adam</b>数字解决方案顾问</span></div>
       <div class="note hand">打个招呼！</div>
     </div>
     <div>
       <span class="eyebrow">关于 Ace Digital Solutions</span>
       <h1>你好，我是 <span>Adam。</span></h1>
-      <p class="lede">我为马来西亚的企业制作专业网站。Ace Digital Solutions 由我以自由职业网页设计师的身份经营，所以和 Ace Digital Solutions 合作，就是直接和我合作。</p>
+      <p class="lede">我通过自动化、POS 流程重新设计、系统集成和网站，帮助企业减少人工工作和错误。Ace Digital Solutions 由我亲自经营，所以与 Ace Digital Solutions 合作，就是直接与我合作。</p>
       <div class="hero-facts">
-        <div class="fact"><svg class="ico" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M6 7h6M6 10h9"/></svg><span>自由职业<br>网页设计师</span></div>
+        <div class="fact"><svg class="ico" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M6 7h6M6 10h9"/></svg><span>数字解决方案<br>顾问</span></div>
         <div class="fact"><svg class="ico" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8M16 17H8M10 9H8"/></svg><span>曾经是<br>老师</span></div>
         <div class="fact"><svg class="ico" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span>常驻<br>新山</span></div>
       </div>
@@ -1448,19 +1500,19 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
   <div class="wrap story-grid">
     <div class="story">
       <span class="eyebrow">我的故事</span>
-      <h2 style="margin-top:12px">好的生意，网上形象也应该一样好。</h2>
-      <p>我创办 Ace Digital Solutions，是为了让企业在网上的形象和他们的工作一样出色。装修承包商、冷气师傅、补习中心、诊所和许多其他生意都做得很好，但在网上很难被找到，或者网站已经无法反映他们的服务水准。</p>
-      <p>在做网页设计之前，我是一名老师。教书让我学会认真聆听、把事情讲简单，并保持耐心。我把这些习惯带进每个项目：我会了解你的生意、你的顾客，以及你想接更多哪类工作，并用简单易懂的话随时向你汇报进度。</p>
-      <p>成果是一个看起来专业、在手机上好用的网站，让顾客可以轻松 WhatsApp 你、打电话给你或发送询问。</p>
+      <h2 style="margin-top:12px">好企业值得拥有和它们一样努力的系统。</h2>
+      <p>我创办 Ace Digital Solutions，是因为看到许多好企业把大量时间浪费在重复输入、遗漏消息和互不相通的工具上。咖啡馆、承包商、补习中心、诊所和许多企业都做得很好，但日常运作却被人工步骤拖慢。</p>
+      <p>在此之前，我是一名老师。教书让我学会认真倾听、简单解释和保持耐心。我把这些习惯带进每个项目：我会了解你的业务现在如何运作、时间浪费在哪里、哪些问题反复出现，并用浅白的语言随时向你更新进度。</p>
+      <p>最终得到一套贴合团队现有工作方式的系统：更少人工、更少错误、更快回复顾客。</p>
     </div>
     <div class="expect">
       <h3>和我合作是怎样的</h3>
       <ul>
         <li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>直接和我沟通，不是销售团队</b><span>从第一条信息到上线，都由同一个人负责。</span></div></li>
-        <li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>固定价格，书面确认</b><span>含聊天机器人的网站 RM1,600，附加服务按需选择。</span></div></li>
+        <li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>固定价格，书面确认</b><span>开工前你就知道全部费用。</span></div></li>
         <li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>说话简单，不讲术语</b><span>进度清楚，选择简单。</span></div></li>
         <li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>上线前由你审核</b><span>可提出修改，直到你满意为止。</span></div></li>
-        <li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>上线后的协助</b><span>可选的 Website Care 让网站持续顺畅运作。</span></div></li>
+        <li><span class="tick"><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>上线后的协助</b><span>提供支持和维护选项，让一切顺利运作。</span></div></li>
       </ul>
     </div>
   </div>
@@ -1486,7 +1538,7 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 <section class="band" style="padding-top:0">
   <div class="wrap">
     <div class="about-cta dark">
-      <div><h2>来聊聊你的网站吧。</h2><p>为马来西亚企业打造的专业网站，在新山制作。</p></div>
+      <div><h2>来聊聊你的业务问题。</h2><p>自动化、POS 和网站，在新山制作。</p></div>
       <a class="btn btn-wa" href="https://wa.me/60102641824?text=Adam%20%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E5%92%A8%E8%AF%A2%E4%B8%80%E4%B8%AA%E4%B8%9A%E5%8A%A1%E4%B8%8A%E7%9A%84%E9%97%AE%E9%A2%98%E3%80%82" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>WhatsApp 我</a>
     </div>
   </div>
@@ -1494,7 +1546,7 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 </main><footer>
   <div class="wrap foot">
     <a class="logo" href="/zh/#top" aria-label="Ace Digital Solutions 首页"><svg viewBox="0 0 44 40" aria-hidden="true"><path d="M22 2 42 38H32L22 19 12 38H2Z" fill="url(#lg)"/><path d="M5 31c9-6 21-8 37-5-14 0-25 3-34 9Z" fill="#fff" opacity=".95"/></svg><span><b>ACE</b><small>DIGITAL SOLUTIONS</small></span></a>
-    <nav aria-label="页脚"><a href="/zh/#services">解决方案</a><a href="/zh/#restaurant-plans">POS</a><a href="/zh/#pricing">网站</a><a href="/zh/#work">作品</a><a href="/zh/#faq">常见问题</a><a href="/zh/#contact">联系</a><a href="/zh/about/">关于我</a><a href="/zh/articles/">博客</a><a href="/privacy/">隐私声明</a></nav>
+    <nav aria-label="页脚"><a href="/zh/#problems">问题</a><a href="/zh/#services">解决方案</a><a href="/zh/#pos">POS</a><a href="/zh/#prices">价格</a><a href="/zh/websites/">网站</a><a href="/zh/#work">作品</a><a href="/zh/#faq">常见问题</a><a href="/zh/#contact">联系</a><a href="/zh/about/">关于我</a><a href="/zh/articles/">博客</a><a href="/privacy/">隐私声明</a></nav>
     <div class="foot-contact"><a href="https://wa.me/60102641824?text=Adam%20%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E5%92%A8%E8%AF%A2%E4%B8%80%E4%B8%AA%E4%B8%9A%E5%8A%A1%E4%B8%8A%E7%9A%84%E9%97%AE%E9%A2%98%E3%80%82" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>WhatsApp 010-264 1824</a><a href="https://www.facebook.com/profile.php?id=61595360692132" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>Facebook</a><a href="https://www.instagram.com/acedigitalsolutionsbiz/" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg>Instagram</a><a href="https://www.youtube.com/@AceDigitalSolutionsBiz/shorts" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24"><path d="M2.5 17a24 24 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.6 49.6 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24 24 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.6 49.6 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>YouTube</a></div>
     <span class="foot-legal">© <span id="yr">2026</span> Ace Digital Solutions。由马来西亚新山的自由职业网页设计师 Adam 经营。</span>
   </div>

@@ -102,25 +102,28 @@ def head_for(code, cfg):
     url = DOMAIN + cfg["path"]
     alts = "".join(f'<link rel="alternate" hreflang="{c["hreflang"]}" href="{DOMAIN}{c["path"]}">\n' for c in LANGS.values())
     alts += f'<link rel="alternate" hreflang="x-default" href="{DOMAIN}/">\n'
-    image_alt = {"en": "Ace Digital Solutions: website design for businesses across Malaysia", "bm": "Ace Digital Solutions: reka bentuk laman web untuk perniagaan di seluruh Malaysia", "zh": "Ace Digital Solutions：为全马企业提供网站设计"}[code]
+    image_alt = {"en": "Ace Digital Solutions: business process automation, POS and custom software", "bm": "Ace Digital Solutions: automasi proses perniagaan, POS dan perisian tersuai", "zh": "Ace Digital Solutions：业务流程自动化、POS 与定制软件"}[code]
     t, d = H.escape(cfg["title"]), H.escape(cfg["desc"], quote=True)
     org = {"@context": "https://schema.org", "@type": "Organization", "@id": DOMAIN + "/#business", "name": "Ace Digital Solutions",
            "url": DOMAIN + "/", "image": DOMAIN + "/og-image.jpg", "logo": DOMAIN + "/og-image.jpg", "sameAs": [FB, "https://www.instagram.com/acedigitalsolutionsbiz/", "https://www.youtube.com/@AceDigitalSolutionsBiz"],
            "description": cfg["desc"], "email": "adamteokokwei@gmail.com", "telephone": "+60102641824",
-           "founder": {"@type": "Person", "name": "Adam", "jobTitle": "Freelance Web Designer"},
+           "founder": {"@type": "Person", "name": "Adam", "jobTitle": "Digital Solutions Consultant"},
            "address": {"@type": "PostalAddress", "addressLocality": "Johor Bahru", "addressRegion": "Johor", "addressCountry": "MY"},
            "areaServed": {"@type": "Country", "name": "Malaysia"},
            "contactPoint": {"@type": "ContactPoint", "contactType": "sales", "telephone": "+60102641824",
                             "availableLanguage": ["English", "Malay", "Chinese"]},
-           "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Website services", "itemListElement": [
-             {"@type": "Offer", "name": "Professional website (up to 8 pages or sections)", "price": "1500", "priceCurrency": "MYR"},
-            {"@type": "Offer", "name": "Professional website with a website chatbot (up to 8 pages or sections)", "price": "1600", "priceCurrency": "MYR"},
-              {"@type": "Offer", "name": "Website add-on, bundled with the website or another add-on", "price": "400", "priceCurrency": "MYR"},
-             {"@type": "Offer", "name": "Website add-on on its own", "price": "500", "priceCurrency": "MYR"},
-             {"@type": "Offer", "name": "Website Care (hosting and domain renewal included)", "price": "128", "priceCurrency": "MYR",
-              "priceSpecification": {"@type": "UnitPriceSpecification", "price": "128", "priceCurrency": "MYR", "unitText": "MONTH"}}]}}
+           "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Business solutions", "itemListElement": [
+             {"@type": "Offer", "name": "Simple automation", "price": "388", "priceCurrency": "MYR"},
+             {"@type": "Offer", "name": "Website development (up to 8 pages or sections)", "price": "888", "priceCurrency": "MYR"},
+             {"@type": "Offer", "name": "AI enquiry processing", "price": "888", "priceCurrency": "MYR"},
+             {"@type": "Offer", "name": "Software and API integration", "price": "1288", "priceCurrency": "MYR"},
+             {"@type": "Offer", "name": "POS workflow customisation", "price": "1888", "priceCurrency": "MYR"},
+             {"@type": "Offer", "name": "Accounting workflow automation", "price": "1888", "priceCurrency": "MYR"},
+             {"@type": "Offer", "name": "Custom POS development, setup (plus RM288/month for 24 months)", "price": "2888", "priceCurrency": "MYR"},
+             {"@type": "Offer", "name": "Website add-on, bundled with the website or another add-on", "price": "400", "priceCurrency": "MYR"},
+             {"@type": "Offer", "name": "Website upkeep, every 3 months", "price": "88", "priceCurrency": "MYR"}]}}
     service = {"@type": "Service", "@id": DOMAIN + "/#website-design",
-               "name": "Website design for businesses", "serviceType": "Website design for businesses",
+               "name": "Business process optimisation and custom software", "serviceType": "Business process automation",
                "provider": {"@id": DOMAIN + "/#business"},
                "areaServed": {"@type": "Country", "name": "Malaysia"},
                "hasOfferCatalog": {"@id": DOMAIN + "/#website-services"}}
@@ -192,7 +195,7 @@ def build(show_missing=False, preview_dir=None, form_only=False):
                 '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n' % cfg["html_lang"]
                 + s[:i] + "\n</head>\n<body>\n" + s[i:] + "\n</body>\n</html>\n")
         assert "{{" not in page, re.findall(r"\{\{\w+\}\}", page)
-        page = page.replace('href="#articles"', f'href="{cfg["path"]}articles/"').replace('href="#about"', f'href="{cfg["path"]}about/"')
+        page = page.replace('href="#articles"', f'href="{cfg["path"]}articles/"').replace('href="#about"', f'href="{cfg["path"]}about/"').replace('href="#websites"', f'href="{cfg["path"]}websites/"')
         out = os.path.join(SITE, cfg["path"].strip("/"), "index.html")
         os.makedirs(os.path.dirname(out), exist_ok=True)
         if code == "zh":  # Chinese needs no space after full-width punctuation

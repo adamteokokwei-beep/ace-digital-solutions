@@ -98,7 +98,7 @@ def build(root, languages):
             nav = nav.replace(' class="on"', '').replace(' aria-current="page"', '')
             def links(part):
                 part = re.sub(r'href="#(post-)([a-z0-9-]+)"', lambda m: f'href="{cfg["path"]}articles/{m[2]}/"', part)
-                return re.sub(r'(<a\b[^>]*?)href="#([\w-]+)"', lambda m: m[1] + 'href="' + cfg["path"] + ("articles/" if m[2] == "articles" else "about/" if m[2] == "about" else "#" + m[2]) + '"', part)
+                return re.sub(r'(<a\b[^>]*?)href="#([\w-]+)"', lambda m: m[1] + 'href="' + cfg["path"] + ("articles/" if m[2] == "articles" else "about/" if m[2] == "about" else "websites/" if m[2] == "websites" else "#" + m[2]) + '"', part)
             nav, foot, content = links(nav), links(footer), links(content)
             image_url = image if image.startswith('https://') else DOMAIN + image
             menu = "document.querySelectorAll('.lang a[data-lang],.lang-m a[lang]').forEach(a=>a.addEventListener('click',()=>{try{localStorage.setItem('ace-lang',a.dataset.lang||(a.lang==='ms'?'bm':a.lang==='zh-Hans'?'zh':'en'));sessionStorage.setItem('ace-lang-checked','1');}catch(e){}}));const b=document.getElementById('burger'),h=document.getElementById('head');b.addEventListener('click',()=>{const open=h.classList.toggle('open');b.setAttribute('aria-expanded',String(open));});document.addEventListener('keydown',e=>{if(e.key==='Escape'){h.classList.remove('open');b.setAttribute('aria-expanded','false');}});"
@@ -124,9 +124,16 @@ def build(root, languages):
               {"@context": "https://schema.org", "@type": "CollectionPage", "name": title, "url": url(code, 'articles/'), "inLanguage": cfg['html_lang'],
                "mainEntity": {"@type": "ItemList", "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": url(code, 'articles/' + p['slug'] + '/'), "name": p['title']} for i, p in enumerate(posts)]}})
         about = re.search(r'<div id="aboutView" hidden>(.*?)</div><!-- /aboutView -->', home, re.S)[1]
-        about_title = {'en': 'About Adam, Web Designer in Malaysia', 'bm': 'Tentang Adam, Pereka Web di Malaysia', 'zh': '关于 Adam，马来西亚网页设计师'}[code]
+        about_title = {'en': 'About Adam, Digital Solutions Consultant', 'bm': 'Tentang Adam, Perunding Penyelesaian Digital', 'zh': '关于 Adam，数字解决方案顾问'}[code]
         shell('about/', about_title + ' | Ace Digital Solutions', cfg['desc'], about,
-              {"@context": "https://schema.org", "@type": "AboutPage", "url": url(code, 'about/'), "name": about_title, "inLanguage": cfg['html_lang'], "mainEntity": {"@type": "Person", "name": "Adam", "jobTitle": "Freelance Web Designer", "worksFor": {"@id": DOMAIN + '/#business'}}})
+              {"@context": "https://schema.org", "@type": "AboutPage", "url": url(code, 'about/'), "name": about_title, "inLanguage": cfg['html_lang'], "mainEntity": {"@type": "Person", "name": "Adam", "jobTitle": "Digital Solutions Consultant", "worksFor": {"@id": DOMAIN + '/#business'}}})
+        web = re.search(r'<template id="websitesPage">(.*?)</template>', home, re.S)[1]
+        web_title, web_desc = {'en': ('Website Development from RM888', 'Mobile-friendly websites for businesses from RM888: up to 8 pages or sections, WhatsApp and contact buttons, basic SEO and a domain for the first year.'),
+                               'bm': ('Pembangunan Laman Web dari RM888', 'Laman web mesra telefon untuk perniagaan dari RM888: sehingga 8 halaman atau bahagian, butang WhatsApp dan hubungi, SEO asas dan domain untuk tahun pertama.'),
+                               'zh': ('网站开发，RM888 起', '适合手机的企业网站，RM888 起：最多 8 个页面或版块、WhatsApp 和联系按钮、基础 SEO 及首年域名。')}[code]
+        shell('websites/', web_title + ' | Ace Digital Solutions', web_desc, web,
+              {"@context": "https://schema.org", "@type": "Service", "name": web_title, "url": url(code, 'websites/'), "provider": {"@id": DOMAIN + '/#business'}, "areaServed": {"@type": "Country", "name": "Malaysia"},
+               "offers": {"@type": "Offer", "price": "888", "priceCurrency": "MYR"}})
         for p in posts:
             route = 'articles/' + p['slug'] + '/'
             cover = f'<img src="{p["cover"]}" alt="{html.escape(p["alt"], quote=True)}" fetchpriority="high" style="width:100%;height:auto">' if p['cover'] else ''
