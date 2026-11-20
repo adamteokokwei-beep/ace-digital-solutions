@@ -57,13 +57,13 @@ for (const [n, f] of Object.entries(failCases)) { const e = ENV(); f(e); aiCalls
 // ---- F: reply checks ----
 const legit = [
   "The standard website is **RM888** for up to 8 pages. The AI website assistant is an add-on from RM388.",
-  "With 2 extra pages (RM88 each), your total is RM1,064. Rush delivery adds 20%, so RM1,277.",
+  "With 2 extra pages (RM88 each), your total is RM1,064. Rush delivery adds 25%, so RM1,330.",
   "You pay a RM200 deposit to start, and the remaining RM688 when the website is ready.",
   "Website upkeep is optional at RM88 every 3 months, which is RM352 a year.",
   "Adding an AI website assistant starts from RM388. Out-of-scope work for our website clients is RM49 per hour.",
   "Adam doesn't offer discounts; extra pages are RM88 each.",
   "I can't guarantee a Google ranking, but the site includes basic SEO setup.",
-  "Typical delivery is 3–5 working days, depending on how quickly you send your content.",
+  "Typical delivery is 5–7 working days, depending on how quickly you send your content.",
   "Harga laman web standard ialah RM888. Adam tidak memberi diskaun.",
   "标准网站价格是RM888。我们不提供折扣。",
   "Free with the website: Google Business Profile setup and a standard domain for the first year.",
