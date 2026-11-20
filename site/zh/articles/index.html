@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="zh-Hans"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>马来西亚企业网站指南 | Ace Digital Solutions</title><meta name="description" content="为马来西亚企业提供实用的网站费用、功能与网上询问指南。">
+<title>企业网站指南 | Ace Digital Solutions</title><meta name="description" content="为企业提供实用的网站费用、功能与网上询问指南。">
 <meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="https://acedigitalsolutionsbiz.org/zh/articles/"><link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/articles/"><link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/articles/"><link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/articles/"><link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/articles/">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Ace Digital Solutions"><meta property="og:locale" content="zh_CN">
-<meta property="og:title" content="马来西亚企业网站指南 | Ace Digital Solutions"><meta property="og:description" content="为马来西亚企业提供实用的网站费用、功能与网上询问指南。"><meta property="og:url" content="https://acedigitalsolutionsbiz.org/zh/articles/"><meta property="og:image" content="https://acedigitalsolutionsbiz.org/og-image.jpg"><meta property="og:image:alt" content="Ace Digital Solutions">
-<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="马来西亚企业网站指南 | Ace Digital Solutions"><meta name="twitter:description" content="为马来西亚企业提供实用的网站费用、功能与网上询问指南。"><meta name="twitter:image" content="https://acedigitalsolutionsbiz.org/og-image.jpg">
+<meta property="og:title" content="企业网站指南 | Ace Digital Solutions"><meta property="og:description" content="为企业提供实用的网站费用、功能与网上询问指南。"><meta property="og:url" content="https://acedigitalsolutionsbiz.org/zh/articles/"><meta property="og:image" content="https://acedigitalsolutionsbiz.org/og-image.jpg"><meta property="og:image:alt" content="Ace Digital Solutions">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="企业网站指南 | Ace Digital Solutions"><meta name="twitter:description" content="为企业提供实用的网站费用、功能与网上询问指南。"><meta name="twitter:image" content="https://acedigitalsolutionsbiz.org/og-image.jpg">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 40'><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Caveat:wght@500;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"><style>
 /* Layout: alternating navy / light bands exactly as the reference — dark hero, light problem, dark "why", light flow, split pricing, work grid, process + chat, four-up closer. */
 :root{
@@ -1347,8 +1347,77 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
 .restaurant-introduction h2{max-width:20ch;color:var(--navy)}
 .restaurant-introduction .restaurant-intro{max-width:48ch;width:62%;margin-bottom:0;color:var(--ink)}
 .restaurant-price strong{color:var(--blue-d)}
+/* Business-first homepage */
+.flow{margin:0;justify-self:end;width:100%;max-width:520px;background:rgba(255,255,255,.06);border:1px solid rgba(148,170,220,.28);border-radius:var(--r-lg);padding:22px}
+.flow figcaption{font:600 13px/1 var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:#A9B6CF;margin-bottom:14px}
+.flow ol{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:fl}
+.flow li{counter-increment:fl;display:grid;grid-template-columns:28px minmax(0,1fr) minmax(0,1.3fr);align-items:center;gap:10px;background:rgba(11,18,32,.55);border-radius:10px;padding:10px 12px;position:relative}
+.flow li::before{content:counter(fl);width:26px;height:26px;border-radius:50%;background:#2563EB;color:#fff;display:grid;place-items:center;font:700 13px/1 var(--f-body)}
+.flow li b{color:#fff;font-size:14.5px}
+.flow .was,.flow .now{grid-column:3;grid-row:1;font-size:13px;border-radius:999px;padding:5px 10px;justify-self:start}
+.flow .was{background:rgba(220,38,38,.18);color:#FCA5A5;text-decoration:line-through;animation:flowWas 6s infinite}
+.flow .now{background:rgba(22,163,74,.2);color:#86EFAC;opacity:0;animation:flowNow 6s infinite}
+.flow .now::before{content:"✓ "}
+.flow li:nth-child(2) span{animation-delay:.4s}.flow li:nth-child(3) span{animation-delay:.8s}.flow li:nth-child(4) span{animation-delay:1.2s}.flow li:nth-child(5) span{animation-delay:1.6s}
+@keyframes flowWas{0%,30%{opacity:1}40%,90%{opacity:0}100%{opacity:1}}
+@keyframes flowNow{0%,30%{opacity:0}40%,90%{opacity:1}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.flow .was{display:none}.flow .now{opacity:1}}
+@media (max-width:1024px){.flow{justify-self:stretch;max-width:none}}
+@media (min-width:1100px){.hero-grid{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);align-items:center}.hero-grid .flow{justify-self:end}}
+@media (max-width:480px){.flow li{grid-template-columns:26px minmax(0,1fr)}.flow .was,.flow .now{grid-column:2;grid-row:2}}
+.pkg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:18px;margin-top:8px;align-items:start}
+.pkg{border:1px solid #d5deea;border-radius:var(--r-lg);padding:22px;display:flex;flex-direction:column;gap:8px;background:#fff}
+.pkg h3{font-size:1.25rem}.pkg-tag{color:#475569;line-height:1.5}
+.pkg-price{font:700 1.6rem/1.2 var(--f-head);color:var(--ink);margin-top:6px}.pkg-days{font-size:14px;color:#475569;font-weight:600}
+.pkg-sum{line-height:1.55;color:#334155}
+.pkg details{border-top:1px solid #e3e8f1;padding-top:10px}.pkg summary{cursor:pointer;font-weight:600;color:var(--blue-d)}
+.pkg h4{font-size:15px;margin:12px 0 6px}.pkg ul{padding-left:1.2em;display:grid;gap:4px;font-size:14.5px;line-height:1.5}
+.addon-table{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:12px}.addon-table caption{text-align:left;font-weight:700;margin-bottom:6px}
+.addon-table th,.addon-table td{text-align:left;padding:7px 4px;border-bottom:1px solid #e3e8f1;font-weight:500}.addon-table td{text-align:right;white-space:nowrap;font-weight:700}
+.pkg-note{font-size:13.5px;color:#475569;line-height:1.5;margin-top:10px}.pkg-cta{margin-top:auto;align-self:flex-start}
+.care-title{margin-top:36px;font-size:1.3rem}.care-table td{white-space:normal}
+/* US option: in the header pill on wider screens; always in the mobile menu */
+@media (max-width:480px){.head-in>.lang a[data-lang="us"]{display:none}}
+.problems{background:var(--tint);scroll-margin-top:88px}
+.problem-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:16px}
+.problem-grid li{background:#fff;border:1px solid #d5deea;border-radius:var(--r-lg);padding:20px 22px;display:flex;flex-direction:column;gap:10px}
+.problem-grid .pb{font-weight:700;color:var(--ink);line-height:1.45}
+.problem-grid .lbl{display:block;font:700 11.5px/1 var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:#B91C1C;margin-bottom:8px}
+.problem-grid .fx{color:#334155;line-height:1.55;border-top:1px dashed #d5deea;padding-top:10px}
+.problem-grid .fx .lbl{color:#15803D}
+.problems-cta{margin-top:28px}
+.services-grid .from{font-weight:700;color:var(--ink);font-size:14.5px;flex:0}
+.pos-sec{background:#fff;scroll-margin-top:88px}
+.pos-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:40px;align-items:center}
+.pos-lead{font-size:1.25rem;font-weight:600;margin:12px 0 18px;max-width:40ch}
+.pos-list{margin:0 0 18px;padding-left:1.2em;display:grid;gap:8px;line-height:1.55}
+.pos-note{font-size:14.5px;color:#475569;max-width:62ch}
+.pos-mock{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pm{border:1px solid #d5deea;border-radius:var(--r-lg);padding:16px;background:var(--tint);display:flex;flex-direction:column;gap:12px}
+.pm-tag{font:700 12px/1 var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:#B91C1C}.pm.after .pm-tag{color:#15803D}
+.pm-keys{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;flex:1}.pm-keys i{display:block;aspect-ratio:1.4;border-radius:6px;background:#CBD5E1}
+.pm.after .pm-keys{grid-template-columns:1fr 1fr}.pm.after .pm-keys i{background:#2563EB;aspect-ratio:1.2}
+.pm small{font-weight:600;color:#334155}
+@media (max-width:900px){.pos-grid{grid-template-columns:1fr}}
+.how-sec{background:var(--tint)}
+.how-steps{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:16px;counter-reset:hw}
+.how-steps li{counter-increment:hw;background:#fff;border-radius:var(--r-lg);padding:20px;display:flex;flex-direction:column;gap:6px;border:1px solid #d5deea}
+.how-steps li::before{content:counter(hw);font:700 28px/1 var(--f-head);color:var(--blue)}
+.how-steps span{color:#475569;line-height:1.55}
+.prices-sec{background:#fff;scroll-margin-top:88px}
+.price-table{width:100%;max-width:720px;border-collapse:collapse;margin-top:20px;font-size:16px}
+.price-table th,.price-table td{text-align:left;padding:14px 12px;border-bottom:1px solid #d5deea}
+.price-table thead th{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#475569}
+.price-table td{font-weight:700;white-space:nowrap;text-align:right}.price-table thead th:last-child{text-align:right}
+.prices-note{margin-top:14px;color:#475569;font-size:14.5px}
+@media (max-width:480px){.price-table td{white-space:normal}}
+.web-extra-grid{display:grid;grid-template-columns:1fr;gap:20px}
+.services{background:#fff;color:var(--ink);scroll-margin-top:88px}.services-intro{max-width:60ch;margin:12px 0 32px;font-size:1.1rem;color:var(--muted)}.services-grid{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px;counter-reset:svc}.services-grid li{counter-increment:svc;border:1px solid #d5deea;border-radius:var(--r-lg);padding:24px;display:flex;flex-direction:column;gap:10px}.services-grid li::before{content:counter(svc,decimal-leading-zero);font:700 13px/1 var(--f-body);color:var(--blue);letter-spacing:.08em}.services-grid h3{font-size:1.2rem;line-height:1.3}.services-grid p{line-height:1.6;color:#475569;flex:1}.services .text-link{color:var(--blue-d);font-weight:600}
+.restaurant-approach{padding:8px 0 32px}.restaurant-approach h3{font-size:1.6rem;margin:0 0 12px}.restaurant-approach ol{margin:0 0 16px;padding-left:1.4em;display:grid;gap:8px;max-width:72ch;line-height:1.6}.restaurant-approach p{max-width:68ch;line-height:1.65;font-weight:600}
+.restaurant-compare{border-top:1px solid #b7c4d6;padding:32px 0}.restaurant-compare table{width:100%;border-collapse:collapse;font-size:15px;line-height:1.4}.restaurant-compare caption{text-align:left;font-weight:700;font-size:1.25rem;margin-bottom:12px}.restaurant-compare th,.restaurant-compare td{padding:10px 8px;border-bottom:1px solid #d5deea;text-align:left;vertical-align:top}.restaurant-compare thead th{color:var(--navy)}.restaurant-compare td.no{color:#8a5a00;font-weight:600}
+@media(max-width:700px){.restaurant-compare table{font-size:13px}.restaurant-compare th,.restaurant-compare td{padding:8px 4px}}
 @media(max-width:700px){.restaurant-introduction{padding:28px 24px 180px;min-height:0;background:linear-gradient(180deg,rgba(238,244,255,.86) 0%,rgba(238,244,255,.76) 56%,rgba(238,244,255,.08) 100%),linear-gradient(rgba(37,99,235,.12),rgba(37,99,235,.12)),url('/img/restaurant-cafe-bg.jpg') 65% center/cover no-repeat}.restaurant-introduction .restaurant-intro{width:100%;max-width:48ch}.restaurant-introduction h2{font-size:1.8rem}}
-</style><script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "马来西亚企业网站指南", "url": "https://acedigitalsolutionsbiz.org/zh/articles/", "inLanguage": "zh-Hans", "mainEntity": {"@type": "ItemList", "itemListElement": [{"@type": "ListItem", "position": 1, "url": "https://acedigitalsolutionsbiz.org/zh/articles/website-cost-malaysia-2026/", "name": "2026年在马来西亚做网站大概要多少钱？小型企业指南"}, {"@type": "ListItem", "position": 2, "url": "https://acedigitalsolutionsbiz.org/zh/articles/tuition-website-generative-ai/", "name": "为什么在生成式 AI 时代，您的补习中心需要一个网站？"}, {"@type": "ListItem", "position": 3, "url": "https://acedigitalsolutionsbiz.org/zh/articles/why-website/", "name": "为什么你的生意仍然需要一个网站"}]}}</script></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
+</style><script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "企业网站指南", "url": "https://acedigitalsolutionsbiz.org/zh/articles/", "inLanguage": "zh-Hans", "mainEntity": {"@type": "ItemList", "itemListElement": [{"@type": "ListItem", "position": 1, "url": "https://acedigitalsolutionsbiz.org/zh/articles/website-cost-malaysia-2026/", "name": "2026年在马来西亚做网站大概要多少钱？小型企业指南"}, {"@type": "ListItem", "position": 2, "url": "https://acedigitalsolutionsbiz.org/zh/articles/tuition-website-generative-ai/", "name": "为什么在生成式 AI 时代，您的补习中心需要一个网站？"}, {"@type": "ListItem", "position": 3, "url": "https://acedigitalsolutionsbiz.org/zh/articles/why-website/", "name": "为什么你的生意仍然需要一个网站"}]}}</script></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
   <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></symbol>
   <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></symbol>
@@ -1403,25 +1472,27 @@ html .hero .lede{color:rgba(255,255,255,.80)!important;margin-inline:0;max-width
     </a>
     <nav class="nav" id="nav" aria-label="主菜单">
       <a href="/zh/#top">首页</a>
-      <a href="/zh/#pricing">价格</a>
-      <a href="/zh/#work">作品</a>
-      <a href="/zh/#faq">常见问题</a>
+      <a href="/zh/#problems">问题</a>
+      <a href="/zh/#services">解决方案</a>
+      <a href="/zh/#pos">POS</a>
+      <a href="/zh/#prices">价格</a>
+      <a href="/zh/websites/">网站</a>
       <a href="/zh/#contact">联系</a>
       <a href="/zh/about/">关于我</a>
       <a href="/zh/articles/">博客</a>
-      <div class="lang-m" aria-label="语言"><a href="/articles/" lang="en">EN</a><a href="/bm/articles/" lang="ms">BM</a><a href="/zh/articles/" lang="zh-Hans">中文</a></div>
+      <div class="lang-m" aria-label="语言"><a href="/articles/" lang="en">EN</a><a href="/bm/articles/" lang="ms">BM</a><a href="/zh/articles/" lang="zh-Hans">中文</a><a href="/us/" lang="en-US">US</a></div>
     </nav>
     <div class="lang" role="group" aria-label="语言">
-      <a href="/articles/" hreflang="en" lang="en" data-lang="en">EN</a><span aria-hidden="true">|</span><a href="/bm/articles/" hreflang="ms" lang="ms" data-lang="bm">BM</a><span aria-hidden="true">|</span><a href="/zh/articles/" hreflang="zh-Hans" lang="zh-Hans" data-lang="zh">中文</a>
+      <a href="/articles/" hreflang="en" lang="en" data-lang="en">EN</a><span aria-hidden="true">|</span><a href="/bm/articles/" hreflang="ms" lang="ms" data-lang="bm">BM</a><span aria-hidden="true">|</span><a href="/zh/articles/" hreflang="zh-Hans" lang="zh-Hans" data-lang="zh">中文</a><span aria-hidden="true">|</span><a href="/us/" hreflang="en-US" lang="en-US" data-lang="us" title="美国及全球（美元）">US</a>
     </div>
     <a class="btn btn-red btn-sm head-cta" href="tel:+60102641824" aria-label="紧急？拨打 010-264 1824 联系 Adam"><svg class="ico" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span class="hc-long">紧急？打电话给我</span><span class="hc-short">致电</span></a>
     <button class="burger" id="burger" aria-label="打开菜单" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
   </div>
-</header><main><section class="article-hero dark"><div class="wrap"><h1>马来西亚企业网站指南</h1><p class="lede">为马来西亚企业提供实用的网站费用、功能与网上询问指南。</p></div></section><section class="band"><div class="wrap blog-grid"><a class="post-card" href="/zh/articles/website-cost-malaysia-2026/"><div class="post-body"><h2>2026年在马来西亚做网站大概要多少钱？小型企业指南</h2><p>2026年在马来西亚做一个网站大概要多少钱？了解网站的参考价格、每年的续费、SEO 包含哪些内容，以及比较网页设计报价的建议。</p><time datetime="2026-10-20">2026-10-20</time></div></a><a class="post-card" href="/zh/articles/tuition-website-generative-ai/"><div class="post-body"><h2>为什么在生成式 AI 时代，您的补习中心需要一个网站？</h2><p>家长现在怎样寻找补习中心、网站能为您做什么和不能做什么，以及一份给补习中心老板的简单检查清单。</p><time datetime="2026-10-13">2026-10-13</time></div></a><a class="post-card" href="/zh/articles/why-website/"><div class="post-body"><h2>为什么你的生意仍然需要一个网站</h2><p>Facebook 和 WhatsApp 让人注意到你，网站则让新顾客足够信任你，愿意主动联系。</p><time datetime="2026-10-07">2026-10-07</time></div></a></div></section></main><footer>
+</header><main><section class="article-hero dark"><div class="wrap"><h1>企业网站指南</h1><p class="lede">为企业提供实用的网站费用、功能与网上询问指南。</p></div></section><section class="band"><div class="wrap blog-grid"><a class="post-card" href="/zh/articles/website-cost-malaysia-2026/"><div class="post-body"><h2>2026年在马来西亚做网站大概要多少钱？小型企业指南</h2><p>2026年在马来西亚做一个网站大概要多少钱？了解网站的参考价格、每年的续费、SEO 包含哪些内容，以及比较网页设计报价的建议。</p><time datetime="2026-10-20">2026-10-20</time></div></a><a class="post-card" href="/zh/articles/tuition-website-generative-ai/"><div class="post-body"><h2>为什么在生成式 AI 时代，您的补习中心需要一个网站？</h2><p>家长现在怎样寻找补习中心、网站能为您做什么和不能做什么，以及一份给补习中心老板的简单检查清单。</p><time datetime="2026-10-13">2026-10-13</time></div></a><a class="post-card" href="/zh/articles/why-website/"><div class="post-body"><h2>为什么你的生意仍然需要一个网站</h2><p>Facebook 和 WhatsApp 让人注意到你，网站则让新顾客足够信任你，愿意主动联系。</p><time datetime="2026-10-07">2026-10-07</time></div></a></div></section></main><footer>
   <div class="wrap foot">
     <a class="logo" href="/zh/#top" aria-label="Ace Digital Solutions 首页"><svg viewBox="0 0 44 40" aria-hidden="true"><path d="M22 2 42 38H32L22 19 12 38H2Z" fill="url(#lg)"/><path d="M5 31c9-6 21-8 37-5-14 0-25 3-34 9Z" fill="#fff" opacity=".95"/></svg><span><b>ACE</b><small>DIGITAL SOLUTIONS</small></span></a>
-    <nav aria-label="页脚"><a href="/zh/#pricing">价格</a><a href="/zh/#work">作品</a><a href="/zh/#faq">常见问题</a><a href="/zh/#contact">联系</a><a href="/zh/about/">关于我</a><a href="/zh/articles/">博客</a><a href="/privacy/">隐私声明</a></nav>
-    <div class="foot-contact"><a href="https://wa.me/60102641824?text=Adam%20%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E4%BA%86%E8%A7%A3%E4%B8%BA%E6%88%91%E7%9A%84%E7%94%9F%E6%84%8F%E5%88%B6%E4%BD%9C%E7%BD%91%E7%AB%99%E3%80%82" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>WhatsApp 010-264 1824</a><a href="https://www.facebook.com/profile.php?id=61595360692132" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>Facebook</a><a href="https://www.instagram.com/acedigitalsolutionsbiz/" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg>Instagram</a><a href="https://www.youtube.com/@AceDigitalSolutionsBiz/shorts" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24"><path d="M2.5 17a24 24 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.6 49.6 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24 24 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.6 49.6 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>YouTube</a></div>
+    <nav aria-label="页脚"><a href="/zh/#problems">问题</a><a href="/zh/#services">解决方案</a><a href="/zh/#pos">POS</a><a href="/zh/#prices">价格</a><a href="/zh/websites/">网站</a><a href="/zh/#work">作品</a><a href="/zh/#faq">常见问题</a><a href="/zh/#contact">联系</a><a href="/zh/about/">关于我</a><a href="/zh/articles/">博客</a><a href="/privacy/">隐私声明</a></nav>
+    <div class="foot-contact"><a href="https://wa.me/60102641824?text=Adam%20%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E5%92%A8%E8%AF%A2%E4%B8%80%E4%B8%AA%E4%B8%9A%E5%8A%A1%E4%B8%8A%E7%9A%84%E9%97%AE%E9%A2%98%E3%80%82" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>WhatsApp 010-264 1824</a><a href="https://www.facebook.com/profile.php?id=61595360692132" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>Facebook</a><a href="https://www.instagram.com/acedigitalsolutionsbiz/" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg>Instagram</a><a href="https://www.youtube.com/@AceDigitalSolutionsBiz/shorts" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24"><path d="M2.5 17a24 24 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.6 49.6 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24 24 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.6 49.6 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>YouTube</a></div>
     <span class="foot-legal">© <span id="yr">2026</span> Ace Digital Solutions。由马来西亚新山的自由职业网页设计师 Adam 经营。</span>
   </div>
-</footer><script>document.querySelectorAll('.lang a[data-lang],.lang-m a[lang]').forEach(a=>a.addEventListener('click',()=>{try{localStorage.setItem('ace-lang',a.dataset.lang||(a.lang==='ms'?'bm':a.lang==='zh-Hans'?'zh':'en'));sessionStorage.setItem('ace-lang-checked','1');}catch(e){}}));const b=document.getElementById('burger'),h=document.getElementById('head');b.addEventListener('click',()=>{const open=h.classList.toggle('open');b.setAttribute('aria-expanded',String(open));});document.addEventListener('keydown',e=>{if(e.key==='Escape'){h.classList.remove('open');b.setAttribute('aria-expanded','false');}});</script></body></html>
+</footer><script>document.querySelectorAll('.lang a[data-lang],.lang-m a[lang]').forEach(a=>a.addEventListener('click',()=>{try{localStorage.setItem('ace-lang',a.dataset.lang||(a.lang==='ms'?'bm':a.lang==='zh-Hans'?'zh':a.lang==='en-US'?'us':'en'));sessionStorage.setItem('ace-lang-checked','1');}catch(e){}}));const b=document.getElementById('burger'),h=document.getElementById('head');b.addEventListener('click',()=>{const open=h.classList.toggle('open');b.setAttribute('aria-expanded',String(open));});document.addEventListener('keydown',e=>{if(e.key==='Escape'){h.classList.remove('open');b.setAttribute('aria-expanded','false');}});</script></body></html>

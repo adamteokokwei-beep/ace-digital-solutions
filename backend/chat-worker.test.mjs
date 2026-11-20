@@ -56,16 +56,16 @@ for (const [n, f] of Object.entries(failCases)) { const e = ENV(); f(e); aiCalls
 
 // ---- F: reply checks ----
 const legit = [
-  "The standard website is **RM1,600** for up to 8 pages, including the chatbot. Without the chatbot it's RM1,500.",
-  "With 2 add-ons bundled (RM400 each), your total is RM2,400. Rush delivery adds 20%, so RM2,880.",
-  "You pay a RM200 deposit to start, and the remaining RM1,400 when the website is ready.",
-  "Website Care is optional at RM128/month, which is RM1,536 a year.",
-  "Adding the chatbot to an existing website is RM500. Out-of-scope work for our website clients is RM49 per hour.",
-  "Adam doesn't offer discounts, but bundling add-ons brings each one down to RM400.",
+  "The standard website is **RM888** for up to 8 pages. The AI website assistant is an add-on from RM388.",
+  "With 2 extra pages (RM88 each), your total is RM1,064. Rush delivery adds 25%, so RM1,330.",
+  "You pay a RM200 deposit to start, and the remaining RM688 when the website is ready.",
+  "Website upkeep is optional at RM88 every 3 months, which is RM352 a year.",
+  "Adding an AI website assistant starts from RM388. Out-of-scope work for our website clients is RM49 per hour.",
+  "Adam doesn't offer discounts; extra pages are RM88 each.",
   "I can't guarantee a Google ranking, but the site includes basic SEO setup.",
-  "Typical delivery is 3–5 working days, depending on how quickly you send your content.",
-  "Harga laman web standard ialah RM1,600. Adam tidak memberi diskaun.",
-  "标准网站价格是RM1,600。我们不提供折扣。",
+  "Typical delivery is 5–7 working days, depending on how quickly you send your content.",
+  "Harga laman web standard ialah RM888. Adam tidak memberi diskaun.",
+  "标准网站价格是RM888。我们不提供折扣。",
   "Free with the website: Google Business Profile setup and a standard domain for the first year.",
 ];
 for (const t of legit) ok(checkReply(t) === "", "legit reply passes: " + t.slice(0, 50) + " -> " + checkReply(t));

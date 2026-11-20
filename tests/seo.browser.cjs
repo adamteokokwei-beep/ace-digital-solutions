@@ -16,7 +16,7 @@ const server = http.createServer((req, res) => {
   const browser = await chromium.launch({ executablePath: process.env.PLAYWRIGHT_EXECUTABLE_PATH });
   try {
     const urls = [...fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8').matchAll(/<loc>https:\/\/acedigitalsolutionsbiz.org([^<]*)<\/loc>/g)].map(m => m[1]);
-    assert.equal(urls.length, 19);
+    assert.equal(urls.length, 25);  // +3 /websites/ pages, +3 /us/ pages
     const noJS = await browser.newContext({ javaScriptEnabled: false });
     const page = await noJS.newPage();
     await page.route('https://**', route => route.abort());
@@ -25,7 +25,7 @@ const server = http.createServer((req, res) => {
       assert.equal(response.status(), 200);
       assert.equal(await page.locator('h1:visible').count(), 1, route);
       assert.equal(await page.locator('link[rel=canonical]').getAttribute('href'), 'https://acedigitalsolutionsbiz.org' + route);
-      assert.equal(await page.locator('link[hreflang]').count(), 4);
+      assert.equal(await page.locator('link[hreflang]').count(), route.includes('articles') ? 4 : 5);  // en, ms, zh-Hans, (en-US), x-default
       assert.ok((await page.locator('main').innerText()).length > 150, route);
       assert.equal(await page.locator('main script').count(), 0);
       for (const src of await page.locator('img[src^="/"]').evaluateAll(nodes => nodes.map(n => n.getAttribute('src')))) assert.ok(fs.existsSync(path.join(root, src)), route + ': ' + src);

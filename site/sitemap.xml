@@ -5,6 +5,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/"/>
     <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://acedigitalsolutionsbiz.org/us/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/"/>
   </url>
   <url>
@@ -12,6 +13,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/"/>
     <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://acedigitalsolutionsbiz.org/us/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/"/>
   </url>
   <url>
@@ -19,6 +21,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/"/>
     <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://acedigitalsolutionsbiz.org/us/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/"/>
+  </url>
+  <url>
+    <loc>https://acedigitalsolutionsbiz.org/us/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/"/>
+    <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://acedigitalsolutionsbiz.org/us/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/"/>
   </url>
   <url>
@@ -36,7 +47,16 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/about/"/>
     <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/about/"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/about/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://acedigitalsolutionsbiz.org/us/about/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/about/"/>
+  </url>
+  <url>
+    <loc>https://acedigitalsolutionsbiz.org/websites/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/websites/"/>
+    <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/websites/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/websites/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://acedigitalsolutionsbiz.org/us/websites/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/websites/"/>
   </url>
   <url>
     <loc>https://acedigitalsolutionsbiz.org/articles/website-cost-malaysia-2026/</loc>
@@ -71,7 +91,16 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/about/"/>
     <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/about/"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/about/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://acedigitalsolutionsbiz.org/us/about/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/about/"/>
+  </url>
+  <url>
+    <loc>https://acedigitalsolutionsbiz.org/bm/websites/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/websites/"/>
+    <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/websites/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/websites/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://acedigitalsolutionsbiz.org/us/websites/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/websites/"/>
   </url>
   <url>
     <loc>https://acedigitalsolutionsbiz.org/bm/articles/website-cost-malaysia-2026/</loc>
@@ -106,7 +135,16 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/about/"/>
     <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/about/"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/about/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://acedigitalsolutionsbiz.org/us/about/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/about/"/>
+  </url>
+  <url>
+    <loc>https://acedigitalsolutionsbiz.org/zh/websites/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/websites/"/>
+    <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/websites/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/websites/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://acedigitalsolutionsbiz.org/us/websites/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/websites/"/>
   </url>
   <url>
     <loc>https://acedigitalsolutionsbiz.org/zh/articles/website-cost-malaysia-2026/</loc>
@@ -128,5 +166,21 @@
     <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/articles/why-website/"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/articles/why-website/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/articles/why-website/"/>
+  </url>
+  <url>
+    <loc>https://acedigitalsolutionsbiz.org/us/about/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/about/"/>
+    <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/about/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/about/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://acedigitalsolutionsbiz.org/us/about/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/about/"/>
+  </url>
+  <url>
+    <loc>https://acedigitalsolutionsbiz.org/us/websites/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/websites/"/>
+    <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/websites/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/websites/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://acedigitalsolutionsbiz.org/us/websites/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/websites/"/>
   </url>
 </urlset>
