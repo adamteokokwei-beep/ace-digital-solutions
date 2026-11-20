@@ -29,6 +29,14 @@ for (const lang of ["", "bm/", "zh/"]) {
   const web = read(`site/${lang}websites/index.html`);
   for (const p of ["RM888", "RM88", "RM388", "RM588", "RM200", "RM49"]) if (!web.includes(p)) failures.push(`site/${lang}websites/index.html: missing ${p}`);
 }
+// US / global version: same figures in USD, PayPal, US delivery and payment services.
+for (const f of ["site/us/index.html", "site/us/websites/index.html", "site/us/about/index.html"]) {
+  const html = read(f), visible = html.replace(/<script[\s\S]*?<\/script>/g, "");
+  if (/(?<![A-Z])RM\d/.test(html)) failures.push(`${f}: price still in RM`);
+  for (const w of ["DuitNow", "Touch 'n Go", "Lalamove", "e-Invoice"]) if (visible.includes(w)) failures.push(`${f}: Malaysia-only wording "${w}"`);
+}
+const us = read("site/us/index.html");
+for (const p of ["$388", "$888", "$1,888", "$5,888", "$1,288", "$128", "PayPal", "DoorDash"]) if (!us.includes(p)) failures.push(`site/us/index.html: missing ${p}`);
 const worker = read("backend/chat-worker.js");
 for (const old of RETIRED) if (worker.includes(old)) failures.push(`backend/chat-worker.js: retired price "${old}"`);
 const src = read("src/index.src.html");

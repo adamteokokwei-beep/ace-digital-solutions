@@ -34,7 +34,29 @@ LANGS = {
          "desc": "Ace Digital Solutions 通过定制软件、自动化、AI、POS 流程重新设计与系统整合，帮助企业减少手工作业与人为错误。",
          "wa_text": "Adam 你好，我想咨询一个业务上的问题。",
          "blog_note": "博客文章目前只有英文版。"},
+  # US / global English version: same figures in USD, restaurant focus (src/i18n/us.json holds only the wording that differs)
+  "us": {"path": "/us/", "html_lang": "en-US", "hreflang": "en-US", "og_locale": "en_US",
+         "title": "Restaurant POS & Online Ordering Systems | Ace Digital Solutions",
+         "desc": "Custom restaurant POS, online ordering and automation for restaurants in the US and worldwide. We study your workflow first, then cut manual work and order mistakes.",
+         "wa_text": "Hi Adam, I run a restaurant and I'd like help with a problem.",
+         "blog_note": ""},
 }
+
+def us_page(s):
+    """US version: restaurant sections first, no Malaysian blog posts, scripted chat (the AI server quotes RM)."""
+    pos = s[s.index("<!-- POS -->"):s.index("<!-- HOW WE WORK -->")]
+    plans = s[s.index('<section class="restaurant-plans"'):s.index("<!-- WEBSITE CARE -->")]
+    s = s.replace(pos, "", 1).replace(plans, "", 1)
+    s = s.replace("<!-- BUSINESS PROBLEMS -->", pos + plans + "<!-- BUSINESS PROBLEMS -->", 1)
+    s = s.replace('const CHAT_API = "https://ace-chat.adamteokokwei.workers.dev/chat";', 'const CHAT_API = "";')
+    s = re.sub(r'\s*<a href="#articles">Blog</a>', "", s)
+    return s
+
+def to_usd(page):
+    """Same figures, US dollars."""
+    page = re.sub(r"(?<![A-Z])RM(?=\d)", "$", page)
+    page = page.replace('const money = n => "RM" + n.toLocaleString("en-MY");', 'const money = n => "$" + n.toLocaleString("en-US");')
+    return page.replace('"priceCurrency": "MYR"', '"priceCurrency": "USD"')
 # Text used by the page script through a variable rather than L("…"), so it is not found automatically
 EXTRA_JS_KEYS = []
 
@@ -101,14 +123,14 @@ def head_for(code, cfg):
     url = DOMAIN + cfg["path"]
     alts = "".join(f'<link rel="alternate" hreflang="{c["hreflang"]}" href="{DOMAIN}{c["path"]}">\n' for c in LANGS.values())
     alts += f'<link rel="alternate" hreflang="x-default" href="{DOMAIN}/">\n'
-    image_alt = {"en": "Ace Digital Solutions: business process automation, POS and custom software", "bm": "Ace Digital Solutions: automasi proses perniagaan, POS dan perisian tersuai", "zh": "Ace Digital Solutions：业务流程自动化、POS 与定制软件"}[code]
+    image_alt = {"us": "Ace Digital Solutions: restaurant POS, online ordering and automation", "en": "Ace Digital Solutions: business process automation, POS and custom software", "bm": "Ace Digital Solutions: automasi proses perniagaan, POS dan perisian tersuai", "zh": "Ace Digital Solutions：业务流程自动化、POS 与定制软件"}[code]
     t, d = H.escape(cfg["title"]), H.escape(cfg["desc"], quote=True)
     org = {"@context": "https://schema.org", "@type": "Organization", "@id": DOMAIN + "/#business", "name": "Ace Digital Solutions",
            "url": DOMAIN + "/", "image": DOMAIN + "/og-image.jpg", "logo": DOMAIN + "/og-image.jpg", "sameAs": [FB, "https://www.instagram.com/acedigitalsolutionsbiz/", "https://www.youtube.com/@AceDigitalSolutionsBiz"],
            "description": cfg["desc"], "email": "adamteokokwei@gmail.com", "telephone": "+60102641824",
            "founder": {"@type": "Person", "name": "Adam", "jobTitle": "Digital Solutions Consultant"},
            "address": {"@type": "PostalAddress", "addressLocality": "Johor Bahru", "addressRegion": "Johor", "addressCountry": "MY"},
-           "areaServed": {"@type": "Country", "name": "Malaysia"},
+           "areaServed": {"@type": "Country", "name": "United States" if code == "us" else "Malaysia"},
            "contactPoint": {"@type": "ContactPoint", "contactType": "sales", "telephone": "+60102641824",
                             "availableLanguage": ["English", "Malay", "Chinese"]},
            "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Business solutions", "itemListElement": [
@@ -157,12 +179,12 @@ def build(show_missing=False, preview_dir=None, form_only=False):
     keys = js_keys(src)
     global ALL_JS
     ALL_JS = {}
-    for c in ("bm", "zh"):
+    for c in ("bm", "zh", "us"):
         Dc = json.load(open(os.path.join(ROOT, "src", "i18n", c + ".json"), encoding="utf-8"))
         ALL_JS[c] = {k: Dc[k] for k in sorted(keys) if k in Dc}
     report = {}
     for code, cfg in LANGS.items():
-        s = src
+        s = us_page(src) if code == "us" else src
         D = {}
         if code != "en":
             D = json.load(open(os.path.join(ROOT, "src", "i18n", code + ".json"), encoding="utf-8"))
@@ -179,7 +201,7 @@ def build(show_missing=False, preview_dir=None, form_only=False):
         # Blog: keep only the posts written in this page's language
         s = s.replace("<!--BLOG_TRANSLATIONS-->", open(os.path.join(ROOT, "src", "blog-translations.html"), encoding="utf-8").read())
         s = re.sub(r'<script type="text/plain" class="blog-post"[^>]*data-lang="(\w+)"[^>]*>.*?</script>\n?',
-                   lambda m: m.group(0) if m.group(1) == code else "", s, flags=re.S)
+                   lambda m: m.group(0) if m.group(1) == code else "", s, flags=re.S)  # /us/ gets none: they quote Malaysian prices
         s = re.sub(r"<!-- (Bahasa Melayu|Simplified Chinese) blog posts[^>]*-->\n?", "", s)
         s = s.replace("/*I18N_ALL*/{}/*/I18N_ALL*/", "/*I18N_ALL*/" + json.dumps(ALL_JS, ensure_ascii=False).replace("</", "<\\/") + "/*/I18N_ALL*/")
         s = s.replace("{{WA}}", H.escape(wa_link(cfg["wa_text"]), quote=True))
@@ -191,6 +213,8 @@ def build(show_missing=False, preview_dir=None, form_only=False):
                 '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n' % cfg["html_lang"]
                 + s[:i] + "\n</head>\n<body>\n" + s[i:] + "\n</body>\n</html>\n")
         assert "{{" not in page, re.findall(r"\{\{\w+\}\}", page)
+        if code == "us":
+            page = to_usd(page)
         page = page.replace('href="#articles"', f'href="{cfg["path"]}articles/"').replace('href="#about"', f'href="{cfg["path"]}about/"').replace('href="#websites"', f'href="{cfg["path"]}websites/"')
         out = os.path.join(SITE, cfg["path"].strip("/"), "index.html")
         os.makedirs(os.path.dirname(out), exist_ok=True)
@@ -220,7 +244,7 @@ def build(show_missing=False, preview_dir=None, form_only=False):
     open(os.path.join(SITE, "sitemap.xml"), "w").write('<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + urls + "</urlset>\n")
     for code, miss in report.items():
-        if code == "en": continue
+        if code in ("en", "us"): continue  # /us/ only overrides the wording that differs
         print(f"{code}: {len(miss)} untranslated")
         if show_missing:
             for m in miss: print("   ", json.dumps(m, ensure_ascii=False))
