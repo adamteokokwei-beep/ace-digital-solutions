@@ -2407,6 +2407,9 @@ When someone compares two businesses side by side, the one that looks profession
 
   /* ---------- Mini website mockups ---------- */
   const SITES = {
+    rest:{name:"Pecan Lantern<br>Kitchen",icon:"star",m1:"#FBF7F1",m2:"#FFFFFF",acc:"#C2410C",accInk:"#FFFFFF",links:["Menu","Kitchen view","Hours"],btn:"Order",
+      head:"Order direct. Hot, right, on time.",sub:"Online ordering with dish options, pickup or delivery, and a live kitchen screen.",cta:"Start your order",art:"clock",light:true,
+      feats:[["tag","Dish Options"],["clock","Pickup 20 min"],["send","Delivery"],["monitor","Kitchen Screen"]]},
     demo:{name:"Arus Biru<br>Plumbing",icon:"wrench",m1:"#0B2545",m2:"#1D5FD1",acc:"#D7262E",accInk:"#FFFFFF",links:["Services","Prices","Reviews","Book"],btn:"WhatsApp",
       head:"Johor Bahru Plumbers",sub:"Clear prices, easy online booking and a chat assistant.",cta:"Book a Time",art:"wrench",light:true,
       feats:[["clock","24/7 Service"],["tag","Price Ranges"],["chat","WhatsApp"],["thumb","On-Time"]]},
@@ -2446,6 +2449,8 @@ When someone compares two businesses side by side, the one that looks profession
 
   /* ---------- Portfolio ---------- */
   const WORK = [
+    {key:"rest",us:true,title:"Pecan Lantern Kitchen",kind:L("Interactive Demo"),url:"/demos/austin-restaurant/",
+      desc:L("A fictional Austin restaurant: online ordering with dish options, Texas sales tax and tips, pickup or DoorDash delivery, a Stripe or Square checkout and a live kitchen screen that updates the customer's order status.")},
     {key:"ctg",title:"Called to Go",kind:L("Client Website"),client:true,url:"https://calledtogoministry.org",
       desc:L("Ministry website for Christine, a preacher, worship leader and missionary in Johor Bahru: her story, past and future missions, her book, prayer requests, giving and WhatsApp invitations.")},
     {key:"tuition",title:"Cahaya Learning Centre",kind:L("Interactive Demo"),url:"/demos/skudai-tuition/",
@@ -2453,7 +2458,8 @@ When someone compares two businesses side by side, the one that looks profession
     {key:"demo",title:"Arus Biru Plumbing",kind:L("Interactive Demo"),url:"/demos/jb-plumbing/",
       desc:L("A fictional Johor Bahru plumbing business in English and Bahasa Melayu: upfront price ranges, a 3-step booking request, a chat assistant that hands over to WhatsApp, and a switch that shows what the RM888 website includes.")}
   ];
-  $("#workGrid").innerHTML = WORK.map(w=>`
+  // The restaurant demo (USD) is shown on /us/ only
+  $("#workGrid").innerHTML = WORK.filter(w=>!w.us || LANG==="us").map(w=>`
     <article class="wcard${w.client?" client":""}">
       <div class="mock" aria-hidden="true">
         <div class="laptop"><div class="lid"><div class="screen" data-mini="${w.key}"></div></div><div class="lbase"></div></div>
