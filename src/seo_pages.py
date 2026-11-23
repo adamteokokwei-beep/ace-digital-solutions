@@ -41,10 +41,10 @@ def json_script(data):
 def build(root, languages):
     site = os.path.join(root, "site")
     labels = {
-        "en": ("Website Guides for Businesses", "Practical guides to website costs, features and online enquiries for businesses in Malaysia.", "All articles", "By Adam, Ace Digital Solutions", "Ask Adam about your website"),
-        "bm": ("Panduan Laman Web untuk Perniagaan", "Panduan praktikal tentang kos laman web, ciri dan pertanyaan dalam talian untuk perniagaan di Malaysia.", "Semua artikel", "Oleh Adam, Ace Digital Solutions", "Tanya Adam tentang laman web anda"),
-        "us": ("Website Guides", "Practical guides to websites and online enquiries.", "All articles", "By Adam, Ace Digital Solutions", "Ask Adam about your website"),
-        "zh": ("企业网站指南", "为企业提供实用的网站费用、功能与网上询问指南。", "全部文章", "作者：Adam，Ace Digital Solutions", "向 Adam 咨询你的网站"),
+        "en": ("Business Guides", "Practical guides to automation, restaurant systems and websites for businesses.", "All articles", "By Adam, Ace Digital Solutions", "Tell Adam about your business problem"),
+        "bm": ("Panduan Perniagaan", "Panduan praktikal tentang automasi, sistem restoran dan laman web untuk perniagaan.", "Semua artikel", "Oleh Adam, Ace Digital Solutions", "Beritahu Adam masalah perniagaan anda"),
+        "us": ("Guides", "Practical guides for restaurants and businesses.", "All articles", "By Adam, Ace Digital Solutions", "Tell Adam about your business problem"),
+        "zh": ("企业指南", "为企业提供自动化、餐饮系统和网站的实用指南。", "全部文章", "作者：Adam，Ace Digital Solutions", "告诉 Adam 你的业务问题"),
     }
     records, routes = {}, []
     for code, cfg in languages.items():
@@ -78,9 +78,15 @@ def build(root, languages):
     def url(code, route):
         return DOMAIN + languages[code]["path"] + route
 
+    def has(code, route):
+        """Does this language have this page? Articles exist only in the languages they were written in."""
+        if not route.startswith("articles/"):
+            return True
+        posts = records[code][1]
+        return bool(posts) if route == "articles/" else any(route == "articles/" + p["slug"] + "/" for p in posts)
+
     def alternates(route):
-        # /us/ has no articles, so article pages list only the languages that have them
-        return [(cfg["hreflang"], url(code, route)) for code, cfg in languages.items() if not (code == "us" and route.startswith("articles/"))] + [("x-default", url("en", route))]
+        return [(cfg["hreflang"], url(code, route)) for code, cfg in languages.items() if has(code, route)] + [("x-default", url("en", route))]
 
     for code, cfg in languages.items():
         home, posts = records[code]
@@ -96,9 +102,9 @@ def build(root, languages):
             alternate_tags = ''.join(f'<link rel="alternate" hreflang="{lang}" href="{href}">' for lang, href in alternates(route))
             nav = header
             for other, ocfg in languages.items():
-                if other == "us" and route.startswith("articles/"):
-                    continue  # no US articles: the US button goes to the US home page
-                nav = nav.replace('href="' + ocfg["path"] + '"', 'href="' + ocfg["path"] + route + '"')
+                # Missing translation: go to that language's blog page, or its home page if it has no blog
+                target = route if has(other, route) else ("articles/" if has(other, "articles/") else "")
+                nav = nav.replace('href="' + ocfg["path"] + '"', 'href="' + ocfg["path"] + target + '"')
             nav = nav.replace(' class="on"', '').replace(' aria-current="page"', '')
             def links(part):
                 part = re.sub(r'href="#(post-)([a-z0-9-]+)"', lambda m: f'href="{cfg["path"]}articles/{m[2]}/"', part)
