@@ -61,6 +61,8 @@
   <url>
     <loc>https://acedigitalsolutionsbiz.org/articles/pos-restock-inventory/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/articles/pos-restock-inventory/"/>
+    <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/articles/pos-restock-inventory/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/articles/pos-restock-inventory/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/articles/pos-restock-inventory/"/>
   </url>
   <url>
@@ -108,6 +110,13 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/websites/"/>
   </url>
   <url>
+    <loc>https://acedigitalsolutionsbiz.org/bm/articles/pos-restock-inventory/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/articles/pos-restock-inventory/"/>
+    <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/articles/pos-restock-inventory/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/articles/pos-restock-inventory/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/articles/pos-restock-inventory/"/>
+  </url>
+  <url>
     <loc>https://acedigitalsolutionsbiz.org/bm/articles/website-cost-malaysia-2026/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/articles/website-cost-malaysia-2026/"/>
     <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/articles/website-cost-malaysia-2026/"/>
@@ -150,6 +159,13 @@
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/websites/"/>
     <xhtml:link rel="alternate" hreflang="en-US" href="https://acedigitalsolutionsbiz.org/us/websites/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/websites/"/>
+  </url>
+  <url>
+    <loc>https://acedigitalsolutionsbiz.org/zh/articles/pos-restock-inventory/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://acedigitalsolutionsbiz.org/articles/pos-restock-inventory/"/>
+    <xhtml:link rel="alternate" hreflang="ms" href="https://acedigitalsolutionsbiz.org/bm/articles/pos-restock-inventory/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://acedigitalsolutionsbiz.org/zh/articles/pos-restock-inventory/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://acedigitalsolutionsbiz.org/articles/pos-restock-inventory/"/>
   </url>
   <url>
     <loc>https://acedigitalsolutionsbiz.org/zh/articles/website-cost-malaysia-2026/</loc>
