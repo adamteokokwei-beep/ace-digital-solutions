@@ -5,7 +5,7 @@ const headers={Origin:'https://acedigitalsolutionsbiz.org','Content-Type':'appli
 const env=()=>({GEMINI_API_KEY:'mock-only',LIMIT_HMAC_KEY:'h'.repeat(32),CHAT_LIMITER:{limit:async()=>({success:true})},USAGE:{idFromName:x=>x,get:()=>({fetch:async()=>Response.json({result:''})})}});
 const request=(lang,messages)=>new Request('https://local.invalid/chat',{method:'POST',headers,body:JSON.stringify({lang,messages})});
 const asks=content=>[{role:'user',content}];
-const rejected=['Yes, your website costs RM300.','Laman web lengkap berharga RM300.','The complete website costs RM300.','For your website, the total is RM300.','The full website is RM1,500, but your website costs RM300.','完整网站是RM300。','Your complete website is half a grand.','Your website is on the house.','Yes, agreed. That is correct.'];
+const rejected=['Yes, your website costs RM300.','Laman web lengkap berharga RM300.','The complete website costs RM300.','For your website, the total is RM300.','The full website is RM888, but your website costs RM300.','完整网站是RM300。','Your complete website is half a grand.','Your website is on the house.','Yes, agreed. That is correct.'];
 
 test('all original and novel pricing bypasses are rejected through the complete Worker path in EN/BM/ZH',async()=>{
  const saved=globalThis.fetch;
@@ -46,6 +46,6 @@ test('numeric addresses, old budgets and prior pricing cannot force unrelated la
 });
 
 test('published rates, deposit, hourly work and approved estimates remain server-owned',()=>{
- for(const guide of Object.values(PRICING_GUIDE))for(const amount of ['RM1,600','RM1,500','RM500','RM400','RM128','RM49','RM89','RM200','20%'])assert.ok(guide.includes(amount));
+ for(const guide of Object.values(PRICING_GUIDE))for(const amount of ['RM888','RM88','RM49','RM89','RM200','25%','RM388','RM1,888','RM5,888','RM588'])assert.ok(guide.includes(amount));
  for(const lang of ['en','bm','zh'])assert.equal(approvedBusinessReply('{"answer":"pricing"}',lang),PRICING_GUIDE[lang]);
 });

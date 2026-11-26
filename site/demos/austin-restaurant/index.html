@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pecan Lantern Kitchen, Austin (Demo) | Online Ordering by Ace Digital Solutions</title>
+<meta name="description" content="A fictional Austin restaurant showing online ordering with dish options, pickup or delivery, checkout and a live kitchen display. Demo by Ace Digital Solutions.">
+<meta name="robots" content="noindex">
+<style>
+:root{--bg:#FBF7F1;--card:#FFFFFF;--ink:#231A14;--muted:#6B5D52;--line:#E8DED2;--brand:#2F2219;--accent:#C2410C;--accent-d:#9A3412;--ok:#15803D;--warn:#B45309;--r:14px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,system-ui,sans-serif}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+a{color:inherit}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+.demo-bar{background:#111827;color:#E5E7EB;font-size:13.5px;text-align:center;padding:8px 16px}
+.demo-bar a{color:#FDBA74;font-weight:600}
+header{position:sticky;top:0;z-index:20;background:rgba(251,247,241,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.head{display:flex;align-items:center;gap:12px;height:64px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.01em;text-decoration:none}
+.logo i{width:34px;height:34px;border-radius:50%;background:var(--accent);display:grid;place-items:center;color:#fff;font-style:normal;font-size:18px}
+.logo small{display:block;font-weight:600;color:var(--muted);font-size:12px;letter-spacing:0}
+.head nav{margin-left:auto;display:flex;gap:18px;font-weight:600;font-size:15px}
+.head nav a{text-decoration:none}
+.cart-btn{margin-left:auto;display:inline-flex;align-items:center;gap:8px;background:var(--brand);color:#fff;border:0;border-radius:999px;padding:9px 16px;font-weight:700}
+.head nav + .cart-btn{margin-left:12px}
+.cart-btn b{background:var(--accent);border-radius:999px;min-width:22px;height:22px;display:inline-grid;place-items:center;font-size:13px;padding:0 6px}
+@media (max-width:720px){.head nav{display:none}}
+.hero{padding:48px 0 28px}
+.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}
+.eyebrow{color:var(--accent-d);font-weight:700;font-size:14px;letter-spacing:.04em;text-transform:uppercase}
+h1{font-size:clamp(34px,5vw,54px);line-height:1.05;margin:10px 0 14px;letter-spacing:-.02em}
+.lede{font-size:18px;color:var(--muted);max-width:52ch;margin:0 0 20px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:999px;padding:12px 22px;font-weight:700;text-decoration:none}
+.btn-accent{background:var(--accent);color:#fff}.btn-accent:hover{background:var(--accent-d)}
+.btn-line{background:transparent;border:1.5px solid var(--brand);color:var(--brand)}
+.hero-ctas{display:flex;gap:10px;flex-wrap:wrap}
+.facts{display:flex;gap:18px;flex-wrap:wrap;margin-top:22px;font-size:14.5px;color:var(--muted)}
+.facts b{color:var(--ink)}
+.plate{aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 50% 50%,#fff 0 58%,#F1E6D8 59% 61%,#fff 62% 100%);box-shadow:0 30px 60px -30px rgba(47,34,25,.45);position:relative;max-width:360px;justify-self:center;width:100%}
+.plate span{position:absolute;border-radius:50%}
+.plate .a{inset:24% 30% 40% 22%;background:#7C2D12}.plate .b{inset:46% 22% 22% 44%;background:#65A30D}.plate .c{inset:30% 22% 50% 56%;background:#F59E0B}.plate .d{inset:56% 52% 26% 30%;background:#FDE68A}
+@media (max-width:820px){.hero-grid{grid-template-columns:1fr}.plate{max-width:220px}}
+section{padding:28px 0}
+h2{font-size:clamp(26px,3.4vw,34px);margin:0 0 6px;letter-spacing:-.01em}
+.sub{color:var(--muted);margin:0 0 18px}
+.cats{display:flex;gap:8px;overflow-x:auto;padding:4px 0 14px;scrollbar-width:none}
+.cats button{border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:8px 16px;font-weight:600;white-space:nowrap}
+.cats button[aria-pressed="true"]{background:var(--brand);color:#fff;border-color:var(--brand)}
+.menu{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:14px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:8px}
+.item h3{margin:0;font-size:17px}
+.item p{margin:0;color:var(--muted);font-size:14.5px;flex:1}
+.item .row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.price{font-weight:800}
+.tag{font-size:12px;font-weight:700;color:var(--ok);background:#ECFDF3;border-radius:999px;padding:2px 8px;align-self:flex-start}
+.add{background:var(--accent);color:#fff;border:0;border-radius:999px;padding:8px 14px;font-weight:700}
+.add:hover{background:var(--accent-d)}
+/* dialog */
+dialog{border:0;border-radius:18px;padding:0;width:min(440px,calc(100% - 32px));box-shadow:0 30px 80px -20px rgba(0,0,0,.45)}
+dialog::backdrop{background:rgba(17,12,8,.5)}
+.dlg{padding:20px}
+.dlg h3{margin:0 0 4px;font-size:20px}
+.dlg fieldset{border:0;padding:0;margin:14px 0 0}
+.dlg legend{font-weight:700;margin-bottom:6px}
+.opt{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:15px}
+.opt span{margin-left:auto;color:var(--muted)}
+.dlg textarea{width:100%;margin-top:6px;border:1.5px solid var(--line);border-radius:10px;padding:8px;font:inherit;min-height:56px}
+.qty{display:inline-flex;align-items:center;border:1.5px solid var(--line);border-radius:999px}
+.qty button{border:0;background:none;width:34px;height:34px;font-size:18px}
+.qty output{min-width:24px;text-align:center;font-weight:700}
+.dlg-foot{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-top:16px}
+/* cart */
+.layout{display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:start}
+.layout>*{min-width:0}
+@media (max-width:980px){.layout{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.cart{position:sticky;top:80px}
+.cart h2{font-size:22px}
+.line{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px}
+.line small{color:var(--muted);grid-column:1}
+.line .rm{grid-column:2;grid-row:2;border:0;background:none;color:var(--accent-d);font-size:13px;font-weight:600;padding:0}
+.empty{color:var(--muted);font-size:15px}
+.seg{display:grid;grid-template-columns:1fr 1fr;background:#F3ECE3;border-radius:999px;padding:4px;margin:12px 0}
+.seg button,.tips button{border:0;background:none;border-radius:999px;padding:8px;font-weight:700;font-size:14.5px}
+.seg button[aria-pressed="true"]{background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.tips{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:6px 0 10px}
+.tips button{border:1.5px solid var(--line)}
+.tips button[aria-pressed="true"]{border-color:var(--brand);background:var(--brand);color:#fff}
+.sum{display:flex;justify-content:space-between;font-size:15px;padding:3px 0;color:var(--muted)}
+.sum.total{color:var(--ink);font-weight:800;font-size:18px;border-top:1px solid var(--line);margin-top:6px;padding-top:10px}
+.field{margin-top:10px}
+.field label{display:block;font-weight:600;font-size:14px}
+.field input{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:10px;font:inherit;margin-top:4px}
+.err{color:#B91C1C;font-size:13px}
+.note{font-size:12.5px;color:var(--muted);margin-top:8px}
+.pay{width:100%;margin-top:12px}
+.pay[disabled]{opacity:.5;cursor:not-allowed}
+.status{margin-top:12px;border-radius:12px;padding:12px;font-size:15px;background:#FFF7ED;border:1px solid #FED7AA}
+.status.ready{background:#ECFDF3;border-color:#BBF7D0}
+.steps{display:flex;gap:6px;margin-top:8px}
+.steps i{flex:1;height:6px;border-radius:9px;background:#E7DCCF}
+.steps i.on{background:var(--accent)}.status.ready .steps i.on{background:var(--ok)}
+/* kitchen display */
+.kds{background:#111827;color:#F9FAFB;border-radius:18px;padding:18px}
+.kds h2{color:#fff}.kds .sub{color:#9CA3AF}
+.kds-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media (max-width:760px){.kds-cols{grid-template-columns:1fr}}
+.kcol h3{font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:#9CA3AF;margin:0 0 8px}
+.ticket{background:#1F2937;border:1px solid #374151;border-radius:12px;padding:12px;margin-bottom:10px;font-size:14.5px}
+.ticket header{all:unset;display:flex;justify-content:space-between;font-weight:800}
+.ticket ul{margin:8px 0;padding-left:18px}
+.ticket li small{display:block;color:#FCD34D}
+.ticket .meta{color:#9CA3AF;font-size:13px}
+.ticket button{margin-top:6px;width:100%;border:0;border-radius:8px;padding:9px;font-weight:800;background:#F97316;color:#111827}
+.ticket.cooking button{background:#22C55E}
+.kempty{color:#6B7280;font-size:14px;border:1px dashed #374151;border-radius:12px;padding:14px;text-align:center}
+.callout{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;background:var(--brand);color:#fff;border-radius:18px;padding:22px}
+.callout p{margin:4px 0 0;color:#E7D8C9}
+@media (max-width:720px){.callout{grid-template-columns:1fr}}
+footer{padding:28px 0 90px;color:var(--muted);font-size:14px}
+.mobile-cart{position:fixed;left:16px;right:16px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:30;display:none}
+@media (max-width:980px){.mobile-cart.show{display:flex}}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--brand);color:#fff;padding:10px 16px;border-radius:999px;font-weight:600;font-size:14.5px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:40}
+.toast.on{opacity:1}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+<div class="demo-bar">Fictional restaurant built by Ace Digital Solutions to show online ordering. No real orders or payments. <a href="/us/">Get this for your restaurant →</a></div>
+<header><div class="wrap head">
+  <a class="logo" href="#top"><i aria-hidden="true">✦</i><span>Pecan Lantern Kitchen<small>Austin, TX · Demo</small></span></a>
+  <nav aria-label="Main"><a href="#menu">Menu</a><a href="#kitchen">Kitchen view</a><a href="#hours">Hours</a></nav>
+  <button class="cart-btn" id="cartTop" type="button" aria-label="View your order">Order <b id="count">0</b></button>
+</div></header>
+
+<main id="top">
+<section class="hero"><div class="wrap hero-grid">
+  <div>
+    <span class="eyebrow">Texas comfort food · Pickup &amp; delivery</span>
+    <h1>Order direct. Hot, right, on time.</h1>
+    <p class="lede">Choose your dishes and how you like them. Your order goes straight to our kitchen screen, so nothing gets lost between the counter and the line.</p>
+    <div class="hero-ctas"><a class="btn btn-accent" href="#menu">Start your order</a><a class="btn btn-line" href="#kitchen">See the kitchen view</a></div>
+    <div class="facts"><span><b>Pickup</b> in about 20 min</span><span><b>Delivery</b> via DoorDash Drive (demo)</span><span><b>Open</b> 11 a.m.–10 p.m.</span></div>
+  </div>
+  <div class="plate" aria-hidden="true"><span class="a"></span><span class="b"></span><span class="c"></span><span class="d"></span></div>
+</div></section>
+
+<section id="menu"><div class="wrap layout">
+  <div>
+    <h2>Menu</h2>
+    <p class="sub">Tap <b>Add</b> to choose options. Prices in USD.</p>
+    <div class="cats" id="cats" role="group" aria-label="Menu categories"></div>
+    <div class="menu" id="items"></div>
+  </div>
+  <aside class="panel cart" id="cart" aria-labelledby="cartTitle">
+    <h2 id="cartTitle">Your order</h2>
+    <div id="lines"><p class="empty">Your order is empty. Add something from the menu.</p></div>
+    <div class="seg" role="group" aria-label="Pickup or delivery"><button type="button" data-mode="pickup" aria-pressed="true">Pickup</button><button type="button" data-mode="delivery" aria-pressed="false">Delivery</button></div>
+    <div class="field" id="addrField" hidden><label for="addr">Delivery address</label><input id="addr" autocomplete="street-address" placeholder="e.g. 1200 Demo St, Austin, TX"></div>
+    <div><b style="font-size:14px">Tip for the team</b><div class="tips" role="group" aria-label="Tip"><button type="button" data-tip="0" aria-pressed="false">None</button><button type="button" data-tip="0.15" aria-pressed="true">15%</button><button type="button" data-tip="0.18" aria-pressed="false">18%</button><button type="button" data-tip="0.2" aria-pressed="false">20%</button></div></div>
+    <div class="sum"><span>Subtotal</span><span id="sSub">$0.00</span></div>
+    <div class="sum"><span>Sales tax (8.25%)</span><span id="sTax">$0.00</span></div>
+    <div class="sum" id="rowFee" hidden><span>Delivery (DoorDash Drive quote, demo)</span><span id="sFee">$0.00</span></div>
+    <div class="sum"><span>Tip</span><span id="sTip">$0.00</span></div>
+    <div class="sum total"><span>Total</span><span id="sTotal">$0.00</span></div>
+    <div class="field"><label for="cname">Name for the order</label><input id="cname" autocomplete="name"></div>
+    <div class="field"><label for="cphone">Phone (for order updates)</label><input id="cphone" type="tel" autocomplete="tel" placeholder="(512) 555-0142"></div>
+    <p class="err" id="cerr" hidden>Please add a name and phone number.</p>
+    <button class="btn btn-accent pay" id="pay" type="button" disabled>Pay with card</button>
+    <p class="note">Demo checkout. On a real site this opens a secure Stripe or Square payment page. Card details never touch the restaurant's website.</p>
+    <div class="status" id="status" hidden aria-live="polite"></div>
+  </aside>
+</div></section>
+
+<section id="kitchen"><div class="wrap">
+  <div class="kds">
+    <h2>Kitchen view</h2>
+    <p class="sub">This is what the kitchen screen shows. Place a demo order above and it appears here instantly with every option. Move it along and the customer's status updates.</p>
+    <div class="kds-cols">
+      <div class="kcol"><h3>New</h3><div id="kNew"></div></div>
+      <div class="kcol"><h3>Cooking</h3><div id="kCook"></div></div>
+      <div class="kcol"><h3>Ready</h3><div id="kReady"></div></div>
+    </div>
+  </div>
+</div></section>
+
+<section id="hours"><div class="wrap">
+  <div class="callout">
+    <div><b style="font-size:20px">Want this for your restaurant?</b><p>Ace Digital Solutions builds online ordering and POS systems around how your kitchen already works: your menu, your options, your delivery and payment providers.</p></div>
+    <a class="btn btn-accent" href="/us/#contact">Tell us your restaurant problem</a>
+  </div>
+</div></section>
+</main>
+<footer><div class="wrap">Pecan Lantern Kitchen is fictional. Address and phone are placeholders. Hours: Mon–Sun 11 a.m.–10 p.m. · Demo by <a href="/us/">Ace Digital Solutions</a>.</div></footer>
+
+<button class="btn btn-accent mobile-cart" id="mobileCart" type="button">View order · <span id="mTotal">$0.00</span></button>
+<div class="toast" id="toast" role="status"></div>
+
+<dialog id="dlg" aria-labelledby="dTitle"><form method="dialog" class="dlg" id="dForm">
+  <h3 id="dTitle"></h3><p class="sub" id="dDesc" style="margin:0"></p>
+  <div id="dOpts"></div>
+  <fieldset><legend>Special instructions</legend><textarea id="dNote" maxlength="120" placeholder="e.g. Sauce on the side"></textarea></fieldset>
+  <div class="dlg-foot">
+    <div class="qty"><button type="button" id="qMinus" aria-label="One less">−</button><output id="qVal">1</output><button type="button" id="qPlus" aria-label="One more">+</button></div>
+    <button class="btn btn-line" value="cancel" type="submit">Cancel</button>
+    <button class="btn btn-accent" id="dAdd" type="button">Add $0.00</button>
+  </div>
+</form></dialog>
+
+<script>
+(function(){
+  const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+  const money = n => "$" + n.toFixed(2);
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const TAX = 0.0825, DELIVERY_FEE = 4.99;
+  // Fictional menu. Options: one = pick one; many = pick any.
+  const SPICE = {name:"Spice level", one:[["Mild",0],["Medium",0],["Hot",0]]};
+  const MENU = [
+    {id:"q1",cat:"Starters",name:"Smoked Queso & Chips",desc:"House queso with brisket burnt ends and warm tortilla chips.",price:9.5,opts:[{name:"Add-ons",many:[["Extra chips",2],["Guacamole",3]]}]},
+    {id:"q2",cat:"Starters",name:"Street Corn Cups",desc:"Charred corn, lime crema, cotija, chili.",price:7,opts:[SPICE],tag:"Vegetarian"},
+    {id:"m1",cat:"Mains",name:"Brisket Plate",desc:"Half pound of 14-hour brisket, pickles, onion, two sides.",price:21,opts:[{name:"Side 1",one:[["Mac & cheese",0],["Slaw",0],["Pinto beans",0]]},{name:"Side 2",one:[["Slaw",0],["Mac & cheese",0],["Pinto beans",0]]},{name:"Remove",many:[["No onion",0],["No pickles",0]]}]},
+    {id:"m2",cat:"Mains",name:"Chicken Fried Chicken",desc:"Crispy cutlet, peppered cream gravy, mashed potatoes.",price:18,opts:[{name:"Gravy",one:[["On top",0],["On the side",0]]}]},
+    {id:"m3",cat:"Mains",name:"Brisket Tacos (3)",desc:"Corn tortillas, salsa verde, onion, cilantro.",price:15,opts:[SPICE,{name:"Remove",many:[["No onion",0],["No cilantro",0]]},{name:"Extras",many:[["Extra salsa",0.75],["Add avocado",2]]}]},
+    {id:"m4",cat:"Mains",name:"Black Bean Burger",desc:"House patty, pepper jack, chipotle mayo, fries.",price:16,opts:[{name:"Cheese",one:[["Pepper jack",0],["No cheese",0]]}],tag:"Vegetarian"},
+    {id:"s1",cat:"Sides",name:"Mac & Cheese",desc:"Three cheeses, toasted crumbs.",price:5.5},
+    {id:"s2",cat:"Sides",name:"Jalapeño Cornbread",desc:"With honey butter.",price:4.5},
+    {id:"d1",cat:"Drinks",name:"Sweet Tea",desc:"Fresh brewed, 24 oz.",price:3.5,opts:[{name:"Sweetness",one:[["Sweet",0],["Half & half",0],["Unsweet",0]]}]},
+    {id:"d2",cat:"Drinks",name:"Prickly Pear Lemonade",desc:"Made in house, 24 oz.",price:4.5},
+    {id:"t1",cat:"Desserts",name:"Pecan Pie Slice",desc:"Texas pecans, whipped cream.",price:6.5}
+  ];
+  const CATS = ["All", ...new Set(MENU.map(m=>m.cat))];
+  const state = {cat:"All", cart:[], mode:"pickup", tip:0.15, orders:[], seq:1040};
+
+  /* ---------- Menu ---------- */
+  function drawCats(){
+    $("#cats").innerHTML = CATS.map(c=>`<button type="button" data-cat="${c}" aria-pressed="${c===state.cat}">${c}</button>`).join("");
+  }
+  function drawMenu(){
+    $("#items").innerHTML = MENU.filter(m=>state.cat==="All"||m.cat===state.cat).map(m=>`
+      <article class="item">${m.tag?`<span class="tag">${m.tag}</span>`:""}<h3>${m.name}</h3><p>${m.desc}</p>
+        <div class="row"><span class="price">${money(m.price)}</span><button class="add" type="button" data-add="${m.id}" aria-label="Add ${esc(m.name)}">Add</button></div></article>`).join("");
+  }
+  $("#cats").addEventListener("click", e=>{ const b=e.target.closest("[data-cat]"); if(!b) return; state.cat=b.dataset.cat; drawCats(); drawMenu(); });
+
+  /* ---------- Options dialog ---------- */
+  const dlg = $("#dlg"); let cur = null, qty = 1;
+  function optHTML(o, gi){
+    const list = o.one || o.many, type = o.one ? "radio" : "checkbox";
+    return `<fieldset><legend>${o.name}${o.one?"":" <small style='font-weight:400;color:var(--muted)'>(optional)</small>"}</legend>`+
+      list.map(([label,p],i)=>`<label class="opt"><input type="${type}" name="g${gi}" value="${i}" ${o.one&&i===0?"checked":""}>${label}<span>${p?"+"+money(p):""}</span></label>`).join("")+`</fieldset>`;
+  }
+  function chosen(){
+    const mods=[]; let extra=0;
+    (cur.opts||[]).forEach((o,gi)=>{ $$(`#dOpts input[name="g${gi}"]:checked`).forEach(inp=>{ const [label,p]=(o.one||o.many)[+inp.value]; extra+=p; mods.push(o.one ? `${o.name}: ${label}` : label); }); });  // the kitchen sees every choice
+    const note = $("#dNote").value.trim(); if(note) mods.push("Note: "+note);
+    return {mods, unit:cur.price+extra};
+  }
+  function refreshAdd(){ $("#qVal").textContent = qty; $("#dAdd").textContent = "Add " + money(chosen().unit*qty); }
+  function openItem(id){
+    cur = MENU.find(m=>m.id===id); qty = 1;
+    $("#dTitle").textContent = cur.name; $("#dDesc").textContent = cur.desc;
+    $("#dOpts").innerHTML = (cur.opts||[]).map(optHTML).join(""); $("#dNote").value = "";
+    refreshAdd(); dlg.showModal();
+  }
+  $("#items").addEventListener("click", e=>{ const b=e.target.closest("[data-add]"); if(b) openItem(b.dataset.add); });
+  $("#dForm").addEventListener("change", refreshAdd); $("#dNote").addEventListener("input", refreshAdd);
+  $("#qMinus").addEventListener("click", ()=>{ qty=Math.max(1,qty-1); refreshAdd(); });
+  $("#qPlus").addEventListener("click", ()=>{ qty=Math.min(20,qty+1); refreshAdd(); });
+  $("#dAdd").addEventListener("click", ()=>{
+    const c = chosen(); state.cart.push({name:cur.name, qty, unit:c.unit, mods:c.mods});
+    dlg.close(); drawCart(); toast(`Added ${qty} × ${cur.name}`);
+  });
+
+  /* ---------- Cart and totals ---------- */
+  function totals(){
+    const sub = state.cart.reduce((t,l)=>t+l.unit*l.qty,0);
+    const tax = Math.round(sub*TAX*100)/100, fee = state.mode==="delivery" && sub ? DELIVERY_FEE : 0, tip = Math.round(sub*state.tip*100)/100;
+    return {sub, tax, fee, tip, total: sub+tax+fee+tip};
+  }
+  function drawCart(){
+    const n = state.cart.reduce((t,l)=>t+l.qty,0);
+    $("#count").textContent = n;
+    $("#lines").innerHTML = n ? state.cart.map((l,i)=>`<div class="line"><span>${l.qty} × ${esc(l.name)}</span><b>${money(l.unit*l.qty)}</b>${l.mods.length?`<small>${l.mods.map(esc).join(" · ")}</small>`:"<small></small>"}<button class="rm" type="button" data-rm="${i}">Remove</button></div>`).join("")
+      : `<p class="empty">Your order is empty. Add something from the menu.</p>`;
+    const t = totals();
+    $("#sSub").textContent = money(t.sub); $("#sTax").textContent = money(t.tax); $("#sFee").textContent = money(t.fee);
+    $("#sTip").textContent = money(t.tip); $("#sTotal").textContent = money(t.total); $("#mTotal").textContent = money(t.total);
+    $("#rowFee").hidden = state.mode!=="delivery";
+    $("#pay").disabled = !n; $("#pay").textContent = n ? "Pay " + money(t.total) + " with card" : "Pay with card";
+    $("#mobileCart").classList.toggle("show", n>0);
+  }
+  $("#lines").addEventListener("click", e=>{ const b=e.target.closest("[data-rm]"); if(!b) return; state.cart.splice(+b.dataset.rm,1); drawCart(); });
+  $$("[data-mode]").forEach(b=>b.addEventListener("click",()=>{ state.mode=b.dataset.mode; $$("[data-mode]").forEach(x=>x.setAttribute("aria-pressed", x===b)); $("#addrField").hidden = state.mode!=="delivery"; drawCart(); }));
+  $$("[data-tip]").forEach(b=>b.addEventListener("click",()=>{ state.tip=+b.dataset.tip; $$("[data-tip]").forEach(x=>x.setAttribute("aria-pressed", x===b)); drawCart(); }));
+  const goCart = () => document.getElementById("cart").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
+  $("#cartTop").addEventListener("click", goCart); $("#mobileCart").addEventListener("click", goCart);
+
+  /* ---------- Demo checkout -> kitchen display ---------- */
+  $("#pay").addEventListener("click", ()=>{
+    const name = $("#cname").value.trim(), phone = $("#cphone").value.trim(), addr = $("#addr").value.trim();
+    const ok = name && phone.replace(/\D/g,"").length >= 7 && (state.mode==="pickup" || addr);
+    $("#cerr").textContent = state.mode==="delivery" && !addr ? "Please add a name, phone number and delivery address." : "Please add a name and phone number.";
+    $("#cerr").hidden = !!ok; if(!ok) return;
+    const t = totals(), order = {no: ++state.seq, name, mode: state.mode, items: state.cart.map(l=>({...l})), total: t.total, stage: 0, at: new Date()};
+    state.orders.push(order); state.cart = []; drawCart(); drawKitchen(); showStatus(order);
+    toast(`Order #${order.no} sent to the kitchen`);
+  });
+  const STAGES = ["Received by the kitchen", "Cooking now", "Ready"];
+  let tracked = null;
+  function showStatus(o){
+    tracked = o; const st = $("#status"); st.hidden = false; st.classList.toggle("ready", o.stage===2);
+    const readyMsg = o.mode==="pickup" ? "Ready for pickup at the counter." : "Handed to your DoorDash driver (demo).";
+    st.innerHTML = `<b>Order #${o.no}: ${o.stage===2 ? readyMsg : STAGES[o.stage]}</b><div class="steps">${STAGES.map((_,i)=>`<i class="${i<=o.stage?"on":""}"></i>`).join("")}</div>
+      <div class="note">Paid ${money(o.total)} (demo). ${o.stage<2 ? "Move it along in the kitchen view below to see this update." : "A text message would also go to the customer."}</div>`;
+  }
+  function ticket(o){
+    const mins = Math.max(0, Math.round((Date.now()-o.at)/60000));
+    return `<div class="ticket${o.stage===1?" cooking":""}"><header><span>#${o.no} · ${esc(o.name)}</span><span>${o.mode==="pickup"?"PICKUP":"DELIVERY"}</span></header>
+      <ul>${o.items.map(l=>`<li>${l.qty} × ${esc(l.name)}${l.mods.length?`<small>${l.mods.map(esc).join(" · ")}</small>`:""}</li>`).join("")}</ul>
+      <div class="meta">${mins} min ago</div>${o.stage<2?`<button type="button" data-adv="${o.no}">${o.stage===0?"Start cooking":"Mark ready"}</button>`:""}</div>`;
+  }
+  function drawKitchen(){
+    const col = s => state.orders.filter(o=>o.stage===s).map(ticket).join("") || `<div class="kempty">${s===0?"No new orders. Place one above.":"Nothing here yet."}</div>`;
+    $("#kNew").innerHTML = col(0); $("#kCook").innerHTML = col(1); $("#kReady").innerHTML = col(2);
+  }
+  $("#kitchen").addEventListener("click", e=>{
+    const b = e.target.closest("[data-adv]"); if(!b) return;
+    const o = state.orders.find(x=>x.no===+b.dataset.adv); o.stage = Math.min(2, o.stage+1);
+    drawKitchen(); if(tracked && tracked.no===o.no) showStatus(o);
+  });
+
+  let tt; function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("on"); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove("on"),1800); }
+  drawCats(); drawMenu(); drawCart(); drawKitchen();
+})();
+</script>
+</body>
+</html>

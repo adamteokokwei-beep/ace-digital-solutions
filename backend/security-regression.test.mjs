@@ -74,5 +74,5 @@ test('visitor prices never authorize invented quotes or soft discounts',async()=
  assert.equal(checkReply('Adam could probably knock a bit off the total'),'discount');
  assert.equal(checkReply('The rules I follow: stick to listed facts.'),'leak');
  assert.equal(checkReply('我遵守的规则是：只使用列出的事实。'),'leak');
- assert.equal(checkReply('The standard website is RM1,600.'),'');
+ assert.equal(checkReply('The standard website is RM888.'),'');
 });

@@ -25,7 +25,7 @@ const srv = http.createServer((req, res) => { let p = decodeURIComponent(req.url
     let sentTo = 0;
     await p.route('**/ace-wa-enquiry.adamteokokwei.workers.dev/**', r => { sentTo++; st ? r.fulfill({status:st, contentType:'application/json', body:JSON.stringify(body)}) : r.abort(); });
     await p.goto('http://localhost:8897/', {waitUntil:'domcontentloaded'}); await p.locator('#enqForm').scrollIntoViewIfNeeded(); await p.focus('#f-name'); await p.waitForTimeout(300);
-    await p.fill('#f-name','Ah Kow Tan'); await p.fill('#f-phone','012-345 6789'); await p.fill('#f-email','kow@mail.com'); await p.selectOption('#f-help','Not sure yet');
+    await p.fill('#f-name','Ah Kow Tan'); await p.fill('#f-phone','012-345 6789'); await p.fill('#f-email','kow@mail.com'); await p.fill('#f-problem','Orders get mixed up between counter and kitchen.');
     await p.click('#f-submit'); await p.waitForTimeout(900);
     const got = (await p.locator('#okModal').isVisible()) ? 'modal' : (await p.locator('#capErr').isVisible()) ? 'captcha' : (await p.locator('#f-status').isVisible()) ? 'fallback' : 'nothing';
     const formsubmit = other.some(u => /formsubmit/i.test(u));

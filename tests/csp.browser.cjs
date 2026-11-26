@@ -35,7 +35,7 @@ const TURNSTILE = 'window.turnstile={render:(el,o)=>{window.__ts=o;return 1},get
     await p.close();
   };
   const form = async p => { await p.locator('#enqForm').scrollIntoViewIfNeeded(); await p.focus('#f-name'); await p.waitForTimeout(300);
-    await p.fill('#f-name', 'Test Visitor'); await p.fill('#f-phone', '012-555 1234'); await p.selectOption('#f-help', 'Not sure yet');
+    await p.fill('#f-name', 'Test Visitor'); await p.fill('#f-phone', '012-555 1234'); await p.fill('#f-problem','Orders get mixed up between counter and kitchen.');
     await p.click('#f-submit'); await p.waitForTimeout(800); return (await p.locator('#okModal').isVisible()) ? 'form sent, thank-you shown' : 'FAIL form'; };
   const chat = async p => { await p.click('.chat-fab'); await p.waitForTimeout(600); await p.fill('#chatInput', 'Do you build websites for clinics?'); await p.press('#chatInput', 'Enter');
     try { await p.waitForFunction(() => /RM1,600/.test(document.querySelector('#chatLog').innerText), null, { timeout: 8000 }); return FORM_ONLY ? 'scripted reply shown; zero AI requests' : 'chat AI reply shown'; } catch { return 'FAIL chat'; } };

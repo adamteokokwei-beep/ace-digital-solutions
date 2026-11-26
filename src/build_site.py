@@ -20,24 +20,45 @@ FB = "https://www.facebook.com/profile.php?id=61595360692132"
 
 LANGS = {
   "en": {"path": "/", "html_lang": "en-MY", "hreflang": "en", "og_locale": "en_MY",
-         "title": "Web Design Malaysia | Ace Digital Solutions Johor Bahru",
-         "desc": "Affordable mobile-friendly website design in Malaysia by Adam in Johor Bahru for RM1,600, including a chatbot, WhatsApp enquiries, and basic SEO.",
-         "wa_text": "Hi Adam, I'm interested in a website for my business.",
+         "title": "Business Process Automation Malaysia | Ace Digital Solutions",
+         "desc": "Ace Digital Solutions helps businesses reduce manual work and human error with custom software, automation, AI, POS workflow redesign and system integration.",
+         "wa_text": "Hi Adam, I'd like help with a business problem.",
          "blog_note": ""},
   "bm": {"path": "/bm/", "html_lang": "ms-MY", "hreflang": "ms", "og_locale": "ms_MY",
-         "title": "Reka Bentuk Laman Web Malaysia | Ace Digital Solutions",
-         "desc": "Perkhidmatan reka bentuk laman web mesra telefon di Malaysia oleh Adam di Johor Bahru pada harga RM1,600, lengkap chatbot, WhatsApp dan SEO asas.",
-         "wa_text": "Hai Adam, saya berminat dengan laman web untuk perniagaan saya.",
+         "title": "Automasi Proses Perniagaan di Malaysia | Ace Digital Solutions",
+         "desc": "Ace Digital Solutions membantu perniagaan mengurangkan kerja manual dan kesilapan manusia melalui perisian tersuai, automasi, AI, reka semula aliran kerja POS dan integrasi sistem.",
+         "wa_text": "Hai Adam, saya perlukan bantuan untuk masalah perniagaan.",
          "blog_note": "Artikel blog buat masa ini dalam Bahasa Inggeris sahaja."},
   "zh": {"path": "/zh/", "html_lang": "zh-Hans", "hreflang": "zh-Hans", "og_locale": "zh_CN",
-         "title": "马来西亚网站设计 | Ace Digital Solutions 新山",
-         "desc": "由新山Adam为马来西亚企业提供手机网页设计，RM1,600起含聊天机器人、WhatsApp查询与基础SEO。",
-         "wa_text": "Adam 你好，我想了解为我的生意制作网站。",
+         "title": "马来西亚业务流程自动化 | Ace Digital Solutions",
+         "desc": "Ace Digital Solutions 通过定制软件、自动化、AI、POS 流程重新设计与系统整合，帮助企业减少手工作业与人为错误。",
+         "wa_text": "Adam 你好，我想咨询一个业务上的问题。",
          "blog_note": "博客文章目前只有英文版。"},
+  # US / global English version: same figures in USD, restaurant focus (src/i18n/us.json holds only the wording that differs)
+  "us": {"path": "/us/", "html_lang": "en-US", "hreflang": "en-US", "og_locale": "en_US",
+         "title": "Restaurant POS & Online Ordering Systems | Ace Digital Solutions",
+         "desc": "Custom restaurant POS, online ordering and automation for restaurants in the US and worldwide. We study your workflow first, then cut manual work and order mistakes.",
+         "wa_text": "Hi Adam, I run a restaurant and I'd like help with a problem.",
+         "blog_note": ""},
 }
+
+def us_page(s):
+    """US version: restaurant sections first, no Malaysian blog posts, scripted chat (the AI server quotes RM)."""
+    pos = s[s.index("<!-- POS -->"):s.index("<!-- HOW WE WORK -->")]
+    plans = s[s.index('<section class="restaurant-plans"'):s.index("<!-- WEBSITE CARE -->")]
+    s = s.replace(pos, "", 1).replace(plans, "", 1)
+    s = s.replace("<!-- BUSINESS PROBLEMS -->", pos + plans + "<!-- BUSINESS PROBLEMS -->", 1)
+    s = s.replace('const CHAT_API = "https://ace-chat.adamteokokwei.workers.dev/chat";', 'const CHAT_API = "";')
+    s = re.sub(r'\s*<a href="#articles">Blog</a>', "", s)
+    return s
+
+def to_usd(page):
+    """Same figures, US dollars."""
+    page = re.sub(r"(?<![A-Z])RM(?=\d)", "$", page)
+    page = page.replace('const money = n => "RM" + n.toLocaleString("en-MY");', 'const money = n => "$" + n.toLocaleString("en-US");')
+    return page.replace('"priceCurrency": "MYR"', '"priceCurrency": "USD"')
 # Text used by the page script through a variable rather than L("…"), so it is not found automatically
-EXTRA_JS_KEYS = ["Additional page or section", "Additional language", "Enquiry & booking request form",
-                 "Listings setup (Apple Maps + Foursquare)"]
+EXTRA_JS_KEYS = []
 
 norm = lambda t: re.sub(r"\s+", " ", t).strip()
 WORDY = re.compile(r"[A-Za-z]{2,}")
@@ -82,7 +103,7 @@ def tr_chunk(c, D, missing):
 
 def js_keys(s):
     keys = set(EXTRA_JS_KEYS)
-    for m in re.finditer(r'\b[LC]\("((?:[^"\\]|\\.)*)"', s):
+    for m in re.finditer(r'\b[LCN]\("((?:[^"\\]|\\.)*)"', s):
         keys.add(json.loads('"' + m.group(1) + '"'))
     keys.discard("English text")                  # appears only in a code comment
     return keys
@@ -102,25 +123,25 @@ def head_for(code, cfg):
     url = DOMAIN + cfg["path"]
     alts = "".join(f'<link rel="alternate" hreflang="{c["hreflang"]}" href="{DOMAIN}{c["path"]}">\n' for c in LANGS.values())
     alts += f'<link rel="alternate" hreflang="x-default" href="{DOMAIN}/">\n'
-    image_alt = {"en": "Ace Digital Solutions: website design for businesses across Malaysia", "bm": "Ace Digital Solutions: reka bentuk laman web untuk perniagaan di seluruh Malaysia", "zh": "Ace Digital Solutions：为全马企业提供网站设计"}[code]
+    image_alt = {"us": "Ace Digital Solutions: restaurant POS, online ordering and automation", "en": "Ace Digital Solutions: business process automation, POS and custom software", "bm": "Ace Digital Solutions: automasi proses perniagaan, POS dan perisian tersuai", "zh": "Ace Digital Solutions：业务流程自动化、POS 与定制软件"}[code]
     t, d = H.escape(cfg["title"]), H.escape(cfg["desc"], quote=True)
     org = {"@context": "https://schema.org", "@type": "Organization", "@id": DOMAIN + "/#business", "name": "Ace Digital Solutions",
            "url": DOMAIN + "/", "image": DOMAIN + "/og-image.jpg", "logo": DOMAIN + "/og-image.jpg", "sameAs": [FB, "https://www.instagram.com/acedigitalsolutionsbiz/", "https://www.youtube.com/@AceDigitalSolutionsBiz"],
            "description": cfg["desc"], "email": "adamteokokwei@gmail.com", "telephone": "+60102641824",
-           "founder": {"@type": "Person", "name": "Adam", "jobTitle": "Freelance Web Designer"},
+           "founder": {"@type": "Person", "name": "Adam", "jobTitle": "Digital Solutions Consultant"},
            "address": {"@type": "PostalAddress", "addressLocality": "Johor Bahru", "addressRegion": "Johor", "addressCountry": "MY"},
-           "areaServed": {"@type": "Country", "name": "Malaysia"},
+           "areaServed": {"@type": "Country", "name": "United States" if code == "us" else "Malaysia"},
            "contactPoint": {"@type": "ContactPoint", "contactType": "sales", "telephone": "+60102641824",
                             "availableLanguage": ["English", "Malay", "Chinese"]},
-           "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Website services", "itemListElement": [
-             {"@type": "Offer", "name": "Professional website (up to 8 pages or sections)", "price": "1500", "priceCurrency": "MYR"},
-            {"@type": "Offer", "name": "Professional website with a website chatbot (up to 8 pages or sections)", "price": "1600", "priceCurrency": "MYR"},
-              {"@type": "Offer", "name": "Website add-on, bundled with the website or another add-on", "price": "400", "priceCurrency": "MYR"},
-             {"@type": "Offer", "name": "Website add-on on its own", "price": "500", "priceCurrency": "MYR"},
-             {"@type": "Offer", "name": "Website Care (hosting and domain renewal included)", "price": "128", "priceCurrency": "MYR",
-              "priceSpecification": {"@type": "UnitPriceSpecification", "price": "128", "priceCurrency": "MYR", "unitText": "MONTH"}}]}}
+           "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Business solutions", "itemListElement": [
+             {"@type": "Offer", "name": "Simple Automation (one automated workflow)", "priceCurrency": "MYR", "priceSpecification": {"@type": "PriceSpecification", "minPrice": "388", "maxPrice": "888", "priceCurrency": "MYR"}},
+             {"@type": "Offer", "name": "Business Website (up to 8 pages)", "price": "888", "priceCurrency": "MYR"},
+             {"@type": "Offer", "name": "Accounting Automation (one workflow)", "priceCurrency": "MYR", "priceSpecification": {"@type": "PriceSpecification", "minPrice": "1888", "maxPrice": "5888", "priceCurrency": "MYR"}},
+             {"@type": "Offer", "name": "POS and website rebuild, Essential setup (plus RM128/month for 24 months)", "price": "1288", "priceCurrency": "MYR"},
+             {"@type": "Offer", "name": "Website upkeep, every 3 months", "price": "88", "priceCurrency": "MYR"},
+             {"@type": "Offer", "name": "Automation Care", "price": "88", "priceCurrency": "MYR", "priceSpecification": {"@type": "UnitPriceSpecification", "price": "88", "priceCurrency": "MYR", "unitText": "MONTH"}}]}}
     service = {"@type": "Service", "@id": DOMAIN + "/#website-design",
-               "name": "Website design for businesses", "serviceType": "Website design for businesses",
+               "name": "Business process optimisation and custom software", "serviceType": "Business process automation",
                "provider": {"@id": DOMAIN + "/#business"},
                "areaServed": {"@type": "Country", "name": "Malaysia"},
                "hasOfferCatalog": {"@id": DOMAIN + "/#website-services"}}
@@ -158,12 +179,12 @@ def build(show_missing=False, preview_dir=None, form_only=False):
     keys = js_keys(src)
     global ALL_JS
     ALL_JS = {}
-    for c in ("bm", "zh"):
+    for c in ("bm", "zh", "us"):
         Dc = json.load(open(os.path.join(ROOT, "src", "i18n", c + ".json"), encoding="utf-8"))
         ALL_JS[c] = {k: Dc[k] for k in sorted(keys) if k in Dc}
     report = {}
     for code, cfg in LANGS.items():
-        s = src
+        s = us_page(src) if code == "us" else src
         D = {}
         if code != "en":
             D = json.load(open(os.path.join(ROOT, "src", "i18n", code + ".json"), encoding="utf-8"))
@@ -180,7 +201,7 @@ def build(show_missing=False, preview_dir=None, form_only=False):
         # Blog: keep only the posts written in this page's language
         s = s.replace("<!--BLOG_TRANSLATIONS-->", open(os.path.join(ROOT, "src", "blog-translations.html"), encoding="utf-8").read())
         s = re.sub(r'<script type="text/plain" class="blog-post"[^>]*data-lang="(\w+)"[^>]*>.*?</script>\n?',
-                   lambda m: m.group(0) if m.group(1) == code else "", s, flags=re.S)
+                   lambda m: m.group(0) if m.group(1) == code else "", s, flags=re.S)  # /us/ gets none: they quote Malaysian prices
         s = re.sub(r"<!-- (Bahasa Melayu|Simplified Chinese) blog posts[^>]*-->\n?", "", s)
         s = s.replace("/*I18N_ALL*/{}/*/I18N_ALL*/", "/*I18N_ALL*/" + json.dumps(ALL_JS, ensure_ascii=False).replace("</", "<\\/") + "/*/I18N_ALL*/")
         s = s.replace("{{WA}}", H.escape(wa_link(cfg["wa_text"]), quote=True))
@@ -192,7 +213,9 @@ def build(show_missing=False, preview_dir=None, form_only=False):
                 '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n' % cfg["html_lang"]
                 + s[:i] + "\n</head>\n<body>\n" + s[i:] + "\n</body>\n</html>\n")
         assert "{{" not in page, re.findall(r"\{\{\w+\}\}", page)
-        page = page.replace('href="#articles"', f'href="{cfg["path"]}articles/"').replace('href="#about"', f'href="{cfg["path"]}about/"')
+        if code == "us":
+            page = to_usd(page)
+        page = page.replace('href="#articles"', f'href="{cfg["path"]}articles/"').replace('href="#about"', f'href="{cfg["path"]}about/"').replace('href="#websites"', f'href="{cfg["path"]}websites/"')
         out = os.path.join(SITE, cfg["path"].strip("/"), "index.html")
         os.makedirs(os.path.dirname(out), exist_ok=True)
         if code == "zh":  # Chinese needs no space after full-width punctuation
@@ -221,7 +244,7 @@ def build(show_missing=False, preview_dir=None, form_only=False):
     open(os.path.join(SITE, "sitemap.xml"), "w").write('<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + urls + "</urlset>\n")
     for code, miss in report.items():
-        if code == "en": continue
+        if code in ("en", "us"): continue  # /us/ only overrides the wording that differs
         print(f"{code}: {len(miss)} untranslated")
         if show_missing:
             for m in miss: print("   ", json.dumps(m, ensure_ascii=False))
