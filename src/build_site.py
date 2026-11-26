@@ -21,7 +21,7 @@ FB = "https://www.facebook.com/profile.php?id=61595360692132"
 LANGS = {
   "en": {"path": "/", "html_lang": "en-MY", "hreflang": "en", "og_locale": "en_MY",
          "title": "Business Process Automation Malaysia | Ace Digital Solutions",
-         "desc": "Ace Digital Solutions helps businesses reduce manual work and human error with custom software, automation, AI, POS workflow redesign and system integration.",
+         "desc": "Reduce manual work and human error with custom software, automation, AI, POS workflow redesign, and system integration by Ace Digital Solutions.",
          "wa_text": "Hi Adam, I'd like help with a business problem.",
          "blog_note": ""},
   "bm": {"path": "/bm/", "html_lang": "ms-MY", "hreflang": "ms", "og_locale": "ms_MY",
