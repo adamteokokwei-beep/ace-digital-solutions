@@ -37,11 +37,11 @@ def inline_script_hashes(site_dir):
 def policy(site_dir, connect_hosts, extra_script=()):
     return "; ".join([
         "default-src 'self'",
-        "script-src 'self' " + " ".join(inline_script_hashes(site_dir) + list(extra_script)) + " https://challenges.cloudflare.com",
+        "script-src 'self' " + " ".join(inline_script_hashes(site_dir) + list(extra_script)) + " https://challenges.cloudflare.com https://static.cloudflareinsights.com",  # Turnstile; Cloudflare Web Analytics beacon
         "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
         "font-src 'self' https://fonts.gstatic.com",
         "img-src 'self' data:",
-        "connect-src 'self' " + " ".join(connect_hosts),
+        "connect-src 'self' " + " ".join(connect_hosts) + " https://cloudflareinsights.com",  # Web Analytics reports
         "frame-src https://challenges.cloudflare.com",
         "frame-ancestors 'self'",
         "base-uri 'self'",
